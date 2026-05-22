@@ -1,0 +1,252 @@
+# ============================================
+#  NOTED — Main Configuration
+#  All settings and prompts in one place.
+#  Secrets (HF_TOKEN, API keys) stay in .env
+# ============================================
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  domain: "localhost"
+  cors_origins: ["*"]
+
+database:
+  url: "sqlite+aiosqlite:///./noted.db"
+
+storage:
+  upload_dir: "uploads"
+  recordings_dir: "recordings"
+  session_timeout: 3600  # seconds
+
+websocket:
+  max_connections: 50
+  heartbeat_interval: 30.0  # seconds
+
+# ----- Audio Processing -----
+audio:
+  sample_rate: 16000
+  chunk_duration: 5.0        # seconds per live-processing chunk
+  upload_chunk_duration: 300.0  # seconds per uploaded-file processing chunk
+  min_speech_duration: 0.1   # minimum speech segment (seconds)
+  max_speech_pause: 0.8      # max pause before new segment (seconds)
+  live_asr_max_tokens: 100   # hard cap for live ASR output tokens per chunk
+  live_diarization_window_seconds: 20.0
+  live_diarization_holdback_seconds: 1.5
+  live_vad_enabled: true     # trim non-speech before live ASR
+  live_vad_frame_ms: 30      # analysis frame length
+  live_vad_min_speech_ms: 120
+  live_vad_padding_ms: 150   # keep small context around speech
+  live_vad_energy_threshold: 0.008
+
+# ----- Models -----
+models:
+  asr_batch:
+    name: "Qwen/Qwen3-ASR-0.6B"
+    url: "http://qwen3-asr:8000"
+    hotwords: ""  # comma-separated domain-specific terms
+    concurrency: 8
+    transcription_delay_ms: 480
+
+  diarization:
+    name: "nvidia/diar_streaming_sortformer_4spk-v2.1"
+    url: "http://sortformer-diarizer:8010"
+    max_speakers: 2
+
+  generation:
+    name: "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf"
+    url: "http://llama-gen:8000/v1"
+    api_key: "none"           # overridden by LLAMA_API_KEY env var
+    temperature: 0.1
+    max_tokens: 2048
+
+  embedding:
+    name: "Qwen/Qwen3-Embedding-0.6B"
+    url: "http://vllm-embed:8000/v1"
+    api_key: "none"
+
+# ----- Vector DB (Qdrant) -----
+vector_db:
+  url: "http://qdrant:6333"
+  host: "qdrant"
+  port: 6333
+  grpc_port: null
+  api_key: null
+  prefer_grpc: false
+
+# ----- RAG -----
+rag:
+  max_keyword_matches: 5
+  max_vector_docs: 5
+  score_threshold: 0.60
+  max_context_chars: 40000
+  knowledgebase_csv_path: null  # auto-detected if null
+
+# ----- Summarization -----
+summarization:
+  max_topics: 4               # fewer topics = more detail per topic
+  min_detail_per_topic: 80    # minimum words per topic summary
+  live_refresh_seconds: 60    # how often to refresh live summary
+  live_refresh_chunks: 10     # or after this many chunks
+  auto_detect_customer_language: true
+
+# ----- Logging -----
+logging:
+  enable_detailed: false
+
+# ----- Auth -----
+auth:
+  enabled: true
+  username: "demo"
+  password: "demo1"
+  secret_key: "noted-dev-secret"
+  token_ttl_seconds: 28800
+  role: "advisor"
+  display_name: "Demo User"
+
+# ============================================
+#  PROMPTS
+#  All LLM prompts in one place.
+#  Variables use {curly_braces} and are filled
+#  at runtime by the PromptManager.
+# ============================================
+prompts:
+
+  # --- Live Summary (during recording) ---
+  live_summary:
+    system: |
+      You are assisting a service advisor by monitoring an ongoing client conversation.
+      Provide a concise live summary with:
+      - A short narrative overview of the conversation so far
+      - The main topics being discussed (at most {max_topics})
+      - Emerging themes to watch
+      - Potential action items identified so far
+      Keep the tone factual, neutral, and professional.
+      Respond in {language}.
+    user: |
+      Create a live progress summary for this conversation transcript.
+      Use concise bullet-style phrases where appropriate.
+
+      Transcript so far:
+      {transcript}
+
+  # --- Final Summary (post-session customer handout) ---
+  final_summary:
+    system: |
+      You are an expert conversation analyst creating a COMPREHENSIVE CUSTOMER HANDOUT.
+      This document will be given to the customer as a complete record of their session.
+
+      INSTRUCTIONS:
+      - The transcript is diarized (speakers are labeled). First identify who is the
+        advisor and who is the customer. The advisor typically speaks first and guides
+        the conversation; the customer asks questions or describes their situation.
+      - Match the customer's communication style: if they use simple language, keep
+        the summary simple. If they are formal, be formal. Mirror their tone and
+        vocabulary level so the handout feels natural to them.
+      - Respond entirely in {language}.
+      - Organize content into natural topics only when genuinely present.
+        Do not force a fixed number of topics.
+      - Keep topic detail proportional to transcript length.
+        Do not pad with filler text.
+      - For short transcripts, keep the output concise and avoid invented details.
+      - Group related points under broader themes instead of many shallow fragments.
+      - Include specific details, names, dates, and numbers from the conversation.
+      - Each topic should stand alone as a complete reference for the customer.
+      - Document all advice and solutions provided.
+      - List specific action items with responsible parties and timelines.
+      - Record important decisions made.
+      - Indicate if follow-up is needed.
+      - Make this comprehensive and professional — it is an official record.
+    user: |
+      Create a comprehensive customer handout for this consultation session.
+
+      <transcript>
+      {transcript}
+      </transcript>
+
+      <relevant_services>
+      {rag_context}
+      </relevant_services>
+
+      Generate the customer handout. CRITICAL: The 'topics_discussed' section must be
+      derived SOLELY from the content inside the <transcript> tags. Only reference
+      services from the list above if they were explicitly discussed in the conversation.
+
+  # --- Topic Extraction (for RAG retrieval) ---
+  topic_extraction:
+    system: |
+      You extract the main discussion themes for knowledge base retrieval.
+      Return at most {max_topics} broad topic labels (3-6 words each) as a JSON object:
+      {{"topics": ["topic1", "topic2"]}}
+      Group related subjects together rather than listing every minor detail separately.
+    user: |
+      Identify the main themes in this conversation:
+      {transcript}
+
+  # --- Topic-Focused Summary ---
+  topic_summary:
+    system: |
+      You extract topic-focused summaries from conversation transcripts.
+      Output STRICT JSON:
+      {{"topic": "<topic>", "summary": "<detailed summary>",
+       "snippets": [{{"start": 0.00, "end": 0.00, "speaker": "SPEAKER_00", "quote": "<short>"}}]}}
+    user: |
+      Topic: {topic}
+      Relevant transcript snippets:
+      {snippets_text}
+      Return STRICT JSON.
+
+  # --- Chunked Conversation Summary ---
+  chunk_summary:
+    system: |
+      You are an expert meeting summarizer. Output STRICT JSON:
+      {{"summary": "<concise overview>",
+       "topics": [{{"topic": "<name>", "bullets": ["<point>"]}}],
+       "action_items": ["<action>"],
+       "decisions": ["<decision>"]}}
+    user: |
+      Conversation transcript:
+      {transcript}
+      Return STRICT JSON only.
+
+  # --- Experiment Output ---
+  experiment:
+    system: |
+      You are a structured writing assistant for service advisors.
+      Given a full conversation transcript, craft the requested artefact
+      for helping the customer. Keep the tone professional and clear.
+    user: |
+      Create {content_focus}.
+      Use the transcript below together with the supporting context.
+
+      Supporting context:
+      {context}
+
+      Transcript:
+      {transcript}
+
+    content_types:
+      action_points: "bullet-quality action points with responsible parties and timelines"
+      service_names: "the services, organisations, or resources mentioned by name with short explanations"
+      qa: "a question and answer style summary capturing the core questions and the succinct responses"
+      recap: "a narrative recap that highlights outcomes and decisions"
+
+  # --- CRM Form Auto-Fill ---
+  crm_form:
+    system: |
+      You are a CRM data extraction assistant. Given a conversation transcript
+      and its summary, extract structured data to pre-fill an encounter form.
+      Be precise with names, dates, and contact details mentioned.
+      Respond in {language}.
+    user: |
+      Extract CRM encounter form data from this session.
+
+      <transcript>
+      {transcript}
+      </transcript>
+
+      <summary>
+      {summary}
+      </summary>
+
+      Fill all fields you can identify from the conversation.

@@ -1,0 +1,42 @@
+FROM nvidia/cuda:12.9.1-devel-ubuntu24.04 AS env-build
+WORKDIR /srv
+# install build tools and clone and compile llama.cpp
+RUN apt-get update && apt-get install -y build-essential git libgomp1 cmake
+RUN git clone https://github.com/ggerganov/llama.cpp.git \
+  && cd llama.cpp \
+  && cmake -B build -DGGML_CUDA=on -DBUILD_SHARED_LIBS=off -DLLAMA_CURL=off \
+  && cmake --build build --config Release -j
+
+FROM ubuntu:24.04 AS env-deploy
+# Install curl for downloading models
+RUN apt-get update && apt-get install -y curl ca-certificates && rm -rf /var/lib/apt/lists/*
+
+# copy openmp and cuda libraries
+ENV LD_LIBRARY_PATH=/usr/local/lib
+COPY --from=0 /usr/lib/x86_64-linux-gnu/libgomp.so.1 ${LD_LIBRARY_PATH}/libgomp.so.1
+COPY --from=0 /usr/local/cuda/lib64/libcublas.so.12 ${LD_LIBRARY_PATH}/libcublas.so.12
+COPY --from=0 /usr/local/cuda/lib64/libcublasLt.so.12 ${LD_LIBRARY_PATH}/libcublasLt.so.12
+COPY --from=0 /usr/local/cuda/lib64/libcudart.so.12 ${LD_LIBRARY_PATH}/libcudart.so.12
+COPY --from=0 /usr/lib/x86_64-linux-gnu/libnccl.so.2 ${LD_LIBRARY_PATH}/libnccl.so.2
+
+# copy llama.cpp binaries
+COPY --from=0 /srv/llama.cpp/build/bin/llama-cli /usr/local/bin/llama-cli
+COPY --from=0 /srv/llama.cpp/build/bin/llama-server /usr/local/bin/llama-server
+
+# create llama user and set home directory
+RUN useradd --system --create-home llama
+USER llama
+WORKDIR /home/llama
+
+# Create directory for models
+RUN mkdir -p /home/llama/models
+
+EXPOSE 8003
+
+# copy and set entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+USER root
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+USER llama
+
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]

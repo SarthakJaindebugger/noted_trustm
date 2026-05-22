@@ -1,0 +1,21 @@
+# Use an official Node.js runtime as a parent image
+FROM node:alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy package.json and lock file first to leverage Docker cache
+COPY package*.json ./
+
+# Install project dependencies
+RUN npm install
+
+# Copy the rest of your app's source code
+COPY . .
+
+# The Vite dev server runs on port 5173 by default
+EXPOSE 5173
+
+# Command to run the Vite development server
+# The '--' ensures that '--host' is passed to the 'vite' command, not 'npm'
+CMD [ "npm", "run", "dev", "--", "--host" ]

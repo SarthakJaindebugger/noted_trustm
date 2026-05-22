@@ -1,0 +1,28 @@
+fastapi
+uvicorn[standard]
+websockets
+python-multipart
+pydantic
+pydantic-settings
+
+# Audio utilities
+numpy>=1.24.0
+scipy>=1.11.0
+librosa>=0.10.0
+soundfile
+
+# Database
+sqlalchemy
+alembic
+aiosqlite
+
+# LLM & AI
+openai
+instructor
+qdrant-client
+httpx
+
+# Configuration
+pyyaml
+python-dotenv
+aiofiles
