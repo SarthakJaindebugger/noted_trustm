@@ -16,29 +16,11 @@ export default {
         const formData = ref(null);
         const error = ref(null);
         const successMessage = ref('');
-        const validationErrors = ref({});
 
         const encounterTypes = ['in-person', 'phone', 'video', 'email'];
         const outcomeOptions = ['resolved', 'follow-up needed', 'referred', 'pending', 'cancelled'];
 
-        // Define required fields for submission
-        const requiredFields = ['encounter_type', 'advisor_name', 'client_name', 'outcome'];
-
         const isSubmitted = computed(() => formData.value?.status === 'submitted');
-
-        // Validation function
-        const validateForm = () => {
-            const errors = {};
-            if (!formData.value) return false;
-            requiredFields.forEach(field => {
-                const value = formData.value[field];
-                if (!value || (typeof value === 'string' && value.trim() === '')) {
-                    errors[field] = `${field.replace(/_/g, ' ')} is required`;
-                }
-            });
-            validationErrors.value = errors;
-            return Object.keys(errors).length === 0;
-        };
 
         const loadOrGenerateForm = async () => {
             if (!props.sessionId) return;
@@ -66,14 +48,6 @@ export default {
 
         const saveForm = async (submitForm = false) => {
             if (!formData.value) return;
-
-            // Validate before submission
-            if (submitForm && !validateForm()) {
-                error.value = 'Please fill in all required fields before submitting.';
-                setTimeout(() => { error.value = null; }, 4000);
-                return;
-            }
-
             saving.value = true;
             error.value = null;
             successMessage.value = '';
@@ -120,11 +94,10 @@ export default {
         });
 
         return {
-            loading, saving, formData, error, successMessage, validationErrors,
+            loading, saving, formData, error, successMessage,
             encounterTypes, outcomeOptions, isSubmitted,
             saveForm, addActionItem, removeActionItem,
             addReferral, removeReferral, goBack,
-            requiredFields,
         };
     },
     template: `
@@ -169,54 +142,33 @@ export default {
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Encounter Type <span class="text-red-500">*</span>
-                                </label>
-                                <select v-model="formData.encounter_type" :disabled="isSubmitted"
-                                    :class="{'border-red-500': validationErrors.encounter_type}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100">
-                                    <option value="">— Select —</option>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Encounter Type</label>
+                                <select v-model="formData.encounter_type" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100">
                                     <option v-for="t in encounterTypes" :key="t" :value="t">{{ t }}</option>
                                 </select>
-                                <p v-if="validationErrors.encounter_type" class="text-xs text-red-500 mt-1">{{ validationErrors.encounter_type }}</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Encounter Date</label>
                                 <input type="date" :value="formData.encounter_date?.split('T')[0]" @input="formData.encounter_date = $event.target.value" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Advisor Name <span class="text-red-500">*</span>
-                                </label>
-                                <input v-model="formData.advisor_name" :disabled="isSubmitted"
-                                    :class="{'border-red-500': validationErrors.advisor_name}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" placeholder="Advisor name"/>
-                                <p v-if="validationErrors.advisor_name" class="text-xs text-red-500 mt-1">{{ validationErrors.advisor_name }}</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Advisor Name</label>
+                                <input v-model="formData.advisor_name" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" placeholder="Advisor name"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Client Name <span class="text-red-500">*</span>
-                                </label>
-                                <input v-model="formData.client_name" :disabled="isSubmitted"
-                                    :class="{'border-red-500': validationErrors.client_name}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" placeholder="Client name"/>
-                                <p v-if="validationErrors.client_name" class="text-xs text-red-500 mt-1">{{ validationErrors.client_name }}</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Client Name</label>
+                                <input v-model="formData.client_name" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" placeholder="Client name"/>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Client ID</label>
                                 <input v-model="formData.client_id" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" placeholder="Client ID"/>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">
-                                    Outcome <span class="text-red-500">*</span>
-                                </label>
-                                <select v-model="formData.outcome" :disabled="isSubmitted"
-                                    :class="{'border-red-500': validationErrors.outcome}"
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Outcome</label>
+                                <select v-model="formData.outcome" :disabled="isSubmitted" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100">
                                     <option value="">— Select —</option>
                                     <option v-for="o in outcomeOptions" :key="o" :value="o">{{ o }}</option>
                                 </select>
-                                <p v-if="validationErrors.outcome" class="text-xs text-red-500 mt-1">{{ validationErrors.outcome }}</p>
                             </div>
                         </div>
                     </section>
@@ -292,7 +244,7 @@ export default {
                         <button @click="saveForm(false)" :disabled="saving" class="px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 disabled:opacity-50">
                             {{ saving ? 'Saving...' : 'Save Draft' }}
                         </button>
-                        <button @click="saveForm(true)" :disabled="saving || (Object.keys(validationErrors).length > 0)" class="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 disabled:opacity-50">
+                        <button @click="saveForm(true)" :disabled="saving" class="px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-800 disabled:opacity-50">
                             {{ saving ? 'Submitting...' : 'Submit Form' }}
                         </button>
                     </div>
