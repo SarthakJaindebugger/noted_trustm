@@ -18,11 +18,11 @@ services:
       - SUMMARY_MODEL=${SUMMARY_MODEL:-gemma-4-26B-A4B-it-UD-Q4_K_M.gguf}
       - LLAMA_EMBED_URL=${LLAMA_EMBED_URL:-http://vllm-embed:8000/v1}
       - LLAMA_API_KEY=${LLAMA_API_KEY:-none}
-      - ASR_BATCH_URL=${ASR_BATCH_URL:-http://qwen3-asr:8000}
-      - ASR_BATCH_MODEL=${ASR_BATCH_MODEL:-Qwen/Qwen3-ASR-0.6B}
+      - ASR_BATCH_URL=${ASR_BATCH_URL:-http://lightweight-speech:8020}
+      - ASR_BATCH_MODEL=${ASR_BATCH_MODEL:-tiny}
       - ASR_BATCH_CONCURRENCY=${ASR_BATCH_CONCURRENCY:-8}
-      - DIARIZATION_URL=${DIARIZATION_URL:-http://sortformer-diarizer:8010}
-      - DIARIZATION_MODEL=${DIARIZATION_MODEL:-nvidia/diar_streaming_sortformer_4spk-v2.1}
+      - DIARIZATION_URL=${DIARIZATION_URL:-http://lightweight-speech:8020}
+      - DIARIZATION_MODEL=${DIARIZATION_MODEL:-local-simple}
       - DIARIZATION_MAX_SPEAKERS=${DIARIZATION_MAX_SPEAKERS:-2}
       - UPLOAD_CHUNK_DURATION=${UPLOAD_CHUNK_DURATION:-300}
     ports:
@@ -36,13 +36,9 @@ services:
       retries: 3
       start_period: 60s
     depends_on:
-      qwen3-asr:
+      qdrant:
         condition: service_healthy
-      sortformer-diarizer:
-        condition: service_healthy
-      llama-gen:
-        condition: service_healthy
-      vllm-embed:
+      lightweight-speech:
         condition: service_healthy
         
   vllm-embed:
@@ -174,6 +170,27 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  lightweight-speech:
+    build:
+      context: .
+      dockerfile: lightweight-speech.Dockerfile
+    container_name: lightweight-speech
+    restart: unless-stopped
+    environment:
+      - LIGHT_ASR_MODEL=${LIGHT_ASR_MODEL:-tiny}
+      - LIGHT_ASR_DEVICE=${LIGHT_ASR_DEVICE:-cpu}
+      - LIGHT_ASR_COMPUTE_TYPE=${LIGHT_ASR_COMPUTE_TYPE:-int8}
+    networks:
+      - noted-network
+    expose:
+      - "8020"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8020/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
   qdrant:
     image: qdrant/qdrant
     container_name: qdrant

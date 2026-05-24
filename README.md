@@ -1,52 +1,62 @@
 # Noted
 
-Noted is a meeting capture and summary workspace for service-advice sessions. It combines a Vite-based frontend, a FastAPI backend, local ASR and diarization services, and retrieval-backed summary generation.
+Noted is a meeting capture and summary workspace for service-advice sessions. It combines a Vite frontend, a FastAPI backend, local ASR/diarization services, and retrieval-backed summary generation.
 
 ## Repository Layout
 
 - `noted-frontend/`: web UI
 - `noted-backend/`: FastAPI API, session state, transcripts, summaries, and retrieval
-- `knowledgebase/`: source data used for retrieval
-- `docker-compose.yml`: local multi-service development stack
-- `SYSTEM_DESCRIPTION.md`: current architectural notes
+- `lightweight_speech_service/`: CPU-first ASR + fallback diarization service (no HF key)
+- `knowledgebase/`: retrieval source data
+- `docker-compose.yml`: local multi-service stack
+- `SYSTEM_DESCRIPTION.md`: architecture notes
 
-## Local Development
+## Docker startup
 
-Use the checked-in `.env.example` as the reference for required environment variables. Do not commit a real `.env` file or local database files.
-
-For full-stack local development:
+### Full stack (Linux + NVIDIA GPU)
 
 ```bash
 docker compose up --build
 ```
 
-The generation model is served through `llama.cpp` on the shared Docker network `noted-llm-shared`. Other containers can reuse it by joining that network and calling `http://llama-gen:8000/v1`.
+### macOS Apple Silicon + Ollama + local ASR/diarization (no HF API key)
 
-For backend-only work, see [noted-backend/README.md](/home/noted/noted-backend/README.md).
+This repository now includes a lightweight speech container that runs on CPU and does not require `HF_TOKEN`:
+- ASR: `faster-whisper` (`tiny` by default)
+- Diarization fallback: single-speaker segmentation (`SPEAKER_00`) so transcript pipeline keeps working
 
-## Collaboration
+1. Start Ollama on host and pull model:
 
-This repository is intended to be shared through a fork-and-pull-request workflow:
+```bash
+ollama pull llama3.1:8b-instruct
+```
 
-- fork the private upstream repository
-- create a feature branch in your fork
-- open a pull request back to `main`
-- wait for review before merge
+2. Run frontend/backend/qdrant/lightweight speech:
 
-Direct pushes to the upstream default branch should be blocked with GitHub branch protection.
+```bash
+LLAMA_BASE_URL=http://host.docker.internal:11434/v1 \
+SUMMARY_MODEL=llama3.1:8b-instruct \
+LLAMA_API_KEY=none \
+docker compose up --build frontend backend qdrant lightweight-speech
+```
 
-## Before Publishing
+Optional: slightly better ASR quality (slower)
 
-- confirm `.env` stays untracked
-- confirm local database files stay untracked
-- confirm large local model assets are not committed
-- update remotes so pushes go to your own GitHub repository, not the current upstream
+```bash
+LIGHT_ASR_MODEL=base docker compose up --build lightweight-speech backend frontend qdrant
+```
 
+## Health checks
 
-# in .env.example: find passwords
-# change this to Ollama api/host: http://llama-gen:8000/v1
+- Frontend: `http://127.0.0.1:5173`
+- Backend: `http://127.0.0.1:8000/health`
+- Lightweight speech: `http://127.0.0.1:8020/health` (inside docker network on `lightweight-speech:8020`)
 
+## Notes
 
-# in docker-compose.yml : everything else for models/ Ollama
-# in noted-backend/requirements.txt
-# fastapi run main.py - should be the command later
+- GPU/HF-based services (`qwen3-asr`, `sortformer-diarizer`, `vllm-embed`) can still be used later by overriding URLs/env vars.
+- If you need true multi-speaker diarization fully local (no token), accuracy will be lower than Sortformer/Pyannote unless you run heavier models.
+
+## Backend-only development
+
+See `noted-backend/README.md`.

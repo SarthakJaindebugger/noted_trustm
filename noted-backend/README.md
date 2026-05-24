@@ -8,8 +8,8 @@ FastAPI backend for the Noted application. The backend manages session state, tr
 - REST API: `/api/v1`
 - WebSocket API: `/ws`
 - Database: SQLite through async SQLAlchemy
-- Batch transcription: Qwen3-ASR 0.6B via vLLM
-- Diarization: NVIDIA Sortformer via local FastAPI wrapper
+- Batch transcription: lightweight local ASR (`faster-whisper`, tiny by default)
+- Diarization: lightweight local fallback (single-speaker span) by default
 - Summary generation: OpenAI-compatible `llama.cpp` model endpoint
 - Retrieval: keyword matching plus Qdrant-backed embeddings
 
@@ -33,16 +33,14 @@ Common settings:
 DOMAIN=localhost
 DEBUG=true
 DATABASE_URL=sqlite+aiosqlite:///./noted.db
-HF_TOKEN=your_hf_token_here
 LLAMA_BASE_URL=http://llama-gen:8000/v1
-LLAMA_EMBED_URL=http://vllm-embed:8000/v1
 LLAMA_API_KEY=none
 SUMMARY_MODEL=gemma-4-26B-A4B-it-UD-Q4_K_M.gguf
 UPLOAD_CHUNK_DURATION=300
-ASR_BATCH_URL=http://qwen3-asr:8000
-ASR_BATCH_MODEL=Qwen/Qwen3-ASR-0.6B
+ASR_BATCH_URL=http://lightweight-speech:8020
+ASR_BATCH_MODEL=tiny
 ASR_BATCH_CONCURRENCY=8
-DIARIZATION_MODEL=nvidia/diar_streaming_sortformer_4spk-v2.1
+DIARIZATION_MODEL=local-simple
 ASR_BATCH_MAX_TOKENS=24576
 ```
 
@@ -82,5 +80,5 @@ For full-stack local development, use the top-level `docker-compose.yml`.
 
 ## Notes For Collaborators
 
-- The checked-in backend is aligned with the current Qwen3-ASR/Sortformer/Qwen stack
+- The checked-in backend defaults are aligned with lightweight local ASR+diarization for no-key local runs
 - If you are only working on the frontend, the backend contract to care about is the `/api/v1` and `/ws` surface, not the local model infrastructure.

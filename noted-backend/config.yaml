@@ -42,15 +42,15 @@ audio:
 # ----- Models -----
 models:
   asr_batch:
-    name: "Qwen/Qwen3-ASR-0.6B"
-    url: "http://qwen3-asr:8000"
+    name: "tiny"
+    url: "http://lightweight-speech:8020"
     hotwords: ""  # comma-separated domain-specific terms
     concurrency: 8
     transcription_delay_ms: 480
 
   diarization:
-    name: "nvidia/diar_streaming_sortformer_4spk-v2.1"
-    url: "http://sortformer-diarizer:8010"
+    name: "local-simple"
+    url: "http://lightweight-speech:8020"
     max_speakers: 2
 
   generation:

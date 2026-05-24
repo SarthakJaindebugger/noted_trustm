@@ -417,22 +417,25 @@ export default {
         };
     },
     template: `
-        <div class="min-h-screen bg-gray-50" @click="closeDropdown">
+        <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100" @click="closeDropdown">
             <!-- Header -->
-            <header class="bg-white border-b border-gray-200 px-6 py-4">
+            <header class="sticky top-0 z-40 border-b border-white/20 bg-white/10 backdrop-blur-xl px-6 py-4 shadow-lg shadow-black/10">
                 <div class="flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-gray-900">Note'd Dashboard</h1>
+                    <div>
+                        <h1 class="text-xl font-semibold text-white">Note'D</h1>
+                        <p class="text-sm text-slate-200">Helps you organise and remember important advice from Hello Espoo meetings.</p>
+                    </div>
                     
                     <!-- User Menu -->
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
-                                <span class="text-white text-sm font-medium">
+                            <div class="w-9 h-9 bg-indigo-500/80 rounded-full ring-2 ring-indigo-300/50 flex items-center justify-center shadow-md">
+                                <span class="text-white text-sm font-semibold">
                                     {{ user?.name?.charAt(0) || 'U' }}
                                 </span>
                             </div>
                             <div class="relative">
-                                <button @click="logout" class="text-gray-600 hover:text-gray-900 px-2 py-1 text-sm">
+                                <button @click="logout" class="px-3 py-2 text-sm rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 text-slate-100 transition-all">
                                     Logout
                                 </button>
                             </div>
@@ -453,14 +456,15 @@ export default {
                         <span>Opening session details...</span>
                     </div>
                     <!-- Sessions Header -->
-                    <div class="flex items-center justify-between mb-6">
+                    <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-6 mb-6 shadow-2xl shadow-indigo-950/40">
+                    <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between mb-6">
                         <div class="flex items-center space-x-4">
-                            <h2 class="text-lg font-medium text-gray-900">My Sessions</h2>
+                            <h2 class="text-xl font-semibold text-white">Dashboard Sessions</h2>
                             
                             <!-- Filter Button -->
                             <button 
                                 @click="filterSessions"
-                                class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50"
+                                class="flex items-center space-x-2 px-3 py-2 text-sm text-slate-100 border border-white/30 rounded-xl bg-white/10 hover:bg-white/20 transition-all"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"></path>
@@ -470,7 +474,7 @@ export default {
                         </div>
 
                         <!-- Search, Delete, and New Session -->
-                        <div class="flex items-center space-x-4">
+                        <div class="flex flex-wrap items-center gap-3">
                             <!-- Search -->
                             <div class="relative">
                                 <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -481,16 +485,16 @@ export default {
                                     @input="searchSessions"
                                     type="text"
                                     placeholder="Search by Session Reference"
-                                    class="pl-10 pr-4 py-2 w-64 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                                    class="pl-10 pr-4 py-2 w-64 border border-white/30 bg-white/10 text-white placeholder:text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300 text-sm"
                                 />
                             </div>
 
                             <!-- Page Size Selector -->
-                            <div class="flex items-center space-x-2 text-sm text-gray-600">
+                            <div class="flex items-center space-x-2 text-sm text-slate-200">
                                 <span>Rows per page:</span>
                                 <select
                                     v-model.number="itemsPerPage"
-                                    class="border border-gray-300 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    class="border border-white/30 rounded-xl px-2 py-1 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-indigo-300"
                                 >
                                     <option v-for="option in pageSizeOptions" :key="option" :value="option">
                                         {{ option }}
@@ -505,8 +509,8 @@ export default {
                                 :class="[
                                     'flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors',
                                     selectedSessions.length === 0 
-                                        ? 'text-gray-400 bg-gray-100 cursor-not-allowed' 
-                                        : 'text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 hover:text-red-700'
+                                        ? 'text-slate-400 bg-white/10 cursor-not-allowed' 
+                                        : 'text-rose-100 bg-rose-500/20 border border-rose-300/30 hover:bg-rose-500/30'
                                 ]"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -518,7 +522,7 @@ export default {
                             <!-- New Session Button -->
                             <button 
                                 @click="startNewSession"
-                                class="flex items-center space-x-2 px-4 py-2 bg-black text-white text-sm font-medium rounded-md hover:bg-gray-600 transition-colors"
+                                class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-sm font-semibold rounded-xl shadow-lg hover:scale-[1.02] transition-all"
                             >
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -529,9 +533,9 @@ export default {
                     </div>
 
                     <!-- Sessions Table -->
-                    <div class="bg-white overflow-hidden">
+                    <div class="bg-white/10 border border-white/20 rounded-2xl overflow-hidden backdrop-blur-xl">
                         <!-- Table Header -->
-                        <div class="border-b border-black bg-gray-50 px-6 py-3">
+                        <div class="border-b border-white/20 bg-slate-900/50 px-6 py-3">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-4 flex-1">
                                     <!-- Select All Checkbox -->
@@ -547,7 +551,7 @@ export default {
                                     </div>
 
                                     <!-- Column Headers -->
-                                    <div class="flex-1 grid grid-cols-4 gap-4 text-sm font-medium text-gray-700">
+                                    <div class="flex-1 grid grid-cols-4 gap-4 text-sm font-medium text-slate-200">
                                         <div class="flex items-center cursor-pointer" @click="sortBy('reference')">
                                             Session Reference
                                             <svg class="ml-1 w-3 h-3" :class="{
@@ -567,7 +571,7 @@ export default {
                                         <div> Topic</div>
                                         <div> Form Status</div>
                                     </div>
-                                    <div class="text-sm font-medium text-gray-700">Actions</div>
+                                    <div class="text-sm font-medium text-slate-200">Actions</div>
                                 </div>
                             </div>
                         </div>
@@ -577,7 +581,7 @@ export default {
                             <div 
                                 v-for="session in paginatedSessions" 
                                 :key="session.id"
-                                class="px-6 py-4 hover:bg-gray-50 cursor-pointer" 
+                                class="px-6 py-4 hover:bg-white/10 cursor-pointer border-b border-white/10 last:border-b-0" 
                                 @click="showSessionDetails(session.id)"
                             >
                                 <div class="flex items-center justify-between">
@@ -591,16 +595,16 @@ export default {
                                             />
                                         </div>
                                         <div class="flex-1 grid grid-cols-4 gap-4 text-sm">
-                                            <div class="text-black hover:text-gray-800 font-medium">{{ session.reference }}</div>
-                                            <div class="text-gray-900">{{ session.date }}</div>
-                                            <div class="text-gray-600">
-                                                <span class="border border-gray-300 rounded px-2 py-1 inline-block">{{ session.topic }}</span>
+                                            <div class="text-white hover:text-indigo-200 font-medium">{{ session.reference }}</div>
+                                            <div class="text-slate-200">{{ session.date }}</div>
+                                            <div class="text-slate-200">
+                                                <span class="border border-white/30 bg-white/10 rounded-lg px-2 py-1 inline-block">{{ session.topic }}</span>
                                             </div>
                                             <div>
                                                 <StatusBadge :status="session.status" />
                                                 <div
                                                     v-if="isProcessingStatus(session.status)"
-                                                    class="mt-1 text-xs text-gray-500"
+                                                    class="mt-1 text-xs text-slate-300"
                                                 >
                                                     <span v-if="session.processing_progress >= 0">{{ Math.round(session.processing_progress || 0) }}%</span>
                                                     <span v-if="session.processing_stage"> · {{ session.processing_stage }}</span>
@@ -619,7 +623,7 @@ export default {
                                             </button>
                                             <div 
                                                 v-if="showDropdownId === session.id" 
-                                                class="absolute right-0 top-8 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                                                class="absolute right-0 top-8 w-48 bg-slate-900 border border-white/20 rounded-xl shadow-lg z-10"
                                                 @click.stop
                                             >
                                                 <div class="py-1">
@@ -631,19 +635,19 @@ export default {
                                                         Resume Session
                                                     </button>
                                                     <button
-                                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        class="w-full text-left px-4 py-2 text-sm text-slate-200 hover:bg-white/10"
                                                         @click="openCRMForm(session)"
                                                     >
                                                         Open CRM Form
                                                     </button>
                                                     <button 
-                                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        class="w-full text-left px-4 py-2 text-sm text-slate-200 hover:bg-white/10"
                                                         @click="openSession(session)"
                                                     >
                                                         Open Session
                                                     </button>
                                                     <button 
-                                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        class="w-full text-left px-4 py-2 text-sm text-slate-200 hover:bg-white/10"
                                                         @click="viewPDF(session)"
                                                     >
                                                         View PDF
@@ -664,23 +668,24 @@ export default {
 
                         <!-- Empty State -->
                         <div v-if="filteredSessions.length === 0 && !isLoading" class="text-center py-16">
-                            <div class="text-gray-500 mb-4">
-                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="text-slate-300 mb-4">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-2">
+                            <h3 class="text-lg font-medium text-white mb-2">
                                 Looks like you have no saved sessions.
                             </h3>
-                            <p class="text-gray-600 mb-6">
+                            <p class="text-slate-200 mb-6">
                                 Start a session by clicking the "New Session" button in the top right corner of the page!
                             </p>
                         </div>
 
                         <!-- Loading State -->
                         <div v-if="isLoading" class="text-center py-16">
-                            <div class="text-gray-500">Loading sessions...</div>
+                            <div class="text-slate-200">Loading sessions...</div>
                         </div>
+                    </div>
                     </div>
 
                     <!-- Pagination -->
