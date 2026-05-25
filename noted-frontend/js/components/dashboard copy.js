@@ -490,6 +490,32 @@ export default {
             `;
             document.head.appendChild(styleEl);
         };
+
+
+        const startDate = ref('');
+        const endDate = ref('');
+        const showFilterDropdown = ref(false);
+
+        const toggleFilterDropdown = (e) => {
+            // Prevent the outer click handler from immediately closing the dropdown
+            e?.stopPropagation?.();
+            showFilterDropdown.value = !showFilterDropdown.value;
+        };
+
+        const applyDateFilter = () => {
+            // Call the composable's filter function, passing the date range.
+            // The composable is expected to accept an optional { startDate, endDate } object.
+            filterSessions({ startDate: startDate.value, endDate: endDate.value });
+            showFilterDropdown.value = false;   // close dropdown after applying
+        };
+
+        const clearDateFilter = () => {
+            startDate.value = '';
+            endDate.value = '';
+            // Remove date restrictions by calling filterSessions without dates
+            filterSessions({ startDate: null, endDate: null });
+            showFilterDropdown.value = false;
+        };
         
         // Load sessions on component mount
         onMounted(async () => {
@@ -650,7 +676,13 @@ export default {
             resolveSession,
             getStatusDisplay,
             isProcessingStatus,
-            loadSessions
+            loadSessions,
+            startDate,
+            endDate,
+            showFilterDropdown,
+            toggleFilterDropdown,
+            applyDateFilter,
+            clearDateFilter
         };
     },
     template: `
@@ -669,10 +701,15 @@ export default {
                                 </span>
                             </div>
                             <div class="relative">
-                                <button @click="logout" class="text-gray-600 hover:text-gray-900 px-2 py-1 text-sm">
-                                    Logout
+                                
+                                    <button @click="logout" class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1" />
+                                    </svg>
+                                    <span>Logout</span>
                                 </button>
-                            </div>
+
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -694,16 +731,66 @@ export default {
                         <div class="flex items-center space-x-4">
                             <h2 class="text-lg font-medium text-gray-900">My Sessions</h2>
                             
+
+                            
+
+
                             <!-- Filter Button -->
-                            <button 
-                                @click="filterSessions"
-                                class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50"
-                            >
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"></path>
-                                </svg>
-                                <span>Filter Sessions</span>
-                            </button>
+                            
+                <div class="relative inline-block">
+                    <button 
+                        @click="toggleFilterDropdown"
+                        class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"></path>
+                        </svg>
+                        <span>Filter Sessions</span>
+                    </button>
+
+                    <!-- Dropdown for date filter -->
+                    <div 
+                        v-if="showFilterDropdown" 
+                        @click.stop
+                        class="absolute left-0 mt-2 w-72 bg-white border border-gray-200 rounded-md shadow-lg z-20 p-4"
+                    >
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Start Date</label>
+                                <input 
+                                    v-model="startDate"
+                                    type="date"
+                                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">End Date</label>
+                                <input 
+                                    v-model="endDate"
+                                    type="date"
+                                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <div class="flex justify-between space-x-2">
+                                <button 
+                                    @click="clearDateFilter"
+                                    class="flex-1 px-3 py-1.5 text-xs font-medium text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50"
+                                >
+                                    Clear
+                                </button>
+                                <button 
+                                    @click="applyDateFilter"
+                                    class="flex-1 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                         </div>
 
                         <!-- Search, Delete, and New Session -->

@@ -690,28 +690,46 @@ export default {
             <!-- Header -->
             <header class="bg-white border-b border-gray-200 px-6 py-4">
                 <div class="flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-gray-900">Note'd Dashboard</h1>
+                    <h1 class="text-xl font-semibold text-gray-900">Note'D Dashboard</h1>
                     
+
+
                     <!-- User Menu -->
                     <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
-                                <span class="text-white text-sm font-medium">
-                                    {{ user?.name?.charAt(0) || 'U' }}
-                                </span>
-                            </div>
-                            <div class="relative">
-                                
-                                    <button @click="logout" class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1" />
-                                    </svg>
-                                    <span>Logout</span>
-                                </button>
+    <!-- FAQ Button -->
+    <router-link
+        to="/faq"
+        class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+    >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>FAQs</span>
+    </router-link>
 
-                             </div>
-                        </div>
-                    </div>
+    <!-- User Menu -->
+    <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+            <span class="text-white text-sm font-medium">
+                {{ user?.name?.charAt(0) || 'U' }}
+            </span>
+        </div>
+        <div class="relative">
+            <button @click="logout" class="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1" />
+                </svg>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
                 </div>
             </header>
 
@@ -726,13 +744,24 @@ export default {
                         </svg>
                         <span>Opening session details...</span>
                     </div>
+
+
+            <!-- Welcome Banner – a standalone block -->
+            <div class="mb-10 p-6 rounded-xl shadow-lg" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+            <h2 class="text-2xl font-bold text-white" style="color: white !important; background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important;">Welcome back, {{ user?.name || 'User' }}!</h2>
+            <p class="text-blue-100 mt-2 text-sm">Here’s an overview of your sessions and recent activity.</p>
+            </div>
+
+
+
+
+
                     <!-- Sessions Header -->
                     <div class="flex items-center justify-between mb-6">
+
                         <div class="flex items-center space-x-4">
                             <h2 class="text-lg font-medium text-gray-900">My Sessions</h2>
-                            
 
-                            
 
 
                             <!-- Filter Button -->

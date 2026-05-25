@@ -14,6 +14,7 @@ import Dashboard from './components/dashboard.js';
 import NewSession from './components/new_session.js';
 import RecordingView from './components/recording_view.js';
 import ExperimentView from './components/experiment_view.js';
+import FAQPage from './components/faq.js';
 
 const routes = [
     {
@@ -35,6 +36,11 @@ const routes = [
         name: 'session-detail',
         component: Dashboard,
         props: true,
+    },
+    {
+        path: '/faq',
+        name: 'faq',
+        component: FAQPage,
     },
     {
         path: '/new-session',
