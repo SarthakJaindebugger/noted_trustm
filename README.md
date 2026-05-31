@@ -50,3 +50,10 @@ Direct pushes to the upstream default branch should be blocked with GitHub branc
 # in docker-compose.yml : everything else for models/ Ollama
 # in noted-backend/requirements.txt
 # fastapi run main.py - should be the command later
+# To change login creditials in backend: noted-backend/config.py
+
+
+
+
+# Get the JSon output directly from the LLMs rather than parsing directly to CSV
+# For Ollama JSON : https://docs.ollama.com/capabilities/structured-outputs

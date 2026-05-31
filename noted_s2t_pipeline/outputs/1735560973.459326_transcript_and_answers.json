@@ -1,0 +1,1430 @@
+{
+  "audio_file": "/Users/sarthakjain/Desktop/ML Projects/noted-main/noted_s2t_pipeline/AxonSpeechData/Call center data samples/1735560973.459326 (PL Account-Billing)/1735560973.459326.mp3",
+  "processed_at": "2026-05-26T09:32:42.594916+00:00",
+  "language": "pl",
+  "timestamps": {
+    "conversation_start": "00:00:01",
+    "conversation_end": "00:11:28",
+    "duration_seconds": 687.03,
+    "duration_minutes": 11.45,
+    "duration_formatted": "11 min 27 sec",
+    "start_raw_seconds": 1.17,
+    "end_raw_seconds": 688.2
+  },
+  "fact_sheet": "Podziękowania za uwagę. Oto krótkie podsumowanie rozmowy:\n\n* Rozmówca wyraża zadowolenie z życia i relacji w rodzinie.\n* Mowa o przykładach, które autor rozmowy opowiada o swoich doświadczeniach z prywatnymi firmami i biurami.\n* Autor mówi o trudnościach związanych z kupowaniem i sprzedawaniem dóbr w internecie.\n* Rozmówca wyraża sceptycyzm wobec pewnych praktyk, które autor opowiada o swoich doświadczeniach.\n\nOto kilka słów kluczowych:\n\n* Rodzina\n* Prywatne firmy\n* Biura\n* Kupowanie i sprzedawanie dóbr w internecie\n* Sceptycyzm\n* Doświadczenia",
+  "extracted_answers": {
+    "control_location": "",
+    "visit_datetime": "",
+    "visit_duration": "11 min 27 sec",
+    "contact_method": "Telephone conversation (call, WhatsApp)",
+    "heard_from": "Prywatne firmy",
+    "where_if_other": "Pusty napis.",
+    "number_of_customers": "1",
+    "gender": "No information",
+    "age_group": "50+",
+    "reason_for_immigration": "None.",
+    "additional_info": "Ponieważ brak informacji o kliente, nie można określić jego special circumstances.",
+    "country_of_birth": "",
+    "mother_tongue": "",
+    "education_level": "High school",
+    "labor_market_position": "No information",
+    "customer_domicile": "",
+    "residence_in_finland": "Less than 3 years",
+    "topics_of_discussion": "Family life; Working conditions / occupational health & safety",
+    "purpose_of_visit": "Other guidance and support; Clarifying decisions and processes",
+    "additional_notes": "Pani/kolega klient wyraził zadowolenie z życia i relacji w rodzinie. Podczas rozmowy omówiono doświadczenia z prywatnymi firmami i biurami, a także trudności związane z kupowaniem i sprzedawaniem dóbr w internecie, na których klient wyraził sceptycyzm.",
+    "referrals": "None of the options match.",
+    "other_feedback": "Ponieważ fakt sheet nie zawiera żadnych dodatkowych informacji o feedbacku, potrzebie szkolenia lub uwagach adwokata, odpowiedź jest pusta."
+  },
+  "transcript": {
+    "text": "Speaker 1 [00:00:01-00:00:04]: Halo, Halo, Halo!\nSpeaker 1 [00:00:04-00:00:09]: Tak, ja się się witam się dobrej, jak to, jak nam się wie.\nSpeaker 1 [00:00:10-00:00:12]: I ciekawego, no.\nSpeaker 1 [00:00:13-00:00:17]: Święta koświęta, i teraz jest, mam przerwę z pracy,\nSpeaker 1 [00:00:17-00:00:21]: bo raz na uropy wygotili i sekramyza,\nSpeaker 1 [00:00:21-00:00:26]: z silwetrem i jakoś tam nic ciekawego.\nSpeaker 1 [00:00:26-00:00:28]: Radość nie ma specjalnie.\nSpeaker 1 [00:00:29-00:00:33]: O, wyjnymi z powodu z rastą współpracą, mam dużo pieniędzy,\nSpeaker 1 [00:00:33-00:00:36]: a jestem wiec, niech myszkościelny.\nSpeaker 1 [00:00:37-00:00:42]: O, o, o, o, o, o, o, o, o, o, o, o, o, no, nie na kasiwita, jak by.\nSpeaker 1 [00:00:42-00:00:47]: No, to jest końcówka roku wiele to pokłatania i, i, i, i, i,\nSpeaker 1 [00:00:47-00:00:49]: widać, jak by.\nSpeaker 1 [00:00:49-00:00:52]: Tam o, bo robimy, jak to jest dobrze i,\nSpeaker 1 [00:00:52-00:00:55]: sobie możemy z tym zrobić, czego wykowlokujecie?\nSpeaker 1 [00:00:56-00:00:58]: Pianisk nie mokuje, ja zbyt.\nSpeaker 1 [00:00:58-00:01:01]: Ja to, bo, ja, ja, ja, ja, ja, ja, ja, ja, ja, jałem tam,\nSpeaker 1 [00:01:01-00:01:04]: płacić nas, o, teraz, nas, o, zimne, komuś,\nSpeaker 1 [00:01:04-00:01:06]: nie, radomo, komu, ja, nie wiem o co chodzi.\nSpeaker 1 [00:01:06-00:01:11]: Mam pieniądze, tam, a no, to bym, wtedy jedno się odgudowała,\nSpeaker 1 [00:01:11-00:01:14]: ale tam na minimalnym flusie zamknąłem, tak,\nSpeaker 1 [00:01:14-00:01:18]: tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak,\nSpeaker 1 [00:01:18-00:01:20]: bo tam tam, to jest to, ale śni,\nSpeaker 2 [00:02:20-00:02:22]: ja na razie, na razie, jezwie,\nSpeaker 2 [00:02:22-00:02:25]: jeśli ja muszę coś płacić, to ja na razie nie płacę,\nSpeaker 2 [00:02:25-00:02:28]: bo ja naprawdę jestem bezderowarzy, to tak z zomiem.\nSpeaker 2 [00:02:28-00:02:31]: Mam długi, nie mam potłaczonych, w których w rzeczy,\nSpeaker 2 [00:02:31-00:02:34]: mam pieniądze i, a, a ja nie rozumiem rad,\nSpeaker 2 [00:02:34-00:02:37]: czyli w pisali, jak iż tam, że mam na coś płacić,\nSpeaker 2 [00:02:37-00:02:40]: teraz miałem na to zimne płacić, ja,\nSpeaker 2 [00:02:40-00:02:42]: ja to końka nie wymoczę, czy to się porozmoczę,\nSpeaker 2 [00:02:42-00:02:45]: to przepraszam, że jestem powiedz generowany,\nSpeaker 2 [00:02:45-00:02:48]: ja, że mam pieniądze, od płacić, nie wiem,\nSpeaker 2 [00:02:48-00:02:51]: ja mam od za mile, kłaczęła się czeka, ja,\nSpeaker 2 [00:02:51-00:02:55]: ja mogę, w niebie, nawet 10 tysięcy dać,\nSpeaker 2 [00:02:55-00:02:57]: ja się spostanę, ale, urekno, no, no,\nSpeaker 2 [00:02:57-00:03:00]: ja, z czego ja mam, z czego ja mam brak pieniądze,\nSpeaker 2 [00:03:00-00:03:03]: jak ja się pozadzi, żałem tam, ja dopiero wydaniał\nSpeaker 2 [00:03:03-00:03:06]: podsumowanie roku, teraz nie mam jeszcze pieniędzy,\nSpeaker 2 [00:03:06-00:03:09]: musimy po prostu czekać, jeśli to musi być,\nSpeaker 2 [00:03:09-00:03:11]: co ja nie wiem, zapakuję pieniądze i,\nSpeaker 2 [00:03:11-00:03:13]: mam przyrodze i w biurę słaczę,\nSpeaker 2 [00:03:13-00:03:16]: i będę miał podwierdzenie, bo ja nie wiem,\nSpeaker 2 [00:03:16-00:03:18]: ja nie jestem się z nieniem,\nSpeaker 2 [00:03:18-00:03:20]: bo ten facet skórzył się, bo powiedział, że\nSpeaker 2 [00:03:20-00:03:23]: wykość kombinuje się, że wy podrzebujecie coś,\nSpeaker 2 [00:03:23-00:03:25]: żeby coś dostać niebie,\nSpeaker 2 [00:03:25-00:03:27]: po prostu tam, że, zaczeliśmy,\nSpeaker 2 [00:03:27-00:03:29]: że na inne toznowu pieniądze poszły,\nSpeaker 2 [00:03:29-00:03:32]: tam jest głowila, z tygen, wykochałeś,\nSpeaker 2 [00:03:32-00:03:34]: zmuszasziemy do zapłaczenia,\nSpeaker 2 [00:03:34-00:03:36]: czego z nieniem, nie wiem, już lekarły,\nSpeaker 2 [00:03:36-00:03:37]: czy od tego.\nSpeaker 2 [00:03:37-00:03:39]: Weź mi to kurde, wysłuma,\nSpeaker 2 [00:03:39-00:03:42]: albo mi to opisz w dobrze, że bymy nie wjeżdżał.\nSpeaker 2 [00:03:42-00:03:44]: Tak, tak, posiedłem, że czego z tysiąca\nSpeaker 2 [00:03:44-00:03:46]: zazwłonie przełożone kierownika,\nSpeaker 2 [00:03:46-00:03:48]: ale można, bo ten zioł,\nSpeaker 2 [00:03:48-00:03:50]: jak to będzie, nie,\nSpeaker 2 [00:03:50-00:03:52]: nie, no nie, nie, nie, zazwłonie, nie,\nSpeaker 2 [00:03:52-00:03:54]: nie, to by z polem nie wreźcie,\nSpeaker 2 [00:03:54-00:03:56]: to by tu macą, co ja nam płacić.\nSpeaker 2 [00:03:56-00:03:58]: O czym bym nie gada wszyscy mówią,\nSpeaker 2 [00:03:58-00:04:02]: że nam nie płacić, bo, bo nam z nas zelikikować,\nSpeaker 2 [00:04:02-00:04:04]: no widzisz, że twoje, twoje ten,\nSpeaker 2 [00:04:04-00:04:06]: przez nic nie dostaje,\nSpeaker 2 [00:04:06-00:04:08]: jakiś papie rozkwiebie,\nSpeaker 2 [00:04:08-00:04:10]: że, że, że na zlikwencje,\nSpeaker 2 [00:04:10-00:04:12]: i uregno, my możemy się lubić,\nSpeaker 2 [00:04:12-00:04:14]: co, powiedział, ja nie będę kolejnych rozmiorścił.\nSpeaker 2 [00:04:14-00:04:16]: Ja wszystko, ale na konie,\nSpeaker 2 [00:04:16-00:04:18]: nic nie robimy,\nSpeaker 2 [00:04:18-00:04:19]: tak, na razy.\nSpeaker 2 [00:04:19-00:04:20]: Przestała do mnie,\nSpeaker 2 [00:04:20-00:04:21]: to ja nie chcę.\nSpeaker 2 [00:04:21-00:04:23]: nie, nie, nie, nie.\nSpeaker 2 [00:04:23-00:04:25]: Niestnie robimy, jak tylko w skłecie tą pozycję,\nSpeaker 2 [00:04:25-00:04:27]: ja powiem, że za zamiast nie wybram,\nSpeaker 2 [00:04:27-00:04:29]: i do shotgun się go nie spiera,\nSpeaker 2 [00:04:29-00:04:32]: zresztąiego z pricznymi nie robimy tutaj.\nSpeaker 2 [00:04:32-00:04:34]: Nara co Didni dajurek ze stoi,\nSpeaker 2 [00:04:34-00:04:36]: ja mu to samo powiem\nSpeaker 2 [00:04:36-00:04:38]: że ja nie mam teraz pieniędzy,\nSpeaker 2 [00:04:38-00:04:40]: mówi, że coś, że nowe,\nSpeaker 2 [00:04:40-00:04:43]: że znowu, że ze spójdzie przez to nie nie będzie kontrolowane,\nSpeaker 2 [00:04:44-00:04:49]: ja nic nie mam, nie wiem, nie wiem, nie wiem.\nSpeaker 2 [00:04:49-00:04:52]: Ja mogę, mogę wam to pieniądze odradzialać,\nSpeaker 2 [00:04:52-00:04:54]: ale dajcie mi to, ja nie mam czego mam dać.\nSpeaker 2 [00:04:55-00:04:57]: A tym mówi, że spłagzę i to będzie moje.\nSpeaker 2 [00:04:58-00:04:59]: No to co ja mam, to robię.\nSpeaker 2 [00:04:59-00:05:01]: Ja ja naprawdę nie rozwyczaję mi tak kurde.\nSpeaker 2 [00:05:01-00:05:06]: Masz, jest, masz, rybable, trebądzadwo i wytłumasz mi to tak polu,\nSpeaker 2 [00:05:06-00:05:08]: jak kurde, Polak Polakowi.\nSpeaker 2 [00:05:08-00:05:10]: No bo, bo, bo, bo, bo ja ja nie rozumiem.\nSpeaker 2 [00:05:10-00:05:16]: Ja nie wiem, na stronach teżowa w pizją są biura, są firmy w Warszawie,\nSpeaker 2 [00:05:17-00:05:21]: które, które właśnie oszukalcie smardzy, tam, live, rack wąt.\nSpeaker 1 [00:05:23-00:05:26]: Nierięć, że ja w końcu w końcu będę na premierze filmu,\nSpeaker 1 [00:05:26-00:05:30]: dziewiątego, czy nie zajdę do tego biura i przez pewien sytuację.\nSpeaker 1 [00:05:31-00:05:34]: Nie wiem, miurek, bo ja już nie wiem, bo są dużo pieniądze,\nSpeaker 1 [00:05:34-00:05:37]: posłaszane przeze mnie, jak to odzyska twoje pieniądze tylko.\nSpeaker 1 [00:05:38-00:05:41]: No i nawet mogę się zwaniać w pramii tezyskiem, kurde,\nSpeaker 1 [00:05:41-00:05:43]: co jest podjęć w sobą na chwilu.\nSpeaker 1 [00:05:43-00:05:45]: To dajcie mi pieniądze moje.\nSpeaker 2 [00:05:46-00:05:51]: Fajnie, fajnie, z pinaganiałem takie pieniądze, długą czy nagania,\nSpeaker 2 [00:05:51-00:05:53]: widziały się, żeśmy w związku z razy zrobili.\nSpeaker 2 [00:05:54-00:05:56]: Nie abyście pieniądze, ale ja też w tym obsłynie,\nSpeaker 2 [00:05:56-00:06:00]: nie, ja tego nie rozumiem, dlaczego mam pieniądze,\nSpeaker 2 [00:06:00-00:06:05]: czy płacę w terwie, a rozpieram, a to jest tamto pamięta,\nSpeaker 2 [00:06:05-00:06:08]: tamby się namisz, że mam w tłaj, ja to się nazywało tamto.\nSpeaker 1 [00:06:10-00:06:12]: Dla pierwszym razem to mu ja to miałem płacić,\nSpeaker 1 [00:06:12-00:06:14]: jakaś tam firma, która kompolu jest,\nSpeaker 1 [00:06:15-00:06:19]: bardzo reinta, ten kłol, mkłol, regular, kłol, a teraz,\nSpeaker 1 [00:06:19-00:06:23]: a teraz już nie każdy się nie na to w tłacie, to na na to zimny.\nSpeaker 1 [00:06:24-00:06:27]: Ja pojdzie mi podatokiero, na to się nawet włoź, nawet na,\nSpeaker 1 [00:06:27-00:06:29]: nawet na, nawet na, nawet na, nawet na, nawet na,\nSpeaker 1 [00:06:29-00:06:32]: na, co jego, na, co jego, ociędowego mówisz, że można w płacić,\nSpeaker 1 [00:06:32-00:06:34]: no to, ja to, kurde, nie rozumiem.\nSpeaker 1 [00:06:35-00:06:38]: Czyli mówimy w żośce, nawet ten płacł przedniej,\nSpeaker 1 [00:06:38-00:06:41]: i nie wiem, finansi w tak, który pomyślał z wolnini,\nSpeaker 1 [00:06:41-00:06:44]: to nie kazał nawet mógł, że kurde, w jego po pieniądze.\nSpeaker 1 [00:06:45-00:06:46]: No ja w to jurek.\nSpeaker 2 [00:06:48-00:06:50]: Jero, zaproszę cię, no w punktu, nasanujmy się,\nSpeaker 2 [00:06:50-00:06:53]: no, czy polubiłem, mogliśmy robić działać, ale,\nSpeaker 2 [00:06:53-00:06:56]: a tak nie może być, że ja to się czuję cały czas,\nSpeaker 2 [00:06:56-00:06:58]: jakiś taki wresz o szukany.\nSpeaker 1 [00:06:59-00:07:02]: A pieniądze mam, który teraz budowodowali,\nSpeaker 1 [00:07:02-00:07:04]: i to ja jestem bez pieniędzy,\nSpeaker 1 [00:07:04-00:07:06]: bo życzyłem jeszcze od Syna i,\nSpeaker 1 [00:07:06-00:07:09]: głupią i teraz nie mam szczegomu, odda Ci.\nSpeaker 1 [00:07:09-00:07:11]: Nie możecie w tej części płacia,\nSpeaker 1 [00:07:11-00:07:13]: a ja mam odręci zaraz,\nSpeaker 1 [00:07:13-00:07:16]: przemęli ona, na co trzeba, jeśli takie tworzy potrzebne.\nSpeaker 1 [00:07:17-00:07:19]: No to je konto mogę i przemęć,\nSpeaker 1 [00:07:19-00:07:22]: nie, nie, nie wolno, tak nie wolno.\nSpeaker 1 [00:07:22-00:07:23]: No i w ruchotne.\nSpeaker 1 [00:07:23-00:07:25]: Maszlu riii, riii, rii, rii, nie, nie,\nSpeaker 1 [00:07:25-00:07:26]: masz numer, przywarte,\nSpeaker 1 [00:07:26-00:07:28]: będzie się zauwała, zrób za złyń,\nSpeaker 1 [00:07:28-00:07:30]: to ja to nie rozumiem tego,\nSpeaker 1 [00:07:30-00:07:32]: ale nie rozumiem tego,\nSpeaker 1 [00:07:32-00:07:34]: ale nie rozumiem tego,\nSpeaker 1 [00:07:34-00:07:36]: czyli poszekać do tego szóstego,\nSpeaker 1 [00:07:36-00:07:37]: bo ja nie tak pieniędzy,\nSpeaker 1 [00:07:37-00:07:38]: czy tego nie płacę,\nSpeaker 1 [00:07:38-00:07:40]: bo ja to nie chodzę,\nSpeaker 1 [00:07:40-00:07:42]: to jest w postach o niech w postach,\nSpeaker 1 [00:07:42-00:07:44]: bo niech to jest w twojej,\nSpeaker 1 [00:07:44-00:07:46]: no faktycznie w trzy jasne,\nSpeaker 1 [00:07:46-00:07:48]: tutaj ten ten,\nSpeaker 1 [00:07:48-00:07:50]: żeby po prostu, żeby po prostu\nSpeaker 1 [00:07:50-00:07:54]: o nim znowu z kierownicją,\nSpeaker 1 [00:07:54-00:07:56]: ten ten znowu, tak,\nSpeaker 1 [00:07:56-00:07:57]: taki подозвонник,\nSpeaker 1 [00:07:57-00:08:21]: normal\nSpeaker 1 [00:08:21-00:08:23]: i święcia wspólnenia wszystkich,\nSpeaker 1 [00:08:23-00:08:25]: potem tak pradnej, tak i o bykach\nSpeaker 1 [00:08:25-00:08:29]: wymagania swoje stało się, że się byś oszczą.\nSpeaker 1 [00:08:29-00:08:31]: I lewa dnia i tak.\nSpeaker 1 [00:08:31-00:08:34]: Najważniejsze, że są musia być u nas,\nSpeaker 1 [00:08:34-00:08:37]: u nas z tym czagem, w którym\nSpeaker 1 [00:08:37-00:08:40]: żyjemy teraz, to byś tysięcy\nSpeaker 1 [00:08:40-00:08:42]: o w życiu, tak jest.\nSpeaker 1 [00:08:42-00:08:44]: Na tamstans, w rodzinie, w domu,\nSpeaker 1 [00:08:44-00:08:48]: w kraju, tak tam, i za wszystko było ok.\nSpeaker 1 [00:08:49-00:08:50]: Bardzo się dziękuję, no piękne, że\nSpeaker 1 [00:08:50-00:08:53]: cena dla twojej całej rodzinki również,\nSpeaker 1 [00:08:53-00:08:57]: końcuchki roku, te śliwej no i nowego roku.\nSpeaker 1 [00:08:57-00:09:00]: I ureklopomu, sześć prawie, bo naprawdę ja i akurat\nSpeaker 1 [00:09:00-00:09:02]: też ze sobą działać, no patrzysz,\nSpeaker 1 [00:09:02-00:09:04]: jakie pieniądze na gronie, ja wydez, no ja wydez,\nSpeaker 1 [00:09:04-00:09:06]: na premierę dziewiątego, tego to też nie będę\nSpeaker 1 [00:09:06-00:09:09]: miał od razu, od razu dziesiątego jest na sensie,\nSpeaker 1 [00:09:09-00:09:12]: ja my mamy przed premierem w Warszawie.\nSpeaker 1 [00:09:12-00:09:13]: A wy co?\nSpeaker 1 [00:09:13-00:09:14]: To jest prawie, kiedy, że kiedy będzie\nSpeaker 1 [00:09:14-00:09:15]: w Polsce?\nSpeaker 1 [00:09:15-00:09:16]: W Polsce?\nSpeaker 2 [00:09:18-00:09:19]: No nie wiem.\nSpeaker 2 [00:09:19-00:09:21]: Nie wiem, nie wiem.\nSpeaker 2 [00:09:21-00:09:23]: Już, jak to ma w wojnę z Privatnego,\nSpeaker 2 [00:09:23-00:09:25]: pokazane, nie by się nie,\nSpeaker 2 [00:09:25-00:09:27]: ja się kszertej, co robię, nie ma,\nSpeaker 2 [00:09:27-00:09:29]: to normalny padzę, tylko mojej niemże\nSpeaker 2 [00:09:29-00:09:32]: a nam zrobić, to mam nic do tego piura prawnego,\nSpeaker 2 [00:09:32-00:09:34]: bo tyle jest tych przykładów,\nSpeaker 2 [00:09:34-00:09:36]: ofisywanych, że to wszystko fajnie z wami\nSpeaker 2 [00:09:36-00:09:38]: do momentu, tak, ja ma się z Privatnego.\nSpeaker 2 [00:09:38-00:09:41]: Tak, ja się pamiętam,\nSpeaker 2 [00:09:41-00:09:44]: tak, z kiery klomów, które są w internetze, tak?\nSpeaker 2 [00:09:44-00:09:48]: Oni, oni, oni do nas z wanią,\nSpeaker 2 [00:09:48-00:09:52]: co my się nie mówią, że po nożu,\nSpeaker 2 [00:09:52-00:09:54]: no nie wiem, tam,\nSpeaker 2 [00:09:54-00:09:56]: wszelkie nam, po dnie,\nSpeaker 2 [00:09:56-00:09:58]: 12 tysięcy chęt zera, żeby byka\nSpeaker 2 [00:09:58-00:10:00]: z tą ryklową z tą nożu,\nSpeaker 2 [00:10:00-00:10:05]: no to wszystko, nie, ale, ale, ale, ale są takie piura w Warszawie,\nSpeaker 2 [00:10:05-00:10:08]: jest adrystany, ja po prostu nie tak tam zajadzę,\nSpeaker 2 [00:10:08-00:10:11]: to patrzę, co to, że oni, oni się chraną,\nSpeaker 2 [00:10:11-00:10:13]: że to skupeczniło.\nSpeaker 2 [00:10:13-00:10:15]: Jeśli uregno te wszystko legalne,\nSpeaker 2 [00:10:15-00:10:18]: fajne i będzieła się, jest nie jesie,\nSpeaker 2 [00:10:18-00:10:20]: bo wiesz, jak ja do was dotarłem,\nSpeaker 2 [00:10:20-00:10:22]: to jest nie dotarłem przez nie wiem,\nSpeaker 2 [00:10:22-00:10:25]: biuro, pasę, tylko przez jakiś,\nSpeaker 2 [00:10:25-00:10:27]: jakiś szejk, kustzony,\nSpeaker 2 [00:10:27-00:10:30]: za tam gdzieś ktoś miałem indystować\nSpeaker 2 [00:10:30-00:10:34]: te, te, te, zgasch chyba,\nSpeaker 2 [00:10:34-00:10:37]: a tu okazało się, że to w coś na, na prowadza,\nSpeaker 2 [00:10:37-00:10:39]: ludzie się na to chwytają,\nSpeaker 2 [00:10:39-00:10:41]: ale nie mówię, że teraz po nie,\nSpeaker 2 [00:10:41-00:10:43]: bo mi się, że to działa, że kąt pojeżdż,\nSpeaker 2 [00:10:43-00:10:45]: że można kupować, że bawać,\nSpeaker 2 [00:10:45-00:10:47]: ale, ale no, mówię, to jest tyle niedomówie,\nSpeaker 2 [00:10:47-00:10:49]: nie, że no, tu zwanacz,\nSpeaker 2 [00:10:49-00:10:51]: ja w pierwszym, że jest chopekacie,\nSpeaker 2 [00:10:51-00:10:53]: ja nie jestem, bo garszym,\nSpeaker 2 [00:10:53-00:10:55]: będę miał teraz ten nobim, on, że nie bawę fajne,\nSpeaker 2 [00:10:55-00:10:57]: ale, by bym zainwestować,\nSpeaker 2 [00:10:57-00:11:00]: bo ma, ale, ale i uregno zrób coś,\nSpeaker 2 [00:11:00-00:11:03]: żeby to w kumne, że, w coś tym ruszyło.\nSpeaker 2 [00:11:03-00:11:05]: Dobra, no, dobra, leżą mi,\nSpeaker 2 [00:11:05-00:11:08]: już, no i, ale, jak będzie naprawdę,\nSpeaker 2 [00:11:08-00:11:12]: miał chwilę to, w to, z, nie wiem,\nSpeaker 2 [00:11:12-00:11:14]: drugi, czy, czy, nie, drugi, drugi,\nSpeaker 2 [00:11:14-00:11:16]: w to ci, w to jest krywaknego,\nSpeaker 2 [00:11:16-00:11:17]: w kugatanych.\nSpeaker 2 [00:11:17-00:11:19]: Dobra, ok, no, ok,\nSpeaker 2 [00:11:19-00:11:21]: już, w kugie, ale, wiem, cał,\nSpeaker 2 [00:11:21-00:11:23]: ciedli, cał, po, w ojdzie,\nSpeaker 2 [00:11:23-00:11:25]: po, w ojdzie, po, ok, tak, tak,\nSpeaker 2 [00:11:25-00:11:27]: do, ruszenia, no, trzymaj się,\nSpeaker 2 [00:11:27-00:11:28]: cześć, trzymaj się,",
+    "segments": [
+      {
+        "speaker": "Speaker 1",
+        "start": 1.17,
+        "end": 4.17,
+        "text": "Halo, Halo, Halo!"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 4.17,
+        "end": 9.17,
+        "text": "Tak, ja się się witam się dobrej, jak to, jak nam się wie."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 10.17,
+        "end": 12.17,
+        "text": "I ciekawego, no."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 13.17,
+        "end": 17.17,
+        "text": "Święta koświęta, i teraz jest, mam przerwę z pracy,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 17.17,
+        "end": 21.17,
+        "text": "bo raz na uropy wygotili i sekramyza,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 21.17,
+        "end": 26.17,
+        "text": "z silwetrem i jakoś tam nic ciekawego."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 26.17,
+        "end": 28.17,
+        "text": "Radość nie ma specjalnie."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 29.17,
+        "end": 33.17,
+        "text": "O, wyjnymi z powodu z rastą współpracą, mam dużo pieniędzy,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 33.17,
+        "end": 36.17,
+        "text": "a jestem wiec, niech myszkościelny."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 37.17,
+        "end": 42.17,
+        "text": "O, o, o, o, o, o, o, o, o, o, o, o, o, no, nie na kasiwita, jak by."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 42.17,
+        "end": 47.17,
+        "text": "No, to jest końcówka roku wiele to pokłatania i, i, i, i, i,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 47.17,
+        "end": 49.17,
+        "text": "widać, jak by."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 49.17,
+        "end": 52.17,
+        "text": "Tam o, bo robimy, jak to jest dobrze i,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 52.17,
+        "end": 55.17,
+        "text": "sobie możemy z tym zrobić, czego wykowlokujecie?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 56.17,
+        "end": 58.17,
+        "text": "Pianisk nie mokuje, ja zbyt."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 58.17,
+        "end": 61.17,
+        "text": "Ja to, bo, ja, ja, ja, ja, ja, ja, ja, ja, ja, jałem tam,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 61.17,
+        "end": 64.17,
+        "text": "płacić nas, o, teraz, nas, o, zimne, komuś,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 64.17,
+        "end": 66.17,
+        "text": "nie, radomo, komu, ja, nie wiem o co chodzi."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 66.17,
+        "end": 71.17,
+        "text": "Mam pieniądze, tam, a no, to bym, wtedy jedno się odgudowała,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 71.17,
+        "end": 74.17,
+        "text": "ale tam na minimalnym flusie zamknąłem, tak,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 74.17,
+        "end": 78.17,
+        "text": "tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak, tak,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 78.17,
+        "end": 80.17,
+        "text": "bo tam tam, to jest to, ale śni,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 140.17,
+        "end": 142.17,
+        "text": "ja na razie, na razie, jezwie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 142.17,
+        "end": 145.17,
+        "text": "jeśli ja muszę coś płacić, to ja na razie nie płacę,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 145.17,
+        "end": 148.17,
+        "text": "bo ja naprawdę jestem bezderowarzy, to tak z zomiem."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 148.17,
+        "end": 151.17,
+        "text": "Mam długi, nie mam potłaczonych, w których w rzeczy,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 151.17,
+        "end": 154.17,
+        "text": "mam pieniądze i, a, a ja nie rozumiem rad,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 154.17,
+        "end": 157.17,
+        "text": "czyli w pisali, jak iż tam, że mam na coś płacić,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 157.17,
+        "end": 160.17,
+        "text": "teraz miałem na to zimne płacić, ja,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 160.17,
+        "end": 162.17,
+        "text": "ja to końka nie wymoczę, czy to się porozmoczę,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 162.17,
+        "end": 165.17,
+        "text": "to przepraszam, że jestem powiedz generowany,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 165.17,
+        "end": 168.17,
+        "text": "ja, że mam pieniądze, od płacić, nie wiem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 168.17,
+        "end": 171.17,
+        "text": "ja mam od za mile, kłaczęła się czeka, ja,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 171.17,
+        "end": 175.17,
+        "text": "ja mogę, w niebie, nawet 10 tysięcy dać,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 175.17,
+        "end": 177.17,
+        "text": "ja się spostanę, ale, urekno, no, no,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 177.17,
+        "end": 180.17,
+        "text": "ja, z czego ja mam, z czego ja mam brak pieniądze,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 180.17,
+        "end": 183.17,
+        "text": "jak ja się pozadzi, żałem tam, ja dopiero wydaniał"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 183.17,
+        "end": 186.17,
+        "text": "podsumowanie roku, teraz nie mam jeszcze pieniędzy,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 186.17,
+        "end": 189.17,
+        "text": "musimy po prostu czekać, jeśli to musi być,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 189.17,
+        "end": 191.17,
+        "text": "co ja nie wiem, zapakuję pieniądze i,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 191.17,
+        "end": 193.17,
+        "text": "mam przyrodze i w biurę słaczę,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 193.17,
+        "end": 196.17,
+        "text": "i będę miał podwierdzenie, bo ja nie wiem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 196.17,
+        "end": 198.17,
+        "text": "ja nie jestem się z nieniem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 198.17,
+        "end": 200.17,
+        "text": "bo ten facet skórzył się, bo powiedział, że"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 200.17,
+        "end": 203.17,
+        "text": "wykość kombinuje się, że wy podrzebujecie coś,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 203.17,
+        "end": 205.17,
+        "text": "żeby coś dostać niebie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 205.17,
+        "end": 207.17,
+        "text": "po prostu tam, że, zaczeliśmy,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 207.17,
+        "end": 209.17,
+        "text": "że na inne toznowu pieniądze poszły,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 209.17,
+        "end": 212.17,
+        "text": "tam jest głowila, z tygen, wykochałeś,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 212.17,
+        "end": 214.17,
+        "text": "zmuszasziemy do zapłaczenia,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 214.17,
+        "end": 216.17,
+        "text": "czego z nieniem, nie wiem, już lekarły,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 216.17,
+        "end": 217.17,
+        "text": "czy od tego."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 217.17,
+        "end": 219.17,
+        "text": "Weź mi to kurde, wysłuma,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 219.17,
+        "end": 222.17,
+        "text": "albo mi to opisz w dobrze, że bymy nie wjeżdżał."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 222.17,
+        "end": 224.17,
+        "text": "Tak, tak, posiedłem, że czego z tysiąca"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 224.17,
+        "end": 226.17,
+        "text": "zazwłonie przełożone kierownika,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 226.17,
+        "end": 228.17,
+        "text": "ale można, bo ten zioł,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 228.17,
+        "end": 230.17,
+        "text": "jak to będzie, nie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 230.17,
+        "end": 232.17,
+        "text": "nie, no nie, nie, nie, zazwłonie, nie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 232.17,
+        "end": 234.17,
+        "text": "nie, to by z polem nie wreźcie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 234.17,
+        "end": 236.17,
+        "text": "to by tu macą, co ja nam płacić."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 236.17,
+        "end": 238.17,
+        "text": "O czym bym nie gada wszyscy mówią,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 238.17,
+        "end": 242.17,
+        "text": "że nam nie płacić, bo, bo nam z nas zelikikować,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 242.17,
+        "end": 244.17,
+        "text": "no widzisz, że twoje, twoje ten,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 244.17,
+        "end": 246.17,
+        "text": "przez nic nie dostaje,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 246.17,
+        "end": 248.17,
+        "text": "jakiś papie rozkwiebie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 248.17,
+        "end": 250.17,
+        "text": "że, że, że na zlikwencje,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 250.17,
+        "end": 252.17,
+        "text": "i uregno, my możemy się lubić,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 252.17,
+        "end": 254.17,
+        "text": "co, powiedział, ja nie będę kolejnych rozmiorścił."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 254.17,
+        "end": 256.17,
+        "text": "Ja wszystko, ale na konie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 256.17,
+        "end": 258.17,
+        "text": "nic nie robimy,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 258.17,
+        "end": 259.17,
+        "text": "tak, na razy."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 259.17,
+        "end": 260.17,
+        "text": "Przestała do mnie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 260.17,
+        "end": 261.17,
+        "text": "to ja nie chcę."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 261.17,
+        "end": 263.17,
+        "text": "nie, nie, nie, nie."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 263.17,
+        "end": 265.17,
+        "text": "Niestnie robimy, jak tylko w skłecie tą pozycję,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 265.17,
+        "end": 267.17,
+        "text": "ja powiem, że za zamiast nie wybram,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 267.17,
+        "end": 269.17,
+        "text": "i do shotgun się go nie spiera,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 269.17,
+        "end": 272.17,
+        "text": "zresztąiego z pricznymi nie robimy tutaj."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 272.17,
+        "end": 274.17,
+        "text": "Nara co Didni dajurek ze stoi,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 274.17,
+        "end": 276.17,
+        "text": "ja mu to samo powiem"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 276.17,
+        "end": 278.17,
+        "text": "że ja nie mam teraz pieniędzy,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 278.17,
+        "end": 280.17,
+        "text": "mówi, że coś, że nowe,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 280.17,
+        "end": 283.97,
+        "text": "że znowu, że ze spójdzie przez to nie nie będzie kontrolowane,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 284.47,
+        "end": 289.5,
+        "text": "ja nic nie mam, nie wiem, nie wiem, nie wiem."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 289.9,
+        "end": 292.7,
+        "text": "Ja mogę, mogę wam to pieniądze odradzialać,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 292.7,
+        "end": 294.7,
+        "text": "ale dajcie mi to, ja nie mam czego mam dać."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 295.2,
+        "end": 297.7,
+        "text": "A tym mówi, że spłagzę i to będzie moje."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 298.2,
+        "end": 299.4,
+        "text": "No to co ja mam, to robię."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 299.4,
+        "end": 301.6,
+        "text": "Ja ja naprawdę nie rozwyczaję mi tak kurde."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 301.8,
+        "end": 306.0,
+        "text": "Masz, jest, masz, rybable, trebądzadwo i wytłumasz mi to tak polu,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 306.0,
+        "end": 308.7,
+        "text": "jak kurde, Polak Polakowi."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 308.7,
+        "end": 310.9,
+        "text": "No bo, bo, bo, bo, bo ja ja nie rozumiem."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 310.9,
+        "end": 316.3,
+        "text": "Ja nie wiem, na stronach teżowa w pizją są biura, są firmy w Warszawie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 317.0,
+        "end": 321.8,
+        "text": "które, które właśnie oszukalcie smardzy, tam, live, rack wąt."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 323.2,
+        "end": 326.5,
+        "text": "Nierięć, że ja w końcu w końcu będę na premierze filmu,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 326.5,
+        "end": 330.6,
+        "text": "dziewiątego, czy nie zajdę do tego biura i przez pewien sytuację."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 331.2,
+        "end": 334.1,
+        "text": "Nie wiem, miurek, bo ja już nie wiem, bo są dużo pieniądze,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 334.1,
+        "end": 337.9,
+        "text": "posłaszane przeze mnie, jak to odzyska twoje pieniądze tylko."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 338.5,
+        "end": 341.5,
+        "text": "No i nawet mogę się zwaniać w pramii tezyskiem, kurde,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 341.5,
+        "end": 343.3,
+        "text": "co jest podjęć w sobą na chwilu."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 343.6,
+        "end": 345.3,
+        "text": "To dajcie mi pieniądze moje."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 346.8,
+        "end": 351.3,
+        "text": "Fajnie, fajnie, z pinaganiałem takie pieniądze, długą czy nagania,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 351.3,
+        "end": 353.7,
+        "text": "widziały się, żeśmy w związku z razy zrobili."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 354.0,
+        "end": 356.3,
+        "text": "Nie abyście pieniądze, ale ja też w tym obsłynie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 356.3,
+        "end": 360.2,
+        "text": "nie, ja tego nie rozumiem, dlaczego mam pieniądze,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 360.5,
+        "end": 365.7,
+        "text": "czy płacę w terwie, a rozpieram, a to jest tamto pamięta,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 365.7,
+        "end": 368.9,
+        "text": "tamby się namisz, że mam w tłaj, ja to się nazywało tamto."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 370.1,
+        "end": 372.1,
+        "text": "Dla pierwszym razem to mu ja to miałem płacić,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 372.1,
+        "end": 374.7,
+        "text": "jakaś tam firma, która kompolu jest,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 375.1,
+        "end": 379.3,
+        "text": "bardzo reinta, ten kłol, mkłol, regular, kłol, a teraz,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 379.5,
+        "end": 383.1,
+        "text": "a teraz już nie każdy się nie na to w tłacie, to na na to zimny."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 384.0,
+        "end": 387.1,
+        "text": "Ja pojdzie mi podatokiero, na to się nawet włoź, nawet na,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 387.1,
+        "end": 389.1,
+        "text": "nawet na, nawet na, nawet na, nawet na, nawet na,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 389.1,
+        "end": 392.7,
+        "text": "na, co jego, na, co jego, ociędowego mówisz, że można w płacić,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 392.7,
+        "end": 394.7,
+        "text": "no to, ja to, kurde, nie rozumiem."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 395.1,
+        "end": 398.1,
+        "text": "Czyli mówimy w żośce, nawet ten płacł przedniej,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 398.1,
+        "end": 401.5,
+        "text": "i nie wiem, finansi w tak, który pomyślał z wolnini,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 401.7,
+        "end": 404.7,
+        "text": "to nie kazał nawet mógł, że kurde, w jego po pieniądze."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 405.5,
+        "end": 406.7,
+        "text": "No ja w to jurek."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 408.3,
+        "end": 410.7,
+        "text": "Jero, zaproszę cię, no w punktu, nasanujmy się,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 410.7,
+        "end": 413.5,
+        "text": "no, czy polubiłem, mogliśmy robić działać, ale,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 413.7,
+        "end": 416.5,
+        "text": "a tak nie może być, że ja to się czuję cały czas,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 416.5,
+        "end": 418.3,
+        "text": "jakiś taki wresz o szukany."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 419.8,
+        "end": 422.5,
+        "text": "A pieniądze mam, który teraz budowodowali,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 422.5,
+        "end": 424.5,
+        "text": "i to ja jestem bez pieniędzy,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 424.5,
+        "end": 426.5,
+        "text": "bo życzyłem jeszcze od Syna i,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 426.5,
+        "end": 429.5,
+        "text": "głupią i teraz nie mam szczegomu, odda Ci."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 429.5,
+        "end": 431.5,
+        "text": "Nie możecie w tej części płacia,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 431.5,
+        "end": 433.5,
+        "text": "a ja mam odręci zaraz,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 433.5,
+        "end": 436.5,
+        "text": "przemęli ona, na co trzeba, jeśli takie tworzy potrzebne."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 437.5,
+        "end": 439.5,
+        "text": "No to je konto mogę i przemęć,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 439.5,
+        "end": 442.5,
+        "text": "nie, nie, nie wolno, tak nie wolno."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 442.5,
+        "end": 443.5,
+        "text": "No i w ruchotne."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 443.5,
+        "end": 445.5,
+        "text": "Maszlu riii, riii, rii, rii, nie, nie,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 445.5,
+        "end": 446.5,
+        "text": "masz numer, przywarte,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 446.5,
+        "end": 448.5,
+        "text": "będzie się zauwała, zrób za złyń,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 448.5,
+        "end": 450.5,
+        "text": "to ja to nie rozumiem tego,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 450.5,
+        "end": 452.5,
+        "text": "ale nie rozumiem tego,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 452.5,
+        "end": 454.5,
+        "text": "ale nie rozumiem tego,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 454.5,
+        "end": 456.5,
+        "text": "czyli poszekać do tego szóstego,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 456.5,
+        "end": 457.5,
+        "text": "bo ja nie tak pieniędzy,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 457.5,
+        "end": 458.5,
+        "text": "czy tego nie płacę,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 458.5,
+        "end": 460.5,
+        "text": "bo ja to nie chodzę,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 460.5,
+        "end": 462.5,
+        "text": "to jest w postach o niech w postach,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 462.5,
+        "end": 464.5,
+        "text": "bo niech to jest w twojej,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 464.5,
+        "end": 466.5,
+        "text": "no faktycznie w trzy jasne,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 466.5,
+        "end": 468.5,
+        "text": "tutaj ten ten,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 468.5,
+        "end": 470.5,
+        "text": "żeby po prostu, żeby po prostu"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 470.5,
+        "end": 474.5,
+        "text": "o nim znowu z kierownicją,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 474.5,
+        "end": 476.5,
+        "text": "ten ten znowu, tak,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 476.5,
+        "end": 477.54,
+        "text": "taki подозвонник,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 477.54,
+        "end": 501.0,
+        "text": "normal"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 501.0,
+        "end": 503.5,
+        "text": "i święcia wspólnenia wszystkich,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 503.5,
+        "end": 505.86,
+        "text": "potem tak pradnej, tak i o bykach"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 505.86,
+        "end": 509.18,
+        "text": "wymagania swoje stało się, że się byś oszczą."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 509.18,
+        "end": 511.18,
+        "text": "I lewa dnia i tak."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 511.18,
+        "end": 514.2,
+        "text": "Najważniejsze, że są musia być u nas,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 514.2,
+        "end": 517.7,
+        "text": "u nas z tym czagem, w którym"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 517.7,
+        "end": 520.66,
+        "text": "żyjemy teraz, to byś tysięcy"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 520.66,
+        "end": 522.7,
+        "text": "o w życiu, tak jest."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 522.7,
+        "end": 524.5,
+        "text": "Na tamstans, w rodzinie, w domu,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 524.5,
+        "end": 528.3,
+        "text": "w kraju, tak tam, i za wszystko było ok."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 529.3,
+        "end": 530.9,
+        "text": "Bardzo się dziękuję, no piękne, że"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 530.9,
+        "end": 533.7,
+        "text": "cena dla twojej całej rodzinki również,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 533.7,
+        "end": 537.3,
+        "text": "końcuchki roku, te śliwej no i nowego roku."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 537.3,
+        "end": 540.3,
+        "text": "I ureklopomu, sześć prawie, bo naprawdę ja i akurat"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 540.3,
+        "end": 542.1,
+        "text": "też ze sobą działać, no patrzysz,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 542.1,
+        "end": 544.3,
+        "text": "jakie pieniądze na gronie, ja wydez, no ja wydez,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 544.3,
+        "end": 546.7,
+        "text": "na premierę dziewiątego, tego to też nie będę"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 546.7,
+        "end": 549.5,
+        "text": "miał od razu, od razu dziesiątego jest na sensie,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 549.5,
+        "end": 552.0,
+        "text": "ja my mamy przed premierem w Warszawie."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 552.0,
+        "end": 553.0,
+        "text": "A wy co?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 553.0,
+        "end": 554.2,
+        "text": "To jest prawie, kiedy, że kiedy będzie"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 554.2,
+        "end": 555.2,
+        "text": "w Polsce?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 555.2,
+        "end": 556.2,
+        "text": "W Polsce?"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 558.2,
+        "end": 559.2,
+        "text": "No nie wiem."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 559.2,
+        "end": 561.2,
+        "text": "Nie wiem, nie wiem."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 561.2,
+        "end": 563.2,
+        "text": "Już, jak to ma w wojnę z Privatnego,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 563.2,
+        "end": 565.2,
+        "text": "pokazane, nie by się nie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 565.2,
+        "end": 567.2,
+        "text": "ja się kszertej, co robię, nie ma,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 567.2,
+        "end": 569.2,
+        "text": "to normalny padzę, tylko mojej niemże"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 569.2,
+        "end": 572.2,
+        "text": "a nam zrobić, to mam nic do tego piura prawnego,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 572.2,
+        "end": 574.2,
+        "text": "bo tyle jest tych przykładów,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 574.2,
+        "end": 576.2,
+        "text": "ofisywanych, że to wszystko fajnie z wami"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 576.2,
+        "end": 578.2,
+        "text": "do momentu, tak, ja ma się z Privatnego."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 578.2,
+        "end": 581.2,
+        "text": "Tak, ja się pamiętam,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 581.2,
+        "end": 584.2,
+        "text": "tak, z kiery klomów, które są w internetze, tak?"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 584.2,
+        "end": 588.2,
+        "text": "Oni, oni, oni do nas z wanią,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 588.2,
+        "end": 592.2,
+        "text": "co my się nie mówią, że po nożu,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 592.2,
+        "end": 594.2,
+        "text": "no nie wiem, tam,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 594.2,
+        "end": 596.2,
+        "text": "wszelkie nam, po dnie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 596.2,
+        "end": 598.2,
+        "text": "12 tysięcy chęt zera, żeby byka"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 598.2,
+        "end": 600.2,
+        "text": "z tą ryklową z tą nożu,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 600.2,
+        "end": 605.2,
+        "text": "no to wszystko, nie, ale, ale, ale, ale są takie piura w Warszawie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 605.2,
+        "end": 608.2,
+        "text": "jest adrystany, ja po prostu nie tak tam zajadzę,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 608.2,
+        "end": 611.2,
+        "text": "to patrzę, co to, że oni, oni się chraną,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 611.2,
+        "end": 613.2,
+        "text": "że to skupeczniło."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 613.2,
+        "end": 615.2,
+        "text": "Jeśli uregno te wszystko legalne,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 615.2,
+        "end": 618.2,
+        "text": "fajne i będzieła się, jest nie jesie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 618.2,
+        "end": 620.2,
+        "text": "bo wiesz, jak ja do was dotarłem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 620.2,
+        "end": 622.2,
+        "text": "to jest nie dotarłem przez nie wiem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 622.2,
+        "end": 625.2,
+        "text": "biuro, pasę, tylko przez jakiś,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 625.2,
+        "end": 627.2,
+        "text": "jakiś szejk, kustzony,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 627.2,
+        "end": 630.2,
+        "text": "za tam gdzieś ktoś miałem indystować"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 630.2,
+        "end": 634.2,
+        "text": "te, te, te, zgasch chyba,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 634.2,
+        "end": 637.2,
+        "text": "a tu okazało się, że to w coś na, na prowadza,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 637.2,
+        "end": 639.2,
+        "text": "ludzie się na to chwytają,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 639.2,
+        "end": 641.2,
+        "text": "ale nie mówię, że teraz po nie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 641.2,
+        "end": 643.2,
+        "text": "bo mi się, że to działa, że kąt pojeżdż,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 643.2,
+        "end": 645.2,
+        "text": "że można kupować, że bawać,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 645.2,
+        "end": 647.2,
+        "text": "ale, ale no, mówię, to jest tyle niedomówie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 647.2,
+        "end": 649.2,
+        "text": "nie, że no, tu zwanacz,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 649.2,
+        "end": 651.2,
+        "text": "ja w pierwszym, że jest chopekacie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 651.2,
+        "end": 653.2,
+        "text": "ja nie jestem, bo garszym,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 653.2,
+        "end": 655.2,
+        "text": "będę miał teraz ten nobim, on, że nie bawę fajne,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 655.2,
+        "end": 657.2,
+        "text": "ale, by bym zainwestować,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 657.2,
+        "end": 660.2,
+        "text": "bo ma, ale, ale i uregno zrób coś,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 660.2,
+        "end": 663.2,
+        "text": "żeby to w kumne, że, w coś tym ruszyło."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 663.2,
+        "end": 665.2,
+        "text": "Dobra, no, dobra, leżą mi,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 665.2,
+        "end": 668.2,
+        "text": "już, no i, ale, jak będzie naprawdę,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 668.2,
+        "end": 672.2,
+        "text": "miał chwilę to, w to, z, nie wiem,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 672.2,
+        "end": 674.2,
+        "text": "drugi, czy, czy, nie, drugi, drugi,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 674.2,
+        "end": 676.2,
+        "text": "w to ci, w to jest krywaknego,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 676.2,
+        "end": 677.2,
+        "text": "w kugatanych."
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 677.2,
+        "end": 679.2,
+        "text": "Dobra, ok, no, ok,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 679.2,
+        "end": 681.2,
+        "text": "już, w kugie, ale, wiem, cał,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 681.2,
+        "end": 683.2,
+        "text": "ciedli, cał, po, w ojdzie,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 683.2,
+        "end": 685.2,
+        "text": "po, w ojdzie, po, ok, tak, tak,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 685.2,
+        "end": 687.2,
+        "text": "do, ruszenia, no, trzymaj się,"
+      },
+      {
+        "speaker": "Speaker 2",
+        "start": 687.2,
+        "end": 688.2,
+        "text": "cześć, trzymaj się,"
+      }
+    ]
+  }
+}

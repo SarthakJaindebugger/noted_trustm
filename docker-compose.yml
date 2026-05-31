@@ -10,8 +10,13 @@ services:
       - DOMAIN=${DOMAIN:-localhost}
       - DATABASE_URL=sqlite+aiosqlite:///./noted.db
       - HF_TOKEN=dummy
+      # User login
       - DEMO_LOGIN=${DEMO_LOGIN:-demo}
       - DEMO_PASSWORD=${DEMO_PASSWORD:-demo1}
+      # Admin login
+      - ADMIN_LOGIN=${ADMIN_LOGIN:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      # Qdrant
       - QDRANT_URL=http://qdrant:6333
 
       # --- Ollama endpoints (running on host) ---

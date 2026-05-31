@@ -1,0 +1,1088 @@
+{
+  "audio_file": "/Users/sarthakjain/Desktop/ML Projects/noted-main/noted_s2t_pipeline/Lucy_audio_dialoges/dia01sce1MC.WAV",
+  "processed_at": "2026-05-26T09:45:15.443048+00:00",
+  "language": "en",
+  "timestamps": {
+    "conversation_start": "00:00:00",
+    "conversation_end": "00:11:48",
+    "duration_seconds": 708.68,
+    "duration_minutes": 11.81,
+    "duration_formatted": "11 min 48 sec",
+    "start_raw_seconds": 0.3,
+    "end_raw_seconds": 708.98
+  },
+  "fact_sheet": "Based on the conversation, here is a fact sheet about Finland's childcare and education system:\n\n**Overview**\n\n* Finland has a comprehensive childcare and education system that provides free meals to all children.\n* The system is designed to support working parents and ensure that all children have access to quality care and education.\n\n**Key Features**\n\n* All children in Finland are entitled to free meals at childcare centers and schools.\n* Meals are provided for breakfast, lunch, and snacks.\n* Childcare centers and schools provide a safe and nurturing environment for children.\n* The system is designed to support working parents and ensure that all children have access to quality care and education.\n\n**Application Process**\n\n* To apply for childcare or education services in Finland, parents must register their child on the S-Positiv website.\n* Parents can choose from various options, including municipal childcare centers and private childcare providers.\n* The application process is online, and parents can check availability and waitlists through the S-Positiv website.\n\n**Shift Care Option**\n\n* For parents who work non-traditional hours or need flexible care arrangements, Finland offers a shift care option.\n* This option provides childcare services on an as-needed basis for parents who are working late shifts or have irregular schedules.\n* Meals are provided for children in the shift care program.\n\n**Income Dependence**\n\n* The childcare and education system in Finland is not dependent on income.\n* However, some private childcare providers may charge fees based on family income.\n\n**Additional Information**\n\n* For more information about Finland's childcare and education system, parents can visit the S-PRO website.\n* Parents can also contact their local municipality or childcare center for more information and to apply for services.",
+  "extracted_answers": {
+    "control_location": "S-Positiv\nS-PRO",
+    "visit_datetime": "No date and time information was found in the fact sheet. \n\nEmpty string.",
+    "visit_duration": "11 min 48 sec",
+    "contact_method": "Telephone conversation (call, WhatsApp)",
+    "heard_from": "Social media.",
+    "where_if_other": "Since there is no mention of field work or a customer being visited outside the office in the fact sheet, I will return an empty string. \n\n",
+    "number_of_customers": "1",
+    "gender": "No information",
+    "age_group": "No information",
+    "reason_for_immigration": "None. The fact sheet does not mention immigration reasons.",
+    "additional_info": "There are no special circumstances mentioned in the fact sheet. \n\nIlliterate; Paperless; Tourist; Ukraine crisis",
+    "country_of_birth": "Finland",
+    "mother_tongue": "",
+    "education_level": "No information",
+    "labor_market_position": "No information",
+    "customer_domicile": "",
+    "residence_in_finland": "Less than 3 years",
+    "topics_of_discussion": "Benefits (e.g. Kela); Matters related to education; Family life; Health care; Income Dependence; Legal matters; Residence; Social affairs",
+    "purpose_of_visit": "Initial interview; Filling out forms; Clarifying decisions and processes; Contacting an authority or another entity; Other guidance and support",
+    "additional_notes": "Here is a 1-3 sentence factual summary of what happened during this customer visit:\n\nA parent visited Finland's childcare and education system to inquire about available options for their child. The advisor provided information on the application process, shift care option, and income independence features of the system, as well as resources for further information and support. The parent was able to register their child online and explore various childcare center and school options through the S-Positiv website.",
+    "referrals": "Digital and Population Information Agency; Therefore, the answer is:; empty string",
+    "other_feedback": "There is no additional feedback, training needs mentioned, or remarks from the advisor in the provided fact sheet."
+  },
+  "transcript": {
+    "text": "Speaker 1 [00:00:00-00:00:02]: Now, I'm going to do a clap.\nSpeaker 1 [00:00:02-00:00:04]: Yeah, we can.\nSpeaker 1 [00:00:04-00:00:07]: Yeah, so action.\nSpeaker 1 [00:00:07-00:00:10]: Hi.\nSpeaker 1 [00:00:10-00:00:11]: Hi.\nSpeaker 1 [00:00:11-00:00:12]: Hi.\nSpeaker 1 [00:00:12-00:00:14]: Sorry, nice to meet you.\nSpeaker 1 [00:00:14-00:00:15]: You too.\nSpeaker 1 [00:00:15-00:00:16]: Hi, honey.\nSpeaker 1 [00:00:16-00:00:19]: I came here with a lot of questions.\nSpeaker 1 [00:00:19-00:00:21]: That's fine, that's why we're here.\nSpeaker 1 [00:00:21-00:00:22]: Okay, great.\nSpeaker 1 [00:00:22-00:00:23]: Can you help you?\nSpeaker 1 [00:00:23-00:00:27]: Okay, so my situation right now is my grant.\nSpeaker 1 [00:00:27-00:00:28]: Okay.\nSpeaker 1 [00:00:28-00:00:30]: And I have a full time job.\nSpeaker 1 [00:00:30-00:00:31]: Okay.\nSpeaker 1 [00:00:31-00:00:32]: And I have a children.\nSpeaker 1 [00:00:32-00:00:33]: Okay.\nSpeaker 1 [00:00:33-00:00:34]: A child.\nSpeaker 1 [00:00:34-00:00:37]: She is three years old and I'm looking for a child care option.\nSpeaker 1 [00:00:37-00:00:38]: Okay.\nSpeaker 1 [00:00:38-00:00:41]: I don't know if you can help me a bit, we just arrive here.\nSpeaker 1 [00:00:41-00:00:42]: We don't know the language.\nSpeaker 1 [00:00:42-00:00:43]: It's fine, that's fine.\nSpeaker 1 [00:00:43-00:00:45]: Of course, we can find some help.\nSpeaker 1 [00:00:45-00:00:50]: So, of course, maybe you could have a look at what I'm doing.\nSpeaker 1 [00:00:50-00:00:53]: So, you know, you'll see how to find this information.\nSpeaker 1 [00:00:53-00:00:56]: So, easiest thing would be, you know,\nSpeaker 1 [00:00:56-00:00:59]: you can just do a Google search.\nSpeaker 1 [00:00:59-00:01:04]: You say, so you try to find a kindergarten for kids in a school.\nSpeaker 1 [00:01:04-00:01:09]: And maybe more like a child care, I think she's like three years old\nSpeaker 1 [00:01:09-00:01:11]: and I'm looking for a kindergarten.\nSpeaker 1 [00:01:11-00:01:14]: At what time do, at what age do they start in kindergarten?\nSpeaker 1 [00:01:14-00:01:15]: Right, let's see.\nSpeaker 1 [00:01:15-00:01:17]: So, we have this day here as a tool.\nSpeaker 1 [00:01:17-00:01:30]: Okay, so I'm seeing here, like, there are the cars open that is going\nSpeaker 1 [00:01:30-00:01:33]: from like 630 and 616.\nSpeaker 1 [00:01:33-00:01:38]: So, you know, there's like any extensions or something,\nSpeaker 1 [00:01:38-00:01:50]: maybe opening hours or it's a berry, that's great.\nSpeaker 1 [00:01:50-00:01:51]: Yeah, you're kidding me.\nSpeaker 1 [00:01:51-00:01:54]: So, are you working full-time or part-time, right?\nSpeaker 1 [00:01:54-00:01:56]: I'm working full-time right now.\nSpeaker 1 [00:01:56-00:01:57]: Okay, that's fine.\nSpeaker 1 [00:01:57-00:02:01]: So, I was supposed to be finishing up five probably\nSpeaker 1 [00:02:01-00:02:06]: and it's great that it starts early so I can have time to go to my job and everything.\nSpeaker 1 [00:02:06-00:02:09]: And do you know if there's like a lot of...\nSpeaker 1 [00:02:09-00:02:11]: Yeah, so this is actually...\nSpeaker 1 [00:02:11-00:02:14]: So, this provided free of charge by the city.\nSpeaker 1 [00:02:14-00:02:20]: So, as you can see here, you can apply through the city for this service.\nSpeaker 1 [00:02:20-00:02:25]: Since you are working full-time and there's no one else who like to take care of your child,\nSpeaker 1 [00:02:25-00:02:28]: you can get this service free.\nSpeaker 1 [00:02:28-00:02:39]: So, as you can see here, we can apply for this service through this link.\nSpeaker 1 [00:02:39-00:02:47]: Okay, I do.\nSpeaker 1 [00:02:47-00:02:53]: Okay, so this is if you ask about the times, like what if you are working in the night?\nSpeaker 1 [00:02:53-00:02:57]: Then there's something else, an additional service called Shift Care.\nSpeaker 1 [00:02:57-00:03:01]: Let's say if you're working in the night, so in the weekends,\nSpeaker 1 [00:03:01-00:03:04]: so then you can find information right here.\nSpeaker 1 [00:03:04-00:03:05]: That's great.\nSpeaker 1 [00:03:05-00:03:09]: But let's see, I'm just trying to find the ages,\nSpeaker 1 [00:03:09-00:03:15]: does he ask about that?\nSpeaker 1 [00:03:15-00:03:17]: Well, also, all the other things that I want to ask is,\nSpeaker 1 [00:03:17-00:03:19]: are you going to keep them food?\nSpeaker 1 [00:03:19-00:03:21]: Do I need to pay extra?\nSpeaker 1 [00:03:21-00:03:23]: How does it work?\nSpeaker 1 [00:03:23-00:03:51]: Okay, let's find out.\nSpeaker 1 [00:03:51-00:03:53]: I think you're still falling into this one.\nSpeaker 1 [00:03:53-00:04:02]: Let me just see if we can add that.\nSpeaker 1 [00:04:02-00:04:04]: Look at it, that's great.\nSpeaker 1 [00:04:04-00:04:10]: Yeah, because I'm a migrant, so we don't really speak Finnish,\nSpeaker 1 [00:04:10-00:04:13]: so if you can also get a million of shams about which languages do you speak,\nSpeaker 1 [00:04:13-00:04:16]: are you going to teach them English?\nSpeaker 1 [00:04:16-00:04:18]: Yes, so.\nSpeaker 1 [00:04:18-00:04:27]: Yeah, actually the service, given free of charge is actually using Finnish and Swedish.\nSpeaker 1 [00:04:27-00:04:29]: Okay.\nSpeaker 1 [00:04:29-00:04:36]: You do have Finnish and English, you can use English in some like, you know,\nSpeaker 1 [00:04:36-00:04:44]: the AK centers, but if you're looking for a completely 100% English-operated,\nSpeaker 1 [00:04:44-00:04:48]: like, you know, the AK center, then you'll actually have to look for a private one,\nSpeaker 1 [00:04:48-00:04:50]: where you have to pay them like a fee.\nSpeaker 1 [00:04:50-00:05:00]: If I want her to learn Finnish, can I just have a part,\nSpeaker 1 [00:05:00-00:05:02]: English part, Finnish part or...\nSpeaker 1 [00:05:02-00:05:10]: Yeah, so this, as I mentioned, the AK centers actually conducted in Finnish and Swedish.\nSpeaker 1 [00:05:10-00:05:13]: So either Finnish or Swedish might be combination,\nSpeaker 1 [00:05:13-00:05:16]: so they will always like, you know, teach them Finnish.\nSpeaker 1 [00:05:16-00:05:18]: Okay, great, I think.\nSpeaker 1 [00:05:18-00:05:23]: But only thing is like, they are not like, you know, 100% working in English language.\nSpeaker 1 [00:05:23-00:05:27]: And can you tell me something about the education or like something,\nSpeaker 1 [00:05:27-00:05:32]: or how they can get into, like, the future school options, you know, what we...\nSpeaker 1 [00:05:32-00:05:37]: Of course, yeah, so once they like, you know, complete, once they reach the age of seven,\nSpeaker 1 [00:05:37-00:05:38]: Okay.\nSpeaker 1 [00:05:38-00:05:40]: That's when we start school in Finland.\nSpeaker 1 [00:05:40-00:05:41]: Okay.\nSpeaker 1 [00:05:41-00:05:43]: You know, it might be different in some countries, I understand,\nSpeaker 1 [00:05:43-00:05:46]: but in Finland it's at, when you reach age seven,\nSpeaker 1 [00:05:46-00:05:53]: so actually, you can actually apply to join as soon as you complete, like,\nSpeaker 1 [00:05:53-00:05:58]: as soon as you reach your age after you pass the, they eventually apply.\nSpeaker 1 [00:05:58-00:06:03]: That information can be again found here on the S-Positiv website.\nSpeaker 1 [00:06:03-00:06:04]: Okay.\nSpeaker 1 [00:06:04-00:06:07]: And you go to education.\nSpeaker 1 [00:06:07-00:06:11]: You have, see, I have pre-prime of education.\nSpeaker 1 [00:06:12-00:06:17]: And if you go into applying for municipal, early childhood education,\nSpeaker 1 [00:06:17-00:06:21]: you have all the information given in this link of course, as you...\nSpeaker 1 [00:06:21-00:06:25]: So we came to this link through Google, so we can easily find this again,\nSpeaker 1 [00:06:25-00:06:30]: if you're looking for this information, you have how to apply for a place.\nSpeaker 1 [00:06:30-00:06:33]: So usually what happens is when you apply, like, you know,\nSpeaker 1 [00:06:33-00:06:36]: you get some place that's close by to you,\nSpeaker 1 [00:06:36-00:06:40]: it depends on the distance and availability of course.\nSpeaker 1 [00:06:40-00:06:45]: And can I apply to this, for its child care,\nSpeaker 1 [00:06:45-00:06:48]: even if I don't leave near the place?\nSpeaker 1 [00:06:48-00:06:51]: So that's actually the, once you apply,\nSpeaker 1 [00:06:51-00:06:55]: the city will actually decide based on your address,\nSpeaker 1 [00:06:55-00:06:59]: because I believe, first of all, you have registered address in S-Positiv.\nSpeaker 1 [00:06:59-00:07:03]: So they will check like the locations close by,\nSpeaker 1 [00:07:03-00:07:05]: and based on distance and availability,\nSpeaker 1 [00:07:05-00:07:08]: they will like, find you like a place that's close by.\nSpeaker 1 [00:07:08-00:07:12]: Of course, with their care centers, sometimes you face,\nSpeaker 1 [00:07:12-00:07:15]: there can be like a delay in finding one,\nSpeaker 1 [00:07:15-00:07:19]: in which case you might have like, you know, for a private one,\nSpeaker 1 [00:07:19-00:07:23]: if that's the case, or you have like take care of your child on your own,\nSpeaker 1 [00:07:23-00:07:26]: unfortunately, until you can find something for you.\nSpeaker 1 [00:07:26-00:07:33]: But what they will do is they will provide, as soon as a slot opens up,\nSpeaker 1 [00:07:33-00:07:35]: they will give you like the option which is like close by,\nSpeaker 1 [00:07:35-00:07:37]: and so your kid doesn't have like, you know,\nSpeaker 1 [00:07:37-00:07:39]: a travel for a long distance.\nSpeaker 1 [00:07:39-00:07:48]: As mentioned here, so, okay, yeah,\nSpeaker 1 [00:07:48-00:07:50]: say the child must have finished personal identity code,\nSpeaker 1 [00:07:50-00:07:53]: that's like the requirement, and you should have like,\nSpeaker 1 [00:07:53-00:07:56]: a address registered in S-Positiv,\nSpeaker 1 [00:07:56-00:07:58]: those are like the requirement, they're looking for.\nSpeaker 1 [00:07:58-00:08:01]: Can you tell me more about the food there,\nSpeaker 1 [00:08:01-00:08:04]: how would this work, just a final question?\nSpeaker 1 [00:08:04-00:08:08]: Yeah, so they do provide like,\nSpeaker 1 [00:08:08-00:08:15]: and actually let's do search for them.\nSpeaker 1 [00:08:15-00:09:11]: So I think it's staying a bit, trying to find this out.\nSpeaker 1 [00:09:11-00:10:15]: Yeah, so I think when it comes to meals,\nSpeaker 1 [00:10:15-00:10:18]: it's given to all the kids in Finland,\nSpeaker 1 [00:10:18-00:10:20]: so it's not a lot of like, city-specific one,\nSpeaker 1 [00:10:20-00:10:23]: that's why you're like not able to find it, type of it.\nSpeaker 1 [00:10:23-00:10:24]: Okay.\nSpeaker 1 [00:10:24-00:10:27]: So all the kids like, in Finland actually are entitled\nSpeaker 1 [00:10:27-00:10:30]: to get meals at childcare and even in school.\nSpeaker 1 [00:10:30-00:10:31]: Really for free?\nSpeaker 1 [00:10:31-00:10:32]: Yes.\nSpeaker 1 [00:10:32-00:10:33]: Okay, that's very good.\nSpeaker 1 [00:10:33-00:10:41]: What if there's like, I stay longer,\nSpeaker 1 [00:10:41-00:10:45]: like if they stay outside of office,\nSpeaker 1 [00:10:45-00:10:48]: do we still have dinner and all those kind of things?\nSpeaker 1 [00:10:48-00:10:51]: So then if you opt for this shift care,\nSpeaker 1 [00:10:51-00:10:58]: yeah, if you opt for the shift care option,\nSpeaker 1 [00:10:58-00:11:01]: you're selected, that's like, you're doing like a nice shift,\nSpeaker 1 [00:11:01-00:11:03]: yeah, then they get meals.\nSpeaker 1 [00:11:03-00:11:04]: Okay, we get meals with meals.\nSpeaker 1 [00:11:04-00:11:07]: So if you do like, you know, evenings, night, weekends.\nSpeaker 1 [00:11:07-00:11:11]: Okay, that's great, and thank you so much.\nSpeaker 1 [00:11:11-00:11:15]: And I just need to apply and it will depend on where I leave, right?\nSpeaker 1 [00:11:15-00:11:16]: Yes.\nSpeaker 1 [00:11:16-00:11:19]: Does it depend also on income or?\nSpeaker 1 [00:11:19-00:11:21]: This service does not depend on income,\nSpeaker 1 [00:11:21-00:11:24]: but if you actually apply for like a private,\nSpeaker 1 [00:11:24-00:11:28]: yeah, like childcare, then the fee,\nSpeaker 1 [00:11:28-00:11:30]: I feel it might depend on you.\nSpeaker 1 [00:11:30-00:11:31]: Okay.\nSpeaker 1 [00:11:31-00:11:33]: Okay, well, I think that's all the questions I have.\nSpeaker 1 [00:11:33-00:11:34]: Thank you so much.\nSpeaker 1 [00:11:34-00:11:36]: I hope I was helpful, but of course,\nSpeaker 1 [00:11:36-00:11:39]: we'll do like, you know, for the S-PRO website,\nSpeaker 1 [00:11:39-00:11:40]: for more information.\nSpeaker 1 [00:11:40-00:11:41]: Thank you.\nSpeaker 1 [00:11:41-00:11:42]: Thank you so much.\nSpeaker 1 [00:11:42-00:11:43]: Okay, nice.\nSpeaker 1 [00:11:43-00:11:45]: Okay.\nSpeaker 1 [00:11:45-00:11:46]: Thank you.\nSpeaker 1 [00:11:46-00:11:47]: Yeah.\nSpeaker 1 [00:11:47-00:11:48]: Thanks.",
+    "segments": [
+      {
+        "speaker": "Speaker 1",
+        "start": 0.3,
+        "end": 2.3,
+        "text": "Now, I'm going to do a clap."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 2.3,
+        "end": 4.3,
+        "text": "Yeah, we can."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 4.3,
+        "end": 7.3,
+        "text": "Yeah, so action."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 7.3,
+        "end": 10.1,
+        "text": "Hi."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 10.1,
+        "end": 11.1,
+        "text": "Hi."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 11.1,
+        "end": 12.1,
+        "text": "Hi."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 12.1,
+        "end": 14.1,
+        "text": "Sorry, nice to meet you."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 14.1,
+        "end": 15.1,
+        "text": "You too."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 15.1,
+        "end": 16.1,
+        "text": "Hi, honey."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 16.1,
+        "end": 19.1,
+        "text": "I came here with a lot of questions."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 19.1,
+        "end": 21.1,
+        "text": "That's fine, that's why we're here."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 21.1,
+        "end": 22.1,
+        "text": "Okay, great."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 22.1,
+        "end": 23.1,
+        "text": "Can you help you?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 23.1,
+        "end": 27.1,
+        "text": "Okay, so my situation right now is my grant."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 27.1,
+        "end": 28.1,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 28.1,
+        "end": 30.1,
+        "text": "And I have a full time job."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 30.1,
+        "end": 31.1,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 31.1,
+        "end": 32.1,
+        "text": "And I have a children."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 32.1,
+        "end": 33.1,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 33.1,
+        "end": 34.1,
+        "text": "A child."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 34.1,
+        "end": 37.1,
+        "text": "She is three years old and I'm looking for a child care option."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 37.1,
+        "end": 38.1,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 38.1,
+        "end": 41.1,
+        "text": "I don't know if you can help me a bit, we just arrive here."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 41.1,
+        "end": 42.1,
+        "text": "We don't know the language."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 42.1,
+        "end": 43.1,
+        "text": "It's fine, that's fine."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 43.1,
+        "end": 45.1,
+        "text": "Of course, we can find some help."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 45.1,
+        "end": 50.1,
+        "text": "So, of course, maybe you could have a look at what I'm doing."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 50.1,
+        "end": 53.1,
+        "text": "So, you know, you'll see how to find this information."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 53.1,
+        "end": 56.1,
+        "text": "So, easiest thing would be, you know,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 56.1,
+        "end": 59.1,
+        "text": "you can just do a Google search."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 59.1,
+        "end": 64.1,
+        "text": "You say, so you try to find a kindergarten for kids in a school."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 64.1,
+        "end": 69.1,
+        "text": "And maybe more like a child care, I think she's like three years old"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 69.1,
+        "end": 71.1,
+        "text": "and I'm looking for a kindergarten."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 71.1,
+        "end": 74.1,
+        "text": "At what time do, at what age do they start in kindergarten?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 74.1,
+        "end": 75.1,
+        "text": "Right, let's see."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 75.1,
+        "end": 77.1,
+        "text": "So, we have this day here as a tool."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 77.1,
+        "end": 90.7,
+        "text": "Okay, so I'm seeing here, like, there are the cars open that is going"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 90.7,
+        "end": 93.7,
+        "text": "from like 630 and 616."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 93.7,
+        "end": 98.7,
+        "text": "So, you know, there's like any extensions or something,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 98.7,
+        "end": 110.63,
+        "text": "maybe opening hours or it's a berry, that's great."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 110.63,
+        "end": 111.63,
+        "text": "Yeah, you're kidding me."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 111.63,
+        "end": 114.63,
+        "text": "So, are you working full-time or part-time, right?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 114.63,
+        "end": 116.63,
+        "text": "I'm working full-time right now."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 116.63,
+        "end": 117.63,
+        "text": "Okay, that's fine."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 117.63,
+        "end": 121.63,
+        "text": "So, I was supposed to be finishing up five probably"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 121.63,
+        "end": 126.63,
+        "text": "and it's great that it starts early so I can have time to go to my job and everything."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 126.63,
+        "end": 129.63,
+        "text": "And do you know if there's like a lot of..."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 129.63,
+        "end": 131.63,
+        "text": "Yeah, so this is actually..."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 131.63,
+        "end": 134.63,
+        "text": "So, this provided free of charge by the city."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 134.63,
+        "end": 140.63,
+        "text": "So, as you can see here, you can apply through the city for this service."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 140.63,
+        "end": 145.63,
+        "text": "Since you are working full-time and there's no one else who like to take care of your child,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 145.63,
+        "end": 148.63,
+        "text": "you can get this service free."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 148.63,
+        "end": 159.22,
+        "text": "So, as you can see here, we can apply for this service through this link."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 159.22,
+        "end": 167.47,
+        "text": "Okay, I do."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 167.47,
+        "end": 173.47,
+        "text": "Okay, so this is if you ask about the times, like what if you are working in the night?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 173.47,
+        "end": 177.47,
+        "text": "Then there's something else, an additional service called Shift Care."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 177.47,
+        "end": 181.47,
+        "text": "Let's say if you're working in the night, so in the weekends,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 181.47,
+        "end": 184.47,
+        "text": "so then you can find information right here."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 184.47,
+        "end": 185.47,
+        "text": "That's great."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 185.47,
+        "end": 189.47,
+        "text": "But let's see, I'm just trying to find the ages,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 189.47,
+        "end": 195.98,
+        "text": "does he ask about that?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 195.98,
+        "end": 197.98,
+        "text": "Well, also, all the other things that I want to ask is,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 197.98,
+        "end": 199.98,
+        "text": "are you going to keep them food?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 199.98,
+        "end": 201.98,
+        "text": "Do I need to pay extra?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 201.98,
+        "end": 203.98,
+        "text": "How does it work?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 203.98,
+        "end": 231.65,
+        "text": "Okay, let's find out."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 231.65,
+        "end": 233.65,
+        "text": "I think you're still falling into this one."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 233.65,
+        "end": 242.91,
+        "text": "Let me just see if we can add that."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 242.91,
+        "end": 244.91,
+        "text": "Look at it, that's great."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 244.91,
+        "end": 250.99,
+        "text": "Yeah, because I'm a migrant, so we don't really speak Finnish,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 250.99,
+        "end": 253.99,
+        "text": "so if you can also get a million of shams about which languages do you speak,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 253.99,
+        "end": 256.99,
+        "text": "are you going to teach them English?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 256.99,
+        "end": 258.99,
+        "text": "Yes, so."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 258.99,
+        "end": 267.99,
+        "text": "Yeah, actually the service, given free of charge is actually using Finnish and Swedish."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 267.99,
+        "end": 269.99,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 269.99,
+        "end": 276.99,
+        "text": "You do have Finnish and English, you can use English in some like, you know,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 276.99,
+        "end": 284.99,
+        "text": "the AK centers, but if you're looking for a completely 100% English-operated,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 284.99,
+        "end": 288.99,
+        "text": "like, you know, the AK center, then you'll actually have to look for a private one,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 288.99,
+        "end": 290.99,
+        "text": "where you have to pay them like a fee."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 290.99,
+        "end": 300.09,
+        "text": "If I want her to learn Finnish, can I just have a part,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 300.09,
+        "end": 302.09,
+        "text": "English part, Finnish part or..."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 302.09,
+        "end": 310.09,
+        "text": "Yeah, so this, as I mentioned, the AK centers actually conducted in Finnish and Swedish."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 310.09,
+        "end": 313.09,
+        "text": "So either Finnish or Swedish might be combination,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 313.09,
+        "end": 316.09,
+        "text": "so they will always like, you know, teach them Finnish."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 316.09,
+        "end": 318.09,
+        "text": "Okay, great, I think."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 318.09,
+        "end": 323.09,
+        "text": "But only thing is like, they are not like, you know, 100% working in English language."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 323.09,
+        "end": 327.09,
+        "text": "And can you tell me something about the education or like something,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 327.09,
+        "end": 332.09,
+        "text": "or how they can get into, like, the future school options, you know, what we..."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 332.09,
+        "end": 337.09,
+        "text": "Of course, yeah, so once they like, you know, complete, once they reach the age of seven,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 337.09,
+        "end": 338.09,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 338.09,
+        "end": 340.09,
+        "text": "That's when we start school in Finland."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 340.09,
+        "end": 341.09,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 341.09,
+        "end": 343.09,
+        "text": "You know, it might be different in some countries, I understand,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 343.09,
+        "end": 346.09,
+        "text": "but in Finland it's at, when you reach age seven,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 346.09,
+        "end": 353.09,
+        "text": "so actually, you can actually apply to join as soon as you complete, like,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 353.09,
+        "end": 358.09,
+        "text": "as soon as you reach your age after you pass the, they eventually apply."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 358.09,
+        "end": 363.09,
+        "text": "That information can be again found here on the S-Positiv website."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 363.09,
+        "end": 364.09,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 364.09,
+        "end": 367.09,
+        "text": "And you go to education."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 367.09,
+        "end": 371.09,
+        "text": "You have, see, I have pre-prime of education."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 372.09,
+        "end": 377.09,
+        "text": "And if you go into applying for municipal, early childhood education,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 377.09,
+        "end": 381.09,
+        "text": "you have all the information given in this link of course, as you..."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 381.09,
+        "end": 385.09,
+        "text": "So we came to this link through Google, so we can easily find this again,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 385.09,
+        "end": 390.09,
+        "text": "if you're looking for this information, you have how to apply for a place."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 390.09,
+        "end": 393.09,
+        "text": "So usually what happens is when you apply, like, you know,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 393.09,
+        "end": 396.09,
+        "text": "you get some place that's close by to you,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 396.09,
+        "end": 400.09,
+        "text": "it depends on the distance and availability of course."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 400.09,
+        "end": 405.09,
+        "text": "And can I apply to this, for its child care,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 405.09,
+        "end": 408.09,
+        "text": "even if I don't leave near the place?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 408.09,
+        "end": 411.09,
+        "text": "So that's actually the, once you apply,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 411.09,
+        "end": 415.09,
+        "text": "the city will actually decide based on your address,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 415.09,
+        "end": 419.09,
+        "text": "because I believe, first of all, you have registered address in S-Positiv."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 419.09,
+        "end": 423.09,
+        "text": "So they will check like the locations close by,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 423.09,
+        "end": 425.09,
+        "text": "and based on distance and availability,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 425.09,
+        "end": 428.09,
+        "text": "they will like, find you like a place that's close by."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 428.09,
+        "end": 432.09,
+        "text": "Of course, with their care centers, sometimes you face,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 432.09,
+        "end": 435.09,
+        "text": "there can be like a delay in finding one,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 435.09,
+        "end": 439.09,
+        "text": "in which case you might have like, you know, for a private one,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 439.09,
+        "end": 443.09,
+        "text": "if that's the case, or you have like take care of your child on your own,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 443.09,
+        "end": 446.09,
+        "text": "unfortunately, until you can find something for you."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 446.09,
+        "end": 453.43,
+        "text": "But what they will do is they will provide, as soon as a slot opens up,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 453.43,
+        "end": 455.43,
+        "text": "they will give you like the option which is like close by,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 455.43,
+        "end": 457.43,
+        "text": "and so your kid doesn't have like, you know,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 457.43,
+        "end": 459.43,
+        "text": "a travel for a long distance."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 459.43,
+        "end": 468.34,
+        "text": "As mentioned here, so, okay, yeah,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 468.34,
+        "end": 470.34,
+        "text": "say the child must have finished personal identity code,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 470.34,
+        "end": 473.34,
+        "text": "that's like the requirement, and you should have like,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 473.34,
+        "end": 476.34,
+        "text": "a address registered in S-Positiv,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 476.34,
+        "end": 478.34,
+        "text": "those are like the requirement, they're looking for."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 478.34,
+        "end": 481.65,
+        "text": "Can you tell me more about the food there,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 481.65,
+        "end": 484.65,
+        "text": "how would this work, just a final question?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 484.65,
+        "end": 488.65,
+        "text": "Yeah, so they do provide like,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 488.65,
+        "end": 495.53,
+        "text": "and actually let's do search for them."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 495.53,
+        "end": 551.34,
+        "text": "So I think it's staying a bit, trying to find this out."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 551.34,
+        "end": 615.52,
+        "text": "Yeah, so I think when it comes to meals,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 615.52,
+        "end": 618.52,
+        "text": "it's given to all the kids in Finland,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 618.52,
+        "end": 620.52,
+        "text": "so it's not a lot of like, city-specific one,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 620.52,
+        "end": 623.52,
+        "text": "that's why you're like not able to find it, type of it."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 623.52,
+        "end": 624.52,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 624.52,
+        "end": 627.52,
+        "text": "So all the kids like, in Finland actually are entitled"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 627.52,
+        "end": 630.52,
+        "text": "to get meals at childcare and even in school."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 630.52,
+        "end": 631.52,
+        "text": "Really for free?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 631.52,
+        "end": 632.52,
+        "text": "Yes."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 632.52,
+        "end": 633.52,
+        "text": "Okay, that's very good."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 633.52,
+        "end": 641.74,
+        "text": "What if there's like, I stay longer,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 641.74,
+        "end": 645.74,
+        "text": "like if they stay outside of office,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 645.74,
+        "end": 648.74,
+        "text": "do we still have dinner and all those kind of things?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 648.74,
+        "end": 651.74,
+        "text": "So then if you opt for this shift care,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 651.74,
+        "end": 658.74,
+        "text": "yeah, if you opt for the shift care option,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 658.74,
+        "end": 661.74,
+        "text": "you're selected, that's like, you're doing like a nice shift,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 661.74,
+        "end": 663.74,
+        "text": "yeah, then they get meals."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 663.74,
+        "end": 664.74,
+        "text": "Okay, we get meals with meals."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 664.74,
+        "end": 667.74,
+        "text": "So if you do like, you know, evenings, night, weekends."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 667.74,
+        "end": 671.31,
+        "text": "Okay, that's great, and thank you so much."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 671.31,
+        "end": 675.31,
+        "text": "And I just need to apply and it will depend on where I leave, right?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 675.31,
+        "end": 676.31,
+        "text": "Yes."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 676.31,
+        "end": 679.31,
+        "text": "Does it depend also on income or?"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 679.31,
+        "end": 681.31,
+        "text": "This service does not depend on income,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 681.31,
+        "end": 684.31,
+        "text": "but if you actually apply for like a private,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 684.31,
+        "end": 688.31,
+        "text": "yeah, like childcare, then the fee,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 688.31,
+        "end": 690.31,
+        "text": "I feel it might depend on you."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 690.31,
+        "end": 691.31,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 691.31,
+        "end": 693.31,
+        "text": "Okay, well, I think that's all the questions I have."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 693.31,
+        "end": 694.31,
+        "text": "Thank you so much."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 694.31,
+        "end": 696.31,
+        "text": "I hope I was helpful, but of course,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 696.31,
+        "end": 699.31,
+        "text": "we'll do like, you know, for the S-PRO website,"
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 699.31,
+        "end": 700.31,
+        "text": "for more information."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 700.31,
+        "end": 701.31,
+        "text": "Thank you."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 701.31,
+        "end": 702.31,
+        "text": "Thank you so much."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 702.31,
+        "end": 703.31,
+        "text": "Okay, nice."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 703.31,
+        "end": 705.98,
+        "text": "Okay."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 705.98,
+        "end": 706.98,
+        "text": "Thank you."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 706.98,
+        "end": 707.98,
+        "text": "Yeah."
+      },
+      {
+        "speaker": "Speaker 1",
+        "start": 707.98,
+        "end": 708.98,
+        "text": "Thanks."
+      }
+    ]
+  }
+}

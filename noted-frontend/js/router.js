@@ -14,7 +14,8 @@ import Dashboard from './components/dashboard.js';
 import NewSession from './components/new_session.js';
 import RecordingView from './components/recording_view.js';
 import ExperimentView from './components/experiment_view.js';
-import FAQPage from './components/faq.js';
+import AdminDashboard from './components/admin_dashboard.js';
+
 
 const routes = [
     {
@@ -38,14 +39,14 @@ const routes = [
         props: true,
     },
     {
-        path: '/faq',
-        name: 'faq',
-        component: FAQPage,
-    },
-    {
         path: '/new-session',
         name: 'new-session',
         component: NewSession,
+    },
+    {
+        path: '/admin',
+        name: 'admin_dashboard',
+        component: AdminDashboard
     },
     {
         path: '/record/:sessionId?',

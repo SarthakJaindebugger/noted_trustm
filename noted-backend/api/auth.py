@@ -82,21 +82,65 @@ def _decode_access_token(token: str) -> Dict[str, Any]:
     return payload
 
 
-def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
-    expected_username = settings.auth.username
-    expected_password = settings.auth.password
+# def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
+#     expected_username = settings.auth.username
+#     expected_password = settings.auth.password
 
-    is_valid_user = hmac.compare_digest(username, expected_username)
-    is_valid_password = hmac.compare_digest(password, expected_password)
-    if not (is_valid_user and is_valid_password):
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+#     is_valid_user = hmac.compare_digest(username, expected_username)
+#     is_valid_password = hmac.compare_digest(password, expected_password)
+#     if not (is_valid_user and is_valid_password):
+#         raise HTTPException(status_code=401, detail="Invalid credentials")
+
+#     return AuthenticatedUser(
+#         id=settings.auth.user_id,
+#         username=expected_username,
+#         name=settings.auth.display_name,
+#         role=settings.auth.role,
+#     )
+
+
+def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
+    # Regular user credentials
+    user_username = settings.auth.username
+    user_password = settings.auth.password
+
+    # Admin credentials
+    admin_username = settings.auth.admin_username
+    admin_password = settings.auth.admin_password
+
+    # Check regular user
+    is_regular_user = (
+        hmac.compare_digest(username, user_username)
+        and hmac.compare_digest(password, user_password)
+    )
+
+    # Check admin user
+    is_admin_user = (
+        hmac.compare_digest(username, admin_username)
+        and hmac.compare_digest(password, admin_password)
+    )
+
+    if not (is_regular_user or is_admin_user):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials"
+        )
+
+    if is_admin_user:
+        return AuthenticatedUser(
+            id=f"user:{admin_username}",
+            username=admin_username,
+            name="Administrator",
+            role="admin",
+        )
 
     return AuthenticatedUser(
         id=settings.auth.user_id,
-        username=expected_username,
+        username=user_username,
         name=settings.auth.display_name,
-        role=settings.auth.role,
+        role="user",
     )
+
 
 
 def get_current_user(

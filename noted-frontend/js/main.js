@@ -11,7 +11,7 @@ import { useAuthStore } from './stores/auth.js';
 const App = {
     name: 'App',
     template: `
-        <div id="app">
+        <div id="app">   
             <router-view />
         </div>
     `,

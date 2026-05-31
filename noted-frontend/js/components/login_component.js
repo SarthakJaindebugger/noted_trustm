@@ -8,6 +8,10 @@ export default {
         const router = useRouter();
         const username = ref('');
         const password = ref('');
+        const adminUsername = ref('');
+        const adminPassword = ref('');
+        const adminError = ref('');
+        const adminLoading = ref(false);
         const isLoading = ref(false);
         const error = ref('');
 
@@ -34,6 +38,40 @@ export default {
             } finally {
                 isLoading.value = false;
             }
+        };
+
+        const handleAdminLogin = async () => {
+    if (!adminUsername.value || !adminPassword.value) {
+        adminError.value = 'Please enter both username and password';
+        return;
+    }
+
+    adminLoading.value = true;
+    adminError.value = '';
+
+    try {
+        const success = await authService.login(
+            adminUsername.value,
+            adminPassword.value
+        );
+
+        if (success) {
+            console.log('Admin login successful');
+
+            localStorage.setItem('isAdmin', 'true');
+
+            await router.push({
+                name: 'admin_dashboard'
+            });
+        } else {
+            adminError.value = 'Invalid admin credentials';
+        }
+    } catch (err) {
+        adminError.value = 'Admin login failed';
+        console.error(err);
+    } finally {
+        adminLoading.value = false;
+    }
         };
 
         const handleKeyPress = (event) => {
@@ -144,14 +182,24 @@ export default {
             if (styleEl) styleEl.remove();
         });
 
+        
         return {
-            username,
-            password,
-            isLoading,
-            error,
-            handleLogin,
-            handleKeyPress
-        };
+        username,
+        password,
+        isLoading,
+        error,
+        handleLogin,
+
+        adminUsername,
+        adminPassword,
+        adminLoading,
+        adminError,
+        handleAdminLogin,
+
+        handleKeyPress
+    };
+
+
     },
     template: `
         <div class="glass-login flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -234,40 +282,71 @@ export default {
                         </div>
                     </div>
 
-                    <!-- Admin Login Card (Placeholder for later changes) -->
+                    <!-- Admin Login Card -->
                     <div class="glass-card rounded-2xl p-8 space-y-6">
                         <div class="text-center">
-                            <h3 class="text-xl font-semibold text-gray-800">Administrator Access</h3>
-                            <p class="text-sm text-gray-600 mt-1">Secure portal for platform management</p>
+                            <h3 class="text-xl font-semibold text-gray-800">
+                                Administrator Access
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1">
+                                Secure portal for platform management
+                            </p>
                         </div>
 
                         <div class="space-y-5">
-                            <div class="bg-blue-50/40 rounded-xl p-4 text-center">
-                                <svg class="w-12 h-12 mx-auto text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                <p class="text-gray-700 text-sm">
-                                    Admin console is under development.<br>
-                                    Please check back later for access.
-                                </p>
+
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1">
+                                    Admin Username
+                                </label>
+
+                                <input
+                                    type="text"
+                                    v-model="adminUsername"
+                                    class="glass-input relative block w-full px-4 py-3 text-gray-900 rounded-xl"
+                                    placeholder="Enter admin username"
+                                />
                             </div>
-                            
-                            <!-- Disabled Admin Login Button (Placeholder) -->
+
+                            <div>
+                                <label
+                                    class="block text-sm font-medium text-gray-700 mb-1">
+                                    Admin Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    v-model="adminPassword"
+                                    class="glass-input relative block w-full px-4 py-3 text-gray-900 rounded-xl"
+                                    placeholder="Enter admin password"
+                                />
+                            </div>
+
+                            <div
+                                v-if="adminError"
+                                class="text-red-600 text-sm text-center bg-red-50/50 rounded-lg py-2">
+                                {{ adminError }}
+                            </div>
+
                             <button
-                                disabled
-                                class="btn-admin w-full flex justify-center py-3 px-4 text-sm font-medium rounded-xl text-white opacity-70 cursor-not-allowed transition-all"
-                            >
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                Admin Login (Coming Soon)
+                                @click="handleAdminLogin"
+                                :disabled="adminLoading"
+                                class="btn-primary group relative w-full flex justify-center py-3 px-4 text-sm font-medium rounded-xl text-white">
+
+                                <span v-if="!adminLoading">
+                                    Login
+                                </span>
+
+                                <span v-else>
+                                    Signing in...
+                                </span>
                             </button>
+
                             
-                            <p class="text-xs text-center text-gray-500 mt-2">
-                                * Admin features will be available in a future update
-                            </p>
                         </div>
                     </div>
+                    
                 </div>
 
                 <!-- Footer Link -->

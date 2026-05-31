@@ -123,8 +123,13 @@ class _LoggingConfig:
 class _AuthConfig:
     def __init__(self, d: dict):
         self.enabled: bool = d.get("enabled", True)
+        
         self.username: str = os.getenv("NOTED_AUTH_USERNAME", os.getenv("DEMO_LOGIN", d.get("username", "demo")))
         self.password: str = os.getenv("NOTED_AUTH_PASSWORD", os.getenv("DEMO_PASSWORD", d.get("password", "demo1")))
+        
+        self.admin_username: str = os.getenv("ADMIN_LOGIN",d.get("admin_username", "admin"))
+        self.admin_password: str = os.getenv("ADMIN_PASSWORD",d.get("admin_password", "admin"))
+        
         self.secret_key: str = os.getenv("NOTED_AUTH_SECRET", d.get("secret_key", "noted-dev-secret"))
         self.token_ttl_seconds: int = int(
             os.getenv("NOTED_AUTH_TOKEN_TTL_SECONDS", str(d.get("token_ttl_seconds", 28800)))

@@ -1,0 +1,37 @@
+Question,Answer
+Conversation Start,00:00:00
+Conversation End,00:11:48
+Duration (formatted),11 min 48 sec
+Duration (seconds),708.68
+---,---
+Control Location,"S-Positiv
+S-PRO"
+Date & Time,"No date and time information was found in the fact sheet. 
+
+Empty string."
+Visit Duration,11 min 48 sec
+Contact Method,"Telephone conversation (call, WhatsApp)"
+Heard From,Social media.
+"If Other, WHERE?","Since there is no mention of field work or a customer being visited outside the office in the fact sheet, I will return an empty string. 
+
+"
+Number of Customers,1
+Gender,No information
+Age Group,No information
+Reason for Immigration,None. The fact sheet does not mention immigration reasons.
+Additional Info,"There are no special circumstances mentioned in the fact sheet. 
+
+Illiterate; Paperless; Tourist; Ukraine crisis"
+Country of Birth,Finland
+Mother Tongue,
+Education Level,No information
+Labor Market Position,No information
+Customer's Domicile,
+Duration of Residence in Finland,Less than 3 years
+Topic of Discussion,Benefits (e.g. Kela); Matters related to education; Family life; Health care; Income Dependence; Legal matters; Residence; Social affairs
+Purpose of Visit,Initial interview; Filling out forms; Clarifying decisions and processes; Contacting an authority or another entity; Other guidance and support
+Additional Information Notes,"Here is a 1-3 sentence factual summary of what happened during this customer visit:
+
+A parent visited Finland's childcare and education system to inquire about available options for their child. The advisor provided information on the application process, shift care option, and income independence features of the system, as well as resources for further information and support. The parent was able to register their child online and explore various childcare center and school options through the S-Positiv website."
+Where the Customer is Directed / Referred,"Digital and Population Information Agency; Therefore, the answer is:; empty string"
+Other Feedback,"There is no additional feedback, training needs mentioned, or remarks from the advisor in the provided fact sheet."
