@@ -40,6 +40,7 @@ class _StorageConfig:
     def __init__(self, d: dict):
         self.upload_dir: str = d.get("upload_dir", "uploads")
         self.recordings_dir: str = d.get("recordings_dir", "recordings")
+        self.data_dir: str = os.getenv("NOTED_DATA_DIR", d.get("data_dir", "account_data"))
         self.session_timeout: int = d.get("session_timeout", 3600)
 
 
@@ -127,8 +128,10 @@ class _AuthConfig:
         self.username: str = os.getenv("NOTED_AUTH_USERNAME", os.getenv("DEMO_LOGIN", d.get("username", "demo")))
         self.password: str = os.getenv("NOTED_AUTH_PASSWORD", os.getenv("DEMO_PASSWORD", d.get("password", "demo1")))
         
-        self.admin_username: str = os.getenv("ADMIN_LOGIN",d.get("admin_username", "admin"))
-        self.admin_password: str = os.getenv("ADMIN_PASSWORD",d.get("admin_password", "admin"))
+        self.admin_username: str = os.getenv("ADMIN_LOGIN", d.get("admin_username", "admin"))
+        self.admin_password: str = os.getenv("ADMIN_PASSWORD", d.get("admin_password", "admin"))
+        self.users_file: str = os.getenv("NOTED_AUTH_USERS_FILE", d.get("users_file", "data/users.json"))
+        self.admins_file: str = os.getenv("NOTED_AUTH_ADMINS_FILE", d.get("admins_file", "data/admins.json"))
         
         self.secret_key: str = os.getenv("NOTED_AUTH_SECRET", d.get("secret_key", "noted-dev-secret"))
         self.token_ttl_seconds: int = int(

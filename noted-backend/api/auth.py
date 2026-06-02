@@ -10,6 +10,7 @@ from fastapi import Depends, HTTPException, WebSocket, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from config import settings
+from services.account_store import ensure_principal_directories, get_admin_accounts, get_user_accounts, principal_id
 
 
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -82,63 +83,40 @@ def _decode_access_token(token: str) -> Dict[str, Any]:
     return payload
 
 
-# def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
-#     expected_username = settings.auth.username
-#     expected_password = settings.auth.password
+def _authenticated_user_from_account(account: Dict[str, Any], role: str) -> AuthenticatedUser:
+    username = str(account.get("username") or "").strip()
+    display_name = str(account.get("name") or account.get("display_name") or username)
+    account_id = str(account.get("id") or principal_id(role, username))
+    ensure_principal_directories(account_id, username, role)
+    return AuthenticatedUser(
+        id=account_id,
+        username=username,
+        name=display_name,
+        role=role,
+    )
 
-#     is_valid_user = hmac.compare_digest(username, expected_username)
-#     is_valid_password = hmac.compare_digest(password, expected_password)
-#     if not (is_valid_user and is_valid_password):
-#         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-#     return AuthenticatedUser(
-#         id=settings.auth.user_id,
-#         username=expected_username,
-#         name=settings.auth.display_name,
-#         role=settings.auth.role,
-#     )
+def _find_matching_account(accounts, username: str, password: str) -> Optional[Dict[str, Any]]:
+    for account in accounts:
+        account_username = str(account.get("username") or "")
+        account_password = str(account.get("password") or "")
+        if hmac.compare_digest(username, account_username) and hmac.compare_digest(password, account_password):
+            return account
+    return None
 
 
 def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
-    # Regular user credentials
-    user_username = settings.auth.username
-    user_password = settings.auth.password
+    admin_account = _find_matching_account(get_admin_accounts(), username, password)
+    if admin_account:
+        return _authenticated_user_from_account(admin_account, "admin")
 
-    # Admin credentials
-    admin_username = settings.auth.admin_username
-    admin_password = settings.auth.admin_password
+    user_account = _find_matching_account(get_user_accounts(), username, password)
+    if user_account:
+        return _authenticated_user_from_account(user_account, "user")
 
-    # Check regular user
-    is_regular_user = (
-        hmac.compare_digest(username, user_username)
-        and hmac.compare_digest(password, user_password)
-    )
-
-    # Check admin user
-    is_admin_user = (
-        hmac.compare_digest(username, admin_username)
-        and hmac.compare_digest(password, admin_password)
-    )
-
-    if not (is_regular_user or is_admin_user):
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid credentials"
-        )
-
-    if is_admin_user:
-        return AuthenticatedUser(
-            id=f"user:{admin_username}",
-            username=admin_username,
-            name="Administrator",
-            role="admin",
-        )
-
-    return AuthenticatedUser(
-        id=settings.auth.user_id,
-        username=user_username,
-        name=settings.auth.display_name,
-        role="user",
+    raise HTTPException(
+        status_code=401,
+        detail="Invalid credentials",
     )
 
 

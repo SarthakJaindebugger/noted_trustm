@@ -17,7 +17,7 @@ system_router = APIRouter()
 
 @system_router.post("/auth/login")
 async def login(payload: LoginRequest):
-    """Issue a signed bearer token for the configured advisor account."""
+    """Issue a signed bearer token for a configured user or administrator account."""
     user = authenticate_credentials(payload.username, payload.password)
     return {
         "access_token": issue_access_token(user),

@@ -79,8 +79,10 @@ router.beforeEach((to, from, next) => {
 
     if (needsAuth && !authService.isAuthenticated()) {
         next({ name: 'login' });
-    } else if (to.name === 'login' && authService.isAuthenticated()) {
+    } else if (to.name === 'admin_dashboard' && !authService.isAdmin()) {
         next({ name: 'dashboard' });
+    } else if (to.name === 'login' && authService.isAuthenticated()) {
+        next({ name: authService.isAdmin() ? 'admin_dashboard' : 'dashboard' });
     } else {
         next();
     }

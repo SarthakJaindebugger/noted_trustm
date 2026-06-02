@@ -15,6 +15,7 @@ from database.connection import init_db, close_db
 
 from api.websocket import manager
 from services.model_manager import model_manager
+from services.account_store import ensure_all_account_directories
 
 # Setup logging
 setup_logging()
@@ -22,6 +23,7 @@ setup_logging()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
+    ensure_all_account_directories()
     await init_db()
     await model_manager.initialize_models()
     await manager.initialize_audio_processor_async()  # Initialize audio processor after models are loaded
