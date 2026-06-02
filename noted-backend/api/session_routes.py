@@ -15,6 +15,7 @@ from api.schemas import SessionNotesUpdateRequest, SessionRenameRequest
 from database.connection import AsyncSessionLocal
 from models.session import SessionData, SessionStats, SessionStatus
 from models.transcript import TranscriptEntry
+from services.account_store import uploads_dir_for_principal
 from services.file_service import save_upload_file
 from services.session_manager_async import AsyncSessionManager
 
@@ -177,9 +178,13 @@ async def upload_audio_file(
     session = await resolve_session_or_404(session_manager, session_identifier, current_user)
 
     try:
-        recordings_dir = "recordings"
-        os.makedirs(recordings_dir, exist_ok=True)
-        filepath = await save_upload_file(file, recordings_dir)
+        uploads_dir = uploads_dir_for_principal(
+            current_user.id,
+            username=current_user.username,
+            role=current_user.role,
+        )
+        os.makedirs(uploads_dir, exist_ok=True)
+        filepath = await save_upload_file(file, uploads_dir)
 
         await session_manager.set_session_status(session.session_name, SessionStatus.PROCESSING)
         await session_manager.set_session_progress(session.session_name, 0.0, "queued", "Queued for processing")

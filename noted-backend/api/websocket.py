@@ -21,6 +21,7 @@ from utils.audio_utils import load_audio_file
 from utils.text import clean_transcript_text
 from models.session import SessionData, SessionStatus
 from config import settings
+from services.account_store import recordings_dir_for_principal
 
 logger = logging.getLogger(__name__)
 
@@ -143,7 +144,7 @@ class ConnectionManager:
 
         logger.warning(f"No active WebSocket connection found for session: {session_name}")
 
-    def _get_or_create_audio_sink(
+    async def _get_or_create_audio_sink(
         self,
         session_id: str,
         sample_rate: int = 16000,
@@ -152,7 +153,11 @@ class ConnectionManager:
         if sink:
             return sink
 
-        recordings_dir = "recordings"
+        session = await self.session_manager.get_session_by_name(session_id)
+        recordings_dir = recordings_dir_for_principal(
+            session.owner_user_id if session else None,
+            username=session.owner_username if session else None,
+        )
         os.makedirs(recordings_dir, exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -172,7 +177,7 @@ class ConnectionManager:
         self.session_audio_sinks[session_id] = sink
         return sink
 
-    def _write_session_audio_chunk(
+    async def _write_session_audio_chunk(
         self,
         session_id: str,
         audio_array: np.ndarray,
@@ -181,7 +186,7 @@ class ConnectionManager:
         if audio_array is None or len(audio_array) == 0:
             return
 
-        sink = self._get_or_create_audio_sink(session_id, sample_rate=sample_rate)
+        sink = await self._get_or_create_audio_sink(session_id, sample_rate=sample_rate)
         pcm_audio = np.clip(audio_array.astype(np.float32), -1.0, 1.0)
         pcm_audio = (pcm_audio * 32767.0).astype(np.int16)
         sink["writer"].writeframes(pcm_audio.tobytes())
@@ -222,7 +227,7 @@ class ConnectionManager:
 
             # Persist audio incrementally instead of retaining every chunk in memory.
             if len(audio_array) > 0:
-                self._write_session_audio_chunk(session_id, audio_array, sample_rate=16000)
+                await self._write_session_audio_chunk(session_id, audio_array, sample_rate=16000)
             
             # Send processing status update
             await self.send_message(session_id, {

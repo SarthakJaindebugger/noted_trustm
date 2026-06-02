@@ -25,10 +25,14 @@ export default {
             error.value = '';
 
             try {
-                const success = await authService.login(username.value, password.value);
-                if (success) {
+                const loggedInUser = await authService.login(username.value, password.value);
+                if (loggedInUser?.role === 'user') {
                     console.log('Login successful');
+                    localStorage.removeItem('isAdmin');
                     await router.push({ name: 'dashboard' });
+                } else if (loggedInUser?.role === 'admin') {
+                    authService.logout();
+                    error.value = 'Please use the administrator login panel for admin accounts';
                 } else {
                     error.value = 'Invalid credentials';
                 }
@@ -50,12 +54,12 @@ export default {
     adminError.value = '';
 
     try {
-        const success = await authService.login(
+        const loggedInUser = await authService.login(
             adminUsername.value,
             adminPassword.value
         );
 
-        if (success) {
+        if (loggedInUser?.role === 'admin') {
             console.log('Admin login successful');
 
             localStorage.setItem('isAdmin', 'true');
@@ -63,6 +67,9 @@ export default {
             await router.push({
                 name: 'admin_dashboard'
             });
+        } else if (loggedInUser?.role === 'user') {
+            authService.logout();
+            adminError.value = 'Please use the user login panel for user accounts';
         } else {
             adminError.value = 'Invalid admin credentials';
         }

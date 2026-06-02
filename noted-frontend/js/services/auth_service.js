@@ -17,7 +17,7 @@ class AuthService {
             sessionStorage.setItem('auth_token', this.token);
             sessionStorage.setItem('user', JSON.stringify(this.user));
 
-            return true;
+            return this.user;
         } catch (error) {
             console.error('Login error:', error);
             return false;
@@ -29,6 +29,7 @@ class AuthService {
         this.user = null;
         sessionStorage.removeItem('auth_token');
         sessionStorage.removeItem('user');
+        localStorage.removeItem('isAdmin');
     }
 
     isAuthenticated() {
@@ -37,6 +38,10 @@ class AuthService {
 
     getUser() {
         return this.user;
+    }
+
+    isAdmin() {
+        return this.user?.role === 'admin';
     }
 
     getToken() {
