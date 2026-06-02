@@ -8,7 +8,6 @@ print("✅  Packages ready.")
 
 # HuggingFace token — https://huggingface.co/settings/tokens
 # Accept the LLaMA licence at:  https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
-HF_API_KEY = "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"          # ← FILL IN
 
 # Upload your audio via the Colab Files sidebar, then set the path here.
 # Supported formats: .wav  .mp3  .m4a  .ogg  .flac
