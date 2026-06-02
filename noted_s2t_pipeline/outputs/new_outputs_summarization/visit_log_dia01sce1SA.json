@@ -1,0 +1,719 @@
+{
+  "metadata": {
+    "date_time": "01/06/2026 07:56",
+    "visit_duration": "11 min 49 sec",
+    "audio_file": "dia01sce1SA.wav",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "detected_language": "en",
+    "language_probability": 0.972,
+    "audio_duration_sec": 709.3,
+    "transcript_char_count": 7877,
+    "segment_count": 136
+  },
+  "summary": "## 1. Customer Profile\nThe customer is a migrant parent with a three-year-old child. The customer's gender is not explicitly mentioned, but the voice suggests a female. The customer's country of origin or background is not specified, but they mention that they are a migrant and do not speak Finnish. They have recently arrived in Finland and are currently living in Espoo. The customer is employed full-time and has a registered address in Espoo.\n\n## 2. Reason for Visit\nThe customer visited the service to seek information and guidance on childcare options for their three-year-old child. They are looking for affordable and language-appropriate childcare solutions that align with their full-time work schedule.\n\n## 3. Topics Discussed\nThe customer inquired about the availability and operation of daycare centers in Espoo, including opening hours, language support, and the educational approach. They also asked about the cost of childcare, meal provisions, and the application process. Additionally, the customer sought information on how childcare in Finland prepares children for future schooling and the transition to primary education.\n\n## 4. Guidance and Information Provided\nThe service provider explained that daycare centers in Espoo are provided free of charge by the city for working parents. They guided the customer on how to apply for municipal early childhood education through the Espoo City website. The provider clarified that daycare centers operate in Finnish and Swedish, with some English support available, but private daycare centers are required for fully English-operated services. The provider also explained the shift care option for parents working night shifts or weekends. Information on meal provisions was discussed, highlighting that all children in Finland are entitled to free meals at childcare and school. The provider emphasized that the allocation of daycare places is based on the registered address and availability.\n\n## 5. Referrals and Next Steps\nThe customer was referred to the Espoo City website for detailed information and application processes. The next steps for the customer include applying for a daycare place through the city's online portal. The customer was advised to check the website for updates on availability and to follow up on the application process. The provider suggested that if a municipal daycare place is not immediately available, the customer might need to consider private daycare options or arrange childcare independently until a place becomes available.\n\n## 6. Additional Observations\nThe customer appeared to be proactive and eager to gather as much information as possible to make informed decisions about their child's care and education. There were no significant communication challenges, although the customer's English had some non-native disfluencies. The customer's questions were thorough, indicating a strong desire to understand the system and ensure the best possible care for their child. All questions were addressed, and the customer left with a clear understanding of the next steps.",
+  "extraction": {
+    "Gender": "Woman",
+    "Age_Group": "Adult 30-64 (parent of 3-year-old)",
+    "Reason_for_Immigration": "No information",
+    "Labor_Market_Position": "Working in the open market",
+    "Customers_Domicile": "Espoo",
+    "Duration_of_Residence_in_Finland": "Less than 3 months",
+    "Country_of_Birth": "Not specified",
+    "Mother_Tongue": "Not specified",
+    "Finnish_Language_Skills": "None",
+    "Education_Level": "No information",
+    "Topics_Discussed": "Early childhood education; Child care options; Language support; Education system; Meals in daycare; Shift care; Application process; Municipal services",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "not mentioned",
+    "Services_Sought": "The customer was looking for child care options for her 3-year-old daughter and information on how to apply for these services.",
+    "Guidance_Provided": "The customer was guided on how to find daycare centers in Espoo, the application process, language support available, meal provisions, and the education system in Finland.",
+    "Referrals_Made": "Espo City website",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "transcript": {
+    "full_text": "Lots of them are now. Do we need to do a clap? Yeah, we can. Yep. So, action. Hi. Hi. Nice to meet you. You too. Hi. I came here with a lot of questions. That's fine. That's why we're here. Okay, great. Okay, so my situation right now is I'm a migrant and I have a fulltime job. Okay. And I have a children, a child. She is three years old and I'm looking for a child care options. Okay. I don't know if you can help me a bit. We just arrived here. We don't know the language. No, that's fine. That's fine. Of course, we can find some help. So, of course, maybe you could have a look at what I'm doing. So, you also, you know, you'll see. How to find this information. So, easiest thing would be, you know, you can just do a Google search. You say, so you try to find a kindergarten for kids in Espoo. And maybe more like child care. I think she's like three years old. I don't know if kindergarten. At what time, at what age did they start in kindergarten? Right, let's see. So, we have this daycare centers. Okay, so I'm seeing here, like, there are daycares. It's open. That is going from, like, 6.30 a.m. to 6. That's great. Do you notice there are, like, any extensions or something? Yeah, let's see. Uhhuh. Okay, the opening hour is also buried. That's great. Okay, okay. So, are you working fulltime or parttime right now? I'm working fulltime right now. Okay, that's fine. So, yes, I'm supposed to be finishing at five probably. And it's great that it starts early so I can have time to do that. Okay, so I'm supposed to be finishing at five probably. And it's great that I have time to go to my job and everything. And do you know if there's, like, how much? Yeah, so this is actually, so this is provided free of charge by the city. So, as you can see here, you can apply through the city for this service. Since you are working fulltime and there's no one else to, like, take care of your child, you can get this service free. So, as you can see here. You can apply for this service through this link. Okay, so this is if you, like, if you ask about the times, like, what if you are working in the night, then there's something else, an additional service called shift care. Yeah, let's say if you're working in the night, so in the weekend, so then you can, like, find the information right here. That's great. But let's see. I'm just trying to find the ages because you asked about that. One of the other things that I want to ask is, are you going to give them food? Do I need to pay extra? How does it work? Okay, let's find out. I think you'll still fall into this one. Let me just see if I can. I think that's great. Yeah because I'm a migrant, so they don't really speak Finnish. So you can also get me the options about, like, which languages do they speak? Are they going to teach them Finnish? So, actually, the service is given free of charge. So, I'm just trying to find out if you're going to give them food, do I need to pay extra. How does it work? Let's find out. I think you'll still fall into this one. Let me just see if I can. Actually, the service given free of charge is actually using Finnish and Swedish. Okay. You do have like, you know, Finnish and English. You can use English in some like, you know, daycare centers. But if you're looking for like a completely 100% English operated like, you know, daycare center, then you'll actually have to look for a private one where you have to pay them like a fee. And even like if I want her to learn Finnish, can I just have a part English, part Finnish part or? Yeah. So, this, as I mentioned, these daycare centers actually conducted in Finnish and Swedish. So, either Finnish or Swedish or might be combination. So, they will always like, you know, teach them Finnish. Okay, great, great, great. They will help them out. But only thing is like, they are not like, you know, 100%. 100% working in English language. And can you tell me something about the education or like something or how they can get into like the future school options, you know what I mean? Of course, yeah. So, once they like, you know, complete, once they reach the age of 7. Okay. That's when we start school in Finland. Okay. You know, it might be different in some countries, I understand. But in Finland, it's when you reach age 7. So, actually, you can actually apply to join as soon. As soon as you complete, like, as soon as you reach your age, after you pass your birthday, you can actually apply. That information can be again found here on the Espo City website. Okay. And you go to education. You have, see, you have preprimary education. And if you go into applying for municipal early childhood education, you have all the information given. And this link of course. So, we came to this link through Google. So, you can easily find this. Again, if you're looking for this information, you have how to apply for a place. So, usually what happens is when you apply, like, you know, you get some place that's close by to you. It depends on the distance and the availability, of course. And can I apply to this, for this child care, even if I don't live near the place? So, that's actually, once you apply. The city will actually decide based on your address. Because you, I believe, first of all, you are, you have registered address in Espo, right? Yes. So, they will check, like, the locations close by. Okay. And based on distance and availability, they will, like, find you, like, a place that's close by. Of course, with day care centers, sometimes you face, there can be, like, a delay in finding one. In which case, you might have to, like, you know, opt for a private one, if that's the case. Or you'll have to, like, take care of yourself. Mmhmm. Or you'll have to take care of your child on your own, unfortunately, until we can find something for you. But what they will do is they will provide, as soon as a slot opens up, they will give you, like, an option, which is, like, close by. And so, your kid doesn't have, like, you know, travel for a long distance. As mentioned here, so, okay, the distance. Yeah. So, the child must have finished personal identity code. That's, like, the requirement. And you have, should have, like, a. Yeah. Address registered in NS ProCents. Those are, like, the requirement that they're looking for. And can you tell me more about the food there? How does it work? Just as a final question. Yeah. So, they do provide, like, food and, let me just, let's do, actually, let's do a search on that. It's taking a bit more time to find this out. Yeah. So, I think when it comes to meals, it's given to. All the kids in Finland, so, it's not, like, a cityspecific one. That's why you're, like, not able to find it, I believe. Okay. So, all the kids, like, in Finland, actually, are entitled to get meals at childcare and even in school. Really? For free? Yes. Okay. That's good. And why, if there's, like, I stay longer, I have, like, if they stay outside of office, is it still, do they still have dinner and all those kind of things, or? So, then, if you opt for the shift care, yeah, yeah, if you opt for the shift care option, where, like, you select, let's say, you're doing, like, a night shift, then they get meals. Okay. They get meals. If you do, like, you know, evenings, night, weekends. Okay. That's great. And thank you so much. And I just need to apply, and it will depend on where I live, right? Yes. Does it depend also on income, or? This service does not. It depends on income, but if you actually apply for, like, a private, yeah, like, childcare, then the fee, actually, might depend on your income. Okay. Well, I think that's all the questions I have. Thank you so much. Okay. I hope I was helpful, but, of course, feel free to, like, you know, refer to the ESPO website for more information. Thank you. Thank you so much. Okay. Nice day. Okay. Okay.",
+    "segments": [
+      {
+        "start": 2.96,
+        "end": 10.34,
+        "text": "Lots of them are now. Do we need to do a clap? Yeah, we can. Yep. So, action."
+      },
+      {
+        "start": 13.07,
+        "end": 25.64,
+        "text": "Hi. Hi. Nice to meet you. You too. Hi. I came here with a lot of questions. That's fine. That's why we're here. Okay, great."
+      },
+      {
+        "start": 25.64,
+        "end": 35.22,
+        "text": "Okay, so my situation right now is I'm a migrant and I have a full-time job. Okay. And I have a"
+      },
+      {
+        "start": 35.22,
+        "end": 42.44,
+        "text": "children, a child. She is three years old and I'm looking for a child care options. Okay. I don't"
+      },
+      {
+        "start": 42.44,
+        "end": 47.02,
+        "text": "know if you can help me a bit. We just arrived here. We don't know the language. No, that's fine."
+      },
+      {
+        "start": 47.06,
+        "end": 53.52,
+        "text": "That's fine. Of course, we can find some help. So, of course, maybe you could have a look at what"
+      },
+      {
+        "start": 53.52,
+        "end": 55.46,
+        "text": "I'm doing. So, you also, you know, you'll see."
+      },
+      {
+        "start": 55.64,
+        "end": 61.28,
+        "text": "How to find this information. So, easiest thing would be, you know, you can just do a Google"
+      },
+      {
+        "start": 61.28,
+        "end": 71.68,
+        "text": "search. You say, so you try to find a kindergarten for kids in Espoo. And maybe more like child care."
+      },
+      {
+        "start": 71.9,
+        "end": 76.34,
+        "text": "I think she's like three years old. I don't know if kindergarten. At what time, at what age did"
+      },
+      {
+        "start": 76.34,
+        "end": 91.7,
+        "text": "they start in kindergarten? Right, let's see. So, we have this daycare centers. Okay, so I'm seeing"
+      },
+      {
+        "start": 91.7,
+        "end": 93.74,
+        "text": "here, like, there are daycares."
+      },
+      {
+        "start": 93.76,
+        "end": 100.24,
+        "text": "It's open. That is going from, like, 6.30 a.m. to 6. That's great. Do you notice there are, like, any"
+      },
+      {
+        "start": 100.24,
+        "end": 110.97,
+        "text": "extensions or something? Yeah, let's see. Uh-huh. Okay, the opening hour is also buried. That's"
+      },
+      {
+        "start": 110.97,
+        "end": 119.52,
+        "text": "great. Okay, okay. So, are you working full-time or part-time right now? I'm working full-time right"
+      },
+      {
+        "start": 119.52,
+        "end": 125.86,
+        "text": "now. Okay, that's fine. So, yes, I'm supposed to be finishing at five probably. And it's great that"
+      },
+      {
+        "start": 125.86,
+        "end": 127.42,
+        "text": "it starts early so I can have time to do that. Okay, so I'm supposed to be finishing at five probably."
+      },
+      {
+        "start": 127.42,
+        "end": 131.82,
+        "text": "And it's great that I have time to go to my job and everything. And do you know if there's, like,"
+      },
+      {
+        "start": 132.1,
+        "end": 139.5,
+        "text": "how much? Yeah, so this is actually, so this is provided free of charge by the city. So, as you"
+      },
+      {
+        "start": 139.5,
+        "end": 146.82,
+        "text": "can see here, you can apply through the city for this service. Since you are working full-time and"
+      },
+      {
+        "start": 146.82,
+        "end": 158.41,
+        "text": "there's no one else to, like, take care of your child, you can get this service free. So, as you"
+      },
+      {
+        "start": 158.41,
+        "end": 159.17,
+        "text": "can see here."
+      },
+      {
+        "start": 159.79,
+        "end": 174.06,
+        "text": "You can apply for this service through this link. Okay, so this is if you, like, if you ask about the"
+      },
+      {
+        "start": 174.06,
+        "end": 179.62,
+        "text": "times, like, what if you are working in the night, then there's something else, an additional service"
+      },
+      {
+        "start": 179.62,
+        "end": 185.86,
+        "text": "called shift care. Yeah, let's say if you're working in the night, so in the weekend, so then"
+      },
+      {
+        "start": 185.86,
+        "end": 191.54,
+        "text": "you can, like, find the information right here. That's great. But let's see. I'm just trying to"
+      },
+      {
+        "start": 191.54,
+        "end": 194.82,
+        "text": "find the ages because you asked about that."
+      },
+      {
+        "start": 200.67,
+        "end": 207.33,
+        "text": "One of the other things that I want to ask is, are you going to give them food? Do I need to pay extra? How does it work?"
+      },
+      {
+        "start": 207.33,
+        "end": 246.22,
+        "text": "Okay, let's find out. I think you'll still fall into this one. Let me just see if I can."
+      },
+      {
+        "start": 246.22,
+        "end": 256.62,
+        "text": "I think that's great. Yeah because I'm a migrant, so they don't really speak Finnish. So you can also get me the options about, like,"
+      },
+      {
+        "start": 256.62,
+        "end": 261.56,
+        "text": "which languages do they speak? Are they going to teach them Finnish?"
+      },
+      {
+        "start": 261.56,
+        "end": 263.5,
+        "text": "So, actually, the service is given free of charge. So, I'm just trying to find out if you're going to give them food, do I need to pay extra. How does it work? Let's find out. I think you'll still fall into this one. Let me just see if I can."
+      },
+      {
+        "start": 263.5,
+        "end": 271.74,
+        "text": "Actually, the service given free of charge is actually using Finnish and Swedish."
+      },
+      {
+        "start": 272.06,
+        "end": 272.4,
+        "text": "Okay."
+      },
+      {
+        "start": 274.18,
+        "end": 276.68,
+        "text": "You do have like, you know, Finnish and English."
+      },
+      {
+        "start": 277.88,
+        "end": 282.94,
+        "text": "You can use English in some like, you know, daycare centers."
+      },
+      {
+        "start": 282.94,
+        "end": 290.26,
+        "text": "But if you're looking for like a completely 100% English operated like, you know, daycare center,"
+      },
+      {
+        "start": 290.26,
+        "end": 294.76,
+        "text": "then you'll actually have to look for a private one where you have to pay them like a fee."
+      },
+      {
+        "start": 299.02,
+        "end": 306.0,
+        "text": "And even like if I want her to learn Finnish, can I just have a part English, part Finnish part or?"
+      },
+      {
+        "start": 306.38,
+        "end": 306.58,
+        "text": "Yeah."
+      },
+      {
+        "start": 306.68,
+        "end": 313.16,
+        "text": "So, this, as I mentioned, these daycare centers actually conducted in Finnish and Swedish."
+      },
+      {
+        "start": 313.68,
+        "end": 316.74,
+        "text": "So, either Finnish or Swedish or might be combination."
+      },
+      {
+        "start": 316.98,
+        "end": 319.18,
+        "text": "So, they will always like, you know, teach them Finnish."
+      },
+      {
+        "start": 319.56,
+        "end": 320.6,
+        "text": "Okay, great, great, great."
+      },
+      {
+        "start": 320.6,
+        "end": 321.72,
+        "text": "They will help them out."
+      },
+      {
+        "start": 321.92,
+        "end": 324.4,
+        "text": "But only thing is like, they are not like, you know, 100%."
+      },
+      {
+        "start": 324.46,
+        "end": 326.66,
+        "text": "100% working in English language."
+      },
+      {
+        "start": 326.66,
+        "end": 336.38,
+        "text": "And can you tell me something about the education or like something or how they can get into like the future school options, you know what I mean?"
+      },
+      {
+        "start": 336.4,
+        "end": 336.76,
+        "text": "Of course, yeah."
+      },
+      {
+        "start": 336.86,
+        "end": 340.8,
+        "text": "So, once they like, you know, complete, once they reach the age of 7."
+      },
+      {
+        "start": 341.04,
+        "end": 341.42,
+        "text": "Okay."
+      },
+      {
+        "start": 341.56,
+        "end": 343.76,
+        "text": "That's when we start school in Finland."
+      },
+      {
+        "start": 343.98,
+        "end": 344.3,
+        "text": "Okay."
+      },
+      {
+        "start": 344.5,
+        "end": 346.64,
+        "text": "You know, it might be different in some countries, I understand."
+      },
+      {
+        "start": 346.82,
+        "end": 349.64,
+        "text": "But in Finland, it's when you reach age 7."
+      },
+      {
+        "start": 350.3,
+        "end": 354.42,
+        "text": "So, actually, you can actually apply to join as soon."
+      },
+      {
+        "start": 354.42,
+        "end": 360.78,
+        "text": "As soon as you complete, like, as soon as you reach your age, after you pass your birthday, you can actually apply."
+      },
+      {
+        "start": 362.54,
+        "end": 367.26,
+        "text": "That information can be again found here on the Espo City website."
+      },
+      {
+        "start": 367.56,
+        "end": 367.72,
+        "text": "Okay."
+      },
+      {
+        "start": 367.72,
+        "end": 369.66,
+        "text": "And you go to education."
+      },
+      {
+        "start": 371.04,
+        "end": 374.5,
+        "text": "You have, see, you have pre-primary education."
+      },
+      {
+        "start": 375.36,
+        "end": 382.37,
+        "text": "And if you go into applying for municipal early childhood education, you have all the information given."
+      },
+      {
+        "start": 382.37,
+        "end": 384.45,
+        "text": "And this link of course."
+      },
+      {
+        "start": 384.51,
+        "end": 386.79,
+        "text": "So, we came to this link through Google."
+      },
+      {
+        "start": 387.17,
+        "end": 388.79,
+        "text": "So, you can easily find this."
+      },
+      {
+        "start": 388.85,
+        "end": 393.41,
+        "text": "Again, if you're looking for this information, you have how to apply for a place."
+      },
+      {
+        "start": 393.89,
+        "end": 400.05,
+        "text": "So, usually what happens is when you apply, like, you know, you get some place that's close by to you."
+      },
+      {
+        "start": 400.29,
+        "end": 403.37,
+        "text": "It depends on the distance and the availability, of course."
+      },
+      {
+        "start": 403.69,
+        "end": 411.42,
+        "text": "And can I apply to this, for this child care, even if I don't live near the place?"
+      },
+      {
+        "start": 412.32,
+        "end": 414.66,
+        "text": "So, that's actually, once you apply."
+      },
+      {
+        "start": 414.86,
+        "end": 418.84,
+        "text": "The city will actually decide based on your address."
+      },
+      {
+        "start": 418.84,
+        "end": 422.88,
+        "text": "Because you, I believe, first of all, you are, you have registered address in Espo, right?"
+      },
+      {
+        "start": 422.88,
+        "end": 423.38,
+        "text": "Yes."
+      },
+      {
+        "start": 423.6,
+        "end": 426.26,
+        "text": "So, they will check, like, the locations close by."
+      },
+      {
+        "start": 426.26,
+        "end": 426.76,
+        "text": "Okay."
+      },
+      {
+        "start": 426.76,
+        "end": 431.34,
+        "text": "And based on distance and availability, they will, like, find you, like, a place that's close by."
+      },
+      {
+        "start": 431.62,
+        "end": 438.64,
+        "text": "Of course, with day care centers, sometimes you face, there can be, like, a delay in finding one."
+      },
+      {
+        "start": 438.64,
+        "end": 443.82,
+        "text": "In which case, you might have to, like, you know, opt for a private one, if that's the case."
+      },
+      {
+        "start": 443.82,
+        "end": 444.4,
+        "text": "Or you'll have to, like, take care of yourself."
+      },
+      {
+        "start": 444.4,
+        "end": 444.64,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 444.64,
+        "end": 449.22,
+        "text": "Or you'll have to take care of your child on your own, unfortunately, until we can find something for you."
+      },
+      {
+        "start": 450.4,
+        "end": 458.76,
+        "text": "But what they will do is they will provide, as soon as a slot opens up, they will give you, like, an option, which is, like, close by."
+      },
+      {
+        "start": 459.02,
+        "end": 462.48,
+        "text": "And so, your kid doesn't have, like, you know, travel for a long distance."
+      },
+      {
+        "start": 462.96,
+        "end": 468.91,
+        "text": "As mentioned here, so, okay, the distance."
+      },
+      {
+        "start": 471.81,
+        "end": 472.21,
+        "text": "Yeah."
+      },
+      {
+        "start": 472.21,
+        "end": 474.29,
+        "text": "So, the child must have finished personal identity code."
+      },
+      {
+        "start": 474.41,
+        "end": 475.31,
+        "text": "That's, like, the requirement."
+      },
+      {
+        "start": 475.65,
+        "end": 476.91,
+        "text": "And you have, should have, like, a."
+      },
+      {
+        "start": 477.01,
+        "end": 477.07,
+        "text": "Yeah."
+      },
+      {
+        "start": 477.79,
+        "end": 479.71,
+        "text": "Address registered in NS ProCents."
+      },
+      {
+        "start": 480.25,
+        "end": 482.05,
+        "text": "Those are, like, the requirement that they're looking for."
+      },
+      {
+        "start": 482.98,
+        "end": 485.74,
+        "text": "And can you tell me more about the food there?"
+      },
+      {
+        "start": 485.92,
+        "end": 486.82,
+        "text": "How does it work?"
+      },
+      {
+        "start": 487.64,
+        "end": 488.8,
+        "text": "Just as a final question."
+      },
+      {
+        "start": 488.96,
+        "end": 489.24,
+        "text": "Yeah."
+      },
+      {
+        "start": 489.24,
+        "end": 500.06,
+        "text": "So, they do provide, like, food and, let me just, let's do, actually, let's do a search on that."
+      },
+      {
+        "start": 501.64,
+        "end": 554.6,
+        "text": "It's taking a bit more time to find this out."
+      },
+      {
+        "start": 616.82,
+        "end": 617.34,
+        "text": "Yeah."
+      },
+      {
+        "start": 617.46,
+        "end": 620.78,
+        "text": "So, I think when it comes to meals, it's given to."
+      },
+      {
+        "start": 620.9,
+        "end": 624.92,
+        "text": "All the kids in Finland, so, it's not, like, a city-specific one."
+      },
+      {
+        "start": 625.0,
+        "end": 626.8,
+        "text": "That's why you're, like, not able to find it, I believe."
+      },
+      {
+        "start": 627.4,
+        "end": 627.7,
+        "text": "Okay."
+      },
+      {
+        "start": 628.02,
+        "end": 634.34,
+        "text": "So, all the kids, like, in Finland, actually, are entitled to get meals at childcare and even in school."
+      },
+      {
+        "start": 634.74,
+        "end": 635.04,
+        "text": "Really?"
+      },
+      {
+        "start": 635.14,
+        "end": 635.6,
+        "text": "For free?"
+      },
+      {
+        "start": 635.8,
+        "end": 636.16,
+        "text": "Yes."
+      },
+      {
+        "start": 636.4,
+        "end": 636.74,
+        "text": "Okay."
+      },
+      {
+        "start": 636.98,
+        "end": 637.38,
+        "text": "That's good."
+      },
+      {
+        "start": 641.56,
+        "end": 649.04,
+        "text": "And why, if there's, like, I stay longer, I have, like, if they stay outside of office,"
+      },
+      {
+        "start": 649.04,
+        "end": 652.8,
+        "text": "is it still, do they still have dinner and all those kind of things, or?"
+      },
+      {
+        "start": 652.8,
+        "end": 662.5,
+        "text": "So, then, if you opt for the shift care, yeah, yeah, if you opt for the shift care option,"
+      },
+      {
+        "start": 662.68,
+        "end": 667.0,
+        "text": "where, like, you select, let's say, you're doing, like, a night shift, then they get meals."
+      },
+      {
+        "start": 667.36,
+        "end": 667.64,
+        "text": "Okay."
+      },
+      {
+        "start": 667.68,
+        "end": 668.26,
+        "text": "They get meals."
+      },
+      {
+        "start": 668.7,
+        "end": 671.1,
+        "text": "If you do, like, you know, evenings, night, weekends."
+      },
+      {
+        "start": 673.38,
+        "end": 673.74,
+        "text": "Okay."
+      },
+      {
+        "start": 673.8,
+        "end": 674.58,
+        "text": "That's great."
+      },
+      {
+        "start": 674.66,
+        "end": 675.44,
+        "text": "And thank you so much."
+      },
+      {
+        "start": 675.5,
+        "end": 679.28,
+        "text": "And I just need to apply, and it will depend on where I live, right?"
+      },
+      {
+        "start": 679.68,
+        "end": 679.8,
+        "text": "Yes."
+      },
+      {
+        "start": 679.8,
+        "end": 681.96,
+        "text": "Does it depend also on income, or?"
+      },
+      {
+        "start": 683.26,
+        "end": 684.88,
+        "text": "This service does not."
+      },
+      {
+        "start": 685.1,
+        "end": 691.54,
+        "text": "It depends on income, but if you actually apply for, like, a private, yeah, like, childcare,"
+      },
+      {
+        "start": 691.72,
+        "end": 694.91,
+        "text": "then the fee, actually, might depend on your income."
+      },
+      {
+        "start": 695.09,
+        "end": 695.37,
+        "text": "Okay."
+      },
+      {
+        "start": 695.45,
+        "end": 696.95,
+        "text": "Well, I think that's all the questions I have."
+      },
+      {
+        "start": 697.03,
+        "end": 697.71,
+        "text": "Thank you so much."
+      },
+      {
+        "start": 697.73,
+        "end": 697.85,
+        "text": "Okay."
+      },
+      {
+        "start": 697.91,
+        "end": 702.71,
+        "text": "I hope I was helpful, but, of course, feel free to, like, you know, refer to the ESPO website"
+      },
+      {
+        "start": 702.71,
+        "end": 703.69,
+        "text": "for more information."
+      },
+      {
+        "start": 703.97,
+        "end": 704.43,
+        "text": "Thank you."
+      },
+      {
+        "start": 704.51,
+        "end": 705.19,
+        "text": "Thank you so much."
+      },
+      {
+        "start": 705.45,
+        "end": 705.59,
+        "text": "Okay."
+      },
+      {
+        "start": 705.89,
+        "end": 706.41,
+        "text": "Nice day."
+      },
+      {
+        "start": 708.82,
+        "end": 709.18,
+        "text": "Okay."
+      },
+      {
+        "start": 709.18,
+        "end": 709.34,
+        "text": "Okay."
+      }
+    ]
+  }
+}
