@@ -1,0 +1,779 @@
+{
+  "metadata": {
+    "date_time": "05/06/2026 19:07",
+    "visit_duration": "8 min 40 sec",
+    "audio_file": "dia01sce2SA.wav",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "detected_language": "en",
+    "language_probability": 0.957,
+    "audio_duration_sec": 520.7,
+    "transcript_char_count": 5674,
+    "segment_count": 148
+  },
+  "summary": "## 1. Customer Profile\nThe customer, Siri, is a female immigrant from India. Her age is not mentioned in the transcript. She has been living in Finland for two years and has a valid residence permit (A category). She has a Finnish social security number and is currently on a work visa. Her language skills are not explicitly mentioned, but she appears to communicate fluently in English.\n\n## 2. Reason for Visit\nSiri came to the service today because she has received a job offer from a Finnish company that requires her to register as a freelancer and start her own company. She is unsure how this will affect her current visa and taxes in Finland.\n\n## 3. Topics Discussed\nThe conversation covered several topics, including Siri's current visa status, the process of changing to a self-employment visa, and the requirements for registering a business in Finland. The customer asked about the impact of registering as a freelancer on her visa and taxes, and the service provider explained the necessary steps and documents required for the application.\n\n## 4. Guidance and Information Provided\nThe service provider explained that to register as a self-employed individual in Finland, Siri needs to change her visa status from a work visa to a self-employment visa and obtain a business ID. The provider also mentioned that she needs to demonstrate that her business will generate enough income to support herself and her business. The service provider recommended that Siri book an appointment at the tax administration office in Helsinki, where she will need to present identification documents, business plans, and proof of her employment with the Finnish company. The provider also explained that the tax administration will explain the tax implications of her new status during the appointment.\n\n## 5. Referrals and Next Steps\nThe customer was referred to the tax administration office in Helsinki, where she needs to book an appointment and present the required documents. She also needs to enter the website to fill out the application and pay the fee. The service provider recommended that Siri ask her employer for more information about her self-employment status and the necessary documents.\n\n## 6. Additional Observations\nThe customer seemed to be concerned about the impact of registering as a freelancer on her visa and taxes, but the service provider was able to provide clear guidance and information to alleviate her concerns. The customer's communication skills in English appeared to be good, and she was able to understand the information provided.",
+  "extraction": {
+    "Gender": "Woman",
+    "Age_Group": "Adult 30-64",
+    "Reason_for_Immigration": "Work",
+    "Labor_Market_Position": "Unemployed job seeker",
+    "Customers_Domicile": "Espoo",
+    "Duration_of_Residence_in_Finland": "1-3 years",
+    "Country_of_Birth": "India",
+    "Mother_Tongue": "Not specified",
+    "Finnish_Language_Skills": "Not mentioned",
+    "Education_Level": "University / higher",
+    "Topics_Discussed": "Freelance registration; Self-employment; Visa status; Taxes; Business ID; Residence permit; Employment contract",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "Not mentioned",
+    "Services_Sought": "Information about the impact of freelance registration on her current visa and taxes in Finland.",
+    "Guidance_Provided": "Instructions on how to apply for self-employment and register as a freelancer, including the necessary steps and documents required.",
+    "Referrals_Made": "Tax administration",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "transcript": {
+    "full_text": "Yeah, so, yeah, we are, yeah, it's going. Clap to save the audio. Yeah. Come in. Hello. Hi, nice to meet you. You too, hi. How are you? Nice. What's your name? My name is Siri. What can I do for you? I'm sorry? What can I do for you today? Yes, so I'm an immigrant. I'm here from India, and I was actually working for a while. Unfortunately, my company was downsizing. I worked for a tech company as a product manager, and so they were downsizing, so they had to let me go. So I'm currently unemployed, but the good news is I actually have a job offer right now, but they have this weird request. I'm not familiar with that, even from my own country. So they want me to register as a freelancer. Okay. And then start my own company, so they will give me a contract instead of hiring me directly. So that's what they're saying as part of the employment contract, employment agreement. So I was not sure how this impacts my current visa and the taxes I'll have to pay in Finland. So I hope you could give me some information about this. Of course. Let's start with the basics. How long have you been here in Finland? Yes, so I have been here for two years now. Mmhmm. And do you already have a Finnish number? Yes, so I'm residing in Espoo, and I have my social security number already. And I already had a job, so I'm on a work visa right now, and I'm paying taxes. Of course. Right now. Of course. Of course. Of course. So I don't have any other problem, but I'm just worried about changing into this freelancer status. Freelancer status. Yeah, so because they're saying I'll register as a freelancer and start my own company. Uhhuh. So I was worried. I'm not sure how it impacts my, like, you know, visa, because I'm on a work visa right now. Uhhuh. So I don't know how it will impact my visa. Perfect. Let me check a bit of the system, and we'll see. Of course. Mm. Mm. Is the word that you... The people that are telling you to register yourself as a freelancer is a Finnish company? Yes. Okay. Mmhmm. What is your company going to be about? So it's another tech company. A what? A tech company. Technology company. An IT company, basically. Do you have a residence permit right now? Yes. Okay. I have a book. I have an A category. Okay. Okay. Uh, for a migrant person to be a freelancer or selfemployed... Okay. ...in Finland, you don't only just need your, um, residence permit. Mmhmm. And what you need to do is change your status from work visa to selfemployment and to have your business ID. So... Oh, okay. So I've changed my visa, right? Okay. You come from... India? India. Okay. So you will need to have your residence permit to be selfemployed in Finland. Okay. And you can do this by entering into this website. So one of the things that they said... Yeah. ...is that you cannot change this, um, information unless you're working for a company. But because the company that you're mentioning, they're telling you to do that, you are safe under these grounds, so you don't have to worry about that. Okay. And you just need to enter here and fill the application. You also need to pay a fee. So I'm guessing you already have, um, kind of an income? Yeah. Okay. Perfect. And you also need something that is called business ID, uh, which kind of, which kind of means obtaining the registration office, where I think you have gone to get tax administration and everything. You remember it's in Helsinki and everything. Okay. Um, uh, you can just enter directly to tax administration. I would recommend it for you to book a place because if you just go without any booking, it takes, like, not a lot of people to get to you. So book the place. You can have it in English. It doesn't really matter. And you just... Okay. Did it. Fifteen minutes? And you need to bring some papers to identify who you are, present the copies, and also you will have to have your experience taken. Um, you need to demonstrate that your business is generating enough income for you to support yourself and your business. And also, you have to give them your business plan. Just to, you know, if you're a firsttime applicant, it will help to get these business plans so they know that you know what you're doing, right? Okay, so because this is from another company, I guess I should ask this information from them, right? And also, because you're working with that company, you need to have proof that you're working with that company. I don't know if you can tell me more about your selfemployment as a freelancer, right? I think it should be false under freelancer and like, yeah, that's one idea. Okay, so if you're right now holding a valid permit here, it will be way easier because they already have all of your information and everything, so it should be smoothly. The only thing you need to do is enter to this page, fill the application, pay the fee, get the important proof for you, and that's it. Do you have any more questions? Yeah, so they don't mention anything about... Yeah, so they don't mention anything about the taxes, right? So, like, if it will change, like, from what I'm paying right now, like, percentages and stuff, is there any way to find it out? When you're going to get the appointment that you're going to get, they will explain all these kind of things. You mean with Vero, like, with taxes? With the tax administration. Okay, okay. Sure. Right. I think that's about it. So, you showed me how to, like, you know, apply for this. I was not quite sure because it's not a practice that I've... It's not something I'm used to, so I guess I'll try this out. Yeah. Thank you so much for the information. Have a good evening. Yeah, you too. Nice. That was nice.",
+    "segments": [
+      {
+        "start": 0.5,
+        "end": 6.96,
+        "text": "Yeah, so, yeah, we are, yeah, it's going."
+      },
+      {
+        "start": 7.38,
+        "end": 8.44,
+        "text": "Clap to save the audio."
+      },
+      {
+        "start": 8.86,
+        "end": 9.08,
+        "text": "Yeah."
+      },
+      {
+        "start": 10.76,
+        "end": 14.82,
+        "text": "Come in."
+      },
+      {
+        "start": 16.18,
+        "end": 16.58,
+        "text": "Hello."
+      },
+      {
+        "start": 16.96,
+        "end": 17.7,
+        "text": "Hi, nice to meet you."
+      },
+      {
+        "start": 17.84,
+        "end": 18.6,
+        "text": "You too, hi."
+      },
+      {
+        "start": 19.08,
+        "end": 19.48,
+        "text": "How are you?"
+      },
+      {
+        "start": 20.0,
+        "end": 20.34,
+        "text": "Nice."
+      },
+      {
+        "start": 20.48,
+        "end": 20.98,
+        "text": "What's your name?"
+      },
+      {
+        "start": 22.78,
+        "end": 23.48,
+        "text": "My name is Siri."
+      },
+      {
+        "start": 25.68,
+        "end": 26.74,
+        "text": "What can I do for you?"
+      },
+      {
+        "start": 26.96,
+        "end": 27.6,
+        "text": "I'm sorry?"
+      },
+      {
+        "start": 27.72,
+        "end": 28.76,
+        "text": "What can I do for you today?"
+      },
+      {
+        "start": 28.88,
+        "end": 32.01,
+        "text": "Yes, so I'm an immigrant."
+      },
+      {
+        "start": 32.01,
+        "end": 35.51,
+        "text": "I'm here from India, and I was actually working for a while."
+      },
+      {
+        "start": 36.51,
+        "end": 39.41,
+        "text": "Unfortunately, my company was downsizing."
+      },
+      {
+        "start": 39.75,
+        "end": 46.51,
+        "text": "I worked for a tech company as a product manager, and so they were downsizing, so they had to"
+      },
+      {
+        "start": 46.51,
+        "end": 47.05,
+        "text": "let me go."
+      },
+      {
+        "start": 47.85,
+        "end": 54.15,
+        "text": "So I'm currently unemployed, but the good news is I actually have a job offer right"
+      },
+      {
+        "start": 54.15,
+        "end": 58.69,
+        "text": "now, but they have this weird request."
+      },
+      {
+        "start": 58.69,
+        "end": 61.71,
+        "text": "I'm not familiar with that, even from my own country."
+      },
+      {
+        "start": 62.53,
+        "end": 65.25,
+        "text": "So they want me to register as a freelancer."
+      },
+      {
+        "start": 65.51,
+        "end": 65.75,
+        "text": "Okay."
+      },
+      {
+        "start": 66.31,
+        "end": 73.23,
+        "text": "And then start my own company, so they will give me a contract instead of hiring me directly."
+      },
+      {
+        "start": 73.85,
+        "end": 80.59,
+        "text": "So that's what they're saying as part of the employment contract, employment agreement."
+      },
+      {
+        "start": 80.95,
+        "end": 89.73,
+        "text": "So I was not sure how this impacts my current visa and the taxes I'll have to pay in Finland."
+      },
+      {
+        "start": 90.01,
+        "end": 93.73,
+        "text": "So I hope you could give me some information about this."
+      },
+      {
+        "start": 93.81,
+        "end": 94.15,
+        "text": "Of course."
+      },
+      {
+        "start": 94.27,
+        "end": 95.25,
+        "text": "Let's start with the basics."
+      },
+      {
+        "start": 95.51,
+        "end": 97.01,
+        "text": "How long have you been here in Finland?"
+      },
+      {
+        "start": 98.11,
+        "end": 101.23,
+        "text": "Yes, so I have been here for two years now."
+      },
+      {
+        "start": 101.23,
+        "end": 102.31,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 102.84,
+        "end": 107.29,
+        "text": "And do you already have a Finnish number?"
+      },
+      {
+        "start": 108.03,
+        "end": 114.03,
+        "text": "Yes, so I'm residing in Espoo, and I have my social security number already."
+      },
+      {
+        "start": 115.42,
+        "end": 123.44,
+        "text": "And I already had a job, so I'm on a work visa right now, and I'm paying taxes."
+      },
+      {
+        "start": 124.06,
+        "end": 124.56,
+        "text": "Of course."
+      },
+      {
+        "start": 124.56,
+        "end": 125.1,
+        "text": "Right now."
+      },
+      {
+        "start": 125.1,
+        "end": 125.16,
+        "text": "Of course."
+      },
+      {
+        "start": 125.16,
+        "end": 125.22,
+        "text": "Of course."
+      },
+      {
+        "start": 125.22,
+        "end": 125.76,
+        "text": "Of course."
+      },
+      {
+        "start": 125.76,
+        "end": 132.48,
+        "text": "So I don't have any other problem, but I'm just worried about changing into this freelancer status."
+      },
+      {
+        "start": 133.32,
+        "end": 134.08,
+        "text": "Freelancer status."
+      },
+      {
+        "start": 134.28,
+        "end": 137.94,
+        "text": "Yeah, so because they're saying I'll register as a freelancer and start my own company."
+      },
+      {
+        "start": 138.32,
+        "end": 138.52,
+        "text": "Uh-huh."
+      },
+      {
+        "start": 138.54,
+        "end": 139.44,
+        "text": "So I was worried."
+      },
+      {
+        "start": 139.76,
+        "end": 144.04,
+        "text": "I'm not sure how it impacts my, like, you know, visa, because I'm on a work visa right now."
+      },
+      {
+        "start": 144.2,
+        "end": 144.52,
+        "text": "Uh-huh."
+      },
+      {
+        "start": 144.64,
+        "end": 146.92,
+        "text": "So I don't know how it will impact my visa."
+      },
+      {
+        "start": 149.34,
+        "end": 149.74,
+        "text": "Perfect."
+      },
+      {
+        "start": 149.88,
+        "end": 152.12,
+        "text": "Let me check a bit of the system, and we'll see."
+      },
+      {
+        "start": 152.28,
+        "end": 152.7,
+        "text": "Of course."
+      },
+      {
+        "start": 154.27,
+        "end": 154.63,
+        "text": "Mm."
+      },
+      {
+        "start": 154.63,
+        "end": 154.99,
+        "text": "Mm."
+      },
+      {
+        "start": 183.98,
+        "end": 185.14,
+        "text": "Is the word that you..."
+      },
+      {
+        "start": 185.42,
+        "end": 191.08,
+        "text": "The people that are telling you to register yourself as a freelancer is a Finnish company?"
+      },
+      {
+        "start": 191.54,
+        "end": 191.84,
+        "text": "Yes."
+      },
+      {
+        "start": 192.02,
+        "end": 192.3,
+        "text": "Okay."
+      },
+      {
+        "start": 206.26,
+        "end": 206.78,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 210.99,
+        "end": 213.11,
+        "text": "What is your company going to be about?"
+      },
+      {
+        "start": 213.9,
+        "end": 215.14,
+        "text": "So it's another tech company."
+      },
+      {
+        "start": 215.5,
+        "end": 215.98,
+        "text": "A what?"
+      },
+      {
+        "start": 216.16,
+        "end": 216.7,
+        "text": "A tech company."
+      },
+      {
+        "start": 216.78,
+        "end": 217.38,
+        "text": "Technology company."
+      },
+      {
+        "start": 217.94,
+        "end": 218.94,
+        "text": "An IT company, basically."
+      },
+      {
+        "start": 219.42,
+        "end": 241.52,
+        "text": "Do you have a residence permit right now?"
+      },
+      {
+        "start": 241.68,
+        "end": 242.04,
+        "text": "Yes."
+      },
+      {
+        "start": 242.26,
+        "end": 242.54,
+        "text": "Okay."
+      },
+      {
+        "start": 242.62,
+        "end": 243.36,
+        "text": "I have a book."
+      },
+      {
+        "start": 244.18,
+        "end": 245.18,
+        "text": "I have an A category."
+      },
+      {
+        "start": 245.94,
+        "end": 246.42,
+        "text": "Okay."
+      },
+      {
+        "start": 246.42,
+        "end": 246.52,
+        "text": "Okay."
+      },
+      {
+        "start": 246.86,
+        "end": 251.77,
+        "text": "Uh, for a migrant person to be a freelancer or self-employed..."
+      },
+      {
+        "start": 252.67,
+        "end": 253.67,
+        "text": "Okay."
+      },
+      {
+        "start": 253.67,
+        "end": 257.71,
+        "text": "...in Finland, you don't only just need your, um, residence permit."
+      },
+      {
+        "start": 257.71,
+        "end": 258.71,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 258.71,
+        "end": 262.85,
+        "text": "And what you need to do is change your status from work visa to self-employment and to have"
+      },
+      {
+        "start": 262.85,
+        "end": 263.85,
+        "text": "your business ID."
+      },
+      {
+        "start": 263.85,
+        "end": 264.85,
+        "text": "So..."
+      },
+      {
+        "start": 264.85,
+        "end": 265.85,
+        "text": "Oh, okay."
+      },
+      {
+        "start": 265.85,
+        "end": 266.85,
+        "text": "So I've changed my visa, right?"
+      },
+      {
+        "start": 266.85,
+        "end": 276.39,
+        "text": "Okay."
+      },
+      {
+        "start": 276.39,
+        "end": 277.39,
+        "text": "You come from..."
+      },
+      {
+        "start": 277.39,
+        "end": 278.39,
+        "text": "India?"
+      },
+      {
+        "start": 278.39,
+        "end": 279.78,
+        "text": "India."
+      },
+      {
+        "start": 279.78,
+        "end": 280.78,
+        "text": "Okay."
+      },
+      {
+        "start": 280.78,
+        "end": 286.87,
+        "text": "So you will need to have your residence permit to be self-employed in Finland."
+      },
+      {
+        "start": 286.87,
+        "end": 287.87,
+        "text": "Okay."
+      },
+      {
+        "start": 287.87,
+        "end": 290.87,
+        "text": "And you can do this by entering into this website."
+      },
+      {
+        "start": 290.87,
+        "end": 315.36,
+        "text": "So one of the things that they said..."
+      },
+      {
+        "start": 315.36,
+        "end": 316.04,
+        "text": "Yeah."
+      },
+      {
+        "start": 316.04,
+        "end": 321.28,
+        "text": "...is that you cannot change this, um, information unless you're working for a company."
+      },
+      {
+        "start": 321.28,
+        "end": 325.0,
+        "text": "But because the company that you're mentioning, they're telling you to do that, you are safe"
+      },
+      {
+        "start": 325.0,
+        "end": 327.28,
+        "text": "under these grounds, so you don't have to worry about that."
+      },
+      {
+        "start": 327.28,
+        "end": 328.28,
+        "text": "Okay."
+      },
+      {
+        "start": 328.28,
+        "end": 333.67,
+        "text": "And you just need to enter here and fill the application."
+      },
+      {
+        "start": 333.67,
+        "end": 335.95,
+        "text": "You also need to pay a fee."
+      },
+      {
+        "start": 335.95,
+        "end": 339.13,
+        "text": "So I'm guessing you already have, um, kind of an income?"
+      },
+      {
+        "start": 339.13,
+        "end": 340.13,
+        "text": "Yeah."
+      },
+      {
+        "start": 340.13,
+        "end": 342.67,
+        "text": "Okay."
+      },
+      {
+        "start": 342.67,
+        "end": 343.8,
+        "text": "Perfect."
+      },
+      {
+        "start": 343.8,
+        "end": 348.79,
+        "text": "And you also need something that is called business ID, uh, which kind of, which kind"
+      },
+      {
+        "start": 348.79,
+        "end": 357.03,
+        "text": "of means obtaining the registration office, where I think you have gone to get tax administration"
+      },
+      {
+        "start": 357.03,
+        "end": 358.06,
+        "text": "and everything."
+      },
+      {
+        "start": 358.06,
+        "end": 361.06,
+        "text": "You remember it's in Helsinki and everything."
+      },
+      {
+        "start": 361.06,
+        "end": 362.06,
+        "text": "Okay."
+      },
+      {
+        "start": 362.06,
+        "end": 365.67,
+        "text": "Um, uh, you can just enter directly to tax administration."
+      },
+      {
+        "start": 365.67,
+        "end": 370.35,
+        "text": "I would recommend it for you to book a place because if you just go without any booking,"
+      },
+      {
+        "start": 370.35,
+        "end": 373.35,
+        "text": "it takes, like, not a lot of people to get to you."
+      },
+      {
+        "start": 373.35,
+        "end": 374.35,
+        "text": "So book the place."
+      },
+      {
+        "start": 374.35,
+        "end": 375.35,
+        "text": "You can have it in English."
+      },
+      {
+        "start": 375.35,
+        "end": 376.35,
+        "text": "It doesn't really matter."
+      },
+      {
+        "start": 376.35,
+        "end": 377.35,
+        "text": "And you just..."
+      },
+      {
+        "start": 377.35,
+        "end": 378.35,
+        "text": "Okay."
+      },
+      {
+        "start": 378.35,
+        "end": 380.55,
+        "text": "Did it."
+      },
+      {
+        "start": 380.55,
+        "end": 382.98,
+        "text": "Fifteen minutes?"
+      },
+      {
+        "start": 382.98,
+        "end": 391.93,
+        "text": "And you need to bring some papers to identify who you are, present the copies, and also"
+      },
+      {
+        "start": 391.93,
+        "end": 395.21,
+        "text": "you will have to have your experience taken."
+      },
+      {
+        "start": 395.21,
+        "end": 405.52,
+        "text": "Um, you need to demonstrate that your business is generating enough income for you to support"
+      },
+      {
+        "start": 405.52,
+        "end": 407.99,
+        "text": "yourself and your business."
+      },
+      {
+        "start": 407.99,
+        "end": 411.11,
+        "text": "And also, you have to give them your business plan."
+      },
+      {
+        "start": 411.11,
+        "end": 419.97,
+        "text": "Just to, you know, if you're a first-time applicant, it will help to get these business plans so they know that you know what you're doing, right?"
+      },
+      {
+        "start": 420.33,
+        "end": 426.49,
+        "text": "Okay, so because this is from another company, I guess I should ask this information from them, right?"
+      },
+      {
+        "start": 428.88,
+        "end": 434.2,
+        "text": "And also, because you're working with that company, you need to have proof that you're working with that company."
+      },
+      {
+        "start": 435.69,
+        "end": 441.05,
+        "text": "I don't know if you can tell me more about your self-employment as a freelancer, right?"
+      },
+      {
+        "start": 441.05,
+        "end": 445.15,
+        "text": "I think it should be false under freelancer and like, yeah, that's one idea."
+      },
+      {
+        "start": 445.33,
+        "end": 457.25,
+        "text": "Okay, so if you're right now holding a valid permit here, it will be way easier because they already have all of your information and everything, so it should be smoothly."
+      },
+      {
+        "start": 457.45,
+        "end": 467.65,
+        "text": "The only thing you need to do is enter to this page, fill the application, pay the fee, get the important proof for you, and that's it."
+      },
+      {
+        "start": 468.9,
+        "end": 469.84,
+        "text": "Do you have any more questions?"
+      },
+      {
+        "start": 469.84,
+        "end": 471.54,
+        "text": "Yeah, so they don't mention anything about..."
+      },
+      {
+        "start": 471.54,
+        "end": 473.12,
+        "text": "Yeah, so they don't mention anything about the taxes, right?"
+      },
+      {
+        "start": 473.36,
+        "end": 482.44,
+        "text": "So, like, if it will change, like, from what I'm paying right now, like, percentages and stuff, is there any way to find it out?"
+      },
+      {
+        "start": 482.9,
+        "end": 490.44,
+        "text": "When you're going to get the appointment that you're going to get, they will explain all these kind of things."
+      },
+      {
+        "start": 490.46,
+        "end": 492.2,
+        "text": "You mean with Vero, like, with taxes?"
+      },
+      {
+        "start": 492.4,
+        "end": 493.64,
+        "text": "With the tax administration."
+      },
+      {
+        "start": 493.9,
+        "end": 494.24,
+        "text": "Okay, okay."
+      },
+      {
+        "start": 495.38,
+        "end": 495.64,
+        "text": "Sure."
+      },
+      {
+        "start": 496.02,
+        "end": 499.38,
+        "text": "Right."
+      },
+      {
+        "start": 499.38,
+        "end": 502.82,
+        "text": "I think that's about it."
+      },
+      {
+        "start": 502.94,
+        "end": 505.24,
+        "text": "So, you showed me how to, like, you know, apply for this."
+      },
+      {
+        "start": 505.26,
+        "end": 509.7,
+        "text": "I was not quite sure because it's not a practice that I've..."
+      },
+      {
+        "start": 509.7,
+        "end": 512.34,
+        "text": "It's not something I'm used to, so I guess I'll try this out."
+      },
+      {
+        "start": 513.22,
+        "end": 513.4,
+        "text": "Yeah."
+      },
+      {
+        "start": 513.62,
+        "end": 514.78,
+        "text": "Thank you so much for the information."
+      },
+      {
+        "start": 515.6,
+        "end": 516.3,
+        "text": "Have a good evening."
+      },
+      {
+        "start": 516.5,
+        "end": 516.78,
+        "text": "Yeah, you too."
+      },
+      {
+        "start": 518.06,
+        "end": 518.42,
+        "text": "Nice."
+      },
+      {
+        "start": 519.92,
+        "end": 520.68,
+        "text": "That was nice."
+      }
+    ]
+  }
+}

@@ -72,27 +72,11 @@ def _merge_accounts(file_accounts: Iterable[Dict[str, Any]], legacy_accounts: It
 
 
 def get_user_accounts() -> List[Dict[str, Any]]:
-    legacy = [
-        _legacy_account(
-            settings.auth.username,
-            settings.auth.password,
-            settings.auth.display_name,
-            "user",
-        )
-    ]
-    return _merge_accounts(_read_account_file(settings.auth.users_file), legacy, "user")
+    return _read_account_file(settings.auth.users_file)
 
 
 def get_admin_accounts() -> List[Dict[str, Any]]:
-    legacy = [
-        _legacy_account(
-            settings.auth.admin_username,
-            settings.auth.admin_password,
-            "Administrator",
-            "admin",
-        )
-    ]
-    return _merge_accounts(_read_account_file(settings.auth.admins_file), legacy, "admin")
+    return _read_account_file(settings.auth.admins_file)
 
 
 def get_all_accounts() -> List[Dict[str, Any]]:

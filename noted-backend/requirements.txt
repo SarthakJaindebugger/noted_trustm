@@ -26,3 +26,9 @@ httpx
 pyyaml
 python-dotenv
 aiofiles
+
+# RAG dependencies
+pandas
+pyarrow
+scikit-learn
+ollama

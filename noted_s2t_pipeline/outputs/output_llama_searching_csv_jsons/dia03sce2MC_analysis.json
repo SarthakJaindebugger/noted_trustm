@@ -1,0 +1,999 @@
+{
+  "metadata": {
+    "date_time": "05/06/2026 19:12",
+    "visit_duration": "14 min 51 sec",
+    "audio_file": "dia03sce2MC.WAV",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "detected_language": "en",
+    "language_probability": 0.961,
+    "audio_duration_sec": 891.5,
+    "transcript_char_count": 8111,
+    "segment_count": 192
+  },
+  "summary": "## 1. Customer Profile\nThe customer, Gabriela, is a female, likely in her 30s or 40s, as she mentioned being laid off from a job at Nokia. She is originally from Mexico and has been living in Finland for a few years, having moved here to work. She has a working visa, which was supplied by her previous company. Her language skills are good enough to communicate in English, but she also mentioned that the website Newco Helsinki was not available in English.\n\n## 2. Reason for Visit\nGabriela came to the service today because she was laid off from her job at Nokia and was offered a new role as a freelancer, but she was unsure about the implications of registering as a freelancer on her visa status and her overall situation in Finland. She was seeking guidance on whether it made sense for her to register as a freelancer and how it would affect her visa and residence permit.\n\n## 3. Topics Discussed\nThe conversation covered several topics, including Gabriela's visa status and the implications of registering as a freelancer, the requirements for a residence permit, the process of registering a business, taxation, and unemployment benefits. The customer asked about the grounds for obtaining a residence permit as a freelancer and was referred to the website ytj.fi for registering a business. She also inquired about the taxation implications of being self-employed and was advised to check the website vero.fi for more information.\n\n## 4. Guidance and Information Provided\nThe customer was given information about the requirements for a residence permit as a freelancer, which involves finding a different grounds for obtaining a permit. She was referred to the website ytj.fi for registering a business and the website vero.fi for information on taxation. The customer was also advised to contact Newco Helsinki for further guidance on freelancing and entrepreneurship. Additionally, she was informed that she is eligible for unemployment benefits under her residence permit.\n\n## 5. Referrals and Next Steps\nGabriela was referred to Newco Helsinki for further guidance on freelancing and entrepreneurship, and she was also advised to contact the website ytj.fi for registering a business. She needs to take the next step of registering as an unemployed job seeker on the website palvelut.fi and then applying for unemployment benefits at Kela. The customer was also given the option to contact the service provider via email for further questions or follow-up.\n\n## 6. Additional Observations\nThe customer seemed to be in a state of uncertainty and confusion about her situation, but she was open to guidance and information. There were no apparent communication challenges, and the customer's emotional state seemed to be calm and cooperative. The visit was productive, and the customer left with a clear understanding of the next steps she needs to take. However, the customer did mention that the website Newco Helsinki was not available in English, which may pose a challenge for her in seeking further guidance.",
+  "extraction": {
+    "Gender": "Woman",
+    "Age_Group": "Adult 30-64",
+    "Reason_for_Immigration": "Work",
+    "Labor_Market_Position": "Unemployed job seeker",
+    "Customers_Domicile": "Not specified",
+    "Duration_of_Residence_in_Finland": "More than 5 years",
+    "Country_of_Birth": "Mexico",
+    "Mother_Tongue": "Spanish",
+    "Finnish_Language_Skills": "Conversational",
+    "Education_Level": "University / higher",
+    "Topics_Discussed": "Freelancing; Residence permit; Visa status; Unemployment benefits; Entrepreneurship; Newco Helsinki; Ytj.fi; Vero.fi",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "Not mentioned",
+    "Services_Sought": "Advice on freelancing and its implications on her visa status and residence permit.",
+    "Guidance_Provided": "Information on the process of registering as a freelancer, the requirements for a residence permit, and the resources available for entrepreneurship and freelancing, such as Newco Helsinki and Ytj.fi.",
+    "Referrals_Made": "Newco Helsinki; Ytj.fi; Vero.fi",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "transcript": {
+    "full_text": "It's camera. Come in. Hi, nice to meet you. Should I close the door? Yes, please. For more privacy. Okay, hi, nice to meet you. My name is Annika. Hi, I'm Gabriela. Nice to meet you. So, how can I help you today? So, I moved here a few years ago to work for Nokia, but recently I was laid off, unfortunately. Oh, I'm sorry to hear that. Yeah, and I'm currently unemployed and I'm looking for work. I was offered a role at a different company, but unfortunately they want me to register as a freelancer or start my own company in a way. So, I would be, I guess, on a contractbased freelance with them, if I understood correctly, instead of them hiring me permanently. Okay, like permanently. Yeah. And I... For one, I'm not really sure why they want to do this. I'm just trying to figure out if it makes sense for me in my situation to register as a freelancer. I don't know how to register as a freelancer here. And, yeah, I'm also a bit worried about how that might affect my visa status here. Ooh, but what visa do you currently have? I'm here on a working visa. I'm from Mexico originally, so I just came over. My visa was supplied through... My company, previous company. And now, I'm not sure if I do register here. Well, can I be my own boss and give myself a visa status here or what the situation is? Okay. So, I just started at this job, so I think the next step is that we will learn together. Okay, that sounds good. Yes, so we need to figure out about the visa status and kind of like what is allowed within that. Yes. Am I correct? Yeah. So, we would have to go to the immigration services. Okay. And let me see if they have information that we need. I do not know how to use a MacBook, but that's okay. That's okay. They have poor design anyway. Do you remember seeing the letter D in your visa? Yes. You hope so? Yeah. Yes, the D visa. Okay, yes. So, that requires a residence permit. Yes, I have a residence permit. Yes. But I do believe it will expire if my visa expires. If I don't have a job, I think they change it. It's three months that I need to find a job. Yes, I believe it is quite tight like that nowadays. Good to know. You do not need a residence permit on the basis of work. But you've done all of this. I have done this. I currently do have it. I think more it's finding out if being a freelancer allows me to... keep the current visa I have, or if I need a different one. Yes. I am terribly sorry about my lack of knowledge on this. That's fine. Yes, I was laid off. I still have a few more months before my current residence permit expires, so I am... This activity is of residence permit holders, so there is no separate residence permit for freelancers. Okay. So you must get a residence permit on some other grounds in order to do freelance work. Okay, what are the different grounds? Have they told you how you need to do your billing in the freelance work? Were you given any information on freelancing? No, they wanted me to register as a freelancer. But I think they also said that I could do it in a way that I would start my own company, and then I would bill myself as the company through them. Then there's also, I would recommend you a website called Newco Helsinki. How do you spell that? New, as in, yes, cohelsinki.fi, and they will have free support in English available regarding entrepreneurship and freelancing. Okay. And then I believe the website ytj.fi. Y? Ytj.fi is where you will be able to register your business. Okay. Does it make sense for me to do this, or should I just hope that I find something else? What were the grounds on that they wanted you to do this in the first place? Did they give a reasoning? No. No reasoning. I think... I'm not sure if I'm selfemployed, how that affects, like, my time. Okay. My taxation and stuff, because when I first came here, it all was done by the company for me, which was a change, but I'm not sure if I am selfemployed, how that affects it. Let me just quickly, because from my knowledge is one thing, but I will have to confirm if I'm correct. So, on the local tax site, vero.fi, which you can also switch into English, where you see the globe up here. Okay. You can look up, like, when you become a new entrepreneur, how to start up a business and manage its taxes, and usually their information is quite complete. They have a lot of information on the website, and so it would be like a startup in a way, then. So, in your professional opinion, should I... would it be a good idea to attempt to do the freelance? I'm afraid I'm not... I cannot give such advice. Okay. It would be something that you would have to kind of determine yourself. Okay. So, do you think that NewCo Helsinki might be my best shot for getting information and help on further information on the freelancing? I would believe so. I would believe so. But let me just make sure if the website loads. Sometimes it's a bit of a difficulty here. City internet. We are in, or then we don't. Okay. But there are still... I guess I would... It's not available in English. Interesting. Okay. I have been fed false information. I see. But the main thing was that if I do become a freelancer, I need to find a different grounds for my visa. I'm sorry. Can you repeat your question? So, you said earlier that for freelancer, there's no separate residence permit under the... that I have. And then you said that there's no, so I would have to find different grounds upon which to get a residence permit. Right. But on the website of the new... Actually, what is this website? It's a really long link. Can I have your email address? Yes. It's gabriela.nunes.es. How do you spell that? NU-NE-SS. Okay. .com. Okay. Because I believe I could send you a link to this website if you're comfortable with that. Yes. But they do have it in English and there is an option for a business advisory session. Okay. And you can book the time and they provide it in English as well. So, they could maybe help me a bit better on the decision and then how to register in freelance work. Yes, they will help you with any questions you might have. And I believe they will be the correct place where you will get the answers to your questions regarding the assistance and the right directions. Okay. I am really sorry that I was not able to help you more than this, but I hope that they will be... Well, I have some more information now, which is good. And I did get some information. But that's okay. And... Any other questions that you might have? Am I eligible for unemployment under a residence permit? Yes, you are. Okay. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Thank you. Okay. Are there any questions about how to get an office permit? Are these things under a residence permit or is that something I should go to a different place for? Hold on. Okay. So, in order to receive the unemployment support, first of all, you will have to register as an unemployed job seeker. Okay. And that will be done, the website, de-… Yep. Is it cool? Yeah. But, yeah. Pa-lb-el-ut. Mmhmm. De-… Pa-lb-el-ut. Mmhmm. And Pa-lb-el-ut. BE-LU-T dot FI, and there you will find a route to register as an employee. You will, up here if you can see, you can switch the website into English, press log in. Do you have a bank account, bank credentials? Yes, I do. That is very good because you will have to identify strongly in order to do what you need to do. You have to register as an employee at the employment services and then you will have to, after that, apply at Kela. Are you familiar with that yet? Yes, I am. So there you will also have to apply for the unemployment benefit and then they will give you their verdict and assist you further. If you have any other questions later on, you can contact me or you can also answer through the email and I will send you the link. Thank you so much for coming. Thank you for your time. Bye bye. Thank you. Would you like me to leave the door open? Yes.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 18.44,
+        "text": "It's camera. Come in. Hi, nice to meet you. Should I close the door? Yes, please. For more privacy."
+      },
+      {
+        "start": 19.62,
+        "end": 28.25,
+        "text": "Okay, hi, nice to meet you. My name is Annika. Hi, I'm Gabriela. Nice to meet you. So, how can I help you today?"
+      },
+      {
+        "start": 28.69,
+        "end": 34.77,
+        "text": "So, I moved here a few years ago to work for Nokia, but recently I was laid off, unfortunately."
+      },
+      {
+        "start": 34.77,
+        "end": 40.15,
+        "text": "Oh, I'm sorry to hear that. Yeah, and I'm currently unemployed and I'm looking for work."
+      },
+      {
+        "start": 41.6,
+        "end": 49.7,
+        "text": "I was offered a role at a different company, but unfortunately they want me to register as a freelancer"
+      },
+      {
+        "start": 49.7,
+        "end": 57.74,
+        "text": "or start my own company in a way. So, I would be, I guess, on a contract-based freelance with them,"
+      },
+      {
+        "start": 57.74,
+        "end": 62.92,
+        "text": "if I understood correctly, instead of them hiring me permanently."
+      },
+      {
+        "start": 63.64,
+        "end": 63.66,
+        "text": "Okay, like permanently. Yeah."
+      },
+      {
+        "start": 64.18,
+        "end": 65.66,
+        "text": "And I..."
+      },
+      {
+        "start": 65.7,
+        "end": 69.84,
+        "text": "For one, I'm not really sure why they want to do this. I'm just trying to figure out"
+      },
+      {
+        "start": 69.84,
+        "end": 74.94,
+        "text": "if it makes sense for me in my situation to register as a freelancer. I don't know how"
+      },
+      {
+        "start": 74.94,
+        "end": 81.72,
+        "text": "to register as a freelancer here. And, yeah, I'm also a bit worried about how that might"
+      },
+      {
+        "start": 81.72,
+        "end": 83.66,
+        "text": "affect my visa status here."
+      },
+      {
+        "start": 84.54,
+        "end": 86.34,
+        "text": "Ooh, but what visa do you currently have?"
+      },
+      {
+        "start": 86.7,
+        "end": 93.34,
+        "text": "I'm here on a working visa. I'm from Mexico originally, so I just came over. My visa was"
+      },
+      {
+        "start": 93.34,
+        "end": 94.34,
+        "text": "supplied through..."
+      },
+      {
+        "start": 95.79,
+        "end": 105.44,
+        "text": "My company, previous company. And now, I'm not sure if I do register here. Well, can I be my own boss"
+      },
+      {
+        "start": 105.44,
+        "end": 108.12,
+        "text": "and give myself a visa status here or what the situation is?"
+      },
+      {
+        "start": 108.64,
+        "end": 115.32,
+        "text": "Okay. So, I just started at this job, so I think the next step is that we will learn together."
+      },
+      {
+        "start": 115.32,
+        "end": 116.82,
+        "text": "Okay, that sounds good."
+      },
+      {
+        "start": 117.56,
+        "end": 124.92,
+        "text": "Yes, so we need to figure out about the visa status and kind of like what is allowed within that."
+      },
+      {
+        "start": 125.53,
+        "end": 125.67,
+        "text": "Yes."
+      },
+      {
+        "start": 125.67,
+        "end": 125.93,
+        "text": "Am I correct?"
+      },
+      {
+        "start": 126.49,
+        "end": 126.69,
+        "text": "Yeah."
+      },
+      {
+        "start": 128.22,
+        "end": 131.66,
+        "text": "So, we would have to go to the immigration services."
+      },
+      {
+        "start": 131.98,
+        "end": 132.28,
+        "text": "Okay."
+      },
+      {
+        "start": 133.1,
+        "end": 137.67,
+        "text": "And let me see if they have information that we need."
+      },
+      {
+        "start": 140.72,
+        "end": 145.74,
+        "text": "I do not know how to use a MacBook, but that's okay."
+      },
+      {
+        "start": 145.84,
+        "end": 147.88,
+        "text": "That's okay. They have poor design anyway."
+      },
+      {
+        "start": 173.45,
+        "end": 176.54,
+        "text": "Do you remember seeing the letter D in your visa?"
+      },
+      {
+        "start": 180.98,
+        "end": 181.42,
+        "text": "Yes."
+      },
+      {
+        "start": 181.9,
+        "end": 185.96,
+        "text": "You hope so?"
+      },
+      {
+        "start": 186.06,
+        "end": 187.76,
+        "text": "Yeah. Yes, the D visa."
+      },
+      {
+        "start": 187.76,
+        "end": 191.24,
+        "text": "Okay, yes. So, that requires a residence permit."
+      },
+      {
+        "start": 191.76,
+        "end": 193.26,
+        "text": "Yes, I have a residence permit."
+      },
+      {
+        "start": 193.44,
+        "end": 193.94,
+        "text": "Yes."
+      },
+      {
+        "start": 194.04,
+        "end": 198.56,
+        "text": "But I do believe it will expire if my visa expires."
+      },
+      {
+        "start": 198.56,
+        "end": 202.84,
+        "text": "If I don't have a job, I think they change it. It's three months that I need to find a job."
+      },
+      {
+        "start": 203.36,
+        "end": 206.0,
+        "text": "Yes, I believe it is quite tight like that nowadays."
+      },
+      {
+        "start": 214.69,
+        "end": 215.65,
+        "text": "Good to know."
+      },
+      {
+        "start": 216.15,
+        "end": 234.92,
+        "text": "You do not need a residence permit on the basis of work."
+      },
+      {
+        "start": 259.36,
+        "end": 260.68,
+        "text": "But you've done all of this."
+      },
+      {
+        "start": 260.68,
+        "end": 263.46,
+        "text": "I have done this. I currently do have it."
+      },
+      {
+        "start": 263.46,
+        "end": 269.58,
+        "text": "I think more it's finding out if being a freelancer allows me to..."
+      },
+      {
+        "start": 270.14,
+        "end": 275.71,
+        "text": "keep the current visa I have, or if I need a different one."
+      },
+      {
+        "start": 275.71,
+        "end": 277.21,
+        "text": "Yes."
+      },
+      {
+        "start": 277.21,
+        "end": 282.02,
+        "text": "I am terribly sorry about my lack of knowledge on this."
+      },
+      {
+        "start": 282.02,
+        "end": 283.02,
+        "text": "That's fine."
+      },
+      {
+        "start": 283.02,
+        "end": 294.28,
+        "text": "Yes, I was laid off. I still have a few more months before my current residence permit expires, so I am..."
+      },
+      {
+        "start": 294.28,
+        "end": 320.54,
+        "text": "This activity is of residence permit holders, so there is no separate residence permit for freelancers."
+      },
+      {
+        "start": 320.54,
+        "end": 321.04,
+        "text": "Okay."
+      },
+      {
+        "start": 321.9,
+        "end": 329.53,
+        "text": "So you must get a residence permit on some other grounds in order to do freelance work."
+      },
+      {
+        "start": 329.53,
+        "end": 332.97,
+        "text": "Okay, what are the different grounds?"
+      },
+      {
+        "start": 332.97,
+        "end": 348.98,
+        "text": "Have they told you how you need to do your billing in the freelance work?"
+      },
+      {
+        "start": 348.98,
+        "end": 350.98,
+        "text": "Were you given any information on freelancing?"
+      },
+      {
+        "start": 350.98,
+        "end": 353.98,
+        "text": "No, they wanted me to register as a freelancer."
+      },
+      {
+        "start": 353.98,
+        "end": 359.98,
+        "text": "But I think they also said that I could do it in a way that I would start my own company,"
+      },
+      {
+        "start": 359.98,
+        "end": 365.98,
+        "text": "and then I would bill myself as the company through them."
+      },
+      {
+        "start": 366.34,
+        "end": 380.35,
+        "text": "Then there's also, I would recommend you a website called Newco Helsinki."
+      },
+      {
+        "start": 380.35,
+        "end": 382.93,
+        "text": "How do you spell that?"
+      },
+      {
+        "start": 382.93,
+        "end": 394.93,
+        "text": "New, as in, yes, cohelsinki.fi, and they will have free support in English available regarding entrepreneurship and freelancing."
+      },
+      {
+        "start": 394.93,
+        "end": 395.93,
+        "text": "Okay."
+      },
+      {
+        "start": 395.93,
+        "end": 405.44,
+        "text": "And then I believe the website ytj.fi."
+      },
+      {
+        "start": 406.8,
+        "end": 408.44,
+        "text": "Y?"
+      },
+      {
+        "start": 408.44,
+        "end": 416.97,
+        "text": "Ytj.fi is where you will be able to register your business."
+      },
+      {
+        "start": 416.97,
+        "end": 417.97,
+        "text": "Okay."
+      },
+      {
+        "start": 417.97,
+        "end": 425.92,
+        "text": "Does it make sense for me to do this, or should I just hope that I find something else?"
+      },
+      {
+        "start": 425.92,
+        "end": 431.62,
+        "text": "What were the grounds on that they wanted you to do this in the first place?"
+      },
+      {
+        "start": 431.62,
+        "end": 432.62,
+        "text": "Did they give a reasoning?"
+      },
+      {
+        "start": 432.62,
+        "end": 433.62,
+        "text": "No."
+      },
+      {
+        "start": 433.62,
+        "end": 434.62,
+        "text": "No reasoning."
+      },
+      {
+        "start": 434.62,
+        "end": 437.77,
+        "text": "I think..."
+      },
+      {
+        "start": 437.77,
+        "end": 443.54,
+        "text": "I'm not sure if I'm self-employed, how that affects, like, my time."
+      },
+      {
+        "start": 443.54,
+        "end": 444.57,
+        "text": "Okay."
+      },
+      {
+        "start": 444.57,
+        "end": 452.7,
+        "text": "My taxation and stuff, because when I first came here, it all was done by the company for me, which was a change,"
+      },
+      {
+        "start": 452.7,
+        "end": 458.34,
+        "text": "but I'm not sure if I am self-employed, how that affects it."
+      },
+      {
+        "start": 458.34,
+        "end": 470.3,
+        "text": "Let me just quickly, because from my knowledge is one thing, but I will have to confirm if I'm correct."
+      },
+      {
+        "start": 470.3,
+        "end": 489.34,
+        "text": "So, on the local tax site, vero.fi, which you can also switch into English, where you see the globe up here."
+      },
+      {
+        "start": 489.34,
+        "end": 490.34,
+        "text": "Okay."
+      },
+      {
+        "start": 490.34,
+        "end": 498.02,
+        "text": "You can look up, like, when you become a new entrepreneur, how to start up a business and manage its taxes,"
+      },
+      {
+        "start": 498.02,
+        "end": 501.02,
+        "text": "and usually their information is quite complete."
+      },
+      {
+        "start": 501.02,
+        "end": 508.78,
+        "text": "They have a lot of information on the website, and so it would be like a startup in a way, then."
+      },
+      {
+        "start": 508.78,
+        "end": 523.97,
+        "text": "So, in your professional opinion, should I... would it be a good idea to attempt to do the freelance?"
+      },
+      {
+        "start": 523.97,
+        "end": 524.97,
+        "text": "I'm afraid I'm not..."
+      },
+      {
+        "start": 524.97,
+        "end": 525.97,
+        "text": "I cannot give such advice."
+      },
+      {
+        "start": 525.97,
+        "end": 526.97,
+        "text": "Okay."
+      },
+      {
+        "start": 526.97,
+        "end": 531.97,
+        "text": "It would be something that you would have to kind of determine yourself."
+      },
+      {
+        "start": 531.97,
+        "end": 532.97,
+        "text": "Okay."
+      },
+      {
+        "start": 532.97,
+        "end": 542.63,
+        "text": "So, do you think that NewCo Helsinki might be my best shot for getting information and help on further information on the freelancing?"
+      },
+      {
+        "start": 542.63,
+        "end": 543.63,
+        "text": "I would believe so."
+      },
+      {
+        "start": 543.63,
+        "end": 550.46,
+        "text": "I would believe so."
+      },
+      {
+        "start": 550.46,
+        "end": 556.12,
+        "text": "But let me just make sure if the website loads."
+      },
+      {
+        "start": 556.12,
+        "end": 559.47,
+        "text": "Sometimes it's a bit of a difficulty here."
+      },
+      {
+        "start": 559.47,
+        "end": 560.47,
+        "text": "City internet."
+      },
+      {
+        "start": 560.47,
+        "end": 570.32,
+        "text": "We are in, or then we don't."
+      },
+      {
+        "start": 570.32,
+        "end": 571.32,
+        "text": "Okay."
+      },
+      {
+        "start": 571.32,
+        "end": 572.32,
+        "text": "But there are still..."
+      },
+      {
+        "start": 572.32,
+        "end": 575.82,
+        "text": "I guess I would..."
+      },
+      {
+        "start": 575.92,
+        "end": 577.92,
+        "text": "It's not available in English."
+      },
+      {
+        "start": 577.92,
+        "end": 578.92,
+        "text": "Interesting."
+      },
+      {
+        "start": 578.92,
+        "end": 581.14,
+        "text": "Okay."
+      },
+      {
+        "start": 581.14,
+        "end": 583.14,
+        "text": "I have been fed false information."
+      },
+      {
+        "start": 583.14,
+        "end": 585.14,
+        "text": "I see."
+      },
+      {
+        "start": 585.14,
+        "end": 599.76,
+        "text": "But the main thing was that if I do become a freelancer, I need to find a different grounds for my visa."
+      },
+      {
+        "start": 599.76,
+        "end": 600.76,
+        "text": "I'm sorry."
+      },
+      {
+        "start": 600.76,
+        "end": 601.76,
+        "text": "Can you repeat your question?"
+      },
+      {
+        "start": 601.76,
+        "end": 614.34,
+        "text": "So, you said earlier that for freelancer, there's no separate residence permit under the... that I have."
+      },
+      {
+        "start": 614.34,
+        "end": 624.02,
+        "text": "And then you said that there's no, so I would have to find different grounds upon which to get a residence permit."
+      },
+      {
+        "start": 624.02,
+        "end": 629.24,
+        "text": "Right."
+      },
+      {
+        "start": 629.24,
+        "end": 631.24,
+        "text": "But on the website of the new..."
+      },
+      {
+        "start": 631.24,
+        "end": 637.24,
+        "text": "Actually, what is this website?"
+      },
+      {
+        "start": 637.24,
+        "end": 639.24,
+        "text": "It's a really long link."
+      },
+      {
+        "start": 639.24,
+        "end": 641.24,
+        "text": "Can I have your email address?"
+      },
+      {
+        "start": 641.24,
+        "end": 642.85,
+        "text": "Yes."
+      },
+      {
+        "start": 642.85,
+        "end": 650.93,
+        "text": "It's gabriela.nunes.es."
+      },
+      {
+        "start": 650.93,
+        "end": 652.93,
+        "text": "How do you spell that?"
+      },
+      {
+        "start": 652.93,
+        "end": 656.15,
+        "text": "N-U-N-E-S-S."
+      },
+      {
+        "start": 656.15,
+        "end": 657.15,
+        "text": "Okay."
+      },
+      {
+        "start": 657.15,
+        "end": 658.98,
+        "text": ".com."
+      },
+      {
+        "start": 658.98,
+        "end": 660.46,
+        "text": "Okay."
+      },
+      {
+        "start": 660.46,
+        "end": 666.87,
+        "text": "Because I believe I could send you a link to this website if you're comfortable with that."
+      },
+      {
+        "start": 666.87,
+        "end": 667.87,
+        "text": "Yes."
+      },
+      {
+        "start": 667.87,
+        "end": 672.87,
+        "text": "But they do have it in English and there is an option for a business advisory session."
+      },
+      {
+        "start": 672.87,
+        "end": 673.87,
+        "text": "Okay."
+      },
+      {
+        "start": 673.87,
+        "end": 681.4,
+        "text": "And you can book the time and they provide it in English as well."
+      },
+      {
+        "start": 681.4,
+        "end": 693.64,
+        "text": "So, they could maybe help me a bit better on the decision and then how to register in freelance work."
+      },
+      {
+        "start": 693.64,
+        "end": 696.73,
+        "text": "Yes, they will help you with any questions you might have."
+      },
+      {
+        "start": 696.73,
+        "end": 697.73,
+        "text": "And I believe they will be the correct place where you will get the answers to your questions regarding the assistance and the right directions."
+      },
+      {
+        "start": 697.73,
+        "end": 698.73,
+        "text": "Okay."
+      },
+      {
+        "start": 698.73,
+        "end": 699.98,
+        "text": "I am really sorry that I was not able to help you more than this, but I hope that they"
+      },
+      {
+        "start": 699.98,
+        "end": 700.98,
+        "text": "will be..."
+      },
+      {
+        "start": 700.98,
+        "end": 701.98,
+        "text": "Well, I have some more information now, which is good."
+      },
+      {
+        "start": 701.98,
+        "end": 703.43,
+        "text": "And I did get some information."
+      },
+      {
+        "start": 703.43,
+        "end": 704.43,
+        "text": "But that's okay."
+      },
+      {
+        "start": 704.43,
+        "end": 705.43,
+        "text": "And..."
+      },
+      {
+        "start": 705.43,
+        "end": 706.43,
+        "text": "Any other questions that you might have?"
+      },
+      {
+        "start": 706.43,
+        "end": 707.43,
+        "text": "Am I eligible for unemployment under a residence permit?"
+      },
+      {
+        "start": 707.43,
+        "end": 708.43,
+        "text": "Yes, you are."
+      },
+      {
+        "start": 708.43,
+        "end": 709.43,
+        "text": "Okay."
+      },
+      {
+        "start": 709.43,
+        "end": 712.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 712.96,
+        "end": 713.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 713.96,
+        "end": 714.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 714.96,
+        "end": 715.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 715.96,
+        "end": 716.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 716.96,
+        "end": 717.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 717.96,
+        "end": 718.96,
+        "text": "Thank you."
+      },
+      {
+        "start": 718.96,
+        "end": 720.44,
+        "text": "Thank you."
+      },
+      {
+        "start": 720.44,
+        "end": 721.44,
+        "text": "Thank you."
+      },
+      {
+        "start": 721.44,
+        "end": 723.66,
+        "text": "Thank you."
+      },
+      {
+        "start": 723.66,
+        "end": 725.94,
+        "text": "Thank you."
+      },
+      {
+        "start": 725.94,
+        "end": 727.16,
+        "text": "Thank you."
+      },
+      {
+        "start": 727.16,
+        "end": 728.16,
+        "text": "Thank you."
+      },
+      {
+        "start": 728.16,
+        "end": 729.16,
+        "text": "Thank you."
+      },
+      {
+        "start": 729.16,
+        "end": 730.16,
+        "text": "Thank you."
+      },
+      {
+        "start": 730.16,
+        "end": 731.16,
+        "text": "Thank you."
+      },
+      {
+        "start": 731.16,
+        "end": 732.26,
+        "text": "Thank you."
+      },
+      {
+        "start": 732.26,
+        "end": 733.26,
+        "text": "Thank you."
+      },
+      {
+        "start": 733.26,
+        "end": 735.79,
+        "text": "Thank you."
+      },
+      {
+        "start": 735.79,
+        "end": 736.79,
+        "text": "Thank you."
+      },
+      {
+        "start": 736.79,
+        "end": 737.79,
+        "text": "Thank you."
+      },
+      {
+        "start": 737.79,
+        "end": 739.24,
+        "text": "Okay."
+      },
+      {
+        "start": 739.24,
+        "end": 740.24,
+        "text": "Are there any questions about how to get an office permit?"
+      },
+      {
+        "start": 740.24,
+        "end": 769.69,
+        "text": "Are these things under a residence permit or is that something I should go to a different"
+      },
+      {
+        "start": 769.69,
+        "end": 770.69,
+        "text": "place for?"
+      },
+      {
+        "start": 770.69,
+        "end": 772.87,
+        "text": "Hold on."
+      },
+      {
+        "start": 772.87,
+        "end": 773.87,
+        "text": "Okay."
+      },
+      {
+        "start": 773.87,
+        "end": 777.87,
+        "text": "So, in order to receive the unemployment support, first of all, you will have to register as an unemployed job seeker."
+      },
+      {
+        "start": 777.87,
+        "end": 781.88,
+        "text": "Okay."
+      },
+      {
+        "start": 781.88,
+        "end": 782.88,
+        "text": "And that will be done, the website, de-…"
+      },
+      {
+        "start": 782.88,
+        "end": 785.54,
+        "text": "Yep."
+      },
+      {
+        "start": 785.54,
+        "end": 786.54,
+        "text": "Is it cool?"
+      },
+      {
+        "start": 786.54,
+        "end": 787.83,
+        "text": "Yeah."
+      },
+      {
+        "start": 787.83,
+        "end": 788.83,
+        "text": "But, yeah."
+      },
+      {
+        "start": 788.83,
+        "end": 791.3,
+        "text": "P-a-l-b-e-l-u-t."
+      },
+      {
+        "start": 791.3,
+        "end": 792.3,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 792.62,
+        "end": 793.62,
+        "text": "De-…"
+      },
+      {
+        "start": 793.62,
+        "end": 794.69,
+        "text": "P-a-l-b-e-l-u-t."
+      },
+      {
+        "start": 794.69,
+        "end": 795.69,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 795.69,
+        "end": 796.69,
+        "text": "And P-a-l-b-e-l-u-t."
+      },
+      {
+        "start": 796.69,
+        "end": 815.65,
+        "text": "B-E-L-U-T dot F-I, and there you will find a route to register as an employee."
+      },
+      {
+        "start": 815.65,
+        "end": 822.91,
+        "text": "You will, up here if you can see, you can switch the website into English, press log"
+      },
+      {
+        "start": 822.91,
+        "end": 829.03,
+        "text": "in. Do you have a bank account, bank credentials? Yes, I do. That is very good because you will"
+      },
+      {
+        "start": 829.03,
+        "end": 845.12,
+        "text": "have to identify strongly in order to do what you need to do. You have to register as an"
+      },
+      {
+        "start": 845.12,
+        "end": 851.0,
+        "text": "employee at the employment services and then you will have to, after that, apply at Kela."
+      },
+      {
+        "start": 851.0,
+        "end": 859.43,
+        "text": "Are you familiar with that yet? Yes, I am. So there you will also have to apply for the"
+      },
+      {
+        "start": 859.43,
+        "end": 871.0,
+        "text": "unemployment benefit and then they will give you their verdict and assist you further."
+      },
+      {
+        "start": 871.0,
+        "end": 875.54,
+        "text": "If you have any other questions later on, you can contact me or you can also answer"
+      },
+      {
+        "start": 875.54,
+        "end": 886.58,
+        "text": "through the email and I will send you the link. Thank you so much for coming. Thank"
+      },
+      {
+        "start": 886.58,
+        "end": 890.28,
+        "text": "you for your time. Bye bye."
+      },
+      {
+        "start": 890.28,
+        "end": 890.48,
+        "text": "Thank you."
+      },
+      {
+        "start": 890.52,
+        "end": 891.52,
+        "text": "Would you like me to leave the door open?"
+      },
+      {
+        "start": 891.52,
+        "end": 891.54,
+        "text": "Yes."
+      }
+    ]
+  }
+}

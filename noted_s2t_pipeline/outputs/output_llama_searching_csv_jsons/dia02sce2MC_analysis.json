@@ -1,0 +1,894 @@
+{
+  "metadata": {
+    "date_time": "05/06/2026 19:10",
+    "visit_duration": "10 min 42 sec",
+    "audio_file": "dia02sce2MC.WAV",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "detected_language": "en",
+    "language_probability": 0.743,
+    "audio_duration_sec": 642.0,
+    "transcript_char_count": 6611,
+    "segment_count": 171
+  },
+  "summary": "## 1. Customer Profile\nThe customer is a male, likely in his 30s or 40s, who has recently been laid off from his company. He is actively searching for a new job and has received an offer from a company that requires him to register as a freelancer or start his own company in order to be hired. The customer is likely a Finnish immigrant or has been living in Finland for some time, as he is familiar with some Finnish services and terminology. His language skills are likely good, as the conversation is conducted in English with minimal difficulties.\n\n## 2. Reason for Visit\nThe customer came to the service today because he received a job offer from a company that requires him to register as a freelancer or start his own company in order to be hired. He is unsure about the legality of this requirement and wants to know how to proceed with registering as a freelancer or starting his own company.\n\n## 3. Topics Discussed\nThe topics discussed during the conversation include the legality of the company's requirement for the customer to register as a freelancer or start his own company, the benefits and risks of working as a freelancer, and the process of registering a business in Finland. The customer also asked about taxation and how it would work for him as a business versus an individual. Additionally, the conversation touched on the Udayi service, which is a filing system for information related to businesses and organizations, and the customer's concerns about the company's legitimacy.\n\n## 4. Guidance and Information Provided\nThe customer was given general information about the benefits and risks of working as a freelancer, including the need to pay taxes and other expenses that would not be incurred in traditional employment. He was also advised to check out some links on a list provided by the service, which are about entrepreneurship, and to register his business with Udayi. The customer was also referred to the Finnish tax ministry's website, Vero.vfi, for information about taxation for businesses. The service also suggested that the customer compare the options of working as an individual versus a business and to consider consulting a paid consultant if he needs more detailed advice.\n\n## 5. Referrals and Next Steps\nThe customer was referred to the Udayi service, the Finnish tax ministry's website, and the website ukko.fi, which offers a service to help form a company in an easier way. He was also advised to check out some other links on the list provided by the service, which are about entrepreneurship. The customer was told that he can also apply to become a customer service assistant at the service if he needs more help in the future.\n\n## 6. Additional Observations\nThe customer seemed to be concerned about the legitimacy of the company's requirement and was relieved to have someone to talk to about his concerns. The conversation was conducted in a friendly and helpful manner, with the service provider offering guidance and information to the customer. However, the customer's concerns about the company's legitimacy were not fully resolved, and he was advised to seek further advice from a paid consultant if needed.",
+  "extraction": {
+    "Gender": "Man",
+    "Age_Group": "Adult 30-64",
+    "Reason_for_Immigration": "No information",
+    "Labor_Market_Position": "Unemployed job seeker",
+    "Customers_Domicile": "Not specified",
+    "Duration_of_Residence_in_Finland": "No information",
+    "Country_of_Birth": "Not specified",
+    "Mother_Tongue": "Not specified",
+    "Finnish_Language_Skills": "Conversational",
+    "Education_Level": "University / higher",
+    "Topics_Discussed": "Company registration; Freelancing; Entrepreneurship; Udayi; Patentia; Registrarihallitus PRH; Taxation; Contracts; Scamming",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "Not mentioned",
+    "Services_Sought": "Advice on whether a company's request for registration as a freelancer is legal and guidance on the process of registering a company.",
+    "Guidance_Provided": "Information on the risks and benefits of freelancing, the process of registering a company, and resources for further information, including websites and services.",
+    "Referrals_Made": "Udayi; ukko.fi; Finnish tax ministry (Vero.vfi); Udayi website; Patentia; Registrarihallitus PRH",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "transcript": {
+    "full_text": "Oh, hi. Come in. Hi. Come on. Come in. Hello. Don't be shy. Sit down. Good afternoon. Yeah. Hey. Nice to meet you. I'm Sandor. Nice to meet you too. This is Anna. Anna. All right. 1A? 1N? 1N. Yes. Both 1. I see. What are you here about? I can help you. Yes. Actually, the point is that I recently got laid off from my company and I was trying to actively searching for a job and applying for different positions and I got one offer that it's a decent one. It has only one point that I'm not sure about it. Right. And that's the reason for me being here. Okay. So basically, the company... They asked me that if I want to get offered, I need to have my own company or being registered as a freelancer. So either I have to start my own company or be registered as freelancer and on that point, they can hire me, not me as myself directly to their company. So first of all, it was a bit like weird for me. I didn't understand why. Okay. Why they need to ask this and is this legal? Yes. Is this legal? Is this okay to happen? And let's start with this. And then the second, I want to know if it is okay, like how can I move forward with this if I want to be registered as a freelancer or starting my own company? Oh, all right. Okay. Now, you should be aware about working as a freelancer with your kind of own company. It does come with more risks and you don't... There are some benefits you don't get that you would usually get in normal employment, like something such as this, whatever it is called in English, which usually accumulates with normal work. You have to pay that yourself. So there might be unexpected costs or similar difficulties. So you should be a bit wary when signing on to something like this. But if you want to get familiar with your options and see if it should work for you, you can check out some of these links on this list, which are about entrepreneurship. Now, you do need to have... I don't even know what... You do need to have... You do need to have an email to sign in with by the city it seems, which is a bit strange. But you can... So there's some free support they can give you if you can make an account there. And you can find out some information about that. Personally, I don't know too much about it. I'm sorry that I can't help you in much detail. But if you're looking at that first and get familiar with it, you can get some information. Okay. Then you can later register your business with Udayi at this link. Then also make sure to look at the Finnish tax ministry, whatever. Vero.vfi has information about... Yeah, I'm familiar with this for my personal. Right. Yeah. So it's the same for the company? Yeah. Yeah. They have a different page for businesses where you can find information about taxations for businesses. Now, all of this sort of stuff like taxation is a bit more in bold as a business. You do need to be able to understand it to work as a business. Is there any information about this taxation on website? Like, how would be the taxation? Yeah. How would be the taxation if you are having a business or... Personally, I'm sorry, I have no idea. But compare the options, compare how it would work for you as an individual and how it would work for you as a business. Also, we can take a look at the Udayi website right now, how the application process looks like or registration process rather. Oh, not loading. Oh, there it is. So, this is the... Can we change the language to English there? Oh, yeah, absolutely. So, I wonder what Udayi stands for? Who's there? Uryut? Visitor? Oh, no, that's some advertisement. What does Udayi mean? Uryut is an . So, yeah, it's basically like a filing system for information related... Yeah. ...to businesses and also organizations. And usually, you need to register in a couple of different places. So, there's also Patentia and Registrarihallitus PRH. Mmhmm. They have their own website, which you should check as well. But... Is there any website that I can check whether this request from that company is legal or not? Oh, I'm not sure. Let me check my guide. Guidance on Tax, Social Security and Contracts. There probably isn't a comprehensive service for it. Mmhmm. You can maybe find some, like, a person who, like, a consultant, paid consultant to help you with this. Mmhmm. All right. So, there isn't any free services that can... There are... If you look at this list of links, there's some websites, websites which can give you some general information. We can go look at ukko.fi and see what's there. It looks like... Which one is that? ukko.fi. This one. Light and Diffusion Platforms. Oh, hello. I see. So, this is a website that helps you form your own company in an easier way. I think they might take some money from you for doing that. But they offer a service, which lets you do it in a way where you don't need to do all of this registering yourself and worry about your taxes or similar things. Mmhmm. So, they will probably have some sort of customer service, which would be able to help you if you signed on. All right. Okay. If we look at some of these other links, the websites will probably have some sort of information, general information about, you know, working as an entrepreneur in Finland. Okay. But there might not be anything that will directly answer your questions about this specific company. Do you know what sort of situation it is? What are you worried about not being legal? I mean, because it doesn't make sense. Like, why they don't hire me as myself? Why I need to go through a process of registering my own company, paying that much, and then later they hire me? Oh, they're definitely scamming you. They, you know, they don't have... They don't have to pay... These kind of extra payments that they usually would need to make to the government. And also, they can pay you arbitrarily little. So, like, there's no guarantee your... It's sort of a universal contract for workers which guarantees some sort of minimal wages or similar. There's a... Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. Yeah. and you know if that doesn't work out you can come maybe apply to become a customer service assistant here because I have the guideline yeah okay sounds good you know everything I know no no of course you should know more than me yeah I wish I did yeah nice meeting you take care of yourself thank you bye bye",
+    "segments": [
+      {
+        "start": 0.43,
+        "end": 7.95,
+        "text": "Oh, hi. Come in. Hi. Come on. Come in."
+      },
+      {
+        "start": 8.09,
+        "end": 8.41,
+        "text": "Hello."
+      },
+      {
+        "start": 8.71,
+        "end": 10.25,
+        "text": "Don't be shy. Sit down."
+      },
+      {
+        "start": 11.01,
+        "end": 12.25,
+        "text": "Good afternoon."
+      },
+      {
+        "start": 12.63,
+        "end": 16.21,
+        "text": "Yeah. Hey. Nice to meet you. I'm Sandor."
+      },
+      {
+        "start": 16.83,
+        "end": 19.65,
+        "text": "Nice to meet you too. This is Anna."
+      },
+      {
+        "start": 20.05,
+        "end": 24.21,
+        "text": "Anna. All right. 1A? 1N?"
+      },
+      {
+        "start": 24.67,
+        "end": 26.55,
+        "text": "1N. Yes. Both 1."
+      },
+      {
+        "start": 27.11,
+        "end": 30.31,
+        "text": "I see. What are you here about? I can help you."
+      },
+      {
+        "start": 30.31,
+        "end": 39.97,
+        "text": "Yes. Actually, the point is that I recently got laid off from my company and I was trying"
+      },
+      {
+        "start": 39.97,
+        "end": 46.33,
+        "text": "to actively searching for a job and applying for different positions and I got one offer"
+      },
+      {
+        "start": 46.33,
+        "end": 55.92,
+        "text": "that it's a decent one. It has only one point that I'm not sure about it."
+      },
+      {
+        "start": 56.14,
+        "end": 56.34,
+        "text": "Right."
+      },
+      {
+        "start": 56.34,
+        "end": 58.64,
+        "text": "And that's the reason for me being here."
+      },
+      {
+        "start": 59.04,
+        "end": 59.28,
+        "text": "Okay."
+      },
+      {
+        "start": 59.3,
+        "end": 60.34,
+        "text": "So basically, the company..."
+      },
+      {
+        "start": 60.76,
+        "end": 67.46,
+        "text": "They asked me that if I want to get offered, I need to have my own company or being registered"
+      },
+      {
+        "start": 67.46,
+        "end": 73.49,
+        "text": "as a freelancer. So either I have to start my own company or be registered as freelancer"
+      },
+      {
+        "start": 73.49,
+        "end": 81.09,
+        "text": "and on that point, they can hire me, not me as myself directly to their company. So first"
+      },
+      {
+        "start": 81.09,
+        "end": 85.77,
+        "text": "of all, it was a bit like weird for me. I didn't understand why."
+      },
+      {
+        "start": 86.03,
+        "end": 86.47,
+        "text": "Okay."
+      },
+      {
+        "start": 86.85,
+        "end": 90.37,
+        "text": "Why they need to ask this and is this legal?"
+      },
+      {
+        "start": 90.81,
+        "end": 90.91,
+        "text": "Yes."
+      },
+      {
+        "start": 90.91,
+        "end": 90.99,
+        "text": "Is this legal?"
+      },
+      {
+        "start": 90.99,
+        "end": 99.77,
+        "text": "Is this okay to happen? And let's start with this. And then the second, I want to know"
+      },
+      {
+        "start": 99.77,
+        "end": 104.87,
+        "text": "if it is okay, like how can I move forward with this if I want to be registered as a"
+      },
+      {
+        "start": 104.87,
+        "end": 107.87,
+        "text": "freelancer or starting my own company?"
+      },
+      {
+        "start": 108.86,
+        "end": 118.18,
+        "text": "Oh, all right. Okay. Now, you should be aware about working as a freelancer with your kind"
+      },
+      {
+        "start": 118.18,
+        "end": 121.06,
+        "text": "of own company."
+      },
+      {
+        "start": 121.34,
+        "end": 128.38,
+        "text": "It does come with more risks and you don't... There are some benefits you don't get that"
+      },
+      {
+        "start": 128.38,
+        "end": 139.19,
+        "text": "you would usually get in normal employment, like something such as this, whatever it is"
+      },
+      {
+        "start": 139.19,
+        "end": 147.77,
+        "text": "called in English, which usually accumulates with normal work. You have to pay that yourself."
+      },
+      {
+        "start": 147.77,
+        "end": 152.94,
+        "text": "So there might be unexpected costs or similar difficulties."
+      },
+      {
+        "start": 153.26,
+        "end": 165.37,
+        "text": "So you should be a bit wary when signing on to something like this. But if you want"
+      },
+      {
+        "start": 165.37,
+        "end": 173.28,
+        "text": "to get familiar with your options and see if it should work for you, you can check out"
+      },
+      {
+        "start": 173.28,
+        "end": 180.36,
+        "text": "some of these links on this list, which are about entrepreneurship. Now, you do need to"
+      },
+      {
+        "start": 180.36,
+        "end": 186.49,
+        "text": "have... I don't even know what... You do need to have..."
+      },
+      {
+        "start": 186.49,
+        "end": 199.25,
+        "text": "You do need to have an email to sign in with by the city it seems, which is a bit strange."
+      },
+      {
+        "start": 199.25,
+        "end": 206.66,
+        "text": "But you can... So there's some free support they can give you if you can make an account"
+      },
+      {
+        "start": 206.66,
+        "end": 212.88,
+        "text": "there. And you can find out some information about that. Personally, I don't know too much"
+      },
+      {
+        "start": 212.88,
+        "end": 220.86,
+        "text": "about it. I'm sorry that I can't help you in much detail. But if you're looking at that"
+      },
+      {
+        "start": 220.86,
+        "end": 221.86,
+        "text": "first and get familiar with it, you can get some information."
+      },
+      {
+        "start": 221.86,
+        "end": 222.86,
+        "text": "Okay."
+      },
+      {
+        "start": 222.86,
+        "end": 236.77,
+        "text": "Then you can later register your business with Udayi at this link. Then also make sure"
+      },
+      {
+        "start": 236.77,
+        "end": 254.08,
+        "text": "to look at the Finnish tax ministry, whatever. Vero.vfi has information about..."
+      },
+      {
+        "start": 254.08,
+        "end": 257.14,
+        "text": "Yeah, I'm familiar with this for my personal."
+      },
+      {
+        "start": 257.14,
+        "end": 258.14,
+        "text": "Right."
+      },
+      {
+        "start": 258.14,
+        "end": 259.14,
+        "text": "Yeah."
+      },
+      {
+        "start": 259.14,
+        "end": 260.14,
+        "text": "So it's the same for the company?"
+      },
+      {
+        "start": 260.14,
+        "end": 261.14,
+        "text": "Yeah."
+      },
+      {
+        "start": 261.14,
+        "end": 262.14,
+        "text": "Yeah."
+      },
+      {
+        "start": 262.14,
+        "end": 269.1,
+        "text": "They have a different page for businesses where you can find information about taxations"
+      },
+      {
+        "start": 269.1,
+        "end": 280.36,
+        "text": "for businesses. Now, all of this sort of stuff like taxation is a bit more in bold as a business."
+      },
+      {
+        "start": 280.36,
+        "end": 284.36,
+        "text": "You do need to be able to understand it to work as a business."
+      },
+      {
+        "start": 284.36,
+        "end": 289.65,
+        "text": "Is there any information about this taxation on website? Like, how would be the taxation?"
+      },
+      {
+        "start": 289.65,
+        "end": 290.65,
+        "text": "Yeah."
+      },
+      {
+        "start": 290.65,
+        "end": 295.65,
+        "text": "How would be the taxation if you are having a business or..."
+      },
+      {
+        "start": 295.65,
+        "end": 309.26,
+        "text": "Personally, I'm sorry, I have no idea. But compare the options, compare how it would"
+      },
+      {
+        "start": 309.26,
+        "end": 320.08,
+        "text": "work for you as an individual and how it would work for you as a business. Also, we can take"
+      },
+      {
+        "start": 320.08,
+        "end": 330.39,
+        "text": "a look at the Udayi website right now, how the application process looks like or registration"
+      },
+      {
+        "start": 330.39,
+        "end": 331.39,
+        "text": "process rather."
+      },
+      {
+        "start": 331.39,
+        "end": 339.37,
+        "text": "Oh, not loading. Oh, there it is. So, this is the..."
+      },
+      {
+        "start": 339.37,
+        "end": 342.37,
+        "text": "Can we change the language to English there?"
+      },
+      {
+        "start": 342.37,
+        "end": 354.13,
+        "text": "Oh, yeah, absolutely. So, I wonder what Udayi stands for?"
+      },
+      {
+        "start": 354.13,
+        "end": 368.26,
+        "text": "Who's there? Uryut? Visitor?"
+      },
+      {
+        "start": 368.26,
+        "end": 376.97,
+        "text": "Oh, no, that's some advertisement. What does Udayi mean? Uryut is an ."
+      },
+      {
+        "start": 376.97,
+        "end": 381.93,
+        "text": "So, yeah, it's basically like a filing system for information related..."
+      },
+      {
+        "start": 381.97,
+        "end": 382.97,
+        "text": "Yeah."
+      },
+      {
+        "start": 382.97,
+        "end": 390.47,
+        "text": "...to businesses and also organizations. And usually, you need to register in a couple"
+      },
+      {
+        "start": 390.47,
+        "end": 395.67,
+        "text": "of different places. So, there's also Patentia and Registrarihallitus PRH."
+      },
+      {
+        "start": 395.67,
+        "end": 396.67,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 396.67,
+        "end": 400.74,
+        "text": "They have their own website, which you should check as well. But..."
+      },
+      {
+        "start": 400.74,
+        "end": 408.54,
+        "text": "Is there any website that I can check whether this request from that company is legal or"
+      },
+      {
+        "start": 408.54,
+        "end": 410.66,
+        "text": "not?"
+      },
+      {
+        "start": 410.66,
+        "end": 417.53,
+        "text": "Oh, I'm not sure. Let me check my guide."
+      },
+      {
+        "start": 417.53,
+        "end": 432.22,
+        "text": "Guidance on Tax, Social Security and Contracts. There probably isn't a comprehensive service"
+      },
+      {
+        "start": 432.22,
+        "end": 433.22,
+        "text": "for it."
+      },
+      {
+        "start": 433.22,
+        "end": 434.22,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 434.22,
+        "end": 443.47,
+        "text": "You can maybe find some, like, a person who, like, a consultant, paid consultant to help"
+      },
+      {
+        "start": 443.47,
+        "end": 444.47,
+        "text": "you with this."
+      },
+      {
+        "start": 444.47,
+        "end": 445.47,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 445.47,
+        "end": 446.47,
+        "text": "All right."
+      },
+      {
+        "start": 446.47,
+        "end": 448.47,
+        "text": "So, there isn't any free services that can..."
+      },
+      {
+        "start": 448.47,
+        "end": 453.47,
+        "text": "There are... If you look at this list of links, there's some websites, websites which can"
+      },
+      {
+        "start": 453.47,
+        "end": 462.52,
+        "text": "give you some general information. We can go look at ukko.fi and see what's there. It"
+      },
+      {
+        "start": 462.52,
+        "end": 463.52,
+        "text": "looks like..."
+      },
+      {
+        "start": 463.52,
+        "end": 464.52,
+        "text": "Which one is that?"
+      },
+      {
+        "start": 464.52,
+        "end": 465.52,
+        "text": "ukko.fi. This one."
+      },
+      {
+        "start": 465.52,
+        "end": 466.9,
+        "text": "Light and Diffusion Platforms."
+      },
+      {
+        "start": 466.9,
+        "end": 480.18,
+        "text": "Oh, hello. I see. So, this is a website that helps you form your own company in an easier"
+      },
+      {
+        "start": 480.18,
+        "end": 487.18,
+        "text": "way. I think they might take some money from you for doing that. But they offer a service,"
+      },
+      {
+        "start": 487.18,
+        "end": 494.43,
+        "text": "which lets you do it in a way where you don't need to do all of this registering yourself"
+      },
+      {
+        "start": 494.43,
+        "end": 497.62,
+        "text": "and worry about your taxes or similar things."
+      },
+      {
+        "start": 497.62,
+        "end": 498.62,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 498.62,
+        "end": 503.62,
+        "text": "So, they will probably have some sort of customer service, which would be able to help you if"
+      },
+      {
+        "start": 503.62,
+        "end": 504.62,
+        "text": "you signed on."
+      },
+      {
+        "start": 504.62,
+        "end": 505.78,
+        "text": "All right."
+      },
+      {
+        "start": 505.78,
+        "end": 506.78,
+        "text": "Okay."
+      },
+      {
+        "start": 506.78,
+        "end": 511.78,
+        "text": "If we look at some of these other links, the websites will probably have some sort of information,"
+      },
+      {
+        "start": 511.78,
+        "end": 516.78,
+        "text": "general information about, you know, working as an entrepreneur in Finland."
+      },
+      {
+        "start": 516.78,
+        "end": 517.78,
+        "text": "Okay."
+      },
+      {
+        "start": 517.78,
+        "end": 523.78,
+        "text": "But there might not be anything that will directly answer your questions about this"
+      },
+      {
+        "start": 523.78,
+        "end": 532.06,
+        "text": "specific company. Do you know what sort of situation it is? What are you worried about"
+      },
+      {
+        "start": 532.06,
+        "end": 533.06,
+        "text": "not being legal?"
+      },
+      {
+        "start": 533.06,
+        "end": 538.54,
+        "text": "I mean, because it doesn't make sense. Like, why they don't hire me as myself? Why I need"
+      },
+      {
+        "start": 538.54,
+        "end": 544.54,
+        "text": "to go through a process of registering my own company, paying that much, and then later"
+      },
+      {
+        "start": 544.54,
+        "end": 546.54,
+        "text": "they hire me?"
+      },
+      {
+        "start": 546.54,
+        "end": 548.54,
+        "text": "Oh, they're definitely scamming you. They, you know, they don't have... They don't have"
+      },
+      {
+        "start": 548.54,
+        "end": 549.54,
+        "text": "to pay..."
+      },
+      {
+        "start": 549.54,
+        "end": 550.54,
+        "text": "These kind of extra payments that they usually would need to make to the government."
+      },
+      {
+        "start": 550.54,
+        "end": 551.54,
+        "text": "And also, they can pay you arbitrarily little."
+      },
+      {
+        "start": 551.54,
+        "end": 552.54,
+        "text": "So, like, there's no guarantee your..."
+      },
+      {
+        "start": 552.54,
+        "end": 555.86,
+        "text": "It's sort of a universal contract for workers which guarantees some sort of minimal wages"
+      },
+      {
+        "start": 555.86,
+        "end": 556.86,
+        "text": "or similar."
+      },
+      {
+        "start": 556.86,
+        "end": 557.86,
+        "text": "There's a..."
+      },
+      {
+        "start": 557.86,
+        "end": 558.86,
+        "text": "Yeah."
+      },
+      {
+        "start": 558.86,
+        "end": 559.86,
+        "text": "Yeah."
+      },
+      {
+        "start": 559.86,
+        "end": 560.86,
+        "text": "Yeah."
+      },
+      {
+        "start": 560.86,
+        "end": 562.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 562.25,
+        "end": 563.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 563.25,
+        "end": 564.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 564.25,
+        "end": 565.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 565.25,
+        "end": 566.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 566.25,
+        "end": 567.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 567.25,
+        "end": 568.25,
+        "text": "Yeah."
+      },
+      {
+        "start": 568.25,
+        "end": 569.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 569.66,
+        "end": 570.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 570.98,
+        "end": 571.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 571.98,
+        "end": 572.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 572.98,
+        "end": 573.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 573.98,
+        "end": 574.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 574.98,
+        "end": 575.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 575.98,
+        "end": 576.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 576.98,
+        "end": 577.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 577.98,
+        "end": 578.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 578.98,
+        "end": 579.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 579.98,
+        "end": 580.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 580.98,
+        "end": 581.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 581.98,
+        "end": 582.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 582.98,
+        "end": 583.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 583.98,
+        "end": 584.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 584.98,
+        "end": 585.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 585.98,
+        "end": 586.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 586.98,
+        "end": 587.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 587.98,
+        "end": 588.98,
+        "text": "Yeah."
+      },
+      {
+        "start": 588.98,
+        "end": 590.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 590.66,
+        "end": 591.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 591.66,
+        "end": 592.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 592.66,
+        "end": 593.66,
+        "text": "Yeah."
+      },
+      {
+        "start": 593.66,
+        "end": 595.9,
+        "text": "Yeah."
+      },
+      {
+        "start": 595.9,
+        "end": 596.9,
+        "text": "Yeah."
+      },
+      {
+        "start": 596.9,
+        "end": 598.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 598.16,
+        "end": 599.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 599.16,
+        "end": 600.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 600.16,
+        "end": 601.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 601.16,
+        "end": 602.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 602.16,
+        "end": 603.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 603.16,
+        "end": 604.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 604.16,
+        "end": 605.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 605.16,
+        "end": 606.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 606.16,
+        "end": 607.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 607.16,
+        "end": 608.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 608.16,
+        "end": 609.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 609.16,
+        "end": 610.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 610.16,
+        "end": 611.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 611.16,
+        "end": 612.16,
+        "text": "Yeah."
+      },
+      {
+        "start": 612.16,
+        "end": 617.54,
+        "text": "and you know if that doesn't work out you can come maybe apply to become a"
+      },
+      {
+        "start": 617.54,
+        "end": 623.8,
+        "text": "customer service assistant here because I have the guideline yeah okay sounds"
+      },
+      {
+        "start": 623.8,
+        "end": 630.82,
+        "text": "good you know everything I know no no of course you should know more than me yeah"
+      },
+      {
+        "start": 630.82,
+        "end": 635.68,
+        "text": "I wish I did yeah nice meeting you take care of"
+      },
+      {
+        "start": 635.68,
+        "end": 642.0,
+        "text": "yourself thank you bye bye"
+      }
+    ]
+  }
+}

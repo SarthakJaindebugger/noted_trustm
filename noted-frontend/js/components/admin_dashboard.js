@@ -8,59 +8,32 @@ export default {
   setup() {
     const router = useRouter();
     const searchQuery = ref('');
-    const applications = ref([
-      {
-        id: 'APP-2024-456',
-        name: 'Maria Garcia',
-        priority: 'High',
-        status: 'Pending Review',
-        type: 'Work Permit',
-        officer: 'Officer Chen',
-        submitted: 'April 2, 2026'
-      },
-      {
-        id: 'APP-2024-457',
-        name: 'Ahmed Hassan',
-        priority: 'Medium',
-        status: 'Documents Required',
-        type: 'Family Reunification',
-        officer: 'Officer Martinez',
-        submitted: 'April 2, 2026'
-      },
-      {
-        id: 'APP-2024-458',
-        name: 'Sophie Laurent',
-        priority: 'Low',
-        status: 'In Review',
-        type: 'Student Visa',
-        officer: 'Officer Johnson',
-        submitted: 'April 1, 2026'
-      },
-      {
-        id: 'APP-2024-459',
-        name: 'Yuki Tanaka',
-        priority: 'Low',
-        status: 'Approved',
-        type: 'Tourist Visa',
-        officer: 'Officer Smith',
-        submitted: 'March 31, 2026'
-      },
-      {
-        id: 'APP-2024-460',
-        name: 'Carlos Rodriguez',
-        priority: 'High',
-        status: 'Interview Scheduled',
-        type: 'Permanent Residency',
-        officer: 'Officer Brown',
-        submitted: 'March 30, 2026'
-      }
-    ]);
+    
+    // ----- Replace with real data source -----
+    const applications = ref([]);
+    const totalApplications = ref(0);
+    const pendingReview = ref(0);
+    const approvedToday = ref(0);
+    const activeOfficers = ref(0);
+    const trendsData = ref({});
+    const applicationTypes = ref([]);
+    // New dashboard fields (placeholders — will be filled dynamically)
+    const averageConversationTime = ref('—');
+    const contactMethods = ref([]); // e.g. ['phone','email']
+    const numberOfCustomers = ref('—');
+    const genderRatio = ref('—');
+    const ageGroups = ref([]); // e.g. [{range:'18-25', pct:20}, ...]
+    const countryOfOrigin = ref([]); // e.g. [{country:'Finland', pct:70}]
+    const durationResidence = ref([]); // e.g. [{range:'<1yr', pct:10}, ...]
+    const topicsDiscussed = ref([]); // e.g. ['work visa','benefits']
+    const purposesOfVisit = ref([]); // e.g. ['consultation','application']
+    const customerFeedbacks = ref([]); // e.g. [{text:'Great service', rating:5}]
 
     // ----- Floating Chat State -----
     const messages = ref([
       {
         role: 'assistant',
-        content: '👋 Hello! I\'m your AI immigration assistant. I can help you analyze applications, provide insights on the dashboard data, or answer questions about immigration processes. What would you like to know?',
+        content: '👋 Hello! I\'m your AI immigration assistant. I can answer questions based on official immigration documents and policies. What would you like to know?',
         timestamp: Date.now()
       }
     ]);
@@ -68,12 +41,9 @@ export default {
     const isTyping = ref(false);
     const isMinimized = ref(false);
     const messagesContainer = ref(null);
-
-    // For unread badge – increases while minimized and new assistant messages arrive
     let unreadCounter = 0;
     const unreadCount = ref(0);
 
-    // Scroll helper
     const scrollToBottom = async () => {
       await nextTick();
       if (messagesContainer.value) {
@@ -81,55 +51,52 @@ export default {
       }
     };
 
-    // Format time
     const formatTime = (timestamp) => {
       const date = new Date(timestamp);
       return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
-    // Mock LLM response – contextually uses dashboard data
-    const generateMockResponse = async (userMessage) => {
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 700));
+    // ----- REAL RAG API CALL -----
+    const getRAGResponse = async (userQuery) => {
+      const token = authService.getToken();
+      const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://127.0.0.1:8000/api/v1/rag/query'
+        : '/api/rag/query';
 
-      const lowerMsg = userMessage.toLowerCase();
-      const apps = applications.value;      // access the array inside the ref
-      const totalApps = 1284;
-      const pendingCount = 342;
-      const highPriorityApps = apps.filter(app => app.priority === 'High').length;
-      const pendingReviewApps = apps.filter(app => app.status === 'Pending Review').length;
-      const recentAppsList = apps.slice(0, 3).map(app => app.name).join(', ');
+      console.debug('Calling RAG API', { apiUrl, tokenPresent: !!token, query: userQuery });
 
-      if (lowerMsg.includes('pending') || lowerMsg.includes('review')) {
-        return `📋 There are currently ${pendingCount} applications pending review overall. Among the recent applications, ${pendingReviewApps} are marked as "Pending Review". The oldest pending from your list is ${apps.find(a => a.status === 'Pending Review')?.name || 'none'}. Would you like me to prioritize specific cases?`;
-      }
-      if (lowerMsg.includes('priority') || lowerMsg.includes('urgent')) {
-        return `⚠️ High priority applications: ${highPriorityApps} out of ${apps.length} recent applications. Top priority cases: ${apps.filter(a => a.priority === 'High').map(a => a.name).join(', ')}. Consider reviewing ${apps.find(a => a.priority === 'High' && a.status !== 'Approved')?.name || 'Maria Garcia'} first.`;
-      }
-      if (lowerMsg.includes('work permit') || lowerMsg.includes('visa type')) {
-        return `📊 Application breakdown by type: Work Permit (30%), Tourist Visa (22%), Student Visa (15%), Family Reunification (19%), Permanent Residency (14%). Would you like detailed stats on any specific type?`;
-      }
-      if (lowerMsg.includes('trend') || lowerMsg.includes('chart')) {
-        return `📈 Application trends show +12.5% total volume vs last month. Pending cases decreased by 8.2%, while approvals today are up 23.1%. The growth in Work Permit applications is driving most of the increase.`;
-      }
-      if (lowerMsg.includes('officer') || lowerMsg.includes('assign')) {
-        return `👩‍💼 Active officers: 24 total. Currently assigned officers include Officer Chen (Work Permit), Officer Martinez (Family), Officer Johnson (Student), Officer Smith (Tourist), Officer Brown (PR). Need to reassign a specific application?`;
-      }
-      if (lowerMsg.includes('maria') || lowerMsg.includes('garcia')) {
-        return `👤 Maria Garcia - Application APP-2024-456, Work Permit, High Priority, Pending Review. Submitted April 2, 2026, assigned to Officer Chen. Would you like to take action on this application?`;
-      }
-      if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
-        return `Hello! I'm ready to assist with your immigration dashboard. You can ask me about pending applications, priorities, visa types, officer assignments, or any immigration policy. How can I help today?`;
-      }
-      if (lowerMsg.includes('help')) {
-        return `Here are some things you can ask me:\n• "Show pending applications"\n• "What are high priority cases?"\n• "Application trends"\n• "Visa type breakdown"\n• "Info about Maria Garcia"\n• "Officer assignments"\nI'll provide insights based on your dashboard data.`;
-      }
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({
+            query: userQuery,
+            top_k: 5   // you can adjust
+          })
+        });
 
-      // Default response
-      return `🤖 I see you're asking about "${userMessage.substring(0, 50)}". As your AI assistant, I can help with:\n\n• Real-time application stats (${totalApps} total, ${pendingCount} pending)\n• Priority tracking (${highPriorityApps} high priority cases)\n• Recent applications: ${recentAppsList}\n\nFor deeper insights, try asking about specific applicants, visa types, or trends. Backend LLM integration will add even more powerful analysis soon!`;
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('RAG API error response:', {
+            status: response.status,
+            statusText: response.statusText,
+            body: errorText,
+          });
+          throw new Error(`RAG API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.response;   // backend returns { response, context_docs }
+      } catch (error) {
+        console.error('RAG API call failed:', error);
+        return 'Sorry, I could not retrieve information from the knowledge base. Please try again later.';
+      }
     };
 
-    // Send message and simulate LLM response
+    // Updated sendMessage – uses real RAG
     const sendMessage = async () => {
       const content = newMessage.value.trim();
       if (!content || isTyping.value) return;
@@ -145,13 +112,12 @@ export default {
 
       isTyping.value = true;
       try {
-        const responseContent = await generateMockResponse(content);
+        const responseContent = await getRAGResponse(content);
         messages.value.push({
           role: 'assistant',
           content: responseContent,
           timestamp: Date.now()
         });
-        // If chat is minimized, increase unread counter
         if (isMinimized.value) {
           unreadCounter++;
           unreadCount.value = unreadCounter;
@@ -160,7 +126,7 @@ export default {
       } catch (error) {
         messages.value.push({
           role: 'assistant',
-          content: 'Sorry, I encountered an issue. Please try again later.',
+          content: 'An unexpected error occurred. Please try again later.',
           timestamp: Date.now()
         });
         await scrollToBottom();
@@ -169,12 +135,11 @@ export default {
       }
     };
 
-    // Clear conversation history
     const clearConversation = () => {
       messages.value = [
         {
           role: 'assistant',
-          content: '✨ Conversation cleared. How can I assist you with your immigration dashboard today?',
+          content: '✨ Conversation cleared. How can I assist you with immigration questions today?',
           timestamp: Date.now()
         }
       ];
@@ -183,7 +148,6 @@ export default {
       scrollToBottom();
     };
 
-    // Expand chat – reset unread counter
     const expandChat = () => {
       isMinimized.value = false;
       unreadCounter = 0;
@@ -197,11 +161,64 @@ export default {
       router.push({ name: 'login' });
     };
 
+    // Uncomment and adapt when you have a real dashboard API
+    const fetchDashboardData = async () => {
+      const token = authService.getToken();
+      const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://127.0.0.1:8000/api/v1/admin/stats'
+        : '/api/v1/admin/stats';
+
+      try {
+        const resp = await fetch(apiUrl, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          }
+        });
+        if (!resp.ok) {
+          console.error('Failed to load admin stats', resp.status);
+          return;
+        }
+        const data = await resp.json();
+        averageConversationTime.value = data.average_conversation_time || '—';
+        contactMethods.value = data.contact_methods || [];
+        numberOfCustomers.value = data.number_of_customers || '—';
+        genderRatio.value = data.gender_ratio || '—';
+        // Age groups: expect [{range, count, pct}]
+        ageGroups.value = data.age_groups || [];
+        countryOfOrigin.value = data.country_of_origin || [];
+        durationResidence.value = data.duration_of_residence || [];
+        // Clean topics: remove unspecified/none entries and normalize whitespace
+        const rawTopics = data.topics_discussed || [];
+        const cleaned = rawTopics
+          .map((t) => {
+            if (!t) return null;
+            const topic = (t.topic || t).toString();
+            let s = topic.replace(/The topics discussed in this visit are:\s*/i, '');
+            s = s.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            s = s.replace(/[\.|,;]$/g, '');
+            return { topic: s, pct: t.pct ?? null, count: t.count ?? null };
+          })
+          .filter((t) => t && t.topic && !/not specified|none|n\/a|not available/i.test(t.topic));
+        topicsDiscussed.value = cleaned;
+        purposesOfVisit.value = data.purposes_of_visit || [];
+        customerFeedbacks.value = data.customer_feedbacks || [];
+      } catch (err) {
+        console.error('Error fetching dashboard data', err);
+      }
+    };
+    // load on setup
+    fetchDashboardData();
+
     return {
       searchQuery,
       applications,
+      totalApplications,
+      pendingReview,
+      approvedToday,
+      activeOfficers,
+      applicationTypes,
       logout,
-      // Chat data
       messages,
       newMessage,
       isTyping,
@@ -212,13 +229,24 @@ export default {
       clearConversation,
       formatTime,
       expandChat
+      ,
+      // new dashboard fields
+      averageConversationTime,
+      contactMethods,
+      numberOfCustomers,
+      genderRatio,
+      ageGroups,
+      countryOfOrigin,
+      durationResidence,
+      topicsDiscussed,
+      purposesOfVisit,
+      customerFeedbacks
     };
   },
 
-  template: `
+   template: `
     <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
-
-      <!-- Header (unchanged) -->
+      <!-- Header -->
       <div class="sticky top-0 z-10 backdrop-blur-md bg-white/60 border-b border-white/30">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
@@ -230,45 +258,155 @@ export default {
       </div>
 
       <div class="max-w-7xl mx-auto p-6 space-y-8">
-        <!-- Stats row (same) -->
+        <!-- New dashboard fields -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Total Applications</div>
-            <div class="text-4xl font-bold mt-2">1,284</div>
-            <div class="text-green-600 mt-2">+12.5% vs last month</div>
+            <div class="text-gray-500">Average Conversation Time</div>
+            <div class="text-2xl font-bold mt-2">{{ averageConversationTime }}</div>
           </div>
+
           <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Pending Review</div>
-            <div class="text-4xl font-bold mt-2">342</div>
-            <div class="text-green-600 mt-2">-8.2% vs last month</div>
+            <div class="text-gray-500">Contact Methods Used</div>
+            <div class="text-lg mt-2" v-if="contactMethods.length">{{ contactMethods.join(', ') }}</div>
+            <div class="text-gray-400 italic" v-else>—</div>
           </div>
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Approved Today</div>
-            <div class="text-4xl font-bold mt-2">89</div>
-            <div class="text-green-600 mt-2">+23.1% vs last month</div>
+
+          <div class="glass-card p-6 rounded-2xl h-64">
+            <div class="text-gray-500">Number of Customers</div>
+            <div class="text-2xl font-bold mt-2">{{ numberOfCustomers }}</div>
           </div>
+
           <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Active Officers</div>
-            <div class="text-4xl font-bold mt-2">24</div>
-            <div class="text-green-600 mt-2">+2 vs last month</div>
+            <div class="text-gray-500">Gender Ratio</div>
+            <div class="text-lg mt-2">{{ genderRatio }}</div>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl h-80">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold text-gray-800">Age Groups</h3>
+              <span class="text-xs text-gray-500">{{ ageGroups.length }} groups</span>
+            </div>
+
+            <div v-if="ageGroups.length" class="space-y-4 overflow-y-auto h-[220px]">
+              <div v-for="g in ageGroups" :key="g.range">
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="font-medium text-gray-700">{{ g.range }}</span>
+                  <span class="text-gray-500">{{ g.pct }}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-green-500 h-2 rounded-full transition-all duration-500" :style="{ width: g.pct + '%' }"></div>
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="h-[220px] flex items-center justify-center text-gray-400">—</div>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="text-gray-500">Country of Origin</div>
+            <div class="text-sm mt-2" v-if="countryOfOrigin.length">
+              <div v-for="c in countryOfOrigin" :key="c.country">{{ c.country }}: {{ c.pct }}%</div>
+            </div>
+            <div class="text-gray-400 italic" v-else>—</div>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="text-gray-500">Duration of Residence</div>
+            <div class="text-sm mt-2" v-if="durationResidence.length">
+              <div v-for="d in durationResidence" :key="d.range">{{ d.range }}: {{ d.pct }}%</div>
+            </div>
+            <div class="text-gray-400 italic" v-else>—</div>
+          </div>
+
+
+
+
+
+
+
+          <div class="glass-card p-6 rounded-2xl h-80">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-semibold text-gray-800">
+                Topics Discussed
+              </h3>
+              <span class="text-xs text-gray-500">
+                {{ topicsDiscussed.length }} Topics
+              </span>
+            </div>
+
+            <div
+              v-if="topicsDiscussed.length"
+              class="space-y-4 overflow-y-auto h-[220px]"
+            >
+              <div
+                v-for="item in topicsDiscussed"
+                :key="item.topic"
+              >
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="font-medium text-gray-700">
+                    {{ item.topic }}
+                  </span>
+
+                  <span class="text-gray-500">
+                    {{ item.pct }}%
+                  </span>
+                </div>
+
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    class="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                    :style="{ width: item.pct + '%' }"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              v-else
+              class="h-[220px] flex items-center justify-center text-gray-400"
+            >
+              No topics available
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="text-gray-500">Purposes of Visit</div>
+            <div class="text-sm mt-2" v-if="purposesOfVisit.length">{{ purposesOfVisit.join(', ') }}</div>
+            <div class="text-gray-400 italic" v-else>—</div>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl col-span-1 lg:col-span-4">
+            <div class="text-gray-500">Customer Feedbacks</div>
+            <div class="mt-3 space-y-2" v-if="customerFeedbacks.length">
+              <div v-for="(f, idx) in customerFeedbacks" :key="idx" class="bg-white/60 p-3 rounded-lg">
+                <div class="text-gray-800">{{ f.text }}</div>
+                <div class="text-xs text-gray-500">Rating: {{ f.rating || '—' }}</div>
+              </div>
+            </div>
+            <div class="text-gray-400 italic" v-else>No feedbacks yet</div>
           </div>
         </div>
 
-        <!-- Charts Row -->
+        <!-- Charts Row (placeholders – will be filled with real data) -->
         <div class="grid lg:grid-cols-2 gap-6">
           <div class="glass-card rounded-2xl p-6">
             <h2 class="text-xl font-semibold mb-4">Application Trends</h2>
-            <div class="h-72 flex items-center justify-center text-gray-500">Monthly application chart placeholder</div>
+            <div class="h-72 flex items-center justify-center text-gray-500">Chart placeholder – connect your charting library</div>
           </div>
           <div class="glass-card rounded-2xl p-6">
             <h2 class="text-xl font-semibold mb-4">Applications by Type</h2>
-            <div class="space-y-4">
-              <div>Work Permit: 30%</div>
-              <div>Tourist Visa: 22%</div>
-              <div>Student Visa: 15%</div>
-              <div>Family Reunification: 19%</div>
-              <div>Permanent Residency: 14%</div>
+            <div v-if="applicationTypes.length" class="space-y-4">
+              <div v-for="type in applicationTypes" :key="type.name">{{ type.name }}: {{ type.percentage }}%</div>
             </div>
+            <div v-else class="text-gray-500 italic">No type data loaded</div>
           </div>
         </div>
 
@@ -292,6 +430,9 @@ export default {
             <input v-model="searchQuery" placeholder="Search applications..." class="px-4 py-2 rounded-xl border border-gray-200 w-72" />
           </div>
           <div class="space-y-4">
+            <div v-if="applications.length === 0" class="text-center py-12 text-gray-500">
+              No applications loaded. Please connect your data source.
+            </div>
             <div v-for="app in applications" :key="app.id" class="bg-white/50 backdrop-blur-md border border-white/30 rounded-2xl p-5">
               <div class="flex justify-between items-start">
                 <div>
@@ -315,9 +456,8 @@ export default {
         </div>
       </div>
 
-      <!-- Floating AI Assistant Widget -->
+      <!-- Floating AI Assistant Widget (unchanged, but mock responses no longer rely on hardcoded data) -->
       <div class="fixed bottom-6 right-6 z-20">
-        <!-- Minimized View -->
         <div v-if="isMinimized" class="flex items-center gap-2 bg-white/90 backdrop-blur-md border border-white/30 rounded-full shadow-xl px-4 py-2 cursor-pointer hover:bg-white transition" @click="expandChat">
           <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -328,8 +468,6 @@ export default {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </div>
-
-        <!-- Expanded Chat Window -->
         <div v-else class="w-96 h-[500px] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 flex flex-col overflow-hidden transition-all duration-200">
           <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 bg-gradient-to-r from-blue-50 to-cyan-50">
             <div class="flex items-center gap-2">
@@ -350,8 +488,6 @@ export default {
               </button>
             </div>
           </div>
-
-          <!-- Messages -->
           <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
             <div v-for="(msg, idx) in messages" :key="idx" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
               <div class="max-w-[80%] rounded-2xl px-4 py-2" :class="msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-100 text-gray-800 rounded-bl-none'">
@@ -369,8 +505,6 @@ export default {
               </div>
             </div>
           </div>
-
-          <!-- Input Bar -->
           <div class="border-t border-gray-200/50 p-3 bg-white/50">
             <div class="flex items-center gap-2">
               <input v-model="newMessage" @keypress.enter="sendMessage" type="text" placeholder="Ask about applications, stats, or any immigration question..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" :disabled="isTyping" />
@@ -380,10 +514,13 @@ export default {
                 </svg>
               </button>
             </div>
-            <p class="text-xs text-gray-400 mt-2 text-center">✨ Backend integration coming soon — mock AI responses active</p>
+            <p class="text-xs text-gray-400 mt-2 text-center">Data source not yet connected – add API call in setup()</p>
           </div>
         </div>
       </div>
     </div>
   `
+
+
+
 };

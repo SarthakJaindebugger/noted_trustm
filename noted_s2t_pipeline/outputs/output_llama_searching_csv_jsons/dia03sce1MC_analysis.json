@@ -1,0 +1,1269 @@
+{
+  "metadata": {
+    "date_time": "05/06/2026 19:16",
+    "visit_duration": "17 min 40 sec",
+    "audio_file": "dia03sce1MC.WAV",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "detected_language": "en",
+    "language_probability": 0.948,
+    "audio_duration_sec": 1060.0,
+    "transcript_char_count": 13299,
+    "segment_count": 246
+  },
+  "summary": "## 1. Customer Profile\nThe customer is a female, likely in her mid-to-late 20s or early 30s, given her age and family situation. She is a single parent with a three-year-old daughter, Vivian. She has moved to Finland from England and has been living in the country for approximately four months. She speaks English at home with her daughter and is not yet familiar with the Finnish language.\n\n## 2. Reason for Visit\nThe customer came to the service today to inquire about daycare options for her three-year-old daughter. She is looking for a full-time daycare that can accommodate her work schedule and provide a suitable environment for her child's language development.\n\n## 3. Topics Discussed\nThe conversation covered various topics related to daycare options in Espoo, including the different types of care available (municipal, private, family daycare, open playground, playgroups), the costs associated with each option, and the eligibility criteria for receiving financial assistance. The customer also asked about the age group system in Finnish preschools and how children are grouped together.\n\n## 4. Guidance and Information Provided\nThe customer was provided with information about the different daycare options available in Espoo, including the English-speaking Pilke Play School in Tapiala. She was also informed about the costs associated with private daycare, which range from 50 to 361 euros per month, depending on the family's income and service voucher. The customer was advised to apply online through the City of Espoo's website (Espoo.fi) and to use the Eva online service to communicate with daycare centers and book attendance times. The customer was also informed about the municipal daycare system, which offers free or low-cost care to families with low incomes.\n\n## 5. Referrals and Next Steps\nThe customer was referred to the Pilke Play School in Tapiala and advised to apply online through the City of Espoo's website. She was also informed about the Eva online service and encouraged to use it to communicate with daycare centers and book attendance times. The customer needs to apply for a spot at the Pilke Play School and, if successful, will need to come back to the service to work on the voucher application. The customer can also email the service to arrange a follow-up appointment.\n\n## 6. Additional Observations\nThe customer appeared to be anxious about finding suitable daycare for her daughter and was grateful for the guidance and information provided. There were no apparent communication challenges, and the customer seemed to understand the information provided. The customer did not have any outstanding questions not fully resolved, and the visit seemed to be a productive and helpful experience for her.",
+  "extraction": {
+    "Gender": "Woman",
+    "Age_Group": "Adult 30-64 (parent of 3-year-old)",
+    "Reason_for_Immigration": "No information",
+    "Labor_Market_Position": "Working in the open market",
+    "Customers_Domicile": "Espoo",
+    "Duration_of_Residence_in_Finland": "Less than 1 year",
+    "Country_of_Birth": "England",
+    "Mother_Tongue": "English",
+    "Finnish_Language_Skills": "Basic",
+    "Education_Level": "No information",
+    "Topics_Discussed": "Daycare options; Early childhood education; Private daycare; Municipal daycare; English-speaking daycare; Fees for daycare; Application process for daycare",
+    "Number_of_People_in_Household": "2",
+    "How_Customer_Heard_About_Service": "Not mentioned",
+    "Services_Sought": "Information about daycare options and application process for a 3-year-old child",
+    "Guidance_Provided": "Information about different types of daycare, application process, and fees for daycare",
+    "Referrals_Made": "Pilke Play School, Espoo.fi, Eva (online services)",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "transcript": {
+    "full_text": "Come in. Welcome. Please have a seat. Oh, thank you so much. Oh, I see you offer coffee as well. Thank you so much. Anything else you need before we start? No, thank you. Okay, good. Excellent. So, how can I help you today? So, I'm Susan. Nice to meet you. What's your name? My name is Anna. Nice to meet you. Hello. So, I've moved into Finland from England a while ago. And I know, I am realizing that it is very difficult to balance my fulltime job and taking care of my threeyearold daughter. Yes. And so, I would like to inquire you about some daycare options. Okay. And whatever I might need related to that, because I'm not very familiar with the networking here. Okay. That's nice. So, did you say your daughter was how old? Three years old. Three years old. Okay. Okay, let's see. Let's see. So. So, there are a few different types of care that are offered in Espoo. So, you have municipal, private, family daycare, open playground, playgroups. Did you say you have a fulltime job? Yes, a fulltime job. So, you'd be looking for fulltime daycare. Okay. Could you tell me what the difference between those options are? Yes, technically I can. Let me see. Thank you. Just full disclosure. I did just start my job. Okay, that's good to know. So, still learning, but I will try my best to give you as much information as I can. Okay, thank you. Early childhood education. So, in Finland, typically, children start daycare between ages of, I think the earliest is nine months, to somewhere around like two or three. Okay. So, your daughter starting school now won't actively. Change it. So, you have daycare centers, which are funded by the government. And then you have things like family daycare, which is a form of early childhood education. It takes home. So, someone who has a private business, typically it's a lot smaller groups. It can be a selfemployed person or an employee of the municipality that might have their own smaller. But that one, according to here, it says the maximum number. So, four children in family daycare group is about four, so you'd be looking at a lot smaller size. And then a daycare system would be similar as it is in England, where you have like a nursery, effectively. So, you have a group of children around the same age group. It's probably one of the most common ones. In Espoo, there are about 170 daycares, out of which 90 are private. Okay. The. And we have them here. We have them in Finnishspeaking and some Swedishspeaking. How long have you been in Finland regarding language? I've been here for like four months. Four months. So, not very much. Okay. And I'm assuming your daughter, what was your daughter's name? Vivian. Vivian. Okay. So, Vivian, she speaks English. Yes. You speak English at home. Okay. Yes. She hasn't been really familiarized with the Finnish language yet. Okay. English at home. Would you be looking to still attend Finnish daycare? Yes. Are there any options for an Englishspeaking daycare? Let's see. What do those options look like? Let's see. You do have a private one. Okay. It is a private one. It is the English daycare of Espoo. Mmhmm. And it provides, they have a fully Englishspeaking, extensive bilingual or languageenriched early child education. Okay. What are the costs of that? Take your time. We'll look that up. Take your time. Technically, it is recommended. If the plan, is the plan to stay in Finland, then we can look into the, so since it is, okay, Pilke is actually located in Kallio. Well, that's a bit inconvenient, the distance. And yes, unfortunately, they don't have, appear to have one in, let's see, there is one in Lehtisaari. No, there is one in Espoo. Okay. And in Tapiala. Where about in, did you live? Within a reasonable distance of Tapiala. Okay. Let's go to Tapiala. Yes. So, read, let's read more. We have Pilke Play School, Tapiala. When it comes to private daycares in, okay, it uses the City of Espoo service voucher system. Oh. So, a customer fee ranges from 50 to 361 per month, depending on their service voucher, which depends on their family size and income. So, are, is it just the two of you? Yes, just the two of us. Okay. It's just the two of us. Okay. So, it's just the two of us. Okay. So, it's just the two of us. Okay. So, it's just the two of us. Okay. So, it's just the two of us. Okay. So, it's just the two of us. So, it's just the two of us. And you have a fulltime job. So, depending on that, we can look into the application system for that, if that's what you're interested in. Yes, I think that would be good. You said that they had the option of only just the language enrichment as well. Yes. So, that she could also get companies with the language. Yes. They should. The bigger issue is if they have space. Okay. So it might be faster to, when I see what the average price would be, mafia, minimum now for 20 hours of paid sounds. For now, yes, it is an excellent place. Yes. If you're very familiar with the standards of everyone who's sitting here, with all the tech standards on. Okay. They do offer Born To Work templates. So, here's aμe. to put her on a list here you would apply there are a few in Espoo and you would get the information which one you prefer English half or fulltime parttime okay looking for and they will be applying within two days but if they're full unfortunately they will be full and then after that you once you have received a spot that's when you come back here and we start the process on getting you the okay and then depending on your how much you earn and what they perceive as the need we will make a decision or not me but the system will make a decision whether how much of the service will be covered by you and how much if you were to get the spot there do I apply online you do apply online so the website that you'll look for is you get five accorded okay so the daycare fees and applying in Espoo so this would be your best way looking for ways and it is for children under I've applied for this website has a lot of information on applying in general yeah in Espoo for a daycare and if it's for municipal daycare system it works pretty similar that would have been my next question yes you said that they might be full yeah so then alternative they're both municipal and private day cares and you work a in 95 so you don't need a full time around the clock yeah so daycares operate Monday to Friday 630 to 6 p.m. okay that's needed however typically children aren't there for the whole 10 hours but for 8 to 4 hours yeah my program was are quite flexible so that's yes I'm gonna finish speaking here in centers so there are some others that offer it so that it's like bilingual early child education but there it would be majority finish with introducing English but I'm assuming that would also might be okay English speaking as well finish English group for that one there are which is a bilingual but this is for five to six year olds so unfortunately your daughter is a bit too old but yeah so also you could visit Espoo.fi at home if you want to look into that so and they have their early childhood education system so when you go to the front page at the front page you can this page okay and if it shows up and finished you can switch it to the English here you go to child care and education and early childhood education as it was and here by scrolling use daycare and then in here you had the private English and the same way with these as with the field governor we're discussing he works the same way as if you get the spot then you come back here we can work on the voucher together or you can also do that online if you feel comfortable doing it yourself but you can also come here me in double check it what happens if i apply to a daycare and it's somewhere really far uh i cannot get any other place in that case i'm not sure but i'm sure we could see about applying elsewhere or then unfortunately you might have to go there for a while while the process is going through but if it's really really far away we can see if there's any other spots but then it might be just that you're gonna have to the child might have to go to a finnish daycare typically the teachers speak a level of english okay so it might be okay for the child to learn but also small children tend to adapt very fast that's true as well areas uh what about the fees for the municipal daycare municipal daycare that is an excellent question let's see the early childhood education we're learning together we're learning together this is how we're gonna you figure this out i don't have any children of my own so i don't know yes and you told me you just started and i just started this job so it's even more oh yes i'm much like in england the staff is a teacher and child carers and assistants so it's a decently similar it's nice to know that it's similar ah yes there's also eva car which by the way is the eservices so online services if you want to if you don't have time to come here or you want to work on it eva okay that's good to know typically it will help you so i can do it remotely as well yes so that one helps with communicate with daycare centers and book attendance times and report absences okay um and we need to log in here probably we can't but let's see about the fees for municipal uh yes so again it is between zero to three hundred okay and this is it's income based so if you earn enough obviously you're a single parent household so that will affect it um but unlike with the private one you don't necessarily need to apply for the when you're applying for the place okay if i have understood correctly so this is per month is zero to the fee varies according to factors such as family income okay um determinative client fee clan fees for early childhood are calculated as a percentage for family's gross income and if the fees are less than 30 euros a month they're not collected oh okay um so depending on how much it is a percentage of okay and and also how much how many hours okay depends on how much you have but this is i think around eight hours a week uh yeah so all of this can be found if you are comfortable using internet can be found in the same spot with the early childhood education at the expo okay website um and this one will similarly be at one of the sites where you can use it right so if it's being made available as part of your student loan and then just like most schools do that is open like the students don't need to do it any more than three days and then the school is finally open uh yeah so like the first two days of year three most schools are open and i think it's very important that students are able to come back in the first days right so you can come back very soon um yes it's very important to continue to utilize the app you know the application is you fill out application form they provide food for my daughter yes so will i have to pay for the food no uh that should be covered in the fee okay um to my knowledge uh and you would get some information about finnish school systems provide female free meals for the children and it's warm meals and it's typically a warm breakfast or if the child refuses to eat porridge then maybe toast and then breakfast is served in the mornings if the child comes after breakfast time they don't get breakfast but then there is a warm lunch and then a snack time typically before they're picked up but the idea is that they get at least one warm meal during their time at the daycare okay that's very good yes very good to know anything else so in the in england yes do you uh would you happen to know what kind of what age children she would be with like in the same group how does the age group system go in here i think let's see to my knowledge at least from what i've read from here uh they try to group kids together so you have preschool which is between five and typically six because uh in finland we go to school not five we go at seven okay so you start your school at seven and you will go to preschool when you're five six years old depending where your birthday uh lies and you complete that year sometimes it's in the same place uh in the same place but then obviously preschool is a bit different you start learning things like how to behave in school and things like this but then in uh but then for the younger ones it's probably also depending on the size but you obviously have the very small ones on their own because they require more care and then the i would say maybe from two to four in one group and then four or five in another and then you have preschool okay so also it depends on the size of the school so obviously if it's a private ends a bit smaller okay diverse when it comes to age okay that's good to know so i kind of know what to expect yes but so um there's in the websites i think if you want to come back we can set up a time later okay oh you can also email and we can have a different time to work on the applications together if you like once you've decided if you would prefer to aim for the english private one or for the but yes you have the websites yes i have the website okay and i will remember most of this as well okay so i will i will look into it i will be in touch excellent thank you so much thank you for coming thank you so much just helping me yeah",
+    "segments": [
+      {
+        "start": 6.13,
+        "end": 14.53,
+        "text": "Come in. Welcome. Please have a seat."
+      },
+      {
+        "start": 14.69,
+        "end": 18.03,
+        "text": "Oh, thank you so much. Oh, I see you offer coffee as well. Thank you so much."
+      },
+      {
+        "start": 19.05,
+        "end": 20.97,
+        "text": "Anything else you need before we start?"
+      },
+      {
+        "start": 21.47,
+        "end": 22.17,
+        "text": "No, thank you."
+      },
+      {
+        "start": 22.27,
+        "end": 26.03,
+        "text": "Okay, good. Excellent. So, how can I help you today?"
+      },
+      {
+        "start": 27.3,
+        "end": 29.34,
+        "text": "So, I'm Susan. Nice to meet you."
+      },
+      {
+        "start": 29.66,
+        "end": 30.08,
+        "text": "What's your name?"
+      },
+      {
+        "start": 30.56,
+        "end": 32.3,
+        "text": "My name is Anna. Nice to meet you."
+      },
+      {
+        "start": 32.42,
+        "end": 32.64,
+        "text": "Hello."
+      },
+      {
+        "start": 33.43,
+        "end": 38.59,
+        "text": "So, I've moved into Finland from England a while ago."
+      },
+      {
+        "start": 38.59,
+        "end": 43.71,
+        "text": "And I know, I am realizing that it is very difficult to balance my full-time job"
+      },
+      {
+        "start": 43.71,
+        "end": 46.15,
+        "text": "and taking care of my three-year-old daughter."
+      },
+      {
+        "start": 46.51,
+        "end": 46.99,
+        "text": "Yes."
+      },
+      {
+        "start": 47.65,
+        "end": 51.25,
+        "text": "And so, I would like to inquire you about some daycare options."
+      },
+      {
+        "start": 51.39,
+        "end": 51.61,
+        "text": "Okay."
+      },
+      {
+        "start": 52.07,
+        "end": 57.85,
+        "text": "And whatever I might need related to that, because I'm not very familiar with the networking here."
+      },
+      {
+        "start": 58.09,
+        "end": 60.19,
+        "text": "Okay. That's nice."
+      },
+      {
+        "start": 61.05,
+        "end": 62.85,
+        "text": "So, did you say your daughter was how old?"
+      },
+      {
+        "start": 63.11,
+        "end": 63.77,
+        "text": "Three years old."
+      },
+      {
+        "start": 63.79,
+        "end": 64.61,
+        "text": "Three years old. Okay."
+      },
+      {
+        "start": 64.77,
+        "end": 70.12,
+        "text": "Okay, let's see. Let's see."
+      },
+      {
+        "start": 70.12,
+        "end": 70.54,
+        "text": "So."
+      },
+      {
+        "start": 70.54,
+        "end": 76.77,
+        "text": "So, there are a few different types of care that are offered in Espoo."
+      },
+      {
+        "start": 76.91,
+        "end": 82.79,
+        "text": "So, you have municipal, private, family daycare, open playground, playgroups."
+      },
+      {
+        "start": 83.03,
+        "end": 84.55,
+        "text": "Did you say you have a full-time job?"
+      },
+      {
+        "start": 84.73,
+        "end": 85.47,
+        "text": "Yes, a full-time job."
+      },
+      {
+        "start": 85.49,
+        "end": 89.99,
+        "text": "So, you'd be looking for full-time daycare."
+      },
+      {
+        "start": 90.51,
+        "end": 90.57,
+        "text": "Okay."
+      },
+      {
+        "start": 91.96,
+        "end": 94.54,
+        "text": "Could you tell me what the difference between those options are?"
+      },
+      {
+        "start": 95.88,
+        "end": 99.48,
+        "text": "Yes, technically I can. Let me see."
+      },
+      {
+        "start": 100.22,
+        "end": 100.58,
+        "text": "Thank you."
+      },
+      {
+        "start": 100.58,
+        "end": 101.8,
+        "text": "Just full disclosure."
+      },
+      {
+        "start": 102.3,
+        "end": 104.28,
+        "text": "I did just start my job."
+      },
+      {
+        "start": 105.32,
+        "end": 106.24,
+        "text": "Okay, that's good to know."
+      },
+      {
+        "start": 106.26,
+        "end": 112.36,
+        "text": "So, still learning, but I will try my best to give you as much information as I can."
+      },
+      {
+        "start": 112.38,
+        "end": 113.06,
+        "text": "Okay, thank you."
+      },
+      {
+        "start": 114.48,
+        "end": 115.8,
+        "text": "Early childhood education."
+      },
+      {
+        "start": 116.02,
+        "end": 127.24,
+        "text": "So, in Finland, typically, children start daycare between ages of, I think the earliest is nine months, to somewhere around like two or three."
+      },
+      {
+        "start": 127.6,
+        "end": 127.82,
+        "text": "Okay."
+      },
+      {
+        "start": 127.82,
+        "end": 132.04,
+        "text": "So, your daughter starting school now won't actively."
+      },
+      {
+        "start": 134.09,
+        "end": 134.87,
+        "text": "Change it."
+      },
+      {
+        "start": 134.99,
+        "end": 138.69,
+        "text": "So, you have daycare centers, which are funded by the government."
+      },
+      {
+        "start": 138.99,
+        "end": 147.21,
+        "text": "And then you have things like family daycare, which is a form of early childhood education."
+      },
+      {
+        "start": 147.81,
+        "end": 149.03,
+        "text": "It takes home."
+      },
+      {
+        "start": 149.37,
+        "end": 153.33,
+        "text": "So, someone who has a private business, typically it's a lot smaller groups."
+      },
+      {
+        "start": 154.78,
+        "end": 162.42,
+        "text": "It can be a self-employed person or an employee of the municipality that might have their own smaller."
+      },
+      {
+        "start": 162.42,
+        "end": 165.32,
+        "text": "But that one, according to here, it says the maximum number."
+      },
+      {
+        "start": 165.44,
+        "end": 169.94,
+        "text": "So, four children in family daycare group is about four, so you'd be looking at a lot smaller size."
+      },
+      {
+        "start": 169.94,
+        "end": 178.52,
+        "text": "And then a daycare system would be similar as it is in England, where you have like a nursery, effectively."
+      },
+      {
+        "start": 178.74,
+        "end": 183.3,
+        "text": "So, you have a group of children around the same age group."
+      },
+      {
+        "start": 185.76,
+        "end": 187.62,
+        "text": "It's probably one of the most common ones."
+      },
+      {
+        "start": 188.44,
+        "end": 195.1,
+        "text": "In Espoo, there are about 170 daycares, out of which 90 are private."
+      },
+      {
+        "start": 195.38,
+        "end": 195.88,
+        "text": "Okay."
+      },
+      {
+        "start": 195.98,
+        "end": 196.48,
+        "text": "The."
+      },
+      {
+        "start": 196.48,
+        "end": 197.38,
+        "text": "And we have them here."
+      },
+      {
+        "start": 197.38,
+        "end": 199.56,
+        "text": "We have them in Finnish-speaking and some Swedish-speaking."
+      },
+      {
+        "start": 200.34,
+        "end": 203.86,
+        "text": "How long have you been in Finland regarding language?"
+      },
+      {
+        "start": 203.86,
+        "end": 205.36,
+        "text": "I've been here for like four months."
+      },
+      {
+        "start": 205.36,
+        "end": 205.86,
+        "text": "Four months."
+      },
+      {
+        "start": 205.86,
+        "end": 206.96,
+        "text": "So, not very much."
+      },
+      {
+        "start": 206.96,
+        "end": 207.46,
+        "text": "Okay."
+      },
+      {
+        "start": 207.46,
+        "end": 211.2,
+        "text": "And I'm assuming your daughter, what was your daughter's name?"
+      },
+      {
+        "start": 211.2,
+        "end": 212.2,
+        "text": "Vivian."
+      },
+      {
+        "start": 212.2,
+        "end": 212.7,
+        "text": "Vivian."
+      },
+      {
+        "start": 212.7,
+        "end": 213.2,
+        "text": "Okay."
+      },
+      {
+        "start": 214.12,
+        "end": 216.52,
+        "text": "So, Vivian, she speaks English."
+      },
+      {
+        "start": 216.52,
+        "end": 217.02,
+        "text": "Yes."
+      },
+      {
+        "start": 217.02,
+        "end": 217.52,
+        "text": "You speak English at home."
+      },
+      {
+        "start": 217.52,
+        "end": 218.02,
+        "text": "Okay."
+      },
+      {
+        "start": 218.02,
+        "end": 218.52,
+        "text": "Yes."
+      },
+      {
+        "start": 218.52,
+        "end": 221.32,
+        "text": "She hasn't been really familiarized with the Finnish language yet."
+      },
+      {
+        "start": 221.32,
+        "end": 221.82,
+        "text": "Okay."
+      },
+      {
+        "start": 221.82,
+        "end": 223.33,
+        "text": "English at home."
+      },
+      {
+        "start": 223.33,
+        "end": 227.43,
+        "text": "Would you be looking to still attend Finnish daycare?"
+      },
+      {
+        "start": 227.43,
+        "end": 227.93,
+        "text": "Yes."
+      },
+      {
+        "start": 227.93,
+        "end": 230.93,
+        "text": "Are there any options for an English-speaking daycare?"
+      },
+      {
+        "start": 230.93,
+        "end": 231.93,
+        "text": "Let's see."
+      },
+      {
+        "start": 231.93,
+        "end": 232.93,
+        "text": "What do those options look like?"
+      },
+      {
+        "start": 232.93,
+        "end": 235.37,
+        "text": "Let's see."
+      },
+      {
+        "start": 235.37,
+        "end": 247.64,
+        "text": "You do have a private one."
+      },
+      {
+        "start": 247.64,
+        "end": 248.64,
+        "text": "Okay."
+      },
+      {
+        "start": 248.64,
+        "end": 249.64,
+        "text": "It is a private one."
+      },
+      {
+        "start": 249.64,
+        "end": 252.64,
+        "text": "It is the English daycare of Espoo."
+      },
+      {
+        "start": 252.64,
+        "end": 253.64,
+        "text": "Mm-hmm."
+      },
+      {
+        "start": 253.64,
+        "end": 267.47,
+        "text": "And it provides, they have a fully English-speaking, extensive bilingual or language-enriched early"
+      },
+      {
+        "start": 267.47,
+        "end": 272.02,
+        "text": "child education."
+      },
+      {
+        "start": 272.02,
+        "end": 273.02,
+        "text": "Okay."
+      },
+      {
+        "start": 273.02,
+        "end": 277.16,
+        "text": "What are the costs of that?"
+      },
+      {
+        "start": 277.16,
+        "end": 278.16,
+        "text": "Take your time."
+      },
+      {
+        "start": 278.16,
+        "end": 280.18,
+        "text": "We'll look that up."
+      },
+      {
+        "start": 280.18,
+        "end": 281.18,
+        "text": "Take your time."
+      },
+      {
+        "start": 281.18,
+        "end": 282.63,
+        "text": "Technically, it is recommended."
+      },
+      {
+        "start": 282.95,
+        "end": 297.98,
+        "text": "If the plan, is the plan to stay in Finland, then we can look into the, so since it is,"
+      },
+      {
+        "start": 297.98,
+        "end": 301.98,
+        "text": "okay, Pilke is actually located in Kallio."
+      },
+      {
+        "start": 301.98,
+        "end": 306.07,
+        "text": "Well, that's a bit inconvenient, the distance."
+      },
+      {
+        "start": 306.07,
+        "end": 317.61,
+        "text": "And yes, unfortunately, they don't have, appear to have one in, let's see, there is one in"
+      },
+      {
+        "start": 317.61,
+        "end": 318.61,
+        "text": "Lehtisaari."
+      },
+      {
+        "start": 318.61,
+        "end": 319.61,
+        "text": "No, there is one in Espoo."
+      },
+      {
+        "start": 319.61,
+        "end": 320.61,
+        "text": "Okay."
+      },
+      {
+        "start": 320.61,
+        "end": 321.61,
+        "text": "And in Tapiala."
+      },
+      {
+        "start": 321.61,
+        "end": 323.61,
+        "text": "Where about in, did you live?"
+      },
+      {
+        "start": 323.61,
+        "end": 326.7,
+        "text": "Within a reasonable distance of Tapiala."
+      },
+      {
+        "start": 326.7,
+        "end": 327.7,
+        "text": "Okay."
+      },
+      {
+        "start": 327.7,
+        "end": 328.7,
+        "text": "Let's go to Tapiala."
+      },
+      {
+        "start": 328.7,
+        "end": 329.7,
+        "text": "Yes."
+      },
+      {
+        "start": 329.7,
+        "end": 330.7,
+        "text": "So, read, let's read more."
+      },
+      {
+        "start": 330.7,
+        "end": 332.46,
+        "text": "We have Pilke Play School, Tapiala."
+      },
+      {
+        "start": 332.46,
+        "end": 333.46,
+        "text": "When it comes to private daycares in, okay, it uses the City of Espoo service voucher system."
+      },
+      {
+        "start": 333.46,
+        "end": 334.46,
+        "text": "Oh."
+      },
+      {
+        "start": 334.46,
+        "end": 335.46,
+        "text": "So, a customer fee ranges from 50 to 361 per month, depending on their service voucher,"
+      },
+      {
+        "start": 335.46,
+        "end": 336.46,
+        "text": "which depends on their family size and income."
+      },
+      {
+        "start": 336.46,
+        "end": 337.46,
+        "text": "So, are, is it just the two of you?"
+      },
+      {
+        "start": 337.46,
+        "end": 338.46,
+        "text": "Yes, just the two of us."
+      },
+      {
+        "start": 338.46,
+        "end": 339.46,
+        "text": "Okay."
+      },
+      {
+        "start": 339.46,
+        "end": 340.46,
+        "text": "It's just the two of us."
+      },
+      {
+        "start": 340.46,
+        "end": 346.71,
+        "text": "Okay."
+      },
+      {
+        "start": 346.71,
+        "end": 347.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 347.81,
+        "end": 348.81,
+        "text": "Okay."
+      },
+      {
+        "start": 348.81,
+        "end": 349.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 349.81,
+        "end": 350.81,
+        "text": "Okay."
+      },
+      {
+        "start": 350.81,
+        "end": 351.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 351.81,
+        "end": 352.81,
+        "text": "Okay."
+      },
+      {
+        "start": 352.81,
+        "end": 353.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 353.81,
+        "end": 354.81,
+        "text": "Okay."
+      },
+      {
+        "start": 354.81,
+        "end": 355.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 355.81,
+        "end": 356.81,
+        "text": "So, it's just the two of us."
+      },
+      {
+        "start": 356.81,
+        "end": 357.81,
+        "text": "And you have a full-time job."
+      },
+      {
+        "start": 357.81,
+        "end": 360.27,
+        "text": "So, depending on that, we can look into the application system for that, if that's"
+      },
+      {
+        "start": 360.27,
+        "end": 361.33,
+        "text": "what you're interested in."
+      },
+      {
+        "start": 361.33,
+        "end": 362.33,
+        "text": "Yes, I think that would be good."
+      },
+      {
+        "start": 362.33,
+        "end": 364.33,
+        "text": "You said that they had the option of only just the language enrichment as well."
+      },
+      {
+        "start": 364.33,
+        "end": 365.46,
+        "text": "Yes."
+      },
+      {
+        "start": 365.46,
+        "end": 368.5,
+        "text": "So, that she could also get companies with the language."
+      },
+      {
+        "start": 368.5,
+        "end": 369.5,
+        "text": "Yes."
+      },
+      {
+        "start": 369.5,
+        "end": 370.5,
+        "text": "They should."
+      },
+      {
+        "start": 370.5,
+        "end": 371.5,
+        "text": "The bigger issue is if they have space."
+      },
+      {
+        "start": 371.5,
+        "end": 372.5,
+        "text": "Okay."
+      },
+      {
+        "start": 372.5,
+        "end": 374.04,
+        "text": "So it might be faster to, when I see what the average price would be, mafia,"
+      },
+      {
+        "start": 374.04,
+        "end": 376.68,
+        "text": "minimum now for 20 hours of paid sounds."
+      },
+      {
+        "start": 376.68,
+        "end": 378.54,
+        "text": "For now, yes, it is an excellent place."
+      },
+      {
+        "start": 378.54,
+        "end": 379.54,
+        "text": "Yes."
+      },
+      {
+        "start": 379.54,
+        "end": 381.96,
+        "text": "If you're very familiar with the standards of everyone who's sitting here,"
+      },
+      {
+        "start": 381.96,
+        "end": 382.96,
+        "text": "with all the tech standards on."
+      },
+      {
+        "start": 382.96,
+        "end": 383.96,
+        "text": "Okay."
+      },
+      {
+        "start": 383.96,
+        "end": 385.52,
+        "text": "They do offer Born To Work templates."
+      },
+      {
+        "start": 385.52,
+        "end": 385.72,
+        "text": "So, here's aμe."
+      },
+      {
+        "start": 385.94,
+        "end": 404.6,
+        "text": "to put her on a list here you would apply there are a few in Espoo and you"
+      },
+      {
+        "start": 404.6,
+        "end": 410.44,
+        "text": "would get the information which one you prefer English half or full-time"
+      },
+      {
+        "start": 410.44,
+        "end": 417.43,
+        "text": "part-time okay looking for and they will be applying within two days but if"
+      },
+      {
+        "start": 417.43,
+        "end": 421.45,
+        "text": "they're full unfortunately they will be full and then after that you once you"
+      },
+      {
+        "start": 421.45,
+        "end": 426.01,
+        "text": "have received a spot that's when you come back here and we start the process"
+      },
+      {
+        "start": 426.01,
+        "end": 432.05,
+        "text": "on getting you the okay and then depending on your how much you earn and"
+      },
+      {
+        "start": 432.05,
+        "end": 437.72,
+        "text": "what they perceive as the need we will make a decision or not me but the system"
+      },
+      {
+        "start": 437.72,
+        "end": 442.42,
+        "text": "will make a decision whether how much of the service will be covered by you and"
+      },
+      {
+        "start": 442.42,
+        "end": 449.04,
+        "text": "how much if you were to get the spot there do I apply online you do apply"
+      },
+      {
+        "start": 449.04,
+        "end": 451.72,
+        "text": "online so the website that you'll look"
+      },
+      {
+        "start": 451.72,
+        "end": 464.9,
+        "text": "for is you get five accorded okay so the daycare fees and applying in Espoo so"
+      },
+      {
+        "start": 464.9,
+        "end": 473.04,
+        "text": "this would be your best way looking for ways and it is for children under I've"
+      },
+      {
+        "start": 473.04,
+        "end": 483.65,
+        "text": "applied for this website has a lot of information on applying in general yeah"
+      },
+      {
+        "start": 483.65,
+        "end": 489.71,
+        "text": "in Espoo for a daycare and if it's for municipal daycare system"
+      },
+      {
+        "start": 490.55,
+        "end": 493.71,
+        "text": "it works pretty similar that would have been my next question yes you said that"
+      },
+      {
+        "start": 493.71,
+        "end": 498.59,
+        "text": "they might be full yeah so then alternative they're both municipal and"
+      },
+      {
+        "start": 498.59,
+        "end": 505.28,
+        "text": "private day cares and you work a in 95 so you don't need a full time around the"
+      },
+      {
+        "start": 505.28,
+        "end": 514.04,
+        "text": "clock yeah so daycares operate Monday to Friday 630 to 6 p.m. okay that's needed"
+      },
+      {
+        "start": 514.04,
+        "end": 520.88,
+        "text": "however typically children aren't there for the whole 10 hours but for 8 to 4"
+      },
+      {
+        "start": 521.96,
+        "end": 526.68,
+        "text": "hours yeah my program was are quite flexible so that's yes I'm gonna finish"
+      },
+      {
+        "start": 526.68,
+        "end": 535.34,
+        "text": "speaking here in centers so there are some others that offer it so that it's"
+      },
+      {
+        "start": 535.34,
+        "end": 545.01,
+        "text": "like bilingual early child education but there it would be majority finish with"
+      },
+      {
+        "start": 545.01,
+        "end": 558.16,
+        "text": "introducing English but I'm assuming that would also might be okay English"
+      },
+      {
+        "start": 558.16,
+        "end": 560.08,
+        "text": "speaking as well finish English group"
+      },
+      {
+        "start": 562.87,
+        "end": 568.15,
+        "text": "for that one there are which is a bilingual but this is for five to six"
+      },
+      {
+        "start": 568.15,
+        "end": 574.21,
+        "text": "year olds so unfortunately your daughter is a bit too old but yeah so also you"
+      },
+      {
+        "start": 574.21,
+        "end": 582.07,
+        "text": "could visit Espoo.fi at home if you want to look into that so and they have their early"
+      },
+      {
+        "start": 582.07,
+        "end": 589.19,
+        "text": "childhood education system so when you go to the front page at the front page"
+      },
+      {
+        "start": 589.19,
+        "end": 594.86,
+        "text": "you can this page okay and if it shows up and finished you"
+      },
+      {
+        "start": 594.92,
+        "end": 600.59,
+        "text": "can switch it to the English here you go to child care and education and early"
+      },
+      {
+        "start": 600.59,
+        "end": 617.45,
+        "text": "childhood education as it was and here by scrolling use daycare and then in"
+      },
+      {
+        "start": 617.45,
+        "end": 622.62,
+        "text": "here you had the private English and the same way with these as with the field"
+      },
+      {
+        "start": 622.62,
+        "end": 626.84,
+        "text": "governor we're discussing he works the same way as if you get the spot then you"
+      },
+      {
+        "start": 626.84,
+        "end": 630.12,
+        "text": "come back here we can work on the voucher together or you can also do that"
+      },
+      {
+        "start": 630.12,
+        "end": 633.62,
+        "text": "online if you feel comfortable doing it yourself but you can also come here me in"
+      },
+      {
+        "start": 633.62,
+        "end": 640.99,
+        "text": "double check it what happens if i apply to a daycare and it's somewhere really far uh i cannot"
+      },
+      {
+        "start": 640.99,
+        "end": 652.24,
+        "text": "get any other place in that case i'm not sure but i'm sure we could see about applying elsewhere"
+      },
+      {
+        "start": 652.24,
+        "end": 658.06,
+        "text": "or then unfortunately you might have to go there for a while while the process is going through"
+      },
+      {
+        "start": 658.06,
+        "end": 664.84,
+        "text": "but if it's really really far away we can see if there's any other spots but then it might be just"
+      },
+      {
+        "start": 664.84,
+        "end": 669.72,
+        "text": "that you're gonna have to the child might have to go to a finnish daycare typically the teachers"
+      },
+      {
+        "start": 669.72,
+        "end": 677.04,
+        "text": "speak a level of english okay so it might be okay for the child to learn but also small children"
+      },
+      {
+        "start": 677.04,
+        "end": 684.25,
+        "text": "tend to adapt very fast that's true as well areas uh what about the fees for the municipal daycare"
+      },
+      {
+        "start": 684.25,
+        "end": 693.56,
+        "text": "municipal daycare that is an excellent question let's see the early childhood education we're"
+      },
+      {
+        "start": 693.56,
+        "end": 696.6,
+        "text": "learning together we're learning together this is how we're gonna"
+      },
+      {
+        "start": 696.6,
+        "end": 697.24,
+        "text": "you"
+      },
+      {
+        "start": 697.28,
+        "end": 701.9,
+        "text": "figure this out i don't have any children of my own so i don't know yes and you told me you just"
+      },
+      {
+        "start": 701.9,
+        "end": 712.72,
+        "text": "started and i just started this job so it's even more oh yes i'm much like in england the staff is"
+      },
+      {
+        "start": 712.72,
+        "end": 719.76,
+        "text": "a teacher and child carers and assistants so it's a decently similar it's nice to know that it's"
+      },
+      {
+        "start": 719.76,
+        "end": 726.14,
+        "text": "similar ah yes there's also eva car which by the way is the e-services so online services if you"
+      },
+      {
+        "start": 726.14,
+        "end": 730.94,
+        "text": "want to if you don't have time to come here or you want to work on it eva okay that's good to know"
+      },
+      {
+        "start": 730.94,
+        "end": 732.74,
+        "text": "typically it will help you so i can"
+      },
+      {
+        "start": 732.78,
+        "end": 737.26,
+        "text": "do it remotely as well yes so that one helps with communicate with daycare centers and book"
+      },
+      {
+        "start": 737.26,
+        "end": 744.56,
+        "text": "attendance times and report absences okay um and we need to log in here probably we can't"
+      },
+      {
+        "start": 744.56,
+        "end": 762.64,
+        "text": "but let's see about the fees for municipal uh yes so again it is between zero to three hundred okay"
+      },
+      {
+        "start": 762.64,
+        "end": 768.24,
+        "text": "and this is it's income based so if you earn enough obviously you're a single parent household"
+      },
+      {
+        "start": 768.24,
+        "end": 769.68,
+        "text": "so that will affect it"
+      },
+      {
+        "start": 770.68,
+        "end": 775.95,
+        "text": "um but unlike with the private one you don't necessarily need to apply for the"
+      },
+      {
+        "start": 775.95,
+        "end": 782.41,
+        "text": "when you're applying for the place okay if i have understood correctly so this is per month is zero"
+      },
+      {
+        "start": 782.41,
+        "end": 793.74,
+        "text": "to the fee varies according to factors such as family income okay um determinative client fee"
+      },
+      {
+        "start": 794.72,
+        "end": 804.81,
+        "text": "clan fees for early childhood are calculated as a percentage for family's gross income"
+      },
+      {
+        "start": 804.81,
+        "end": 811.52,
+        "text": "and if the fees are less than 30 euros a month they're not collected oh okay um so depending"
+      },
+      {
+        "start": 811.76,
+        "end": 823.92,
+        "text": "on how much it is a percentage of okay and and also how much how many"
+      },
+      {
+        "start": 824.72,
+        "end": 829.6,
+        "text": "hours okay depends on how much you have but this is i think around eight hours a week"
+      },
+      {
+        "start": 831.68,
+        "end": 838.38,
+        "text": "uh yeah so all of this can be found if you are comfortable using internet can be found in the"
+      },
+      {
+        "start": 838.38,
+        "end": 848.56,
+        "text": "same spot with the early childhood education at the expo okay website um and this one will similarly"
+      },
+      {
+        "start": 849.12,
+        "end": 853.52,
+        "text": "be at one of the sites where you can use it right so if it's being made available as part of your"
+      },
+      {
+        "start": 853.52,
+        "end": 858.56,
+        "text": "student loan and then just like most schools do that is open like the students don't need to"
+      },
+      {
+        "start": 858.56,
+        "end": 862.24,
+        "text": "do it any more than three days and then the school is finally open uh yeah so like the"
+      },
+      {
+        "start": 862.24,
+        "end": 866.96,
+        "text": "first two days of year three most schools are open and i think it's very important that students"
+      },
+      {
+        "start": 866.96,
+        "end": 871.76,
+        "text": "are able to come back in the first days right so you can come back very soon um yes it's very"
+      },
+      {
+        "start": 871.76,
+        "end": 877.32,
+        "text": "important to continue to utilize the app you know the application is you fill out application form"
+      },
+      {
+        "start": 877.32,
+        "end": 887.21,
+        "text": "they provide food for my daughter yes so will i have to pay for the food no uh that should be"
+      },
+      {
+        "start": 887.21,
+        "end": 894.01,
+        "text": "covered in the fee okay um to my knowledge uh and you would get some information about"
+      },
+      {
+        "start": 894.01,
+        "end": 898.17,
+        "text": "finnish school systems provide female free meals for the children and it's warm meals"
+      },
+      {
+        "start": 898.97,
+        "end": 906.09,
+        "text": "and it's typically a warm breakfast or if the child refuses to eat porridge then maybe toast"
+      },
+      {
+        "start": 906.09,
+        "end": 911.53,
+        "text": "and then breakfast is served in the mornings if the child comes after breakfast time they don't"
+      },
+      {
+        "start": 911.53,
+        "end": 916.97,
+        "text": "get breakfast but then there is a warm lunch and then a snack time typically before they're picked"
+      },
+      {
+        "start": 916.97,
+        "end": 922.41,
+        "text": "up but the idea is that they get at least one warm meal during their time at the daycare okay that's"
+      },
+      {
+        "start": 922.41,
+        "end": 945.32,
+        "text": "very good yes very good to know anything else so in the in england yes do you uh would you happen"
+      },
+      {
+        "start": 945.32,
+        "end": 953.16,
+        "text": "to know what kind of what age children she would be with like in the same group how does the age"
+      },
+      {
+        "start": 954.04,
+        "end": 955.32,
+        "text": "group system go in here"
+      },
+      {
+        "start": 959.87,
+        "end": 964.35,
+        "text": "i think let's see to my knowledge at least from what i've read from here"
+      },
+      {
+        "start": 964.35,
+        "end": 969.63,
+        "text": "uh they try to group kids together so you have preschool which is between five and"
+      },
+      {
+        "start": 969.63,
+        "end": 975.87,
+        "text": "typically six because uh in finland we go to school not five we go at seven okay so you start"
+      },
+      {
+        "start": 975.87,
+        "end": 980.83,
+        "text": "your school at seven and you will go to preschool when you're five six years old depending where"
+      },
+      {
+        "start": 980.83,
+        "end": 988.38,
+        "text": "your birthday uh lies and you complete that year sometimes it's in the same place uh in the same"
+      },
+      {
+        "start": 989.9,
+        "end": 993.66,
+        "text": "place but then obviously preschool is a bit different you start learning things like how to"
+      },
+      {
+        "start": 993.66,
+        "end": 1002.49,
+        "text": "behave in school and things like this but then in uh but then for the younger ones it's probably"
+      },
+      {
+        "start": 1002.49,
+        "end": 1005.61,
+        "text": "also depending on the size but you obviously have the very small ones on their own because"
+      },
+      {
+        "start": 1005.61,
+        "end": 1012.81,
+        "text": "they require more care and then the i would say maybe from two to four in one group and then four"
+      },
+      {
+        "start": 1012.81,
+        "end": 1017.77,
+        "text": "or five in another and then you have preschool okay so also it depends on the size of the school"
+      },
+      {
+        "start": 1017.77,
+        "end": 1020.65,
+        "text": "so obviously if it's a private ends a bit smaller"
+      },
+      {
+        "start": 1020.65,
+        "end": 1021.15,
+        "text": "okay"
+      },
+      {
+        "start": 1021.69,
+        "end": 1026.97,
+        "text": "diverse when it comes to age okay that's good to know so i kind of know what to expect yes"
+      },
+      {
+        "start": 1028.24,
+        "end": 1034.0,
+        "text": "but so um there's in the websites i think if you want to come back we can set up a time later"
+      },
+      {
+        "start": 1034.56,
+        "end": 1038.56,
+        "text": "okay oh you can also email and we can have a different time to work on the applications"
+      },
+      {
+        "start": 1038.56,
+        "end": 1043.52,
+        "text": "together if you like once you've decided if you would prefer to aim for the english private one"
+      },
+      {
+        "start": 1043.52,
+        "end": 1050.51,
+        "text": "or for the but yes you have the websites yes i have the website okay and i will remember most"
+      },
+      {
+        "start": 1050.51,
+        "end": 1053.72,
+        "text": "of this as well okay so i will i will look into it i will be in touch"
+      },
+      {
+        "start": 1053.72,
+        "end": 1060.04,
+        "text": "excellent thank you so much thank you for coming thank you so much just helping me yeah"
+      }
+    ]
+  }
+}

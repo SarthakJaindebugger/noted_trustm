@@ -100,10 +100,6 @@ auth:
   enabled: true
   users_file: "data/users.json"
   admins_file: "data/admins.json"
-  username: "demo"
-  password: "demo1"
-  admin_username: "admin"
-  admin_password: "admin"
   secret_key: "noted-dev-secret"
   token_ttl_seconds: 28800
   role: "advisor"
