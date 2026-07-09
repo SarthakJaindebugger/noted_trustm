@@ -6,10 +6,14 @@ import logging
 import ollama
 import requests
 import os
-from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+try:
+    from speech_analysis_qa.config import RAG_PARQUET_PATH
+except ImportError:
+    RAG_PARQUET_PATH = Path("/data/speech_analysis_qa/outputs/rag_pipeline/rag_embeddings.parquet")
 
 class RAGService:
     """
@@ -27,7 +31,7 @@ class RAGService:
         self.parquet_file_path = (
             parquet_file_path
             or os.getenv("PARQUET_PATH")
-            or "/data/noted_s2t_pipeline/outputs/rag_pipeline/rag_embeddings.parquet"
+            or str(RAG_PARQUET_PATH)
         )
         self.generation_model = (
             generation_model
@@ -61,19 +65,36 @@ class RAGService:
     
     def _load_data(self):
         """Load the parquet file and prepare embeddings for similarity search."""
+        parquet_path = Path(self.parquet_file_path)
+        if not parquet_path.exists():
+            logger.warning(
+                "Parquet file not found at %s. RAG service starting with an empty dataset.",
+                parquet_path,
+            )
+            self.data = pd.DataFrame(columns=["text", "embedding"])
+            self.embeddings = np.zeros((0, 4096), dtype=float)
+            self.texts = []
+            return
+
         try:
-            self.data = pd.read_parquet(self.parquet_file_path)
-            self.embeddings = np.array(self.data['embedding'].tolist())
-            self.texts = self.data['text'].tolist()
-            logger.info(f"Loaded {len(self.texts)} documents for RAG service from {self.parquet_file_path}")
-            
+            self.data = pd.read_parquet(parquet_path)
+            if "embedding" in self.data.columns:
+                self.embeddings = np.array(self.data['embedding'].tolist())
+            else:
+                self.embeddings = np.zeros((0, 4096), dtype=float)
+
+            self.texts = self.data['text'].tolist() if 'text' in self.data.columns else []
+            logger.info(f"Loaded {len(self.texts)} documents for RAG service from {parquet_path}")
+
             # Log embedding dimension to verify compatibility
             if len(self.embeddings) > 0:
                 embedding_dim = len(self.embeddings[0])
                 logger.info(f"Stored embedding dimension: {embedding_dim}")
         except Exception as e:
             logger.error(f"Failed to load parquet file: {e}")
-            raise
+            self.data = pd.DataFrame(columns=["text", "embedding"])
+            self.embeddings = np.zeros((0, 4096), dtype=float)
+            self.texts = []
     
     def _get_text_embedding(self, text: str) -> List[float]:
         """

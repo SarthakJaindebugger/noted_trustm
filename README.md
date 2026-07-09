@@ -41,7 +41,7 @@ Direct pushes to the upstream default branch should be blocked with GitHub branc
 - confirm local database files stay untracked
 - confirm large local model assets are not committed
 - update remotes so pushes go to your own GitHub repository, not the current upstream
-
+# ----------------------------------------------------------------------
 
 # in .env.example: find passwords
 # change this to Ollama api/host: http://llama-gen:8000/v1
@@ -52,8 +52,29 @@ Direct pushes to the upstream default branch should be blocked with GitHub branc
 # fastapi run main.py - should be the command later
 # To change login creditials in backend: noted-backend/config.py
 
-
+# Embedding model is "Qwen/Qwen3-Embedding-0.6B"
 
 
 # Get the JSon output directly from the LLMs rather than parsing directly to CSV
 # For Ollama JSON : https://docs.ollama.com/capabilities/structured-outputs
+
+
+
+# The Topics:
+
+ResidenceBenefits (e.g. Kela)
+Hobbies and leisure
+Matters related to education
+Crisis situations (family crisis, violent situations, etc.)
+Matters related to the immigration process (e.g. residence permit matters, citizenship, registration)
+Legal matters
+Family life (children's school, early childhood education, relationships)
+Police matters
+Social affairs (social work, guidance)
+Studying Finnish/Swedish
+Finance (taxation, debts, bills, banking and consumer affairs)
+Health care
+Working conditions / occupational health and safety (Note: This text is very small/faded under Health care)
+Work (TE services, job search, etc.)
+Career guidance
+Other

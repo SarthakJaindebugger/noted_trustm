@@ -3,42 +3,28 @@ services:
     build:
       context: ./noted-backend
       dockerfile: Dockerfile
-    volumes:
-    - ./speech_analysis_qa:/app/speech_analysis_qa
-    - ./speech_analysis_qa:/data/speech_analysis_qa
-    - ./knowledgebase:/app/knowledgebase
     container_name: noted-backend
     restart: unless-stopped
     environment:
       - DEBUG=${DEBUG:-true}
       - DOMAIN=${DOMAIN:-localhost}
       - DATABASE_URL=sqlite+aiosqlite:///./noted.db
-      - HUGGINGFACEHUB_API_TOKEN=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
-      - HF_TOKEN=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
-      # Qdrant
+      - HF_TOKEN=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
+      - DEMO_LOGIN=${DEMO_LOGIN:-demo}
+      - DEMO_PASSWORD=${DEMO_PASSWORD:-demo1}
       - QDRANT_URL=http://qdrant:6333
-
-      # --- Ollama configuration ---
-      - OLLAMA_HOST=http://host.docker.internal:11434
-      - OLLAMA_API_KEY=ollama
-      - OLLAMA_MODEL=${OLLAMA_MODEL:-gpt-oss:120b-cloud}
-      - SUMMARY_MODEL=${SUMMARY_MODEL:-gemma2:2b}
+      # Ollama endpoints (running on host)
       - LLAMA_BASE_URL=http://host.docker.internal:11434/v1
+      - SUMMARY_MODEL=${SUMMARY_MODEL:-gemma2:2b}
       - LLAMA_EMBED_URL=http://host.docker.internal:11434/v1
       - LLAMA_API_KEY=ollama
-      # PARAQUET 
-      - PARQUET_PATH=/data/speech_analysis_qa/outputs/rag_pipeline/rag_embeddings.parquet
-
-      # --- ASR disabled (lightweight-speech commented out) ---
+      # Disable ASR/diarization
       - ASR_BATCH_URL=http://disabled:8000
       - ASR_BATCH_MODEL=none
-      - ASR_BATCH_CONCURRENCY=8
-
-      # --- Disable diarization ---
       - DIARIZATION_URL=http://disabled:8010
       - DIARIZATION_MODEL=none
+      - ASR_BATCH_CONCURRENCY=8
       - DIARIZATION_MAX_SPEAKERS=2
-
       - UPLOAD_CHUNK_DURATION=300
     ports:
       - "127.0.0.1:${BACKEND_PORT:-8000}:8000"
@@ -53,29 +39,6 @@ services:
     depends_on:
       qdrant:
         condition: service_healthy
-      # lightweight-speech is removed from depends_on
-
-  # lightweight-speech service is now commented out (disabled)
-  # lightweight-speech:
-  #   build:
-  #     context: .
-  #     dockerfile: lightweight-speech.Dockerfile
-  #   container_name: lightweight-speech
-  #   restart: unless-stopped
-  #   environment:
-  #     - LIGHT_ASR_MODEL=tiny
-  #     - LIGHT_ASR_DEVICE=cpu
-  #     - LIGHT_ASR_COMPUTE_TYPE=int8
-  #   networks:
-  #     - noted-network
-  #   expose:
-  #     - "8020"
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:8020/health"]
-  #     interval: 30s
-  #     timeout: 5s
-  #     retries: 5
-  #     start_period: 30s
 
   qdrant:
     image: qdrant/qdrant
@@ -101,7 +64,7 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_DOMAIN: ${DOMAIN:-localhost}
-        VITE_APP_BASE: /
+        VITE_APP_BASE: /                     # hardcoded to root – fixes 404
     container_name: noted-frontend
     restart: unless-stopped
     ports:

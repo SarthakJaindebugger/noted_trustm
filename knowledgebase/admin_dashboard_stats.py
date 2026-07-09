@@ -332,18 +332,50 @@ def get_duration_of_residence(source: Optional[Any] = None, **kwargs) -> List[Di
 
 def get_topics_discussed(
     source: Optional[Any] = None,
-    top_k: int = 15,
     **kwargs
-) -> List[str]:
+) -> List[Dict[str, Any]]:
     """
-    Extract human-readable topic phrases from Topic answers.
-    Returns phrases instead of individual keywords.
+    Extract and categorize topics from CSV files into 15 predefined categories.
+    Returns list of dicts with category name, count, and percentage.
     """
+    
+    # Define the 15 topic categories
+    PREDEFINED_TOPICS = [
+        "Residence Benefits (e.g. Kela)",
+        "Hobbies and Leisure",
+        "Education",
+        "Crisis Situations",
+        "Immigration Process",
+        "Legal Matters",
+        "Family Life",
+        "Police Matters",
+        "Social Affairs",
+        "Studying Finnish/Swedish",
+        "Finance",
+        "Health Care",
+        "Working Conditions",
+        "Career Guidance",
+        "Other"
+    ]
 
-    import os
-    import csv
-    import re
-    from collections import Counter
+    # Mapping rules: keywords to category index
+    CATEGORY_KEYWORDS = {
+        0: ["kela", "residence benefit", "allowance", "unemployment", "disability", "pension"],
+        1: ["hobby", "leisure", "hobby", "sport", "game", "recreation", "entertainment"],
+        2: ["education", "school", "university", "study", "course", "training", "degree"],
+        3: ["crisis", "emergency", "violence", "domestic", "abuse", "conflict", "danger"],
+        4: ["residence", "permit", "visa", "citizenship", "registration", "immigration", "foreigner"],
+        5: ["legal", "law", "rights", "contract", "agreement", "lawyer", "court"],
+        6: ["family", "child", "children", "daycare", "kindergarten", "school", "parent", "relationship", "marriage"],
+        7: ["police", "crime", "offense", "criminal", "arrest", "security"],
+        8: ["social", "social work", "guidance", "counseling", "help", "support", "welfare"],
+        9: ["finnish", "swedish", "language", "course", "learn"],
+        10: ["finance", "tax", "taxation", "debt", "bill", "banking", "consumer", "money", "payment"],
+        11: ["health", "doctor", "hospital", "medical", "care", "medicine"],
+        12: ["working condition", "occupational", "health safety", "work environment", "workplace", "employment"],
+        13: ["career", "job", "work", "employment", "freelance", "entrepreneurship"],
+        14: []  # Other - default category
+    }
 
     if isinstance(source, str):
         data_dir = source
@@ -351,24 +383,29 @@ def get_topics_discussed(
         data_dir = os.path.join(os.path.dirname(__file__), "data")
 
     INVALID_VALUES = {
-        "",
-        "none",
-        "not specified",
-        "n/a",
-        "na",
-        "unknown",
-        "-",
-        "--",
+        "", "none", "not specified", "n/a", "na", "unknown", "-", "--",
     }
 
-    topic_counter = Counter()
+    category_counts = Counter()
+
+    def map_topic_to_category(topic_text: str) -> int:
+        """Map a topic string to one of the 15 categories."""
+        topic_lower = topic_text.lower().strip()
+        
+        # Check each category's keywords
+        for category_idx, keywords in CATEGORY_KEYWORDS.items():
+            for keyword in keywords:
+                if keyword.lower() in topic_lower:
+                    return category_idx
+        
+        # Default to "Other"
+        return 14
 
     try:
         if not os.path.isdir(data_dir):
             return []
 
         for fname in os.listdir(data_dir):
-
             if not fname.lower().endswith(".csv"):
                 continue
 
@@ -376,7 +413,6 @@ def get_topics_discussed(
 
             try:
                 with open(fpath, "r", encoding="utf-8") as fh:
-
                     reader = csv.DictReader(fh)
 
                     if (
@@ -387,86 +423,45 @@ def get_topics_discussed(
                         continue
 
                     for row in reader:
-
-                        if (
-                            row.get("Question", "")
-                            .strip()
-                            .lower()
-                            != "topics"
-                        ):
+                        if row.get("Question", "").strip().lower() != "topics":
                             continue
 
-                        answer = (
-                            row.get("Answer", "") or ""
-                        ).strip()
+                        answer = (row.get("Answer", "") or "").strip()
 
-                        if not answer:
-                            continue
-
-                        if answer.lower() in INVALID_VALUES:
+                        if not answer or answer.lower() in INVALID_VALUES:
                             continue
 
                         # Remove common LLM boilerplate
                         answer = re.sub(
                             r"the topics discussed in this visit are\s*:?",
-                            "",
-                            answer,
-                            flags=re.IGNORECASE,
+                            "", answer, flags=re.IGNORECASE
                         )
-
                         answer = re.sub(
                             r"the topic discussed in this visit is\s*:?",
-                            "",
-                            answer,
-                            flags=re.IGNORECASE,
+                            "", answer, flags=re.IGNORECASE
                         )
 
+                        # Extract numbered items or split by delimiters
                         extracted_topics = re.findall(
                             r"\d+\.\s*(.*?)(?=\d+\.|$)",
-                            answer,
-                            flags=re.DOTALL,
+                            answer, flags=re.DOTALL
                         )
 
                         if not extracted_topics:
-                            extracted_topics = re.split(
-                                r",|;|\n",
-                                answer
-                            )
+                            extracted_topics = re.split(r",|;|\n", answer)
 
                         for topic in extracted_topics:
-
-                            topic = re.sub(
-                                r"\([^)]*\)",
-                                "",
-                                topic
-                            )
-
-                            topic = re.sub(
-                                r"\s+",
-                                " ",
-                                topic
-                            ).strip()
-
+                            # Clean up topic
+                            topic = re.sub(r"\([^)]*\)", "", topic)
+                            topic = re.sub(r"\s+", " ", topic).strip()
                             topic = topic.strip(" .:-")
 
-                            if not topic:
+                            if not topic or len(topic) < 2 or topic.lower() in INVALID_VALUES:
                                 continue
 
-                            if topic.lower() in INVALID_VALUES:
-                                continue
-
-                            # Remove leading numbering again if present
-                            topic = re.sub(
-                                r"^\d+\.\s*",
-                                "",
-                                topic
-                            )
-
-                            # Ignore tiny fragments
-                            if len(topic) < 4:
-                                continue
-
-                            topic_counter[topic.title()] += 1
+                            # Map to category and increment counter
+                            category_idx = map_topic_to_category(topic)
+                            category_counts[category_idx] += 1
 
             except Exception:
                 continue
@@ -474,19 +469,20 @@ def get_topics_discussed(
     except Exception:
         return []
 
-    if not topic_counter:
-        return []
+    # Build result list with all 15 categories (including those with 0 count)
+    total_count = sum(category_counts.values())
 
-    total_topics = sum(topic_counter.values())
-
-    return [
-        {
-            "topic": topic,
+    result = []
+    for idx, category_name in enumerate(PREDEFINED_TOPICS):
+        count = category_counts.get(idx, 0)
+        pct = round((count / total_count) * 100, 1) if total_count > 0 else 0.0
+        result.append({
+            "topic": category_name,
             "count": count,
-            "pct": round((count / total_topics) * 100, 1)
-        }
-        for topic, count in topic_counter.most_common(top_k)
-    ]
+            "pct": pct
+        })
+
+    return result
 
 
 

@@ -303,7 +303,7 @@ export default {
           </div>
 
           <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Country of Origin</div>
+            <div class="text-gray-500">Countries of Origin</div>
             <div class="text-sm mt-2" v-if="countryOfOrigin.length">
               <div v-for="c in countryOfOrigin" :key="c.country">{{ c.country }}: {{ c.pct }}%</div>
             </div>

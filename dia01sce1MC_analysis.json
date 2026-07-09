@@ -1,0 +1,906 @@
+{
+  "metadata": {
+    "date_time": "29/06/2026 14:25",
+    "visit_duration": "11 min 48 sec",
+    "audio_file": "dia01sce1MC.WAV",
+    "whisper_model": "large-v3",
+    "llm_model": "meta-llama/Llama-3.1-8B-Instruct",
+    "ner_model": "Davlan/xlm-roberta-base-ner-hrl",
+    "detected_language": "en",
+    "language_probability": 0.902,
+    "audio_duration_sec": 708.6,
+    "diarization_used": true,
+    "diarization_role_method": "single_speaker_fallback",
+    "speaker_role_map": {
+      "UNKNOWN": "customer"
+    }
+  },
+  "ner_hints": {
+    "Customers_Domicile": "Not specified",
+    "Country_of_Birth": "Finland",
+    "Mother_Tongue": "English",
+    "Organizations_Mentioned": "ESPO; Google"
+  },
+  "summary": "## 1. Customer Profile\nThe customer is a migrant with a full-time job, a three-year-old child, and limited proficiency in Finnish. The customer's country of origin or background is not mentioned in the transcript. The customer has been in Finland for a short period, as they mentioned that they \"just arrived here\" and are still learning the language.\n\n## 2. Reason for Visit\nThe customer came to the service today to inquire about childcare options for their three-year-old child. They were seeking information on how to find a suitable daycare or kindergarten, as they are new to the area and do not speak Finnish fluently.\n\n## 3. Topics Discussed\nThe topics discussed during the conversation included childcare options in Finland, the availability of daycare centers, the eligibility criteria for the municipal early childhood education service, the language spoken in daycare centers, the education system in Finland, and the process of applying for a place in a daycare center.\n\n## 4. Guidance and Information Provided\nThe advisor provided the customer with information on the municipal early childhood education service, which is provided free of charge by the city. The advisor explained that the customer can apply for this service through the city's website and that the city will decide on the location of the daycare center based on the customer's address. The advisor also mentioned that the customer can opt for a private daycare center if they cannot find a place in a municipal daycare center. Additionally, the advisor explained that all children in Finland are entitled to meals at childcare and school, and that this service is not dependent on income.\n\n## 5. Referrals and Next Steps\nThe customer was referred to the ESPO website for more information on the municipal early childhood education service and the process of applying for a place in a daycare center. The customer was advised to apply for the service through the city's website and to check the availability of daycare centers in their area.\n\n## 6. Additional Observations\nThe customer seemed to be in a positive emotional state throughout the conversation, and the advisor was able to provide clear and concise information to address the customer's concerns. The customer's limited proficiency in Finnish did not seem to be a significant barrier to communication, and the advisor was able to adapt their language to meet the customer's needs. However, the customer did ask a few questions that were not fully resolved, such as the availability of meals for children who stay outside of office hours.",
+  "extraction_raw": {
+    "Gender": "No information",
+    "Age_Group": "Adult 30-64 (parent of 3-year-old)",
+    "Reason_for_Immigration": "No information",
+    "Labor_Market_Position": "Working in the open market",
+    "Customers_Domicile": "Not specified",
+    "Duration_of_Residence_in_Finland": "Less than 1 year",
+    "Country_of_Birth": "Not specified",
+    "Mother_Tongue": "Not specified",
+    "Finnish_Language_Skills": "Basic",
+    "Education_Level": "No information",
+    "Topics_Discussed": "Childcare options in Finland; availability of daycare centers; eligibility criteria for the municipal early childhood education service; language spoken in daycare centers; education system in Finland; process of applying for a place in a daycare center",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "Not mentioned",
+    "Services_Sought": "Information on how to find a suitable daycare or kindergarten for their three-year-old child.",
+    "Guidance_Provided": "Information on the municipal early childhood education service, which is provided free of charge by the city, and the process of applying for a place in a daycare center.",
+    "Referrals_Made": "ESPO website",
+    "Confidence_Notes": "All fields extracted with reasonable confidence"
+  },
+  "extraction_validated": {
+    "Gender": "No information",
+    "Age_Group": "Adult 30-64 (parent of 3-year-old)",
+    "Reason_for_Immigration": "No information",
+    "Labor_Market_Position": "Working in the open market",
+    "Customers_Domicile": "Not specified",
+    "Duration_of_Residence_in_Finland": "Less than 1 year",
+    "Country_of_Birth": "Finland",
+    "Mother_Tongue": "English",
+    "Finnish_Language_Skills": "Basic",
+    "Education_Level": "No information",
+    "Topics_Discussed": "Childcare options in Finland; availability of daycare centers; eligibility criteria for the municipal early childhood education service; language spoken in daycare centers; education system in Finland; process of applying for a place in a daycare center",
+    "Number_of_People_in_Household": "Not specified",
+    "How_Customer_Heard_About_Service": "not mentioned",
+    "Services_Sought": "Information on how to find a suitable daycare or kindergarten for their three-year-old child.",
+    "Guidance_Provided": "Information on the municipal early childhood education service, which is provided free of charge by the city, and the process of applying for a place in a daycare center.",
+    "Referrals_Made": "ESPO website",
+    "Confidence_Notes": "All fields extracted with reasonable confidence",
+    "_validation_methods": {
+      "Gender": "exact",
+      "Age_Group": "exact",
+      "Reason_for_Immigration": "exact",
+      "Labor_Market_Position": "exact",
+      "Customers_Domicile": "no_change",
+      "Duration_of_Residence_in_Finland": "exact",
+      "Country_of_Birth": "ner_fallback",
+      "Mother_Tongue": "ner_fallback",
+      "Finnish_Language_Skills": "exact",
+      "Education_Level": "exact",
+      "Topics_Discussed": "no_change",
+      "Number_of_People_in_Household": "no_change",
+      "How_Customer_Heard_About_Service": "fuzzy_matched",
+      "Services_Sought": "no_change",
+      "Guidance_Provided": "no_change",
+      "Referrals_Made": "no_change",
+      "Confidence_Notes": "no_change"
+    }
+  },
+  "transcript": {
+    "full_text": "more now do we need to do a clap yeah we can yeah so action hi hi sorry nice to meet you you too hi hi i came here with a lot of questions uh that's fine that's why we're here okay great okay so my situation right now is i'm a migrant and i have a fulltime job okay and i have a children a child she is three years old and i'm looking for a child care options okay i don't know if you can help me a bit we just arrived here we don't know the language no it's fine that's fine of course we can find some help so um um of course maybe you could have a look at what i'm doing so you also know you'll see how to find that information so easiest thing would be you know you can just do a google search you say so you try find a kindergarten for kids in a school and maybe more like child care i think she's like three years old enough kindergarten at what time do i what age do they start in kindergarten right let's see so we have this daycare okay so i'm seeing here like there are daycares open that is going from like 6 30 a.m to six that's great um do you notice there's like any extensions or something okay the opening hours are still very that's great okay so you are you working fulltime or parttime right now i'm working fulltime right now okay that's fine so yes i'm supposed to be finishing at five probably and it's great that it starts early so i can have time to go to my job and everything and do you know there's like excuse me oh yes yeah so uh this is actually uh so this is provided free of charge by by the city so as you can see here it's thebay you will ask how to come back home on the city so this is probably most of theRecommendation provided free of charge by by the city so as you can see here you can apply through the city for this service since you are working fulltime and there's no one else like take care of your child you can get this service free so as you can see here we can apply for this service through this link okay so this is if you like you like you asked about the times like what if you are working in the night then you then there's something else and the original service called shift care yeah let's say if you're working in the night so in the weekend so then you can like find information right here I mean also all the things that I want to ask is are you gonna keep them food do I need to pay where okay you still fall into this let me just that's great yeah because I'm a migrant so you don't really speak Finnish so if you can also get me the options about which languages do you speak are they gonna teach them right yes so I'm finish actually the service given to your charges it's actually using finish and um um Swedish okay you do have like you know finish and English you can use English in some like you know they care centers but this if you're looking for like a completely hundred percent in English operated like you know they care center then you'll actually have to look for a private one where you'd pay them like a fee like if I want her to learn finish can I just have a part English part finished part or yeah so these this as I mentioned these day care centers actually conducted in Finnish and in and Swedish so either either finish or Swedish or might be combination so they will always like you know teach them finish okay but only thing is like they're not like you know hundred percent working in English something about the education or something how they can get into like yes your school options you know of course yeah so once once they like like you know complete once they reach the age of seven okay that's when you start school in Finland okay you know it might be different in some countries I understand but in Finland it's that when you reach age seven so actually you can actually apply to join as soon as you complete like as first you reach your age after you pass your birthday you can actually apply that information can be again found here on our website. Yeah, on the Expo City website. When you go to education you have see I have three primary education if you go into applying municipal early childhood education you have all the information given in this link of course as you so we came to this link through Google so I can easily find this again if you're looking for this information. You have how to apply for a place so usually what happens is when you apply like you know, you get some place that's close by to you, it depends on the distance and the availability, of course. And can I apply for this child care even if I don't live near the place? So that's actually, once you apply, the city will actually decide based on your address, because I believe, first of all, you have registered address in ESPO, right? Yes. So they will check the locations close by, and based on distance and availability, they will find you a place that's close by. Of course, with day care centres, sometimes you face, there can be a delay in finding one, in which case you might have to opt for a private one, if that's the case, or you'll have to take care of your child on your own, unfortunately, until we can find something for you. But what they will do is, they will provide you with information, they will provide, as soon as a slot opens up, they will give you the option which is close by, so your kid doesn't have to travel for a long distance. As mentioned here, so, the child must have finished personal identity code, that's the requirement, and you should have an address registered in ESPO, that's also the requirement. And can you tell me more about the food there? Does it work, just as a final question? Yeah, so they do provide, like, let's do a search on that. So I think it's taking a bit of time to find it out. Yeah, so I think when it comes to meals, it's given to all the kids in Finland, so it's not like a cityspecific one, that's why you're not able to find it, I believe. Okay. So all the kids, like, in Finland, actually, are entitled to get meals at childcare and even in school. Really, for free? Yes. Okay, that's great. What if there's, like, I stay longer, I have, like, if they stay outside of office, do we still have dinner and all those kind of things, or? So then if you opt for the shift care, yeah, yeah, if you opt for the shift care option, where you select, let's say you're doing, like, night shift, then they get meals. Okay, they get meals, okay. If you do, like, you know, evenings, night, weekends, yeah. Okay, that's great, and thank you so much, and I just need to apply and it will depend on where I live, right? Yes. Does it depend also on income, or? This service does not depend on income, but if you actually apply for, like, a private, Of course it will. Yeah, like, childcare, then the fee actually might depend on your... Okay, well, I think that's all the questions I have. Thank you so much. Okay, I hope I was helpful, but of course, will you, like, you know, refer the ESPO website for more information? Thank you, thank you so much. Okay, nice. Okay. Thank you. Yeah.",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.99,
+        "text": "more now do we need to do a clap yeah we can yeah so action hi hi sorry nice to meet you you too",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 15.87,
+        "end": 21.87,
+        "text": "hi hi i came here with a lot of questions uh that's fine that's why we're here okay great",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 23.23,
+        "end": 30.51,
+        "text": "okay so my situation right now is i'm a migrant and i have a full-time job",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 30.51,
+        "end": 36.75,
+        "text": "okay and i have a children a child she is three years old and i'm looking for a child care",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 36.75,
+        "end": 42.51,
+        "text": "options okay i don't know if you can help me a bit we just arrived here we don't know the language",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 42.51,
+        "end": 49.07,
+        "text": "no it's fine that's fine of course we can find some help so um um of course maybe you could",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 49.07,
+        "end": 53.87,
+        "text": "have a look at what i'm doing so you also know you'll see how to find that information so",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 54.83,
+        "end": 57.95,
+        "text": "easiest thing would be you know you can just do a google search",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 59.74,
+        "end": 61.42,
+        "text": "you say so you try",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 61.5,
+        "end": 68.7,
+        "text": "find a kindergarten for kids in a school and maybe more like child care i think she's like",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 68.7,
+        "end": 73.9,
+        "text": "three years old enough kindergarten at what time do i what age do they start in kindergarten right",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 73.9,
+        "end": 90.48,
+        "text": "let's see so we have this daycare okay so i'm seeing here like there are daycares open that",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 90.48,
+        "end": 97.68,
+        "text": "is going from like 6 30 a.m to six that's great um do you notice there's like any extensions or",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 97.68,
+        "end": 98.32,
+        "text": "something",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 104.69,
+        "end": 113.42,
+        "text": "okay the opening hours are still very that's great okay so you are you working full-time",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 113.42,
+        "end": 118.46,
+        "text": "or part-time right now i'm working full-time right now okay that's fine so yes i'm supposed",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 118.46,
+        "end": 124.22,
+        "text": "to be finishing at five probably and it's great that it starts early so i can have time to go",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 124.22,
+        "end": 131.74,
+        "text": "to my job and everything and do you know there's like excuse me oh yes yeah so uh this is actually",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 131.74,
+        "end": 131.9,
+        "text": "uh so this is provided free of charge by by the city so as you can see here it's thebay",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 131.9,
+        "end": 132.62,
+        "text": "you will ask how to come back home on the city so this is probably most of theRecommendation",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 132.62,
+        "end": 137.38,
+        "text": "provided free of charge by by the city so as you can see here you can apply",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 137.38,
+        "end": 143.42,
+        "text": "through the city for this service since you are working full-time and there's no",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 143.42,
+        "end": 154.72,
+        "text": "one else like take care of your child you can get this service free so as you",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 154.72,
+        "end": 168.32,
+        "text": "can see here we can apply for this service through this link okay so this",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 168.32,
+        "end": 173.0,
+        "text": "is if you like you like you asked about the times like what if you are working",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 173.0,
+        "end": 176.0,
+        "text": "in the night then you then there's something else and the original service",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 176.0,
+        "end": 181.1,
+        "text": "called shift care yeah let's say if you're working in the night so in the",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 181.1,
+        "end": 196.78,
+        "text": "weekend so then you can like find information right here I mean also all",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 196.78,
+        "end": 200.54,
+        "text": "the things that I want to ask is are you gonna keep them food do I need to pay",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 202.9,
+        "end": 248.07,
+        "text": "where okay you still fall into this let me just that's great yeah because I'm a",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 248.07,
+        "end": 251.95,
+        "text": "migrant so you don't really speak Finnish so if you can also get me the",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 251.95,
+        "end": 256.63,
+        "text": "options about which languages do you speak are they gonna teach them right",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 256.63,
+        "end": 266.19,
+        "text": "yes so I'm finish actually the service given to your charges it's actually",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 266.19,
+        "end": 267.39,
+        "text": "using finish and",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 267.39,
+        "end": 267.41,
+        "text": "um",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 267.41,
+        "end": 267.73,
+        "text": "um",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 267.73,
+        "end": 275.21,
+        "text": "Swedish okay you do have like you know finish and English you can use English",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 275.21,
+        "end": 281.37,
+        "text": "in some like you know they care centers but this if you're looking for like a",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 281.37,
+        "end": 286.65,
+        "text": "completely hundred percent in English operated like you know they care center",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 286.65,
+        "end": 290.77,
+        "text": "then you'll actually have to look for a private one where you'd pay them like a",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 290.77,
+        "end": 301.12,
+        "text": "fee like if I want her to learn finish can I just have a part English part",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 301.12,
+        "end": 306.22,
+        "text": "finished part or yeah so these this as I mentioned these day care centers",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 306.22,
+        "end": 311.3,
+        "text": "actually conducted in Finnish and in and Swedish so either either finish or",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 311.3,
+        "end": 315.16,
+        "text": "Swedish or might be combination so they will always like you know teach them",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 315.16,
+        "end": 320.92,
+        "text": "finish okay but only thing is like they're not like you know hundred",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 320.92,
+        "end": 328.59,
+        "text": "percent working in English something about the education or something how they",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 328.59,
+        "end": 330.95,
+        "text": "can get into like yes",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 331.35,
+        "end": 334.77,
+        "text": "your school options you know of course yeah so once once they like like you",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 334.77,
+        "end": 339.39,
+        "text": "know complete once they reach the age of seven okay that's when you start school",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 339.39,
+        "end": 343.03,
+        "text": "in Finland okay you know it might be different in some countries I understand",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 343.03,
+        "end": 348.73,
+        "text": "but in Finland it's that when you reach age seven so actually you can actually",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 348.73,
+        "end": 355.59,
+        "text": "apply to join as soon as you complete like as first you reach your age after",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 355.59,
+        "end": 360.69,
+        "text": "you pass your birthday you can actually apply that information can be again",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 360.69,
+        "end": 361.33,
+        "text": "found here on our website.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 361.35,
+        "end": 363.65,
+        "text": "Yeah, on the Expo City website.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 363.65,
+        "end": 373.48,
+        "text": "When you go to education you have see I have three primary education if you go into applying",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 373.48,
+        "end": 380.29,
+        "text": "municipal early childhood education you have all the information given in this link of",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 380.29,
+        "end": 384.93,
+        "text": "course as you so we came to this link through Google so I can easily find this",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 384.93,
+        "end": 387.01,
+        "text": "again if you're looking for this information.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 387.01,
+        "end": 392.37,
+        "text": "You have how to apply for a place so usually what happens is when you apply like you know,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 392.79,
+        "end": 399.79,
+        "text": "you get some place that's close by to you, it depends on the distance and the availability, of course.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 399.79,
+        "end": 407.95,
+        "text": "And can I apply for this child care even if I don't live near the place?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 407.95,
+        "end": 414.95,
+        "text": "So that's actually, once you apply, the city will actually decide based on your address,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 414.95,
+        "end": 418.95,
+        "text": "because I believe, first of all, you have registered address in ESPO, right?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 418.95,
+        "end": 419.95,
+        "text": "Yes.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 419.95,
+        "end": 424.95,
+        "text": "So they will check the locations close by, and based on distance and availability,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 424.95,
+        "end": 427.95,
+        "text": "they will find you a place that's close by.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 427.95,
+        "end": 434.95,
+        "text": "Of course, with day care centres, sometimes you face, there can be a delay in finding one,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 434.95,
+        "end": 439.95,
+        "text": "in which case you might have to opt for a private one, if that's the case,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 439.95,
+        "end": 445.95,
+        "text": "or you'll have to take care of your child on your own, unfortunately, until we can find something for you.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 445.95,
+        "end": 450.1,
+        "text": "But what they will do is,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 450.1,
+        "end": 451.1,
+        "text": "they will provide you with information,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 451.1,
+        "end": 453.1,
+        "text": "they will provide, as soon as a slot opens up,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 453.1,
+        "end": 455.1,
+        "text": "they will give you the option which is close by,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 455.1,
+        "end": 459.1,
+        "text": "so your kid doesn't have to travel for a long distance.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 459.1,
+        "end": 462.1,
+        "text": "As mentioned here, so,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 468.12,
+        "end": 472.12,
+        "text": "the child must have finished personal identity code, that's the requirement,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 472.12,
+        "end": 479.37,
+        "text": "and you should have an address registered in ESPO, that's also the requirement.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 479.37,
+        "end": 482.37,
+        "text": "And can you tell me more about the food there?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 482.37,
+        "end": 485.37,
+        "text": "Does it work, just as a final question?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 485.37,
+        "end": 491.93,
+        "text": "Yeah, so they do provide, like,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 491.93,
+        "end": 548.26,
+        "text": "let's do a search on that.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 548.26,
+        "end": 551.26,
+        "text": "So I think it's taking a bit of time to find it out.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 551.26,
+        "end": 618.92,
+        "text": "Yeah, so I think when it comes to meals, it's given to all the kids in Finland,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 618.92,
+        "end": 623.92,
+        "text": "so it's not like a city-specific one, that's why you're not able to find it, I believe.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 623.92,
+        "end": 624.92,
+        "text": "Okay.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 624.92,
+        "end": 626.92,
+        "text": "So all the kids, like, in Finland, actually,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 626.92,
+        "end": 630.92,
+        "text": "are entitled to get meals at childcare and even in school.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 630.92,
+        "end": 631.92,
+        "text": "Really, for free?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 631.92,
+        "end": 632.92,
+        "text": "Yes.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 632.92,
+        "end": 633.92,
+        "text": "Okay, that's great.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 633.92,
+        "end": 642.24,
+        "text": "What if there's, like, I stay longer, I have,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 642.24,
+        "end": 645.24,
+        "text": "like, if they stay outside of office,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 645.24,
+        "end": 649.24,
+        "text": "do we still have dinner and all those kind of things, or?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 649.24,
+        "end": 653.24,
+        "text": "So then if you opt for the shift care, yeah,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 653.24,
+        "end": 658.3,
+        "text": "yeah, if you opt for the shift care option,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 658.3,
+        "end": 661.3,
+        "text": "where you select, let's say you're doing, like, night shift,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 661.3,
+        "end": 663.3,
+        "text": "then they get meals.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 663.3,
+        "end": 665.3,
+        "text": "Okay, they get meals, okay.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 665.3,
+        "end": 669.96,
+        "text": "If you do, like, you know, evenings, night, weekends, yeah.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 669.96,
+        "end": 671.96,
+        "text": "Okay, that's great, and thank you so much,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 671.96,
+        "end": 675.96,
+        "text": "and I just need to apply and it will depend on where I live, right?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 675.96,
+        "end": 676.96,
+        "text": "Yes.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 676.96,
+        "end": 678.96,
+        "text": "Does it depend also on income, or?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 678.96,
+        "end": 681.96,
+        "text": "This service does not depend on income,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 681.96,
+        "end": 684.96,
+        "text": "but if you actually apply for, like, a private,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 684.96,
+        "end": 685.96,
+        "text": "Of course it will.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 685.96,
+        "end": 691.38,
+        "text": "Yeah, like, childcare, then the fee actually might depend on your...",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 691.38,
+        "end": 693.38,
+        "text": "Okay, well, I think that's all the questions I have.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 693.38,
+        "end": 694.38,
+        "text": "Thank you so much.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 694.38,
+        "end": 695.38,
+        "text": "Okay, I hope I was helpful, but of course,",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 695.38,
+        "end": 700.38,
+        "text": "will you, like, you know, refer the ESPO website for more information?",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 700.38,
+        "end": 702.38,
+        "text": "Thank you, thank you so much.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 702.38,
+        "end": 705.11,
+        "text": "Okay, nice.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 705.11,
+        "end": 706.11,
+        "text": "Okay.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 706.11,
+        "end": 707.59,
+        "text": "Thank you.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      },
+      {
+        "start": 707.59,
+        "end": 708.59,
+        "text": "Yeah.",
+        "speaker": "UNKNOWN",
+        "role": "customer"
+      }
+    ]
+  }
+}
