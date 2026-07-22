@@ -18,7 +18,11 @@ def sanitize_path_segment(value: str) -> str:
 def _read_account_file(path: str) -> List[Dict[str, Any]]:
     account_path = Path(path)
     if not account_path.is_absolute():
-        account_path = Path(__file__).resolve().parents[1] / account_path
+        backend_root = Path(__file__).resolve().parents[1]
+        account_path = backend_root / account_path
+        if not account_path.exists():
+            repo_root = backend_root.parent
+            account_path = repo_root / path
 
     if not account_path.exists():
         logger.warning("Account file does not exist: %s", account_path)
@@ -89,9 +93,21 @@ def principal_id(role: str, username: str) -> str:
 
 def _backend_relative_path(path: str) -> str:
     resolved_path = Path(path)
-    if not resolved_path.is_absolute():
-        resolved_path = Path(__file__).resolve().parents[1] / resolved_path
-    return str(resolved_path)
+    if resolved_path.is_absolute():
+        return str(resolved_path)
+
+    backend_root = Path(__file__).resolve().parents[1]
+    candidate = backend_root / resolved_path
+    if candidate.exists():
+        return str(candidate)
+
+    repo_root = backend_root.parent
+    fallback_candidate = repo_root / resolved_path
+    if fallback_candidate.exists():
+        return str(fallback_candidate)
+
+    # Last resort: preserve backend-relative path for container deployments.
+    return str(candidate)
 
 
 def principal_data_dir(role: str, username: str) -> str:

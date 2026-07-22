@@ -1,0 +1,2168 @@
+[
+  {
+    "start": 0.7800000000000031,
+    "end": 1.26,
+    "speaker": "SPEAKER_02",
+    "text": "Yep."
+  },
+  {
+    "start": 7.540000000000006,
+    "end": 8.5,
+    "speaker": "SPEAKER_00",
+    "text": "Come in."
+  },
+  {
+    "start": 12.200000000000003,
+    "end": 12.68,
+    "speaker": "SPEAKER_00",
+    "text": "Hi."
+  },
+  {
+    "start": 13.34,
+    "end": 13.74,
+    "speaker": "SPEAKER_00",
+    "text": "Welcome."
+  },
+  {
+    "start": 14.64,
+    "end": 15.74,
+    "speaker": "SPEAKER_00",
+    "text": "Please have a seat."
+  },
+  {
+    "start": 16.12,
+    "end": 17.06,
+    "speaker": "SPEAKER_00",
+    "text": "Thank you so much."
+  },
+  {
+    "start": 17.44,
+    "end": 18.76,
+    "speaker": "SPEAKER_00",
+    "text": "Oh, is he over coffee as well?"
+  },
+  {
+    "start": 18.8,
+    "end": 19.48,
+    "speaker": "SPEAKER_00",
+    "text": "Thank you so much."
+  },
+  {
+    "start": 20.5,
+    "end": 22.32,
+    "speaker": "SPEAKER_00",
+    "text": "Anything else you need before we start?"
+  },
+  {
+    "start": 22.96,
+    "end": 23.6,
+    "speaker": "SPEAKER_00",
+    "text": "No, thank you."
+  },
+  {
+    "start": 23.78,
+    "end": 23.92,
+    "speaker": "SPEAKER_00",
+    "text": "Okay."
+  },
+  {
+    "start": 24.08,
+    "end": 24.88,
+    "speaker": "SPEAKER_00",
+    "text": "Good. Excellent."
+  },
+  {
+    "start": 25.38,
+    "end": 27.5,
+    "speaker": "SPEAKER_00",
+    "text": "So, how can I help you today?"
+  },
+  {
+    "start": 28.719999999999995,
+    "end": 29.74,
+    "speaker": "SPEAKER_00",
+    "text": "So, I'm <PERSON_1>."
+  },
+  {
+    "start": 30.12,
+    "end": 30.78,
+    "speaker": "SPEAKER_00",
+    "text": "I actually made you."
+  },
+  {
+    "start": 31.08,
+    "end": 31.48,
+    "speaker": "SPEAKER_00",
+    "text": "What's your name?"
+  },
+  {
+    "start": 32.18,
+    "end": 32.76,
+    "speaker": "SPEAKER_00",
+    "text": "My name is <PERSON_2>."
+  },
+  {
+    "start": 33.16,
+    "end": 33.68,
+    "speaker": "SPEAKER_01",
+    "text": "Nice to meet you."
+  },
+  {
+    "start": 33.86,
+    "end": 34.06,
+    "speaker": "SPEAKER_01",
+    "text": "Hello."
+  },
+  {
+    "start": 35.21999999999999,
+    "end": 40.0,
+    "speaker": "SPEAKER_01",
+    "text": "So, I've moved in to <COUNTRY_1> from <COUNTRY_2> a while ago."
+  },
+  {
+    "start": 40.56,
+    "end": 47.62,
+    "speaker": "SPEAKER_01",
+    "text": "And I know I am realizing that it is very difficult to balance my full-time job and taking care of my three-year-old daughter."
+  },
+  {
+    "start": 47.86,
+    "end": 48.36,
+    "speaker": "SPEAKER_01",
+    "text": "Oh, yes."
+  },
+  {
+    "start": 49.22,
+    "end": 52.62,
+    "speaker": "SPEAKER_01",
+    "text": "And so, I would like to inquire you about some day care options."
+  },
+  {
+    "start": 52.92,
+    "end": 53.12,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 53.12,
+    "end": 58.44,
+    "speaker": "SPEAKER_01",
+    "text": "And whatever I might need to relate to that because I'm not very familiar with it."
+  },
+  {
+    "start": 58.72,
+    "end": 59.3,
+    "speaker": "SPEAKER_01",
+    "text": "That's working here."
+  },
+  {
+    "start": 59.62,
+    "end": 59.92,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 60.68000000000001,
+    "end": 61.5,
+    "speaker": "SPEAKER_00",
+    "text": "That's nice."
+  },
+  {
+    "start": 62.480000000000004,
+    "end": 64.24,
+    "speaker": "SPEAKER_02",
+    "text": "So, did you see your daughter was sold?"
+  },
+  {
+    "start": 64.62,
+    "end": 65.22,
+    "speaker": "SPEAKER_02",
+    "text": "Three years old."
+  },
+  {
+    "start": 65.22,
+    "end": 66.1,
+    "speaker": "SPEAKER_00",
+    "text": "Three years old, okay."
+  },
+  {
+    "start": 66.54,
+    "end": 67.66,
+    "speaker": "SPEAKER_00",
+    "text": "Three-year-old."
+  },
+  {
+    "start": 68.12,
+    "end": 68.54,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 68.8,
+    "end": 69.22,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 69.6,
+    "end": 69.78,
+    "speaker": "UNKNOWN",
+    "text": "Yes."
+  },
+  {
+    "start": 70.88,
+    "end": 71.52,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 71.88,
+    "end": 71.98,
+    "speaker": "SPEAKER_02",
+    "text": "So,"
+  },
+  {
+    "start": 74.5,
+    "end": 78.24,
+    "speaker": "SPEAKER_02",
+    "text": "there are a few different types of care that are offered in <ORG_1>."
+  },
+  {
+    "start": 78.24,
+    "end": 84.1,
+    "speaker": "SPEAKER_02",
+    "text": "So, you have municipal private family day care open playgrounds, play groups."
+  },
+  {
+    "start": 84.54,
+    "end": 85.9,
+    "speaker": "SPEAKER_02",
+    "text": "Did you say you have a full-time job?"
+  },
+  {
+    "start": 86.2,
+    "end": 86.94,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, a full-time job."
+  },
+  {
+    "start": 86.98,
+    "end": 91.46,
+    "speaker": "SPEAKER_01",
+    "text": "So, you'd be looking for full-time day care."
+  },
+  {
+    "start": 91.94,
+    "end": 92.0,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 92.98,
+    "end": 95.98,
+    "speaker": "SPEAKER_01",
+    "text": "Could you tell me what the difference between those options are?"
+  },
+  {
+    "start": 97.14,
+    "end": 97.74,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 98.14,
+    "end": 99.08,
+    "speaker": "SPEAKER_02",
+    "text": "Technically, I can."
+  },
+  {
+    "start": 99.82,
+    "end": 100.92,
+    "speaker": "SPEAKER_02",
+    "text": "Let me see."
+  },
+  {
+    "start": 101.74000000000001,
+    "end": 103.1,
+    "speaker": "SPEAKER_02",
+    "text": "Just full disclosure."
+  },
+  {
+    "start": 103.48,
+    "end": 105.62,
+    "speaker": "SPEAKER_02",
+    "text": "I did just start my job."
+  },
+  {
+    "start": 107.56,
+    "end": 113.82,
+    "speaker": "SPEAKER_02",
+    "text": "So, still learning, but I will try my best to give you as much information as I can."
+  },
+  {
+    "start": 114.18,
+    "end": 114.48,
+    "speaker": "SPEAKER_02",
+    "text": "Thank you."
+  },
+  {
+    "start": 114.9,
+    "end": 117.14,
+    "speaker": "SPEAKER_02",
+    "text": "So, we're looking at early childhood education."
+  },
+  {
+    "start": 117.52,
+    "end": 127.72,
+    "speaker": "SPEAKER_02",
+    "text": "So, in <COUNTRY_1>, typically, children start day care between ages of, I think, the <ORG_2> nine months to somewhere around life."
+  },
+  {
+    "start": 128.34,
+    "end": 128.66,
+    "speaker": "SPEAKER_02",
+    "text": "Two or three."
+  },
+  {
+    "start": 129.22,
+    "end": 129.3,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 129.3,
+    "end": 133.58,
+    "speaker": "SPEAKER_02",
+    "text": "But so, your daughter starting school not one actively."
+  },
+  {
+    "start": 135.62,
+    "end": 136.34,
+    "speaker": "SPEAKER_02",
+    "text": "Change it."
+  },
+  {
+    "start": 136.48,
+    "end": 140.08,
+    "speaker": "SPEAKER_02",
+    "text": "So, you have day care centers, which are funded by government."
+  },
+  {
+    "start": 140.48,
+    "end": 148.62,
+    "speaker": "SPEAKER_02",
+    "text": "And then you have things like family day care, which is a form of early childhood education."
+  },
+  {
+    "start": 149.22,
+    "end": 150.42,
+    "speaker": "SPEAKER_02",
+    "text": "It takes home."
+  },
+  {
+    "start": 150.74,
+    "end": 152.92,
+    "speaker": "SPEAKER_02",
+    "text": "So, someone has a private business."
+  },
+  {
+    "start": 153.12,
+    "end": 154.76,
+    "speaker": "SPEAKER_02",
+    "text": "Typically, it's a lot smaller groups."
+  },
+  {
+    "start": 155.92,
+    "end": 163.86,
+    "speaker": "SPEAKER_02",
+    "text": "It can be a self-employed person or an employee of the municipality that might have their own smaller."
+  },
+  {
+    "start": 164.0,
+    "end": 169.02,
+    "speaker": "SPEAKER_02",
+    "text": "But that one, according to it, is the maximum number of children in family day care group is about four."
+  },
+  {
+    "start": 169.42,
+    "end": 171.3,
+    "speaker": "SPEAKER_02",
+    "text": "So, you'll be looking a lot smaller size."
+  },
+  {
+    "start": 171.54,
+    "end": 179.82,
+    "speaker": "SPEAKER_02",
+    "text": "And then a day care system would be similar as it is in <COUNTRY_2> where you have like a nursery and a dibly."
+  },
+  {
+    "start": 179.82,
+    "end": 184.62,
+    "speaker": "SPEAKER_02",
+    "text": "So, you have a group of children are on the same age group."
+  },
+  {
+    "start": 186.26000000000002,
+    "end": 190.46,
+    "speaker": "SPEAKER_02",
+    "text": "And it's probably one of the most common ones in <ORG_1>."
+  },
+  {
+    "start": 190.64,
+    "end": 193.64,
+    "speaker": "SPEAKER_02",
+    "text": "There are about 170 day care."
+  },
+  {
+    "start": 194.32,
+    "end": 196.28,
+    "speaker": "SPEAKER_02",
+    "text": "Out of which 90 or private."
+  },
+  {
+    "start": 197.66000000000003,
+    "end": 200.84,
+    "speaker": "SPEAKER_02",
+    "text": "And we have them in Finnish speaking and some Swedish speaking."
+  },
+  {
+    "start": 201.6,
+    "end": 207.16,
+    "speaker": "SPEAKER_02",
+    "text": "How long have you been in <COUNTRY_1> regarding language for months?"
+  },
+  {
+    "start": 207.16,
+    "end": 208.26,
+    "speaker": "SPEAKER_02",
+    "text": "So, I'm not very much."
+  },
+  {
+    "start": 208.46,
+    "end": 208.66,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 209.02,
+    "end": 212.44,
+    "speaker": "SPEAKER_02",
+    "text": "And I'm assuming your daughter, but what's your daughter's name?"
+  },
+  {
+    "start": 213.34,
+    "end": 213.34,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 213.74,
+    "end": 214.46,
+    "speaker": "SPEAKER_02",
+    "text": "<PERSON_3>, okay."
+  },
+  {
+    "start": 215.5,
+    "end": 217.78,
+    "speaker": "SPEAKER_02",
+    "text": "So, <PERSON_3>, she speaks English."
+  },
+  {
+    "start": 218.06,
+    "end": 219.24,
+    "speaker": "SPEAKER_02",
+    "text": "She speaks English at home, okay."
+  },
+  {
+    "start": 219.34,
+    "end": 222.04,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, she hasn't been really familiarized with the Finnish language."
+  },
+  {
+    "start": 223.1,
+    "end": 223.1,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 223.1,
+    "end": 223.36,
+    "speaker": "SPEAKER_02",
+    "text": "English."
+  },
+  {
+    "start": 224.5,
+    "end": 228.92,
+    "speaker": "SPEAKER_02",
+    "text": "Would you be looking to go still attend Finnish day care?"
+  },
+  {
+    "start": 229.36,
+    "end": 232.08,
+    "speaker": "SPEAKER_01",
+    "text": "Or would you have any options for any English speaking day care?"
+  },
+  {
+    "start": 232.94,
+    "end": 233.86,
+    "speaker": "SPEAKER_01",
+    "text": "Let's say."
+  },
+  {
+    "start": 235.84,
+    "end": 238.74,
+    "speaker": "SPEAKER_02",
+    "text": "Let's say about English speaking English."
+  },
+  {
+    "start": 240.86,
+    "end": 242.02,
+    "speaker": "SPEAKER_02",
+    "text": "Day care."
+  },
+  {
+    "start": 243.34,
+    "end": 244.64,
+    "speaker": "SPEAKER_02",
+    "text": "In <ORG_1>."
+  },
+  {
+    "start": 246.78,
+    "end": 249.54,
+    "speaker": "SPEAKER_02",
+    "text": "You do have a private one."
+  },
+  {
+    "start": 249.86,
+    "end": 251.06,
+    "speaker": "SPEAKER_02",
+    "text": "I'm going to say private one."
+  },
+  {
+    "start": 251.38,
+    "end": 253.6,
+    "speaker": "SPEAKER_02",
+    "text": "It is a, it's the English day care of <ORG_1>."
+  },
+  {
+    "start": 254.18,
+    "end": 255.12,
+    "speaker": "SPEAKER_02",
+    "text": "Be a care."
+  },
+  {
+    "start": 256.38,
+    "end": 258.06,
+    "speaker": "SPEAKER_02",
+    "text": "And let's see."
+  },
+  {
+    "start": 258.72,
+    "end": 260.86,
+    "speaker": "SPEAKER_02",
+    "text": "It provides."
+  },
+  {
+    "start": 262.24,
+    "end": 269.7,
+    "speaker": "SPEAKER_02",
+    "text": "You, they have a fully English speaking extensive bilingual or language enriched early child education."
+  },
+  {
+    "start": 272.64,
+    "end": 274.4,
+    "speaker": "SPEAKER_01",
+    "text": "What are the costs of that?"
+  },
+  {
+    "start": 275.46000000000004,
+    "end": 276.8,
+    "speaker": "UNKNOWN",
+    "text": "Give me one second."
+  },
+  {
+    "start": 277.26,
+    "end": 278.56,
+    "speaker": "SPEAKER_02",
+    "text": "Well, I think that up."
+  },
+  {
+    "start": 280.8,
+    "end": 282.82,
+    "speaker": "SPEAKER_02",
+    "text": "Technically, it is recommended."
+  },
+  {
+    "start": 283.76,
+    "end": 286.56,
+    "speaker": "SPEAKER_02",
+    "text": "If the plan is to stay in <COUNTRY_1>."
+  },
+  {
+    "start": 286.94,
+    "end": 287.18,
+    "speaker": "UNKNOWN",
+    "text": "Yes."
+  },
+  {
+    "start": 288.03999999999996,
+    "end": 291.18,
+    "speaker": "SPEAKER_02",
+    "text": "Then we can look into the."
+  },
+  {
+    "start": 295.38,
+    "end": 296.46,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 297.76,
+    "end": 303.92,
+    "speaker": "SPEAKER_02",
+    "text": "So, since it is, okay, <PERSON_3> is actually located in <CITY_1>."
+  },
+  {
+    "start": 304.96,
+    "end": 306.64,
+    "speaker": "SPEAKER_01",
+    "text": "Well, that's being convened."
+  },
+  {
+    "start": 306.74,
+    "end": 311.58,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, unfortunately, they don't have a peer to have one in."
+  },
+  {
+    "start": 315.24,
+    "end": 315.92,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 318.04,
+    "end": 319.46,
+    "speaker": "SPEAKER_02",
+    "text": "There is one in the history."
+  },
+  {
+    "start": 320.16,
+    "end": 321.18,
+    "speaker": "SPEAKER_02",
+    "text": "No, there is someone in <ORG_1>."
+  },
+  {
+    "start": 322.20000000000005,
+    "end": 328.64,
+    "speaker": "SPEAKER_02",
+    "text": "And in Tappiola, where about in, did you live within a reasonable distance with Tappiola?"
+  },
+  {
+    "start": 328.98,
+    "end": 328.98,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 330.86,
+    "end": 331.38,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 334.1,
+    "end": 335.52,
+    "speaker": "SPEAKER_02",
+    "text": "So, let's read more."
+  },
+  {
+    "start": 335.76,
+    "end": 337.7,
+    "speaker": "SPEAKER_02",
+    "text": "We have <PERSON_4> get play school Tappiola."
+  },
+  {
+    "start": 338.24,
+    "end": 341.56,
+    "speaker": "SPEAKER_02",
+    "text": "When it comes to private day cares in."
+  },
+  {
+    "start": 347.06,
+    "end": 347.58,
+    "speaker": "SPEAKER_02",
+    "text": "Fees."
+  },
+  {
+    "start": 347.72,
+    "end": 347.86,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 348.46000000000004,
+    "end": 351.82,
+    "speaker": "SPEAKER_02",
+    "text": "It uses the city of <ORG_1> service voucher system."
+  },
+  {
+    "start": 352.32,
+    "end": 362.5,
+    "speaker": "SPEAKER_02",
+    "text": "So, a customer fee ranges from 50 to 361 per month, depending on their service voucher, which depends on their family size and income."
+  },
+  {
+    "start": 362.72,
+    "end": 363.96,
+    "speaker": "SPEAKER_02",
+    "text": "So, is it just a two of you?"
+  },
+  {
+    "start": 364.18,
+    "end": 365.62,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, just a two of you."
+  },
+  {
+    "start": 366.46,
+    "end": 368.0,
+    "speaker": "SPEAKER_02",
+    "text": "And you have a full time job."
+  },
+  {
+    "start": 368.26,
+    "end": 373.74,
+    "speaker": "SPEAKER_02",
+    "text": "So, depending on that, we can look into the application system for that if that's what you're interested in."
+  },
+  {
+    "start": 374.28,
+    "end": 375.58,
+    "speaker": "SPEAKER_01",
+    "text": "Yes, I think that would be good."
+  },
+  {
+    "start": 375.98,
+    "end": 379.68,
+    "speaker": "SPEAKER_01",
+    "text": "You said that they had the option of only just the language enrichment as well."
+  },
+  {
+    "start": 379.78,
+    "end": 379.94,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 380.32,
+    "end": 381.26,
+    "speaker": "SPEAKER_01",
+    "text": "So that she could also get."
+  },
+  {
+    "start": 381.64,
+    "end": 382.12,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 382.88,
+    "end": 383.56,
+    "speaker": "SPEAKER_02",
+    "text": "They should."
+  },
+  {
+    "start": 383.86,
+    "end": 385.8,
+    "speaker": "SPEAKER_02",
+    "text": "The bigger issue is if they have space."
+  },
+  {
+    "start": 386.22,
+    "end": 390.48,
+    "speaker": "SPEAKER_02",
+    "text": "So, it might be faster to put her on a list here."
+  },
+  {
+    "start": 393.52,
+    "end": 394.2,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 397.4,
+    "end": 398.08,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 398.84,
+    "end": 400.54,
+    "speaker": "SPEAKER_02",
+    "text": "So, you would apply."
+  },
+  {
+    "start": 402.18,
+    "end": 404.04,
+    "speaker": "SPEAKER_02",
+    "text": "There are a few in <ORG_1>."
+  },
+  {
+    "start": 405.52,
+    "end": 412.62,
+    "speaker": "SPEAKER_02",
+    "text": "And you would give the information, which one you would prefer English half or full time part time."
+  },
+  {
+    "start": 413.02,
+    "end": 413.86,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, looking for."
+  },
+  {
+    "start": 415.38,
+    "end": 418.4,
+    "speaker": "SPEAKER_02",
+    "text": "And they will be applying within two days."
+  },
+  {
+    "start": 418.4,
+    "end": 420.76,
+    "speaker": "SPEAKER_02",
+    "text": "But if they're full, unfortunately, they will be full."
+  },
+  {
+    "start": 421.34,
+    "end": 425.98,
+    "speaker": "SPEAKER_02",
+    "text": "And then after that, you once you have received a spot, that's when you come back here."
+  },
+  {
+    "start": 426.54,
+    "end": 428.56,
+    "speaker": "SPEAKER_02",
+    "text": "And we start the process on getting you the."
+  },
+  {
+    "start": 428.86,
+    "end": 429.26,
+    "speaker": "UNKNOWN",
+    "text": "Okay."
+  },
+  {
+    "start": 429.6,
+    "end": 433.24,
+    "speaker": "SPEAKER_02",
+    "text": "And then depending on your how much you earn."
+  },
+  {
+    "start": 433.88,
+    "end": 440.08,
+    "speaker": "SPEAKER_02",
+    "text": "And what they per see as the need, we will make a decision or not me, but the system will make a decision."
+  },
+  {
+    "start": 440.46,
+    "end": 445.1,
+    "speaker": "SPEAKER_02",
+    "text": "Whether how much of the service will be covered by you and how much will be covered by us."
+  },
+  {
+    "start": 445.82,
+    "end": 447.88,
+    "speaker": "SPEAKER_02",
+    "text": "If you were to get the spot there."
+  },
+  {
+    "start": 448.22,
+    "end": 449.26,
+    "speaker": "SPEAKER_00",
+    "text": "Do I apply a line?"
+  },
+  {
+    "start": 449.94,
+    "end": 450.86,
+    "speaker": "SPEAKER_02",
+    "text": "You do apply online."
+  },
+  {
+    "start": 451.32,
+    "end": 454.88,
+    "speaker": "SPEAKER_02",
+    "text": "So, the website that you're looking for is you to get."
+  },
+  {
+    "start": 455.0,
+    "end": 455.72,
+    "speaker": "SPEAKER_02",
+    "text": "I've got it."
+  },
+  {
+    "start": 456.02,
+    "end": 456.24,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 456.62,
+    "end": 458.12,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so it is available in English."
+  },
+  {
+    "start": 458.5,
+    "end": 458.88,
+    "speaker": "SPEAKER_02",
+    "text": "Uh-huh."
+  },
+  {
+    "start": 459.16,
+    "end": 461.16,
+    "speaker": "SPEAKER_02",
+    "text": "You can have a got it."
+  },
+  {
+    "start": 461.54,
+    "end": 462.6,
+    "speaker": "SPEAKER_02",
+    "text": "Or dot fi."
+  },
+  {
+    "start": 463.44,
+    "end": 463.56,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 463.7,
+    "end": 465.72,
+    "speaker": "SPEAKER_02",
+    "text": "So, the daycare fees and applying in <ORG_1>."
+  },
+  {
+    "start": 465.9,
+    "end": 470.04,
+    "speaker": "SPEAKER_02",
+    "text": "So, this will be your best way looking for ways to apply."
+  },
+  {
+    "start": 470.04,
+    "end": 470.78,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 471.18,
+    "end": 474.6,
+    "speaker": "SPEAKER_02",
+    "text": "And it is for children under five."
+  },
+  {
+    "start": 477.62,
+    "end": 478.28,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 478.78,
+    "end": 479.1,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 480.24,
+    "end": 484.54,
+    "speaker": "SPEAKER_02",
+    "text": "So, you can apply for this website has a lot of information on apply in general."
+  },
+  {
+    "start": 484.88,
+    "end": 485.12,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 485.28,
+    "end": 487.26,
+    "speaker": "SPEAKER_02",
+    "text": "In <ORG_1> for a daycare."
+  },
+  {
+    "start": 487.66,
+    "end": 491.12,
+    "speaker": "SPEAKER_02",
+    "text": "And if it's for municipal daycare system."
+  },
+  {
+    "start": 491.56,
+    "end": 493.1,
+    "speaker": "SPEAKER_02",
+    "text": "It was pretty similar."
+  },
+  {
+    "start": 493.38,
+    "end": 494.34,
+    "speaker": "SPEAKER_01",
+    "text": "Maybe my next question."
+  },
+  {
+    "start": 494.52,
+    "end": 494.68,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah."
+  },
+  {
+    "start": 494.68,
+    "end": 495.28,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 496.32,
+    "end": 500.98,
+    "speaker": "SPEAKER_02",
+    "text": "So, then they're both municipal private daycares."
+  },
+  {
+    "start": 502.06,
+    "end": 503.68,
+    "speaker": "SPEAKER_02",
+    "text": "And you work a nine to five."
+  },
+  {
+    "start": 503.68,
+    "end": 506.94,
+    "speaker": "SPEAKER_02",
+    "text": "So, you don't need a full time around the clock."
+  },
+  {
+    "start": 507.3,
+    "end": 508.04,
+    "speaker": "SPEAKER_02",
+    "text": "You don't want to shift work."
+  },
+  {
+    "start": 508.32,
+    "end": 508.32,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 509.56,
+    "end": 514.1,
+    "speaker": "SPEAKER_02",
+    "text": "So, daycare is operate to Monday to Friday 630 to 6 p.m."
+  },
+  {
+    "start": 514.38,
+    "end": 514.66,
+    "speaker": "SPEAKER_00",
+    "text": "Okay."
+  },
+  {
+    "start": 514.92,
+    "end": 515.38,
+    "speaker": "SPEAKER_02",
+    "text": "As needed."
+  },
+  {
+    "start": 515.78,
+    "end": 518.78,
+    "speaker": "SPEAKER_02",
+    "text": "However, typically children aren't there for the whole 10 days."
+  },
+  {
+    "start": 519.08,
+    "end": 519.72,
+    "speaker": "SPEAKER_02",
+    "text": "About 10 hours."
+  },
+  {
+    "start": 519.94,
+    "end": 524.08,
+    "speaker": "SPEAKER_02",
+    "text": "But for eight to four kind of a mentality."
+  },
+  {
+    "start": 524.08,
+    "end": 524.5,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah."
+  },
+  {
+    "start": 524.6,
+    "end": 525.08,
+    "speaker": "SPEAKER_00",
+    "text": "Have a good one."
+  },
+  {
+    "start": 525.34,
+    "end": 526.08,
+    "speaker": "SPEAKER_00",
+    "text": "What do you feel like school?"
+  },
+  {
+    "start": 526.2,
+    "end": 526.66,
+    "speaker": "SPEAKER_00",
+    "text": "So, that's."
+  },
+  {
+    "start": 527.18,
+    "end": 527.32,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 527.48,
+    "end": 528.6,
+    "speaker": "SPEAKER_02",
+    "text": "Is that what they're finished speaking to you?"
+  },
+  {
+    "start": 528.74,
+    "end": 529.78,
+    "speaker": "SPEAKER_02",
+    "text": "And there's offers for shelter."
+  },
+  {
+    "start": 530.9,
+    "end": 531.42,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 531.78,
+    "end": 539.74,
+    "speaker": "SPEAKER_02",
+    "text": "So, there are some others that offer it so that it's like bilingual early child education."
+  },
+  {
+    "start": 542.62,
+    "end": 547.5,
+    "speaker": "SPEAKER_02",
+    "text": "But there it would be majority finish with introducing English."
+  },
+  {
+    "start": 548.14,
+    "end": 549.88,
+    "speaker": "SPEAKER_02",
+    "text": "But I'm assuming that would also."
+  },
+  {
+    "start": 550.0,
+    "end": 550.64,
+    "speaker": "SPEAKER_02",
+    "text": "That might be."
+  },
+  {
+    "start": 550.94,
+    "end": 552.34,
+    "speaker": "SPEAKER_02",
+    "text": "It might be okay."
+  },
+  {
+    "start": 552.64,
+    "end": 552.78,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 555.02,
+    "end": 555.46,
+    "speaker": "UNKNOWN",
+    "text": "Yeah."
+  },
+  {
+    "start": 556.14,
+    "end": 557.02,
+    "speaker": "SPEAKER_02",
+    "text": "And fully grown language."
+  },
+  {
+    "start": 558.18,
+    "end": 559.96,
+    "speaker": "SPEAKER_02",
+    "text": "So, let's see, English baking."
+  },
+  {
+    "start": 560.08,
+    "end": 561.6,
+    "speaker": "SPEAKER_02",
+    "text": "When is we'll finish English groups?"
+  },
+  {
+    "start": 564.1,
+    "end": 567.82,
+    "speaker": "SPEAKER_02",
+    "text": "For that one, there are kidney and poverty, which is a bilingual."
+  },
+  {
+    "start": 568.36,
+    "end": 569.98,
+    "speaker": "SPEAKER_02",
+    "text": "But this is for five to six year olds."
+  },
+  {
+    "start": 570.16,
+    "end": 573.74,
+    "speaker": "SPEAKER_02",
+    "text": "So, unfortunately, your daughter is a bit too old."
+  },
+  {
+    "start": 574.54,
+    "end": 574.86,
+    "speaker": "SPEAKER_02",
+    "text": "But yeah."
+  },
+  {
+    "start": 575.1,
+    "end": 579.56,
+    "speaker": "SPEAKER_02",
+    "text": "So, also you could visit aspo.fi at home."
+  },
+  {
+    "start": 579.92,
+    "end": 580.82,
+    "speaker": "SPEAKER_02",
+    "text": "If you can get into that."
+  },
+  {
+    "start": 580.82,
+    "end": 585.72,
+    "speaker": "SPEAKER_02",
+    "text": "So, and they have their early childhood education system."
+  },
+  {
+    "start": 585.92,
+    "end": 587.28,
+    "speaker": "SPEAKER_02",
+    "text": "So, when you go to the front page."
+  },
+  {
+    "start": 589.32,
+    "end": 591.58,
+    "speaker": "SPEAKER_02",
+    "text": "At the front page, you can."
+  },
+  {
+    "start": 592.54,
+    "end": 594.24,
+    "speaker": "SPEAKER_02",
+    "text": "You get the this page."
+  },
+  {
+    "start": 594.54,
+    "end": 597.38,
+    "speaker": "SPEAKER_02",
+    "text": "And if it shows up and finished, you can switch it to English."
+  },
+  {
+    "start": 598.16,
+    "end": 599.74,
+    "speaker": "SPEAKER_02",
+    "text": "You go to child care and education."
+  },
+  {
+    "start": 601.02,
+    "end": 602.98,
+    "speaker": "SPEAKER_02",
+    "text": "And early childhood education."
+  },
+  {
+    "start": 604.0,
+    "end": 604.88,
+    "speaker": "SPEAKER_02",
+    "text": "There was."
+  },
+  {
+    "start": 605.72,
+    "end": 607.66,
+    "speaker": "SPEAKER_02",
+    "text": "And here, by scrolling."
+  },
+  {
+    "start": 608.36,
+    "end": 609.74,
+    "speaker": "SPEAKER_02",
+    "text": "It was daycare."
+  },
+  {
+    "start": 611.8000000000001,
+    "end": 613.78,
+    "speaker": "SPEAKER_02",
+    "text": "And where was the English?"
+  },
+  {
+    "start": 614.5,
+    "end": 615.56,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, early education."
+  },
+  {
+    "start": 617.88,
+    "end": 620.32,
+    "speaker": "SPEAKER_02",
+    "text": "And then in here, you had the private."
+  },
+  {
+    "start": 621.62,
+    "end": 622.02,
+    "speaker": "SPEAKER_02",
+    "text": "English."
+  },
+  {
+    "start": 622.2,
+    "end": 624.78,
+    "speaker": "SPEAKER_02",
+    "text": "And the same way with these is with the <PERSON_5> when we're discussing."
+  },
+  {
+    "start": 625.24,
+    "end": 626.18,
+    "speaker": "SPEAKER_02",
+    "text": "It works the same way."
+  },
+  {
+    "start": 626.52,
+    "end": 628.9,
+    "speaker": "SPEAKER_02",
+    "text": "And so, if you get this spot, then you come back here."
+  },
+  {
+    "start": 629.16,
+    "end": 630.6,
+    "speaker": "SPEAKER_02",
+    "text": "We can work on the voucher together."
+  },
+  {
+    "start": 630.78,
+    "end": 631.94,
+    "speaker": "SPEAKER_02",
+    "text": "Or you can also do that online."
+  },
+  {
+    "start": 632.14,
+    "end": 633.74,
+    "speaker": "SPEAKER_02",
+    "text": "If you feel comfortable doing it yourself."
+  },
+  {
+    "start": 633.96,
+    "end": 635.92,
+    "speaker": "SPEAKER_02",
+    "text": "But you can also come here and we can double check it."
+  },
+  {
+    "start": 635.92,
+    "end": 638.8,
+    "speaker": "SPEAKER_01",
+    "text": "And what happens if I apply to a daycare?"
+  },
+  {
+    "start": 638.98,
+    "end": 640.72,
+    "speaker": "SPEAKER_01",
+    "text": "And it's somewhere really far."
+  },
+  {
+    "start": 641.68,
+    "end": 643.72,
+    "speaker": "SPEAKER_01",
+    "text": "But it cannot get any other other place."
+  },
+  {
+    "start": 644.84,
+    "end": 649.06,
+    "speaker": "SPEAKER_02",
+    "text": "In that case, I'm not sure, but I'm sure we could."
+  },
+  {
+    "start": 650.66,
+    "end": 653.7,
+    "speaker": "SPEAKER_02",
+    "text": "See about applying elsewhere."
+  },
+  {
+    "start": 654.18,
+    "end": 659.5,
+    "speaker": "SPEAKER_02",
+    "text": "Or then, unfortunately, you might have to go there for a while while the process is going through."
+  },
+  {
+    "start": 660.46,
+    "end": 664.28,
+    "speaker": "SPEAKER_02",
+    "text": "But if it's really, really far away, we can see if there's any other spots."
+  },
+  {
+    "start": 664.28,
+    "end": 669.62,
+    "speaker": "SPEAKER_02",
+    "text": "But then it might be just that you're going to have to the child might have to go to a finished daycare."
+  },
+  {
+    "start": 670.1,
+    "end": 672.36,
+    "speaker": "SPEAKER_02",
+    "text": "Typically, the teachers speak a level of English."
+  },
+  {
+    "start": 672.84,
+    "end": 677.32,
+    "speaker": "SPEAKER_02",
+    "text": "So it might be a way for the child to learn."
+  },
+  {
+    "start": 677.4,
+    "end": 680.54,
+    "speaker": "SPEAKER_02",
+    "text": "But also small children can do that very fast to the language as well."
+  },
+  {
+    "start": 681.2,
+    "end": 681.6,
+    "speaker": "UNKNOWN",
+    "text": "Areas."
+  },
+  {
+    "start": 681.96,
+    "end": 685.26,
+    "speaker": "SPEAKER_01",
+    "text": "What about the fees for the municipal day here?"
+  },
+  {
+    "start": 686.1,
+    "end": 687.02,
+    "speaker": "SPEAKER_02",
+    "text": "Municipal daycare."
+  },
+  {
+    "start": 688.04,
+    "end": 688.52,
+    "speaker": "SPEAKER_02",
+    "text": "Hmm."
+  },
+  {
+    "start": 689.38,
+    "end": 690.66,
+    "speaker": "SPEAKER_02",
+    "text": "I have an excellent question."
+  },
+  {
+    "start": 691.68,
+    "end": 692.4,
+    "speaker": "SPEAKER_02",
+    "text": "Let's see."
+  },
+  {
+    "start": 693.0,
+    "end": 694.58,
+    "speaker": "SPEAKER_02",
+    "text": "We have the early childhood educators."
+  },
+  {
+    "start": 694.58,
+    "end": 695.48,
+    "speaker": "SPEAKER_02",
+    "text": "Like a student together."
+  },
+  {
+    "start": 695.86,
+    "end": 696.76,
+    "speaker": "SPEAKER_02",
+    "text": "We're learning together."
+  },
+  {
+    "start": 697.14,
+    "end": 699.56,
+    "speaker": "SPEAKER_02",
+    "text": "This is how we're going to figure this out."
+  },
+  {
+    "start": 700.0,
+    "end": 701.44,
+    "speaker": "SPEAKER_02",
+    "text": "I don't have a children of my own."
+  },
+  {
+    "start": 701.6,
+    "end": 702.26,
+    "speaker": "SPEAKER_02",
+    "text": "So I don't have this one."
+  },
+  {
+    "start": 702.44,
+    "end": 704.94,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, and you told me you just started this job."
+  },
+  {
+    "start": 705.26,
+    "end": 706.46,
+    "speaker": "SPEAKER_02",
+    "text": "So it's even more."
+  },
+  {
+    "start": 708.62,
+    "end": 709.72,
+    "speaker": "SPEAKER_02",
+    "text": "Things are stopping."
+  },
+  {
+    "start": 711.44,
+    "end": 716.6,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so much like in <COUNTRY_2>, the stuff is a teacher and child care is an assistant."
+  },
+  {
+    "start": 717.3199999999999,
+    "end": 719.6,
+    "speaker": "SPEAKER_02",
+    "text": "So it's a recently similar."
+  },
+  {
+    "start": 720.54,
+    "end": 721.56,
+    "speaker": "SPEAKER_02",
+    "text": "It's nice to know that it's similar."
+  },
+  {
+    "start": 722.9399999999999,
+    "end": 731.4,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, there's also <PERSON_6>, which by the way is that the e-Services, online services, if you want to, if you don't want time to come here or you want to work on it, <PERSON_6> is."
+  },
+  {
+    "start": 731.6,
+    "end": 732.38,
+    "speaker": "SPEAKER_01",
+    "text": "That's good to know."
+  },
+  {
+    "start": 732.58,
+    "end": 733.9,
+    "speaker": "SPEAKER_02",
+    "text": "Typically it will help you."
+  },
+  {
+    "start": 733.98,
+    "end": 735.1,
+    "speaker": "SPEAKER_01",
+    "text": "So we can do it remotely as well."
+  },
+  {
+    "start": 735.12,
+    "end": 740.6,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, so that one helps with communicating with daycare centers and book attendance times and report absences."
+  },
+  {
+    "start": 740.9,
+    "end": 740.9,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 740.9,
+    "end": 740.9,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 742.64,
+    "end": 745.8,
+    "speaker": "SPEAKER_02",
+    "text": "And we need to log in here, but I'm actually can't."
+  },
+  {
+    "start": 746.1,
+    "end": 756.28,
+    "speaker": "SPEAKER_02",
+    "text": "But let's see about the fees for municipal take care fees from municipal take care."
+  },
+  {
+    "start": 759.54,
+    "end": 760.16,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 760.68,
+    "end": 763.14,
+    "speaker": "SPEAKER_02",
+    "text": "So again, it is between zero to 300."
+  },
+  {
+    "start": 763.72,
+    "end": 765.6,
+    "speaker": "SPEAKER_02",
+    "text": "And this is its income base."
+  },
+  {
+    "start": 765.9,
+    "end": 771.42,
+    "speaker": "SPEAKER_02",
+    "text": "So if you aren't enough, obviously you're a single parent household, so that will affect it."
+  },
+  {
+    "start": 772.96,
+    "end": 778.68,
+    "speaker": "SPEAKER_02",
+    "text": "But unlike with the private one, you don't necessarily need to apply for the when you're applying for the place."
+  },
+  {
+    "start": 780.14,
+    "end": 784.58,
+    "speaker": "SPEAKER_02",
+    "text": "If I have understood correctly, so this is per month is zero to."
+  },
+  {
+    "start": 788.02,
+    "end": 791.58,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, the fee varies according to factors such as so is feminine car."
+  },
+  {
+    "start": 791.58,
+    "end": 795.26,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, terminate of client fee."
+  },
+  {
+    "start": 795.94,
+    "end": 797.82,
+    "speaker": "SPEAKER_02",
+    "text": "Client fees for early childhood."
+  },
+  {
+    "start": 800.52,
+    "end": 803.82,
+    "speaker": "SPEAKER_02",
+    "text": "Are calculated as a percentage for families crossing income."
+  },
+  {
+    "start": 805.98,
+    "end": 808.78,
+    "speaker": "SPEAKER_02",
+    "text": "And if the fees are less than 30 euros a month, they're not."
+  },
+  {
+    "start": 809.42,
+    "end": 810.18,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, okay."
+  },
+  {
+    "start": 811.44,
+    "end": 814.18,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah, so depending how much."
+  },
+  {
+    "start": 815.64,
+    "end": 818.1,
+    "speaker": "SPEAKER_02",
+    "text": "You earn it is a percentage of what is."
+  },
+  {
+    "start": 818.9800000000001,
+    "end": 820.1,
+    "speaker": "SPEAKER_02",
+    "text": "And yeah."
+  },
+  {
+    "start": 822.8800000000001,
+    "end": 828.84,
+    "speaker": "SPEAKER_02",
+    "text": "And also how much how many hours depends on how much you have to pay."
+  },
+  {
+    "start": 829.62,
+    "end": 830.28,
+    "speaker": "SPEAKER_02",
+    "text": "But this is also."
+  },
+  {
+    "start": 831.22,
+    "end": 831.8,
+    "speaker": "SPEAKER_02",
+    "text": "I don't know."
+  },
+  {
+    "start": 831.92,
+    "end": 832.1,
+    "speaker": "SPEAKER_02",
+    "text": "Yeah."
+  },
+  {
+    "start": 834.9,
+    "end": 845.36,
+    "speaker": "SPEAKER_02",
+    "text": "So all of this can be found if you are comfortable using internet can be found in the same spot with the early childhood education at the spot specific website."
+  },
+  {
+    "start": 847.8799999999999,
+    "end": 852.68,
+    "speaker": "SPEAKER_02",
+    "text": "And this one will similarly with the application is you fill out application form."
+  },
+  {
+    "start": 853.4000000000001,
+    "end": 859.72,
+    "speaker": "SPEAKER_02",
+    "text": "And so if you want to familiarize yourself at home with these things and then you can come back if you don't."
+  },
+  {
+    "start": 859.78,
+    "end": 864.34,
+    "speaker": "SPEAKER_02",
+    "text": "If it's too confusing, we can book another time and we can fill out the forms together here."
+  },
+  {
+    "start": 864.68,
+    "end": 864.88,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 865.32,
+    "end": 868.32,
+    "speaker": "SPEAKER_02",
+    "text": "And but for those you do need to have more information with you."
+  },
+  {
+    "start": 868.42,
+    "end": 868.68,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 869.22,
+    "end": 872.58,
+    "speaker": "SPEAKER_02",
+    "text": "And you need to have made a decision on where you would like to apply."
+  },
+  {
+    "start": 874.1400000000001,
+    "end": 874.7,
+    "speaker": "SPEAKER_01",
+    "text": "Yeah."
+  },
+  {
+    "start": 875.04,
+    "end": 875.72,
+    "speaker": "SPEAKER_01",
+    "text": "Any other questions?"
+  },
+  {
+    "start": 876.2,
+    "end": 880.4,
+    "speaker": "SPEAKER_01",
+    "text": "I was wondering with the daycare will they provide food for my daughter?"
+  },
+  {
+    "start": 880.74,
+    "end": 880.88,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 881.26,
+    "end": 882.3,
+    "speaker": "SPEAKER_01",
+    "text": "So let me pay for the food."
+  },
+  {
+    "start": 886.22,
+    "end": 886.78,
+    "speaker": "SPEAKER_02",
+    "text": "No."
+  },
+  {
+    "start": 887.6400000000001,
+    "end": 889.64,
+    "speaker": "SPEAKER_02",
+    "text": "It that should be covered in the feed."
+  },
+  {
+    "start": 891.5,
+    "end": 892.5,
+    "speaker": "SPEAKER_02",
+    "text": "To my knowledge."
+  },
+  {
+    "start": 893.04,
+    "end": 899.72,
+    "speaker": "SPEAKER_02",
+    "text": "And you would find this information about finished school systems provide female three meals for children and warm meals."
+  },
+  {
+    "start": 901.76,
+    "end": 907.4,
+    "speaker": "SPEAKER_02",
+    "text": "Typically a warm breakfast or if the child refuses to eat porridge then maybe toast."
+  },
+  {
+    "start": 907.78,
+    "end": 910.04,
+    "speaker": "SPEAKER_02",
+    "text": "And then breakfast is served in the mornings."
+  },
+  {
+    "start": 910.62,
+    "end": 916.86,
+    "speaker": "SPEAKER_02",
+    "text": "If the child comes after breakfast time, they don't get breakfast, but then there is a warm lunch and then a snack time."
+  },
+  {
+    "start": 917.22,
+    "end": 923.0,
+    "speaker": "SPEAKER_02",
+    "text": "Typically before they're picked up, but the idea is that they get at least one warm meal during their time of the daycare."
+  },
+  {
+    "start": 923.5,
+    "end": 923.76,
+    "speaker": "SPEAKER_00",
+    "text": "Okay."
+  },
+  {
+    "start": 923.86,
+    "end": 924.34,
+    "speaker": "SPEAKER_00",
+    "text": "That's really good."
+  },
+  {
+    "start": 924.52,
+    "end": 924.66,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 925.0,
+    "end": 925.28,
+    "speaker": "SPEAKER_02",
+    "text": "Very good."
+  },
+  {
+    "start": 928.34,
+    "end": 929.28,
+    "speaker": "SPEAKER_00",
+    "text": "Anything else?"
+  },
+  {
+    "start": 935.1999999999999,
+    "end": 935.92,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 935.92,
+    "end": 937.84,
+    "speaker": "SPEAKER_01",
+    "text": "So in the in <COUNTRY_2>."
+  },
+  {
+    "start": 938.58,
+    "end": 938.58,
+    "speaker": "UNKNOWN",
+    "text": ""
+  },
+  {
+    "start": 941.28,
+    "end": 941.62,
+    "speaker": "SPEAKER_01",
+    "text": "In the."
+  },
+  {
+    "start": 943.58,
+    "end": 944.72,
+    "speaker": "SPEAKER_01",
+    "text": "Do you."
+  },
+  {
+    "start": 945.8,
+    "end": 950.66,
+    "speaker": "SPEAKER_01",
+    "text": "Would you happen to know what kind of what age you would be with at the daycare?"
+  },
+  {
+    "start": 952.3199999999999,
+    "end": 956.88,
+    "speaker": "SPEAKER_01",
+    "text": "Like in the same group, how does the age group system go in here?"
+  },
+  {
+    "start": 960.8,
+    "end": 962.88,
+    "speaker": "SPEAKER_02",
+    "text": "I think let's see."
+  },
+  {
+    "start": 963.26,
+    "end": 967.9,
+    "speaker": "SPEAKER_02",
+    "text": "To my knowledge, at least from when I've read from here, they try to group kids together."
+  },
+  {
+    "start": 968.34,
+    "end": 971.94,
+    "speaker": "SPEAKER_02",
+    "text": "So you have preschool, which is between five and typically six."
+  },
+  {
+    "start": 972.4,
+    "end": 972.52,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 972.62,
+    "end": 973.0,
+    "speaker": "SPEAKER_02",
+    "text": "Because, uh,"
+  },
+  {
+    "start": 973.0,
+    "end": 974.82,
+    "speaker": "SPEAKER_02",
+    "text": "so, in <COUNTRY_1>, we go to school, not five."
+  },
+  {
+    "start": 975.28,
+    "end": 976.28,
+    "speaker": "SPEAKER_02",
+    "text": "We go at seven."
+  },
+  {
+    "start": 976.38,
+    "end": 976.56,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 976.62,
+    "end": 983.46,
+    "speaker": "SPEAKER_02",
+    "text": "So you start your school at seven and you will go to preschool when you're five, six years old, depending on where your birthday lies."
+  },
+  {
+    "start": 984.46,
+    "end": 986.7,
+    "speaker": "SPEAKER_02",
+    "text": "And you complete that year."
+  },
+  {
+    "start": 987.04,
+    "end": 990.28,
+    "speaker": "SPEAKER_02",
+    "text": "Sometimes it's in the same place in the same daycare."
+  },
+  {
+    "start": 990.48,
+    "end": 990.68,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 991.02,
+    "end": 992.52,
+    "speaker": "SPEAKER_02",
+    "text": "But then obviously preschool is a bit different."
+  },
+  {
+    "start": 992.7,
+    "end": 995.34,
+    "speaker": "SPEAKER_02",
+    "text": "You start learning things like how you're in school and things like this."
+  },
+  {
+    "start": 995.78,
+    "end": 996.66,
+    "speaker": "SPEAKER_02",
+    "text": "But then in."
+  },
+  {
+    "start": 998.14,
+    "end": 998.5,
+    "speaker": "SPEAKER_02",
+    "text": "Uh,"
+  },
+  {
+    "start": 999.6599999999999,
+    "end": 1007.46,
+    "speaker": "SPEAKER_02",
+    "text": "but then for the younger ones, it's probably also depending on the size, but you obviously have very small ones on their own because they require more care."
+  },
+  {
+    "start": 1008.12,
+    "end": 1008.6,
+    "speaker": "SPEAKER_02",
+    "text": "And then the."
+  },
+  {
+    "start": 1009.66,
+    "end": 1014.76,
+    "speaker": "SPEAKER_02",
+    "text": "I would say maybe from two to four in one group and then four or five in another."
+  },
+  {
+    "start": 1015.08,
+    "end": 1016.14,
+    "speaker": "SPEAKER_02",
+    "text": "And then you have preschool."
+  },
+  {
+    "start": 1016.44,
+    "end": 1016.72,
+    "speaker": "SPEAKER_00",
+    "text": "Okay."
+  },
+  {
+    "start": 1016.82,
+    "end": 1018.56,
+    "speaker": "SPEAKER_02",
+    "text": "So also depends on the size of the school."
+  },
+  {
+    "start": 1018.66,
+    "end": 1024.7,
+    "speaker": "SPEAKER_02",
+    "text": "So obviously, if it's a private ends of it smaller, the groups might be a bit more diverse when it comes to age."
+  },
+  {
+    "start": 1025.32,
+    "end": 1025.76,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 1025.88,
+    "end": 1026.48,
+    "speaker": "SPEAKER_02",
+    "text": "That's good to know."
+  },
+  {
+    "start": 1026.48,
+    "end": 1027.98,
+    "speaker": "SPEAKER_02",
+    "text": "So I kind of know what to expect."
+  },
+  {
+    "start": 1028.36,
+    "end": 1028.42,
+    "speaker": "SPEAKER_02",
+    "text": "Yes."
+  },
+  {
+    "start": 1029.6,
+    "end": 1035.46,
+    "speaker": "SPEAKER_02",
+    "text": "But so, um, this in the websites, I think if you want to come back, we can set up a time later."
+  },
+  {
+    "start": 1036.0,
+    "end": 1040.38,
+    "speaker": "SPEAKER_02",
+    "text": "Oh, you can also email and we can spend different time to work on the applications together."
+  },
+  {
+    "start": 1040.5,
+    "end": 1045.84,
+    "speaker": "SPEAKER_02",
+    "text": "If you like, once you've decided if you would prefer to aim for the English private one or for the."
+  },
+  {
+    "start": 1046.86,
+    "end": 1047.46,
+    "speaker": "SPEAKER_02",
+    "text": "Uh, here."
+  },
+  {
+    "start": 1047.74,
+    "end": 1048.88,
+    "speaker": "SPEAKER_02",
+    "text": "But yes, you have the websites."
+  },
+  {
+    "start": 1049.22,
+    "end": 1050.0,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, I have the website."
+  },
+  {
+    "start": 1050.32,
+    "end": 1050.72,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 1051.02,
+    "end": 1052.54,
+    "speaker": "SPEAKER_01",
+    "text": "And I will remember most of this as well."
+  },
+  {
+    "start": 1052.86,
+    "end": 1053.0,
+    "speaker": "SPEAKER_01",
+    "text": "Okay."
+  },
+  {
+    "start": 1053.04,
+    "end": 1054.24,
+    "speaker": "SPEAKER_01",
+    "text": "I will look into that."
+  },
+  {
+    "start": 1054.24,
+    "end": 1055.04,
+    "speaker": "SPEAKER_01",
+    "text": "And it will be in touch."
+  },
+  {
+    "start": 1055.3,
+    "end": 1055.56,
+    "speaker": "SPEAKER_01",
+    "text": "Excellent."
+  },
+  {
+    "start": 1056.1,
+    "end": 1056.66,
+    "speaker": "SPEAKER_01",
+    "text": "Thank you so much."
+  },
+  {
+    "start": 1057.04,
+    "end": 1058.12,
+    "speaker": "SPEAKER_01",
+    "text": "Thank you for coming."
+  },
+  {
+    "start": 1058.44,
+    "end": 1059.1,
+    "speaker": "SPEAKER_01",
+    "text": "Thank you so much."
+  },
+  {
+    "start": 1059.28,
+    "end": 1060.5,
+    "speaker": "SPEAKER_01",
+    "text": "So helping me."
+  },
+  {
+    "start": 1060.62,
+    "end": 1060.8,
+    "speaker": "SPEAKER_01",
+    "text": "Yes."
+  },
+  {
+    "start": 1061.26,
+    "end": 1061.72,
+    "speaker": "UNKNOWN",
+    "text": "All right."
+  }
+]

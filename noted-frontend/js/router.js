@@ -15,6 +15,7 @@ import NewSession from './components/new_session.js';
 import RecordingView from './components/recording_view.js';
 import ExperimentView from './components/experiment_view.js';
 import AdminDashboard from './components/admin_dashboard.js';
+import FileBrowserView from './components/file_browser_component.js';
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
         component: AdminDashboard
     },
     {
+        path: '/admin/files',
+        name: 'admin_files',
+        component: FileBrowserView
+    },
+    {
         path: '/record/:sessionId?',
         name: 'recording',
         component: RecordingView,
@@ -76,10 +82,11 @@ const router = createRouter({
 // Auth guard
 router.beforeEach((to, from, next) => {
     const needsAuth = to.name !== 'login';
+    const adminOnly = ['admin_dashboard', 'admin_files'];
 
     if (needsAuth && !authService.isAuthenticated()) {
         next({ name: 'login' });
-    } else if (to.name === 'admin_dashboard' && !authService.isAdmin()) {
+    } else if (adminOnly.includes(to.name) && !authService.isAdmin()) {
         next({ name: 'dashboard' });
     } else if (to.name === 'login' && authService.isAuthenticated()) {
         next({ name: authService.isAdmin() ? 'admin_dashboard' : 'dashboard' });

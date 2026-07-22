@@ -155,6 +155,10 @@ export default {
       scrollToBottom();
     };
 
+    const goToRawBackend = async () => {
+      await router.push({ name: 'admin_files' });
+    };
+
     const logout = async () => {
       authService.logout();
       localStorage.removeItem('isAdmin');
@@ -219,6 +223,7 @@ export default {
       activeOfficers,
       applicationTypes,
       logout,
+      goToRawBackend,
       messages,
       newMessage,
       isTyping,
@@ -228,8 +233,7 @@ export default {
       sendMessage,
       clearConversation,
       formatTime,
-      expandChat
-      ,
+      expandChat,
       // new dashboard fields
       averageConversationTime,
       contactMethods,
@@ -253,7 +257,12 @@ export default {
             <h1 class="text-3xl font-bold text-blue-900">Admin Dashboard</h1>
             <p class="text-gray-600">Comprehensive overview of immigration operations</p>
           </div>
-          <button @click="logout" class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition">Logout</button>
+          <div class="flex items-center gap-3">
+            <button @click="goToRawBackend" class="px-5 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-700 transition">
+              Raw Backend Access
+            </button>
+            <button @click="logout" class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition">Logout</button>
+          </div>
         </div>
       </div>
 

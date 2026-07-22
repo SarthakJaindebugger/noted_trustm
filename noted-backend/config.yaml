@@ -15,7 +15,7 @@ database:
   url: "sqlite+aiosqlite:///./noted.db"
 
 storage:
-  data_dir: "account_data"
+  data_dir: "knowledgebase/users_admin_data"
   upload_dir: "uploads"
   recordings_dir: "recordings"
   session_timeout: 3600  # seconds
@@ -98,8 +98,8 @@ logging:
 # ----- Auth -----
 auth:
   enabled: true
-  users_file: "data/users.json"
-  admins_file: "data/admins.json"
+  users_file: "knowledgebase/usernames_passwords/users.json"
+  admins_file: "knowledgebase/usernames_passwords/admins.json"
   secret_key: "noted-dev-secret"
   token_ttl_seconds: 28800
   role: "advisor"

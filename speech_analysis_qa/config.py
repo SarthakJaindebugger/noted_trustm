@@ -8,6 +8,13 @@ LEGACY_AUDIO_DIR = BASE_DIR.parent / "noted_s2t_pipeline" / "Lucy_audio_dialoges
 OUTPUT_DIR = BASE_DIR / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+# User data layout
+USER_DATA_DIR = BASE_DIR / "User Data"
+USER_DATA_DIR.mkdir(parents=True, exist_ok=True)
+USER_AUDIO_SUBDIR = "audio"
+USER_TRANSCRIPTS_SUBDIR = "transcripts"
+USER_EMBEDDINGS_SUBDIR = "embeddings"
+
 # Pyannote / Whisper / Qwen settings
 HF_TOKEN = "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"
 WHISPER_MODEL = "base"

@@ -40,7 +40,7 @@ class _StorageConfig:
     def __init__(self, d: dict):
         self.upload_dir: str = d.get("upload_dir", "uploads")
         self.recordings_dir: str = d.get("recordings_dir", "recordings")
-        self.data_dir: str = os.getenv("NOTED_DATA_DIR", d.get("data_dir", "account_data"))
+        self.data_dir: str = os.getenv("NOTED_DATA_DIR", d.get("data_dir", "knowledgebase/users_admin_data"))
         self.session_timeout: int = d.get("session_timeout", 3600)
 
 
@@ -130,8 +130,8 @@ class _AuthConfig:
         
         self.admin_username: str = os.getenv("ADMIN_LOGIN", d.get("admin_username", "admin"))
         self.admin_password: str = os.getenv("ADMIN_PASSWORD", d.get("admin_password", "admin"))
-        self.users_file: str = os.getenv("NOTED_AUTH_USERS_FILE", d.get("users_file", "data/users.json"))
-        self.admins_file: str = os.getenv("NOTED_AUTH_ADMINS_FILE", d.get("admins_file", "data/admins.json"))
+        self.users_file: str = os.getenv("NOTED_AUTH_USERS_FILE", d.get("users_file", "knowledgebase/usernames_passwords/users.json"))
+        self.admins_file: str = os.getenv("NOTED_AUTH_ADMINS_FILE", d.get("admins_file", "knowledgebase/usernames_passwords/admins.json"))
         
         self.secret_key: str = os.getenv("NOTED_AUTH_SECRET", d.get("secret_key", "noted-dev-secret"))
         self.token_ttl_seconds: int = int(
