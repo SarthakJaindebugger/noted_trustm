@@ -1,6 +1,7 @@
 """RAG orchestration, prompt building, and QA answer generation."""
 
 import json
+import uuid
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -16,10 +17,13 @@ class RagPipeline:
         self.store = QdrantStore(collection=collection_name) if collection_name else QdrantStore()
 
     def build_payload(self, chunk: dict, metadata: dict) -> dict:
+        point_key = f"{metadata.get('username', '')}:{metadata.get('audio_stem', '')}:{chunk['chunk_id']}"
+        point_id = str(uuid.uuid5(uuid.NAMESPACE_URL, point_key))
         return {
-            "id": str(chunk["chunk_id"]),
+            "id": point_id,
             "vector": chunk["embedding"],
             "payload": {
+                "chunk_id": chunk["chunk_id"],
                 "text": chunk["text"],
                 "speaker": chunk["speaker"],
                 "start": chunk["start"],

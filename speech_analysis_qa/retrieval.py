@@ -16,11 +16,12 @@ class QdrantStore:
         self.collection = collection
 
     def create_collection(self, distance: str = QDRANT_DISTANCE, vector_size: int = QDRANT_DIMENSION):
-        if not self.client.http.collections_api.get_collection(self.collection):
+        collections = self.client.get_collections().collections
+        exists = any(collection.name == self.collection for collection in collections)
+        if not exists:
             self.client.recreate_collection(
                 collection_name=self.collection,
-                vectors=rest.VectorParams(size=vector_size, distance=distance),
-                on_disk=False,
+                vectors_config=rest.VectorParams(size=vector_size, distance=distance),
             )
 
     def upsert_chunks(self, points: List[Dict[str, Any]]):
