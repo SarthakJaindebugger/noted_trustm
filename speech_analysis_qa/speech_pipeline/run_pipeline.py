@@ -31,11 +31,6 @@ from common.config import (  # noqa: E402
     PRIVATE_RESULTS_JSON_NAME,
     PRIVATE_TRANSCRIPT_JSON_NAME,
 )
-import stage1_diarize_transcribe  # noqa: E402
-import stage2_privacy  # noqa: E402
-import stage3_metadata  # noqa: E402
-import stage4_qa_private  # noqa: E402
-import stage5_apply_mapping  # noqa: E402
 from speech_analysis_qa.utils import sanitize_username, write_json  # noqa: E402
 
 DEFAULT_USERS_ROOT = REPO_ROOT / "knowledgebase" / "users_admin_data" / "users"
@@ -132,6 +127,18 @@ def run_pipeline(
     embedding_dir: Optional[str] = None,
     username: Optional[str] = None,
 ):
+    # Ensure HF token (if provided via env or CLI) is available to downstream
+    # stages that import model utilities at import time. Import stage modules
+    # here so they pick up any HF token set on the environment before use.
+    import os as _os
+
+    # Import stages lazily so HF token environment can be set by caller
+    import importlib as _importlib
+    stage1_diarize_transcribe = _importlib.import_module("stage1_diarize_transcribe")
+    stage2_privacy = _importlib.import_module("stage2_privacy")
+    stage3_metadata = _importlib.import_module("stage3_metadata")
+    stage4_qa_private = _importlib.import_module("stage4_qa_private")
+    stage5_apply_mapping = _importlib.import_module("stage5_apply_mapping")
     if embedding_dir:
         paths = output_paths_for_audio(audio_path, output_dir)
     else:
@@ -212,7 +219,15 @@ if __name__ == "__main__":
     parser.add_argument("--users-root", default=str(DEFAULT_USERS_ROOT), help="Root containing per-user folders")
     parser.add_argument("--user", help="Process only this user under --users-root")
     parser.add_argument("--all-users", action="store_true", help="Process recordings for all users under --users-root")
+    parser.add_argument("--hf-token", help="Hugging Face token to use for model access (overrides HF_TOKEN env)")
     args = parser.parse_args()
+
+    # If an HF token was provided on the CLI, inject it into the environment
+    # before any stage modules are imported so they can pick it up at import time.
+    if args.hf_token:
+        import os
+
+        os.environ["HF_TOKEN"] = args.hf_token
 
     if args.all_users or args.user:
         run_users(args.users_root, args.user)

@@ -28,8 +28,16 @@ def load_audio(file_path: str, target_sr: int = TARGET_SAMPLE_RATE):
 def run_diarization(audio, sr: int, token: str):
     import torch
     from pyannote.audio import Pipeline
-
-    pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL, token=token)
+    # Attempt to pass the HF token in a way compatible with multiple
+    # pyannote versions. Newer HF methods accept `use_auth_token`, older
+    # ones accepted `token`. Try `use_auth_token` first, then fall back.
+    if token:
+        try:
+            pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL, use_auth_token=token)
+        except TypeError:
+            pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL, token=token)
+    else:
+        pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL)
     if torch.cuda.is_available():
         pipeline.to(torch.device("cuda"))
 
