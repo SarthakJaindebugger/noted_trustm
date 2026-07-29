@@ -82,7 +82,7 @@ class ApiClient {
             method: 'POST',
         };
         if (body !== null) {
-            requestOptions.body = JSON.stringify(body);
+            requestOptions.body = body instanceof FormData ? body : JSON.stringify(body);
         }
         const response = await this.request(path, requestOptions);
         if (!response.ok) {
@@ -101,7 +101,7 @@ class ApiClient {
             method: 'PUT',
         };
         if (body !== null) {
-            requestOptions.body = JSON.stringify(body);
+            requestOptions.body = body instanceof FormData ? body : JSON.stringify(body);
         }
         const response = await this.request(path, requestOptions);
         if (!response.ok) {

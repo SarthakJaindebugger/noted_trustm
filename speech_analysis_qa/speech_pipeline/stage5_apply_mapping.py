@@ -11,7 +11,15 @@ Refactored from the tail end of privacy_rag_2_outputs.py.
 
 import json
 import re
+import sys
+from pathlib import Path
 from typing import Dict, Set, Union
+
+PIPELINE_DIR = Path(__file__).resolve().parent
+PACKAGE_DIR = PIPELINE_DIR.parent
+REPO_ROOT = PACKAGE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 
 def apply_mapping(value: Union[str, Dict, list], mapping: Dict[str, str]):

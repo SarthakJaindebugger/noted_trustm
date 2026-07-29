@@ -73,20 +73,25 @@ PLACEHOLDER_NOTE = """
 # --------------------------------------------------------------------
 # Stage 3 · Metadata (speaker roles + speaking time)
 # --------------------------------------------------------------------
-ROLE_ID_MODEL_NAME = "Qwen/Qwen3-8B"
+# Qwen chat model used for speaker-role identification and structured Q&A.
+MODEL_NAME = "Qwen/Qwen3-8B"
+
+ROLE_ID_MODEL_NAME = MODEL_NAME
 ROLE_ADVISOR = "advisor"
 ROLE_CUSTOMER = "customer"
 
 # --------------------------------------------------------------------
 # Stage 4 · Structured Q&A over the private transcript
 # --------------------------------------------------------------------
-QA_MODEL_NAME = "Qwen/Qwen3-8B"
+QA_MODEL_NAME = MODEL_NAME
 EMBED_MODEL_NAME = "Qwen/Qwen3-Embedding-4B"
 
-CHUNK_SIZE = 1000
-OVERLAP = 100
-TOP_K = 8
-MAX_CHARS_FOR_FULL_CONTEXT = 15000
+# The prompts contain the questionnaire and instructions, so use retrieval for
+# all but very short transcripts and provide compact excerpts per prompt.
+CHUNK_SIZE = 500
+OVERLAP = 75
+TOP_K = 2
+MAX_CHARS_FOR_FULL_CONTEXT = 1800
 
 # --------------------------------------------------------------------
 # Output file names (all stages write into one run folder)

@@ -17,7 +17,7 @@ class Retriever:
 
     def __init__(self, embed_model_name: str, full_text: str,
                  max_chars_for_full_context: int, chunk_size: int, overlap: int):
-        from common.text_utils import chunk_text
+        from speech_analysis_qa.speech_pipeline.common.text_utils import chunk_text
 
         self.embed_model_name = embed_model_name
         self.full_text = full_text
@@ -35,14 +35,35 @@ class Retriever:
     # -- embedder lifecycle -------------------------------------------------
     def _load_embedder(self):
         import torch
-        from transformers import AutoTokenizer, AutoModel
+        from transformers import AutoModel, AutoTokenizer, BitsAndBytesConfig
 
         if self._model is None:
             self._tokenizer = AutoTokenizer.from_pretrained(self.embed_model_name)
             if self._tokenizer.pad_token is None:
                 self._tokenizer.pad_token = self._tokenizer.eos_token
-            device = "cuda" if torch.cuda.is_available() else "cpu"
-            self._model = AutoModel.from_pretrained(self.embed_model_name).to(device)
+
+            if torch.cuda.is_available():
+                device_map = "auto"
+            else:
+                # Avoid loading the large embedder on MPS; use CPU with quantization instead.
+                device_map = {"": "cpu"}
+
+            bnb_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.float16,
+                llm_int8_enable_fp32_cpu_offload=True,
+            )
+
+            try:
+                self._model = AutoModel.from_pretrained(
+                    self.embed_model_name,
+                    quantization_config=bnb_config,
+                    device_map=device_map,
+                    low_cpu_mem_usage=True,
+                )
+            except Exception:
+                self._model = AutoModel.from_pretrained(self.embed_model_name, device_map={"": "cpu"})
             self._model.eval()
 
     def _unload_embedder(self):
@@ -50,12 +71,20 @@ class Retriever:
         import torch
 
         if self._model is not None:
-            if torch.cuda.is_available():
+            try:
                 self._model.to("cpu")
-                torch.cuda.empty_cache()
+            except Exception:
+                pass
             self._model = None
             self._tokenizer = None
             gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
+                try:
+                    torch.mps.empty_cache()
+                except Exception:
+                    pass
 
     def _embed(self, text: str) -> List[float]:
         import torch
@@ -85,17 +114,19 @@ class Retriever:
             for i, c in enumerate(self.chunks)
         ]
         self._client.upsert(collection_name=self._collection, points=points)
-        self._unload_embedder()
 
     def _retrieve(self, query: str, top_k: int) -> List[str]:
         self._load_embedder()
         query_emb = self._embed(query)
-        self._unload_embedder()
 
         results = self._client.query_points(
             collection_name=self._collection, query=query_emb, limit=top_k,
         )
         return [hit.payload["text"] for hit in results.points]
+
+    def close(self):
+        self._unload_embedder()
+        self._client = None
 
     def get_context(self, query: str, top_k: int) -> str:
         """Best available context for a prompt: full transcript if it fits,

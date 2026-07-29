@@ -15,14 +15,22 @@ run once here rather than being re-asked inside stage 4.
 
 import json
 import os
+import sys
 from datetime import datetime
+from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict, Tuple
 
-from common.config import ROLE_ID_MODEL_NAME, ROLE_ADVISOR, ROLE_CUSTOMER, HF_TOKEN
-from common.text_utils import segments_to_text, format_seconds
-from common.json_utils import extract_json
-from common.llm_utils import load_llm, ask_question
+PIPELINE_DIR = Path(__file__).resolve().parent
+PACKAGE_DIR = PIPELINE_DIR.parent
+REPO_ROOT = PACKAGE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from speech_analysis_qa.speech_pipeline.common.config import ROLE_ID_MODEL_NAME, ROLE_ADVISOR, ROLE_CUSTOMER, HF_TOKEN
+from speech_analysis_qa.speech_pipeline.common.text_utils import segments_to_text, format_seconds
+from speech_analysis_qa.speech_pipeline.common.json_utils import extract_json
+from speech_analysis_qa.speech_pipeline.common.llm_utils import load_llm, ask_question, unload_llm
 
 
 def compute_speaker_durations(segments: List[Dict]) -> Dict[str, float]:
@@ -106,7 +114,10 @@ def run(private_transcript_path: str, audio_file: str, output_path: str) -> Tupl
         segments = json.load(f)
 
     tokenizer, model = load_llm(ROLE_ID_MODEL_NAME, HF_TOKEN)
-    speaker_roles = identify_speaker_roles(segments, tokenizer, model)
+    try:
+        speaker_roles = identify_speaker_roles(segments, tokenizer, model)
+    finally:
+        unload_llm(ROLE_ID_MODEL_NAME, HF_TOKEN)
 
     metadata = build_metadata(segments, audio_file, speaker_roles)
 

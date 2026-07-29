@@ -13,7 +13,7 @@ import re
 from collections import defaultdict
 from typing import Dict, List, Optional
 
-from common.config import REGEX_PATTERNS
+from speech_analysis_qa.speech_pipeline.common.config import REGEX_PATTERNS
 
 
 class PlaceholderMapper:
@@ -118,6 +118,6 @@ class PlaceholderMapper:
 
 def load_spacy_model(model_name: Optional[str] = None):
     import spacy
-    from common.config import SPACY_MODEL
+    from speech_analysis_qa.speech_pipeline.common.config import SPACY_MODEL
 
     return spacy.load(model_name or SPACY_MODEL)

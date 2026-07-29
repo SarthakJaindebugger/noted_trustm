@@ -23,7 +23,7 @@ if str(PACKAGE_DIR) not in sys.path:
 if str(PIPELINE_DIR) not in sys.path:
     sys.path.insert(0, str(PIPELINE_DIR))
 
-from common.config import (  # noqa: E402
+from speech_analysis_qa.speech_pipeline.common.config import (  # noqa: E402
     DIARIZED_JSON_NAME,
     MAPPED_RESULTS_JSON_NAME,
     MAPPING_JSON_NAME,
@@ -126,19 +126,19 @@ def run_pipeline(
     output_dir: str,
     embedding_dir: Optional[str] = None,
     username: Optional[str] = None,
+    cleanup_stage1: bool = True,
+    cleanup_llm: bool = True,
 ):
     # Ensure HF token (if provided via env or CLI) is available to downstream
     # stages that import model utilities at import time. Import stage modules
     # here so they pick up any HF token set on the environment before use.
     import os as _os
 
-    # Import stages lazily so HF token environment can be set by caller
+    # We'll import stage modules only when their outputs are required so
+    # expensive model loading inside a stage.run() is avoided when the
+    # stage's output file is already present. Use importlib below.
     import importlib as _importlib
-    stage1_diarize_transcribe = _importlib.import_module("stage1_diarize_transcribe")
-    stage2_privacy = _importlib.import_module("stage2_privacy")
-    stage3_metadata = _importlib.import_module("stage3_metadata")
-    stage4_qa_private = _importlib.import_module("stage4_qa_private")
-    stage5_apply_mapping = _importlib.import_module("stage5_apply_mapping")
+    _import_stage = lambda name: _importlib.import_module(f"speech_analysis_qa.speech_pipeline.{name}")
     if embedding_dir:
         paths = output_paths_for_audio(audio_path, output_dir)
     else:
@@ -154,37 +154,81 @@ def run_pipeline(
             "mapped_results_path": str(run_dir / MAPPED_RESULTS_JSON_NAME),
         }
 
-    print("\n=== STAGE 1-2: audio -> diarized JSON ===")
-    stage1_diarize_transcribe.run(audio_path, paths["diarized_json_path"])
+    try:
+        # Stage 1: diarization + ASR -> diarized JSON
+        print("\n=== STAGE 1-2: audio -> diarized JSON ===")
+        if Path(paths["diarized_json_path"]).exists():
+            print(f"Skipping stage1: {paths['diarized_json_path']} already exists")
+        else:
+            stage1 = _import_stage("stage1_diarize_transcribe")
+            stage1.run(audio_path, paths["diarized_json_path"])
+            if cleanup_stage1:
+                try:
+                    stage1.cleanup()
+                except Exception:
+                    pass
 
-    print("\n=== STAGE 3: diarized JSON -> private transcript + mapping ===")
-    stage2_privacy.run(paths["diarized_json_path"], paths["private_transcript_path"], paths["mapping_path"])
+        # Stage 2: diarized JSON -> private transcript + mapping
+        print("\n=== STAGE 3: diarized JSON -> private transcript + mapping ===")
+        if Path(paths["private_transcript_path"]).exists() and Path(paths["mapping_path"]).exists():
+            print(f"Skipping stage2: {paths['private_transcript_path']} and {paths['mapping_path']} already exist")
+        else:
+            stage2 = _import_stage("stage2_privacy")
+            stage2.run(paths["diarized_json_path"], paths["private_transcript_path"], paths["mapping_path"])
 
-    print("\n=== STAGE 4: private transcript -> metadata JSON ===")
-    _, total_advisor_time_sec, total_customer_time_sec = stage3_metadata.run(
-        paths["private_transcript_path"], audio_path, paths["metadata_path"]
-    )
+        # Stage 3: private transcript -> metadata JSON
+        print("\n=== STAGE 4: private transcript -> metadata JSON ===")
+        if Path(paths["metadata_path"]).exists():
+            print(f"Skipping stage3: {paths['metadata_path']} already exists")
+            total_advisor_time_sec = 0.0
+            total_customer_time_sec = 0.0
+        else:
+            stage3 = _import_stage("stage3_metadata")
+            _, total_advisor_time_sec, total_customer_time_sec = stage3.run(
+                paths["private_transcript_path"], audio_path, paths["metadata_path"]
+            )
 
-    print("\n=== STAGE 5: private transcript -> private Q&A JSON ===")
-    stage4_qa_private.run(paths["private_transcript_path"], paths["private_results_path"])
+        # Stage 4: private transcript -> private Q&A JSON
+        print("\n=== STAGE 5: private transcript -> private Q&A JSON ===")
+        if Path(paths["private_results_path"]).exists():
+            print(f"Skipping stage4: {paths['private_results_path']} already exists")
+        else:
+            stage4 = _import_stage("stage4_qa_private")
+            stage4.run(paths["private_transcript_path"], paths["private_results_path"])
 
-    print("\n=== STAGE 6: private Q&A JSON + mapping -> mapped JSON ===")
-    stage5_apply_mapping.run(paths["private_results_path"], paths["mapping_path"], paths["mapped_results_path"])
+        # Stage 5: private Q&A JSON + mapping -> mapped JSON
+        print("\n=== STAGE 6: private Q&A JSON + mapping -> mapped JSON ===")
+        if Path(paths["mapped_results_path"]).exists():
+            print(f"Skipping stage5: {paths['mapped_results_path']} already exists")
+        else:
+            stage5 = _import_stage("stage5_apply_mapping")
+            stage5.run(paths["private_results_path"], paths["mapping_path"], paths["mapped_results_path"])
 
-    embedding_paths: List[str] = []
-    if embedding_dir:
-        print("\n=== STAGE 7: private transcript -> chunk embeddings ===")
-        embedding_paths = write_embedding_chunks(
-            paths["private_transcript_path"], audio_path, embedding_dir, username=username
-        )
+        embedding_paths: List[str] = []
+        if embedding_dir:
+            if Path(embedding_dir).exists() and any(Path(embedding_dir).glob("*_embedding_manifest.json")):
+                print(f"Skipping embeddings: embedding manifest exists under {embedding_dir}")
+            else:
+                print("\n=== STAGE 7: private transcript -> chunk embeddings ===")
+                embedding_paths = write_embedding_chunks(
+                    paths["private_transcript_path"], audio_path, embedding_dir, username=username
+                )
 
-    print("\nAll done. Outputs written to:", paths["output_dir"])
-    return {
-        **paths,
-        "embedding_paths": embedding_paths,
-        "total_advisor_time_sec": total_advisor_time_sec,
-        "total_customer_time_sec": total_customer_time_sec,
-    }
+        print("All done. Outputs written to:", paths["output_dir"])
+        return {
+            **paths,
+            "embedding_paths": embedding_paths,
+            "total_advisor_time_sec": total_advisor_time_sec,
+            "total_customer_time_sec": total_customer_time_sec,
+        }
+    finally:
+        if cleanup_llm:
+            try:
+                from speech_analysis_qa.speech_pipeline.common.llm_utils import unload_all_llms
+
+                unload_all_llms()
+            except Exception:
+                pass
 
 
 def iter_user_audio(users_root: str | Path, username: Optional[str] = None) -> Iterable[tuple[str, Path]]:
@@ -205,11 +249,31 @@ def iter_user_audio(users_root: str | Path, username: Optional[str] = None) -> I
 
 def run_users(users_root: str | Path = DEFAULT_USERS_ROOT, username: Optional[str] = None) -> List[Dict]:
     results = []
-    for user, audio_path in iter_user_audio(users_root, username):
-        dirs = user_dirs(users_root, user)
-        print(f"\n### Processing user={user} audio={audio_path.name} ###")
-        results.append(run_pipeline(str(audio_path), str(dirs["uploads"]), str(dirs["embedding"]), username=user))
-    return results
+    stage1_module = None
+    try:
+        for user, audio_path in iter_user_audio(users_root, username):
+            dirs = user_dirs(users_root, user)
+            print(f"\n### Processing user={user} audio={audio_path.name} ###")
+            results.append(run_pipeline(
+                str(audio_path),
+                str(dirs["uploads"]),
+                str(dirs["embedding"]),
+                username=user,
+                cleanup_stage1=False,
+                cleanup_llm=False,
+            ))
+        return results
+    finally:
+        try:
+            from speech_analysis_qa.speech_pipeline import stage1_diarize_transcribe
+            stage1_diarize_transcribe.cleanup()
+        except Exception:
+            pass
+        try:
+            from speech_analysis_qa.speech_pipeline.common.llm_utils import unload_all_llms
+            unload_all_llms()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":

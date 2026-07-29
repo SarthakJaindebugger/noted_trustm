@@ -14,9 +14,73 @@ belongs, instead of living inline here.
 
 import json
 import os
+import sys
+from pathlib import Path
 from typing import List, Dict
 
-from common.config import HF_TOKEN, DIARIZATION_MODEL, WHISPER_MODEL_SIZE, TARGET_SAMPLE_RATE
+PIPELINE_DIR = Path(__file__).resolve().parent
+PACKAGE_DIR = PIPELINE_DIR.parent
+REPO_ROOT = PACKAGE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from speech_analysis_qa.speech_pipeline.common.config import HF_TOKEN, DIARIZATION_MODEL, WHISPER_MODEL_SIZE, TARGET_SAMPLE_RATE
+
+_DIARIZATION_PIPELINE = None
+_WHISPER_MODEL_CACHE = {}
+
+
+def _get_diarization_pipeline(token: str):
+    global _DIARIZATION_PIPELINE
+    if _DIARIZATION_PIPELINE is None:
+        from pyannote.audio import Pipeline
+
+        auth_kwargs = {}
+        if token:
+            auth_kwargs["token"] = token
+
+        _DIARIZATION_PIPELINE = Pipeline.from_pretrained(
+            DIARIZATION_MODEL,
+            **auth_kwargs,
+        )
+    return _DIARIZATION_PIPELINE
+
+
+def _get_whisper_model(model_size: str = WHISPER_MODEL_SIZE):
+    global _WHISPER_MODEL_CACHE
+    if model_size not in _WHISPER_MODEL_CACHE:
+        import torch
+        from faster_whisper import WhisperModel
+
+        # faster-whisper does not support MPS on this environment, so fall back to CPU.
+        device = "cpu"
+        compute_type = "int8"
+
+        _WHISPER_MODEL_CACHE[model_size] = WhisperModel(
+            model_size,
+            device=device,
+            compute_type=compute_type,
+        )
+    return _WHISPER_MODEL_CACHE[model_size]
+
+
+def cleanup():
+    global _DIARIZATION_PIPELINE, _WHISPER_MODEL_CACHE
+
+    _DIARIZATION_PIPELINE = None
+    _WHISPER_MODEL_CACHE.clear()
+
+    import gc
+    import torch
+
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
+        try:
+            torch.mps.empty_cache()
+        except Exception:
+            pass
 
 
 def load_audio(file_path: str, target_sr: int = TARGET_SAMPLE_RATE):
@@ -27,30 +91,39 @@ def load_audio(file_path: str, target_sr: int = TARGET_SAMPLE_RATE):
 
 def run_diarization(audio, sr: int, token: str):
     import torch
-    from pyannote.audio import Pipeline
-    # Attempt to pass the HF token in a way compatible with multiple
-    # pyannote versions. Newer HF methods accept `use_auth_token`, older
-    # ones accepted `token`. Try `use_auth_token` first, then fall back.
-    if token:
-        try:
-            pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL, use_auth_token=token)
-        except TypeError:
-            pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL, token=token)
-    else:
-        pipeline = Pipeline.from_pretrained(DIARIZATION_MODEL)
-    if torch.cuda.is_available():
-        pipeline.to(torch.device("cuda"))
-
+    pipeline = _get_diarization_pipeline(token)
     waveform = torch.from_numpy(audio).float().unsqueeze(0)
     return pipeline({"waveform": waveform, "sample_rate": sr})
 
 
-def run_asr(audio_path: str, model_size: str = WHISPER_MODEL_SIZE) -> List[Dict]:
-    import whisper
+def _normalize_asr_segments(raw_segments) -> List[Dict]:
+    normalized = []
+    for segment in raw_segments or []:
+        if isinstance(segment, dict):
+            normalized.append(segment)
+            continue
 
-    model = whisper.load_model(model_size)
+        attrs = getattr(segment, "__dict__", {})
+        normalized.append({
+            "start": getattr(segment, "start", attrs.get("start", 0)),
+            "end": getattr(segment, "end", attrs.get("end", 0)),
+            "text": getattr(segment, "text", attrs.get("text", "")),
+        })
+    return normalized
+
+
+def run_asr(audio_path: str, model_size: str = WHISPER_MODEL_SIZE) -> List[Dict]:
+    model = _get_whisper_model(model_size)
     result = model.transcribe(audio_path, word_timestamps=True)
-    return result["segments"]
+
+    if isinstance(result, tuple):
+        segments = result[0]
+    elif isinstance(result, dict):
+        segments = result.get("segments", [])
+    else:
+        segments = result
+
+    return _normalize_asr_segments(segments)
 
 
 def assign_speakers_to_asr(diarization, asr_segments: List[Dict]) -> List[Dict]:

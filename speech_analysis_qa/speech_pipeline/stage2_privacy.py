@@ -14,9 +14,17 @@ without needing to re-copy it here.
 """
 
 import json
+import sys
+from pathlib import Path
 from typing import List, Dict, Tuple
 
-from common.privacy_utils import PlaceholderMapper, load_spacy_model
+PIPELINE_DIR = Path(__file__).resolve().parent
+PACKAGE_DIR = PIPELINE_DIR.parent
+REPO_ROOT = PACKAGE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from speech_analysis_qa.speech_pipeline.common.privacy_utils import PlaceholderMapper, load_spacy_model
 
 
 def anonymize_transcript(segments: List[Dict]) -> Tuple[List[Dict], Dict[str, str]]:
@@ -40,7 +48,7 @@ def run(diarized_json_path: str, private_transcript_out: str, mapping_out: str):
         json.dump(reverse_mapping, f, indent=2, ensure_ascii=False)
 
     print(f"Private transcript -> {private_transcript_out}")
-    print(f"Mapping            -> {mapping_out}")
+    print(f"Mapping            -> {mapping_out} ({len(reverse_mapping)} placeholders)")
     return private_segments, reverse_mapping
 
 

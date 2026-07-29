@@ -9,15 +9,25 @@ privacy_rag_2_outputs.py each defined their own near-identical
 `ask_question`; this is the single, de-duplicated version.
 """
 
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional, Tuple
+
+_LLM_CACHE: Dict[Tuple[str, str], Tuple[object, object]] = {}
+
+
+def _cache_key(model_name: str, hf_token: str = "") -> Tuple[str, str]:
+    return model_name, hf_token or ""
 
 
 def load_llm(model_name: str, hf_token: str = ""):
     """Load a 4-bit quantised causal LM + tokenizer. Returns (tokenizer, model)."""
     import torch
-    from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token or None)
+    cache_key = _cache_key(model_name, hf_token)
+    if cache_key in _LLM_CACHE:
+        return _LLM_CACHE[cache_key]
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token or None)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -25,15 +35,110 @@ def load_llm(model_name: str, hf_token: str = ""):
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",
         bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_use_double_quant=True,
+        llm_int8_enable_fp32_cpu_offload=True,
     )
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        quantization_config=bnb_config,
-        device_map="auto",
-        torch_dtype=torch.float16,
-        token=hf_token or None,
-    )
+    use_auth_token = hf_token or None
+    use_mps = getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available()
+    if torch.cuda.is_available():
+        device_map = "auto"
+    else:
+        # Avoid loading 4-bit/float16 quantized models onto MPS, which can be unstable
+        # and often exceeds available memory on Apple Silicon devices.
+        device_map = {"": "cpu"}
+
+    try:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=bnb_config,
+            device_map=device_map,
+            dtype=torch.float16,
+            low_cpu_mem_usage=True,
+            use_auth_token=use_auth_token,
+        )
+    except ValueError as exc:
+        if "offload the whole model to the disk" in str(exc):
+            model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                quantization_config=bnb_config,
+                device_map={"": "cpu"},
+                torch_dtype=torch.float16,
+                use_auth_token=use_auth_token,
+            )
+        else:
+            raise
+
+    _LLM_CACHE[cache_key] = (tokenizer, model)
     return tokenizer, model
+
+
+def unload_llm(model_name: Optional[str] = None, hf_token: Optional[str] = None):
+    import gc
+    import torch
+
+    if model_name is None:
+        keys = list(_LLM_CACHE.keys())
+    else:
+        keys = [_cache_key(model_name, hf_token or "")]
+
+    for key in keys:
+        tokenizer, model = _LLM_CACHE.pop(key, (None, None))
+        if model is not None:
+            try:
+                model.to("cpu")
+            except Exception:
+                pass
+            del model
+        if tokenizer is not None:
+            del tokenizer
+
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
+        try:
+            torch.mps.empty_cache()
+        except Exception:
+            pass
+
+
+def unload_all_llms():
+    unload_llm()
+
+
+def _context_window(tokenizer, model) -> int:
+    """Return the usable model context length, ignoring tokenizer sentinels."""
+    candidates = [
+        getattr(getattr(model, "config", None), "max_position_embeddings", None),
+        getattr(getattr(model, "config", None), "n_positions", None),
+        getattr(tokenizer, "model_max_length", None),
+    ]
+    valid = [value for value in candidates if isinstance(value, int) and 0 < value < 1_000_000]
+    return min(valid) if valid else 2048
+
+
+def _trim_chat_inputs(inputs, max_input_tokens: int):
+    """Keep the prompt's instructions and final question within the context window."""
+    import torch
+
+    input_length = inputs["input_ids"].shape[-1]
+    if input_length <= max_input_tokens:
+        return inputs
+
+    # Keep both ends: system/prompt rules are at the beginning and the question
+    # plus output instructions are at the end.  Retrieval keeps transcript
+    # excerpts small, so this is only a final safety net.
+    head_length = max_input_tokens // 2
+    tail_length = max_input_tokens - head_length
+    for key, value in inputs.items():
+        if getattr(value, "ndim", 0) >= 2 and value.shape[-1] == input_length:
+            inputs[key] = value[..., :head_length]
+            inputs[key] = torch.cat((inputs[key], value[..., -tail_length:]), dim=-1)
+    print(
+        f"WARNING: Prompt was {input_length} tokens; trimmed to "
+        f"{max_input_tokens} tokens to fit the model context window."
+    )
+    return inputs
 
 
 def ask_question(
@@ -72,6 +177,13 @@ def ask_question(
             return_tensors="pt",
         )
 
+    context_window = _context_window(tokenizer, model)
+    # Always reserve at least one token for generation.  Callers should use
+    # modest output limits so retrieved context remains available.
+    max_input_tokens = max(1, context_window - min(max_new_tokens, 256))
+    inputs = _trim_chat_inputs(inputs, max_input_tokens)
+    input_length = inputs["input_ids"].shape[-1]
+    max_new_tokens = min(max_new_tokens, max(1, context_window - input_length))
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
 
     with torch.no_grad():

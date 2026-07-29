@@ -225,6 +225,50 @@ class SessionService {
         }
     }
 
+    async uploadUserAudio(file, onUploadProgress) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            const formData = new FormData();
+            formData.append('file', file);
+            xhr.open('POST', `${this.baseURL}/audio/upload`, true);
+
+            const authHeaders = authService.getAuthHeaders();
+            for (const header in authHeaders) {
+                if (header.toLowerCase() !== 'content-type') {
+                    xhr.setRequestHeader(header, authHeaders[header]);
+                }
+            }
+
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable && typeof onUploadProgress === 'function') {
+                    onUploadProgress(Math.round((event.loaded / event.total) * 100));
+                }
+            };
+
+            xhr.onload = () => {
+                let response;
+                try {
+                    response = JSON.parse(xhr.responseText || '{}');
+                } catch {
+                    response = {};
+                }
+
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(response);
+                    return;
+                }
+
+                const detail = response.detail;
+                const message = typeof detail === 'string'
+                    ? detail
+                    : 'Unable to upload the audio file.';
+                reject(new Error(message));
+            };
+            xhr.onerror = () => reject(new Error('Unable to upload the audio file.'));
+            xhr.send(formData);
+        });
+    }
+
     async updateSessionSummary(sessionId, summaryData) {
         try {
             return await apiClient.put(`/sessions/${sessionId}/summary`, summaryData);

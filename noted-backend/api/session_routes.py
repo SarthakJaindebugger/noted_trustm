@@ -1,6 +1,7 @@
 import logging
 import os
 import uuid
+from pathlib import Path
 from typing import List, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Request, Response, UploadFile
@@ -15,7 +16,7 @@ from api.schemas import SessionNotesUpdateRequest, SessionRenameRequest
 from database.connection import AsyncSessionLocal
 from models.session import SessionData, SessionStats, SessionStatus
 from models.transcript import TranscriptEntry
-from services.account_store import uploads_dir_for_principal
+from services.account_store import principal_data_dir, uploads_dir_for_principal
 from services.file_service import save_upload_file
 from services.session_manager_async import AsyncSessionManager
 
@@ -23,6 +24,31 @@ from services.session_manager_async import AsyncSessionManager
 logger = logging.getLogger(__name__)
 
 session_router = APIRouter(dependencies=[Depends(require_authenticated_user)])
+
+
+@session_router.post("/audio/upload")
+async def upload_user_audio(
+    file: UploadFile = File(...),
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Save an audio upload directly in the authenticated user's data folder."""
+    filename = file.filename or ""
+    extension = Path(filename).suffix.lower()
+    allowed_extensions = {".aac", ".flac", ".m4a", ".mp3", ".ogg", ".wav", ".webm"}
+    if extension not in allowed_extensions:
+        raise HTTPException(status_code=400, detail="Please upload a supported audio file.")
+
+    # User dashboard uploads always live under data_dir/users/<logged-in username>.
+    destination_dir = principal_data_dir("user", current_user.username)
+    os.makedirs(destination_dir, exist_ok=True)
+
+    try:
+        filepath = await save_upload_file(file, destination_dir)
+        logger.info("Saved audio upload for user %s to %s", current_user.username, filepath)
+        return {"message": "Audio uploaded successfully.", "filename": Path(filepath).name}
+    except Exception as exc:
+        logger.error("Error saving audio upload for user %s: %s", current_user.username, exc)
+        raise HTTPException(status_code=500, detail="Could not save the audio file.")
 
 
 async def process_uploaded_audio(

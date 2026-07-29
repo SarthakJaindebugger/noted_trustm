@@ -16,24 +16,34 @@ common/questions.py, so none of that is redefined here.
 
 import json
 import re
+import sys
+from pathlib import Path
 from typing import Dict, List
 
-from common.config import (
+PIPELINE_DIR = Path(__file__).resolve().parent
+PACKAGE_DIR = PIPELINE_DIR.parent
+REPO_ROOT = PACKAGE_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from speech_analysis_qa.speech_pipeline.common.config import (
     HF_TOKEN, QA_MODEL_NAME, EMBED_MODEL_NAME, CHUNK_SIZE, OVERLAP, TOP_K,
     MAX_CHARS_FOR_FULL_CONTEXT, PLACEHOLDER_NOTE,
 )
-from common.text_utils import segments_to_text
-from common.json_utils import clean_answer, extract_json
-from common.llm_utils import load_llm, ask_question
-from common.retrieval_utils import Retriever
-from common.questions import QUESTION_GROUPS
+from speech_analysis_qa.speech_pipeline.common.text_utils import segments_to_text
+from speech_analysis_qa.speech_pipeline.common.json_utils import clean_answer, extract_json
+from speech_analysis_qa.speech_pipeline.common.llm_utils import load_llm, ask_question, unload_llm
+from speech_analysis_qa.speech_pipeline.common.retrieval_utils import Retriever
+from speech_analysis_qa.speech_pipeline.common.questions import QUESTION_GROUPS
 
 
 # --------------------------------------------------------------------
 # Summary / additional-info / feedback generators
 # --------------------------------------------------------------------
 def generate_summary(tokenizer, model, full_text: str) -> str:
-    truncated = full_text[:4000]
+    # The Q&A model has a 2,048-token window; the detailed prompt itself uses
+    # much of it, so keep this source excerpt deliberately small.
+    truncated = full_text[:1800]
     prompt = f"""
     You are an expert conversation summarizer.
 
@@ -62,7 +72,7 @@ def generate_summary(tokenizer, model, full_text: str) -> str:
 
     Summary:
     """
-    return clean_answer(ask_question(tokenizer, model, prompt, max_new_tokens=512).strip())
+    return clean_answer(ask_question(tokenizer, model, prompt, max_new_tokens=256).strip())
 
 
 def _generate_short_field(tokenizer, model, field_name: str, task_text: str,
@@ -260,7 +270,8 @@ def run_questionnaire(tokenizer, model, retriever: Retriever, summary: str) -> D
         )
         context = retriever.get_context(query_text, top_k=TOP_K)
         prompt = _build_group_prompt(group, context, summary)
-        answer = ask_question(tokenizer, model, prompt, max_new_tokens=2048)
+        # Reserve most of the context window for the prompt and retrieved text.
+        answer = ask_question(tokenizer, model, prompt, max_new_tokens=256)
 
         try:
             result = _clean_group_result(extract_json(answer))
@@ -287,29 +298,37 @@ def run(private_transcript_path: str, output_path: str) -> Dict:
     tokenizer, model = load_llm(QA_MODEL_NAME, HF_TOKEN)
     retriever = Retriever(EMBED_MODEL_NAME, full_text, MAX_CHARS_FOR_FULL_CONTEXT, CHUNK_SIZE, OVERLAP)
 
-    print("Generating conversation summary...")
-    summary = generate_summary(tokenizer, model, full_text)
+    try:
+        print("Generating conversation summary...")
+        summary = generate_summary(tokenizer, model, full_text)
 
-    all_results = run_questionnaire(tokenizer, model, retriever, summary)
+        all_results = run_questionnaire(tokenizer, model, retriever, summary)
 
-    print("Generating additional information...")
-    additional_context = retriever.get_context(
-        "additional information context special circumstances follow up plans constraints", top_k=8)
-    all_results["Any Additional Information"] = generate_additional_information(
-        tokenizer, model, additional_context, all_results)
+        print("Generating additional information...")
+        additional_context = retriever.get_context(
+            "additional information context special circumstances follow up plans constraints", top_k=8)
+        all_results["Any Additional Information"] = generate_additional_information(
+            tokenizer, model, additional_context, all_results)
 
-    print("Generating feedback...")
-    feedback_context = retriever.get_context(
-        "advisor feedback recommendation improvement follow up comments observations", top_k=8)
-    all_results["Any other Feedback"] = generate_feedback(
-        tokenizer, model, feedback_context, all_results)
+        print("Generating feedback...")
+        feedback_context = retriever.get_context(
+            "advisor feedback recommendation improvement follow up comments observations", top_k=8)
+        all_results["Any other Feedback"] = generate_feedback(
+            tokenizer, model, feedback_context, all_results)
 
-    private_output = {"summary": summary, "questionnaire": all_results}
+        private_output = {"summary": summary, "questionnaire": all_results}
+    finally:
+        retriever.close()
+        unload_llm(QA_MODEL_NAME, HF_TOKEN)
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(private_output, f, indent=2, ensure_ascii=False)
     print(f"\nPrivate (placeholder) Q&A JSON -> {output_path}")
     return private_output
+
+
+def cleanup():
+    unload_llm(QA_MODEL_NAME, HF_TOKEN)
 
 
 if __name__ == "__main__":
