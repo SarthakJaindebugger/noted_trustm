@@ -40,6 +40,8 @@ def _get_model():
         elif requested_device.startswith("cuda") and not torch.cuda.is_available():
             logger.warning("CUDA requested for Sortformer, but torch.cuda.is_available() is false. Falling back to CPU.")
             map_location = "cpu"
+        elif requested_device == "mps":
+            map_location = "cpu"
         else:
             map_location = "cpu" if requested_device == "cpu" else requested_device
 

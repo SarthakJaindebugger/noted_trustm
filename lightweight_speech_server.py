@@ -2,13 +2,16 @@ import os
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
 from faster_whisper import WhisperModel
+from speech_analysis_qa.speech_pipeline.common.device_utils import get_compute_device
 
 app = FastAPI()
 
 # Load tiny model (automatically downloads, no token required)
 model_size = os.getenv("LIGHT_ASR_MODEL", "tiny")
-device = os.getenv("LIGHT_ASR_DEVICE", "cpu")
+requested_device = os.getenv("LIGHT_ASR_DEVICE", "auto")
 compute_type = os.getenv("LIGHT_ASR_COMPUTE_TYPE", "int8")
+
+device = get_compute_device(requested_device)
 
 print(f"Loading {model_size} model on {device} with {compute_type}...")
 model = WhisperModel(model_size, device=device, compute_type=compute_type)

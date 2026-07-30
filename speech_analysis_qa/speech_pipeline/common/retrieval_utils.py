@@ -42,11 +42,9 @@ class Retriever:
             if self._tokenizer.pad_token is None:
                 self._tokenizer.pad_token = self._tokenizer.eos_token
 
-            if torch.cuda.is_available():
-                device_map = "auto"
-            else:
-                # Avoid loading the large embedder on MPS; use CPU with quantization instead.
-                device_map = {"": "cpu"}
+            from speech_analysis_qa.speech_pipeline.common.device_utils import get_quantized_device_map
+
+            device_map = get_quantized_device_map()
 
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
@@ -78,13 +76,9 @@ class Retriever:
             self._model = None
             self._tokenizer = None
             gc.collect()
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
-            elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
-                try:
-                    torch.mps.empty_cache()
-                except Exception:
-                    pass
+            from speech_analysis_qa.speech_pipeline.common.device_utils import clear_torch_cache
+
+            clear_torch_cache()
 
     def _embed(self, text: str) -> List[float]:
         import torch

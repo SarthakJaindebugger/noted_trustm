@@ -74,7 +74,7 @@ PLACEHOLDER_NOTE = """
 # Stage 3 · Metadata (speaker roles + speaking time)
 # --------------------------------------------------------------------
 # Qwen chat model used for speaker-role identification and structured Q&A.
-MODEL_NAME = "Qwen/Qwen3-8B"
+MODEL_NAME = os.environ.get("QWEN_CHAT_MODEL", "Qwen/Qwen3-8B")
 
 ROLE_ID_MODEL_NAME = MODEL_NAME
 ROLE_ADVISOR = "advisor"
@@ -83,15 +83,15 @@ ROLE_CUSTOMER = "customer"
 # --------------------------------------------------------------------
 # Stage 4 · Structured Q&A over the private transcript
 # --------------------------------------------------------------------
-QA_MODEL_NAME = MODEL_NAME
-EMBED_MODEL_NAME = "Qwen/Qwen3-Embedding-4B"
+QA_MODEL_NAME = os.environ.get("QA_MODEL_NAME", MODEL_NAME)
+EMBED_MODEL_NAME = os.environ.get("QWEN_EMBED_MODEL", "Qwen/Qwen3-Embedding-4B")
 
 # The prompts contain the questionnaire and instructions, so use retrieval for
 # all but very short transcripts and provide compact excerpts per prompt.
-CHUNK_SIZE = 500
-OVERLAP = 75
-TOP_K = 2
-MAX_CHARS_FOR_FULL_CONTEXT = 1800
+CHUNK_SIZE = 1000
+OVERLAP = 100
+TOP_K = 8
+MAX_CHARS_FOR_FULL_CONTEXT = 15000
 
 # --------------------------------------------------------------------
 # Output file names (all stages write into one run folder)
@@ -102,3 +102,5 @@ MAPPING_JSON_NAME = "2_mapping.json"
 METADATA_JSON_NAME = "3_metadata.json"
 PRIVATE_RESULTS_JSON_NAME = "4_private_results.json"
 MAPPED_RESULTS_JSON_NAME = "5_mapped_results.json"
+CRM_FORM_PARSED_JSON_NAME = "6_crm_form_parsed.json"
+CRM_FORM_PARSED_HTML_NAME = "6_crm_form.html"

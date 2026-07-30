@@ -15,6 +15,7 @@ run once here rather than being re-asked inside stage 4.
 
 import json
 import os
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -41,6 +42,44 @@ def compute_speaker_durations(segments: List[Dict]) -> Dict[str, float]:
     return dict(durations)
 
 
+def _normalize_role(role: str) -> str:
+    if role is None:
+        return ""
+    normalized = str(role).strip().lower()
+    if normalized in {"advisor", "adviser", "advisor (the person giving guidance/help)", "assistant"}:
+        return ROLE_ADVISOR
+    if normalized in {"customer", "client", "user", "customer (the person seeking help)"}:
+        return ROLE_CUSTOMER
+    return ""
+
+
+def _parse_roles_from_text(raw: str, speaker_labels: List[str]) -> Dict[str, str]:
+    # Try JSON extraction first.
+    try:
+        roles = extract_json(raw)
+        if isinstance(roles, dict):
+            return roles
+    except ValueError:
+        pass
+
+    # Fallback: regex search for label-role pairs in plain text.
+    parsed: Dict[str, str] = {}
+    for label in speaker_labels:
+        pattern = rf"{label}\s*[:\-]\s*(advisor|customer|adviser|client|user|assistant)"
+        match = re.search(pattern, raw, flags=re.IGNORECASE)
+        if match:
+            parsed[label] = match.group(1)
+            continue
+
+        pattern = rf'"{label}"\s*[:]\s*"?(advisor|customer|adviser|client|user|assistant)"?'
+        match = re.search(pattern, raw, flags=re.IGNORECASE)
+        if match:
+            parsed[label] = match.group(1)
+            continue
+
+    return parsed
+
+
 def identify_speaker_roles(segments: List[Dict], tokenizer, model) -> Dict[str, str]:
     """Ask the LLM which raw speaker label is the advisor and which is the
     customer. Returns {"SPEAKER_00": "advisor", "SPEAKER_01": "customer", ...}.
@@ -49,6 +88,8 @@ def identify_speaker_roles(segments: List[Dict], tokenizer, model) -> Dict[str, 
     speaker_labels = sorted({seg.get("speaker", "UNKNOWN") for seg in segments})
 
     prompt = f"""
+Based on this transcript, identify the Advisor(s) and Customer(s).
+
 You are an expert conversation analyst. Below is a transcript of a customer
 guidance/advice visit, with each line prefixed by a raw speaker label.
 
@@ -57,37 +98,58 @@ guidance/advice visit, with each line prefixed by a raw speaker label.
 -------------------------
 
 The speaker labels present are: {", ".join(speaker_labels)}.
+There are {len(speaker_labels)} speaker labels in total.
 
-Decide, for each label, whether that speaker is the "advisor" (the person
-giving guidance/help) or the "customer" (the person seeking help). If a
-label's role cannot be determined, omit it.
+Assign every speaker label to exactly one of the following exact role
+values:
+- "advisor"
+- "customer"
 
-Return ONLY a valid JSON object mapping each speaker label to either
-"advisor" or "customer". No markdown, no explanation, no <think> tags.
+The advisor is the person giving guidance or help. The customer is the
+person seeking help or advice.
+
+Every speaker label must be assigned a role. The sum of advisor(s) and
+customer(s) must equal the total number of speaker labels.
+
+Return ONLY a valid JSON object mapping each speaker label to one of these
+lowercase strings: "advisor" or "customer".
+Do not include markdown, explanation, analysis, or any extra text.
 Example: {{"SPEAKER_00": "advisor", "SPEAKER_01": "customer"}}
 """
     raw = ask_question(tokenizer, model, prompt, max_new_tokens=256)
-    try:
-        roles = extract_json(raw)
-    except ValueError:
-        print("WARNING: could not parse speaker-role JSON from LLM output; leaving roles empty.")
-        roles = {}
 
-    # keep only labels that actually exist and map to a known role
-    return {
-        label: role for label, role in roles.items()
-        if label in speaker_labels and role in (ROLE_ADVISOR, ROLE_CUSTOMER)
-    }
+    roles = _parse_roles_from_text(raw, speaker_labels)
+    if not roles:
+        print("WARNING: could not parse speaker-role JSON from LLM output; leaving roles empty.")
+        print("LLM raw output:\n", raw)
+
+    normalized_roles: Dict[str, str] = {}
+    for label, role in roles.items():
+        if label not in speaker_labels:
+            continue
+        normalized_role = _normalize_role(role)
+        if normalized_role:
+            normalized_roles[label] = normalized_role
+
+    if len(normalized_roles) != len(speaker_labels):
+        print("WARNING: speaker roles did not cover all diarized speakers.")
+        print("Expected labels:", speaker_labels)
+        print("Parsed roles:", normalized_roles)
+        print("LLM raw output:\n", raw)
+
+    return normalized_roles
 
 
 def build_metadata(segments: List[Dict], audio_file: str, speaker_roles: Dict[str, str]) -> Dict:
     durations = compute_speaker_durations(segments)
 
     total_advisor_time_sec = sum(
-        secs for speaker, secs in durations.items() if speaker_roles.get(speaker) == ROLE_ADVISOR
+        secs for speaker, secs in durations.items()
+        if speaker != "UNKNOWN" and speaker_roles.get(speaker) == ROLE_ADVISOR
     )
     total_customer_time_sec = sum(
-        secs for speaker, secs in durations.items() if speaker_roles.get(speaker) == ROLE_CUSTOMER
+        secs for speaker, secs in durations.items()
+        if speaker != "UNKNOWN" and speaker_roles.get(speaker) == ROLE_CUSTOMER
     )
 
     total_duration_sec = max((seg.get("end", 0) for seg in segments), default=0.0)
@@ -98,9 +160,9 @@ def build_metadata(segments: List[Dict], audio_file: str, speaker_roles: Dict[st
         "visit_duration": format_seconds(total_duration_sec),
         "audio_duration_sec": round(total_duration_sec, 2),
         "segment_count": len(segments),
-        "speakers_detected": sorted({seg.get("speaker", "UNKNOWN") for seg in segments}),
+        "speakers_detected": sorted({seg.get("speaker", "UNKNOWN") for seg in segments if seg.get("speaker", "UNKNOWN") != "UNKNOWN"}),
         "speaker_roles": speaker_roles,
-        "speaker_durations_sec": {k: round(v, 2) for k, v in durations.items()},
+        "speaker_durations_sec": {k: round(v, 2) for k, v in durations.items() if k != "UNKNOWN"},
         # The two variables requested: total advisor time vs. total user/customer time.
         "total_advisor_time_sec": round(total_advisor_time_sec, 2),
         "total_advisor_time": format_seconds(total_advisor_time_sec),

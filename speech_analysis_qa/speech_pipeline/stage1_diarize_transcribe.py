@@ -25,25 +25,142 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from speech_analysis_qa.speech_pipeline.common.config import HF_TOKEN, DIARIZATION_MODEL, WHISPER_MODEL_SIZE, TARGET_SAMPLE_RATE
+from speech_analysis_qa.speech_pipeline.common.device_utils import get_compute_device
 
 _DIARIZATION_PIPELINE = None
 _WHISPER_MODEL_CACHE = {}
 
 
+# def _get_diarization_pipeline(token: str):
+#     global _DIARIZATION_PIPELINE
+#     if _DIARIZATION_PIPELINE is None:
+#         import torch
+#         from pyannote.audio import Pipeline
+
+#         if hasattr(torch, "serialization"):
+#             allowed_globals = [torch.torch_version.TorchVersion]
+#             try:
+#                 from pyannote.audio.core.task import Problem, Specifications
+
+#                 allowed_globals.extend([Problem, Specifications])
+#             except Exception:
+#                 pass
+
+#             safe_globals = getattr(torch.serialization, "add_safe_globals", None)
+#             if callable(safe_globals):
+#                 try:
+#                     torch.serialization.add_safe_globals(allowed_globals)
+#                 except Exception:
+#                     pass
+#             else:
+#                 safe_globals = getattr(torch.serialization, "safe_globals", None)
+#                 if callable(safe_globals):
+#                     try:
+#                         torch.serialization.safe_globals(allowed_globals)
+#                     except Exception:
+#                         pass
+
+#         load_kwargs = {}
+#         if token:
+#             load_kwargs["use_auth_token"] = token
+#             load_kwargs["token"] = token
+#         else:
+#             print(
+#                 "WARNING: HF_TOKEN is not set. pyannote/speaker-diarization-3.1 may require"
+#                 " authentication and will fail to download without a valid token."
+#             )
+
+#         try:
+#             _DIARIZATION_PIPELINE = Pipeline.from_pretrained(
+#                 DIARIZATION_MODEL,
+#                 **load_kwargs,
+#             )
+#         except Exception as exc:
+#             raise RuntimeError(
+#                 "Failed to load the pyannote diarization pipeline. "
+#                 "Make sure HF_TOKEN is set to a valid Hugging Face token and that "
+#                 "you have accepted the model terms on https://hf.co/pyannote/speaker-diarization-3.1. "
+#                 f"Original error: {exc}"
+#             ) from exc
+
+#         if _DIARIZATION_PIPELINE is None:
+#             raise RuntimeError(
+#                 "pyannote Pipeline.from_pretrained returned None. "
+#                 "This usually means the pipeline download failed or access is blocked. "
+#                 "Set HF_TOKEN and accept the gated model terms at https://hf.co/pyannote/speaker-diarization-3.1."
+#             )
+#     return _DIARIZATION_PIPELINE
+
+
+
+
 def _get_diarization_pipeline(token: str):
     global _DIARIZATION_PIPELINE
+
     if _DIARIZATION_PIPELINE is None:
+        import torch
+
+        # ------------------------------------------------------------------
+        # PyTorch >= 2.6 compatibility fix:
+        # pyannote/lightning checkpoints require weights_only=False.
+        # ------------------------------------------------------------------
+        if not getattr(torch.load, "_pyannote_patch", False):
+            _original_load = torch.load
+
+            # def _patched_torch_load(*args, **kwargs):
+            #     kwargs.setdefault("weights_only", False)
+            #     return _original_load(*args, **kwargs)
+
+
+            def _patched_torch_load(*args, **kwargs):
+                print("weights_only before:", kwargs.get("weights_only"))
+                kwargs["weights_only"] = False
+                print("weights_only after :", kwargs.get("weights_only"))
+                return _original_load(*args, **kwargs)
+
+            _patched_torch_load._pyannote_patch = True
+            torch.load = _patched_torch_load
+
         from pyannote.audio import Pipeline
 
-        auth_kwargs = {}
+        load_kwargs = {}
         if token:
-            auth_kwargs["token"] = token
+            # Support both older and newer pyannote versions
+            load_kwargs["token"] = token
+            load_kwargs["use_auth_token"] = token
+        else:
+            print(
+                "WARNING: HF_TOKEN is not set. "
+                "pyannote/speaker-diarization-3.1 may require "
+                "authentication and will fail to download without a valid token."
+            )
 
-        _DIARIZATION_PIPELINE = Pipeline.from_pretrained(
-            DIARIZATION_MODEL,
-            **auth_kwargs,
-        )
+        try:
+            _DIARIZATION_PIPELINE = Pipeline.from_pretrained(
+                DIARIZATION_MODEL,
+                **load_kwargs,
+            )
+        except Exception as exc:
+            raise RuntimeError(
+                "Failed to load the pyannote diarization pipeline. "
+                "Make sure HF_TOKEN is set to a valid Hugging Face token and that "
+                "you have accepted the model terms on "
+                "https://hf.co/pyannote/speaker-diarization-3.1. "
+                f"Original error: {exc}"
+            ) from exc
+
+        if _DIARIZATION_PIPELINE is None:
+            raise RuntimeError(
+                "pyannote Pipeline.from_pretrained returned None. "
+                "This usually means the pipeline download failed or access is blocked. "
+                "Set HF_TOKEN and accept the gated model terms at "
+                "https://hf.co/pyannote/speaker-diarization-3.1."
+            )
+
     return _DIARIZATION_PIPELINE
+
+
+
 
 
 def _get_whisper_model(model_size: str = WHISPER_MODEL_SIZE):
@@ -52,8 +169,7 @@ def _get_whisper_model(model_size: str = WHISPER_MODEL_SIZE):
         import torch
         from faster_whisper import WhisperModel
 
-        # faster-whisper does not support MPS on this environment, so fall back to CPU.
-        device = "cpu"
+        device = get_compute_device(os.getenv("LIGHT_ASR_DEVICE", "auto"))
         compute_type = "int8"
 
         _WHISPER_MODEL_CACHE[model_size] = WhisperModel(
@@ -71,16 +187,10 @@ def cleanup():
     _WHISPER_MODEL_CACHE.clear()
 
     import gc
-    import torch
+    from speech_analysis_qa.speech_pipeline.common.device_utils import clear_torch_cache
 
     gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-    elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
-        try:
-            torch.mps.empty_cache()
-        except Exception:
-            pass
+    clear_torch_cache()
 
 
 def load_audio(file_path: str, target_sr: int = TARGET_SAMPLE_RATE):
@@ -126,30 +236,79 @@ def run_asr(audio_path: str, model_size: str = WHISPER_MODEL_SIZE) -> List[Dict]
     return _normalize_asr_segments(segments)
 
 
-def assign_speakers_to_asr(diarization, asr_segments: List[Dict]) -> List[Dict]:
-    annotation = diarization.speaker_diarization
+# def assign_speakers_to_asr(diarization, asr_segments: List[Dict]) -> List[Dict]:
+#     annotation = diarization.speaker_diarization
+
+#     speaker_segments = [
+#         {"start": segment.start, "end": segment.end, "speaker": speaker}
+#         for segment, _, speaker in annotation.itertracks(yield_label=True)
+#     ]
+#     speaker_segments.sort(key=lambda x: x["start"])
+#     asr_segments = sorted(asr_segments, key=lambda x: x["start"])
+
+#     output = []
+#     for asr in asr_segments:
+#         best_overlap, best_speaker = 0, "UNKNOWN"
+#         for sp in speaker_segments:
+#             overlap = max(0, min(asr["end"], sp["end"]) - max(asr["start"], sp["start"]))
+#             if overlap > best_overlap:
+#                 best_overlap, best_speaker = overlap, sp["speaker"]
+
+#         output.append({
+#             "start": asr["start"],
+#             "end": asr["end"],
+#             "speaker": best_speaker,
+#             "text": asr["text"].strip(),
+#         })
+#     return output
+
+
+
+
+def assign_speakers_to_asr(diarization, asr_segments):
+    # pyannote >=3.3 returns Annotation directly
+    if hasattr(diarization, "speaker_diarization"):
+        annotation = diarization.speaker_diarization
+    else:
+        annotation = diarization
 
     speaker_segments = [
-        {"start": segment.start, "end": segment.end, "speaker": speaker}
+        {
+            "start": segment.start,
+            "end": segment.end,
+            "speaker": speaker,
+        }
         for segment, _, speaker in annotation.itertracks(yield_label=True)
     ]
+
     speaker_segments.sort(key=lambda x: x["start"])
     asr_segments = sorted(asr_segments, key=lambda x: x["start"])
 
     output = []
-    for asr in asr_segments:
-        best_overlap, best_speaker = 0, "UNKNOWN"
-        for sp in speaker_segments:
-            overlap = max(0, min(asr["end"], sp["end"]) - max(asr["start"], sp["start"]))
-            if overlap > best_overlap:
-                best_overlap, best_speaker = overlap, sp["speaker"]
 
-        output.append({
-            "start": asr["start"],
-            "end": asr["end"],
-            "speaker": best_speaker,
-            "text": asr["text"].strip(),
-        })
+    for asr in asr_segments:
+        best_overlap = 0
+        best_speaker = "UNKNOWN"
+
+        for sp in speaker_segments:
+            overlap = max(
+                0,
+                min(asr["end"], sp["end"]) - max(asr["start"], sp["start"])
+            )
+
+            if overlap > best_overlap:
+                best_overlap = overlap
+                best_speaker = sp["speaker"]
+
+        output.append(
+            {
+                "start": asr["start"],
+                "end": asr["end"],
+                "speaker": best_speaker,
+                "text": asr["text"].strip(),
+            }
+        )
+
     return output
 
 

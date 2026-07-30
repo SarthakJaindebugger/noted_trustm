@@ -24,6 +24,8 @@ if str(PIPELINE_DIR) not in sys.path:
     sys.path.insert(0, str(PIPELINE_DIR))
 
 from speech_analysis_qa.speech_pipeline.common.config import (  # noqa: E402
+    CRM_FORM_PARSED_HTML_NAME,
+    CRM_FORM_PARSED_JSON_NAME,
     DIARIZED_JSON_NAME,
     MAPPED_RESULTS_JSON_NAME,
     MAPPING_JSON_NAME,
@@ -69,6 +71,8 @@ def output_paths_for_audio(audio_path: str | Path, uploads_dir: str | Path) -> D
         "metadata_path": str(run_dir / METADATA_JSON_NAME),
         "private_results_path": str(run_dir / PRIVATE_RESULTS_JSON_NAME),
         "mapped_results_path": str(run_dir / MAPPED_RESULTS_JSON_NAME),
+        "crm_form_parsed_path": str(run_dir / CRM_FORM_PARSED_JSON_NAME),
+        "crm_form_html_path": str(run_dir / CRM_FORM_PARSED_HTML_NAME),
     }
 
 
@@ -152,31 +156,11 @@ def run_pipeline(
             "metadata_path": str(run_dir / METADATA_JSON_NAME),
             "private_results_path": str(run_dir / PRIVATE_RESULTS_JSON_NAME),
             "mapped_results_path": str(run_dir / MAPPED_RESULTS_JSON_NAME),
+            "crm_form_parsed_path": str(run_dir / CRM_FORM_PARSED_JSON_NAME),
+            "crm_form_html_path": str(run_dir / CRM_FORM_PARSED_HTML_NAME),
         }
 
     try:
-        # Stage 1: diarization + ASR -> diarized JSON
-        print("\n=== STAGE 1-2: audio -> diarized JSON ===")
-        if Path(paths["diarized_json_path"]).exists():
-            print(f"Skipping stage1: {paths['diarized_json_path']} already exists")
-        else:
-            stage1 = _import_stage("stage1_diarize_transcribe")
-            stage1.run(audio_path, paths["diarized_json_path"])
-            if cleanup_stage1:
-                try:
-                    stage1.cleanup()
-                except Exception:
-                    pass
-
-        # Stage 2: diarized JSON -> private transcript + mapping
-        print("\n=== STAGE 3: diarized JSON -> private transcript + mapping ===")
-        if Path(paths["private_transcript_path"]).exists() and Path(paths["mapping_path"]).exists():
-            print(f"Skipping stage2: {paths['private_transcript_path']} and {paths['mapping_path']} already exist")
-        else:
-            stage2 = _import_stage("stage2_privacy")
-            stage2.run(paths["diarized_json_path"], paths["private_transcript_path"], paths["mapping_path"])
-
-        # Stage 3: private transcript -> metadata JSON
         print("\n=== STAGE 4: private transcript -> metadata JSON ===")
         if Path(paths["metadata_path"]).exists():
             print(f"Skipping stage3: {paths['metadata_path']} already exists")
@@ -203,6 +187,19 @@ def run_pipeline(
         else:
             stage5 = _import_stage("stage5_apply_mapping")
             stage5.run(paths["private_results_path"], paths["mapping_path"], paths["mapped_results_path"])
+
+        # Stage 6: mapped JSON -> CRM form parsed JSON
+        print("\n=== STAGE 7: mapped JSON -> CRM form parsed JSON ===")
+        if Path(paths["crm_form_parsed_path"]).exists() and Path(paths["crm_form_html_path"]).exists():
+            print(f"Skipping stage6: {paths['crm_form_parsed_path']} and {paths['crm_form_html_path']} already exist")
+        else:
+            stage6 = _import_stage("stage6_crm_form_parsing")
+            stage6.run(
+                paths["mapped_results_path"],
+                paths["metadata_path"],
+                paths["crm_form_parsed_path"],
+                paths["crm_form_html_path"],
+            )
 
         embedding_paths: List[str] = []
         if embedding_dir:
@@ -259,8 +256,8 @@ def run_users(users_root: str | Path = DEFAULT_USERS_ROOT, username: Optional[st
                 str(dirs["uploads"]),
                 str(dirs["embedding"]),
                 username=user,
-                cleanup_stage1=False,
-                cleanup_llm=False,
+                cleanup_stage1=True,
+                cleanup_llm=True,
             ))
         return results
     finally:

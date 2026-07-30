@@ -39,13 +39,9 @@ def load_llm(model_name: str, hf_token: str = ""):
         llm_int8_enable_fp32_cpu_offload=True,
     )
     use_auth_token = hf_token or None
-    use_mps = getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available()
-    if torch.cuda.is_available():
-        device_map = "auto"
-    else:
-        # Avoid loading 4-bit/float16 quantized models onto MPS, which can be unstable
-        # and often exceeds available memory on Apple Silicon devices.
-        device_map = {"": "cpu"}
+    from speech_analysis_qa.speech_pipeline.common.device_utils import get_quantized_device_map
+
+    device_map = get_quantized_device_map()
 
     try:
         model = AutoModelForCausalLM.from_pretrained(
@@ -93,13 +89,9 @@ def unload_llm(model_name: Optional[str] = None, hf_token: Optional[str] = None)
             del tokenizer
 
     gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-    elif getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
-        try:
-            torch.mps.empty_cache()
-        except Exception:
-            pass
+    from speech_analysis_qa.speech_pipeline.common.device_utils import clear_torch_cache
+
+    clear_torch_cache()
 
 
 def unload_all_llms():
