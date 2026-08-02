@@ -22,6 +22,15 @@ docker compose up --build
 
 The generation model is served through `llama.cpp` on the shared Docker network `noted-llm-shared`. Other containers can reuse it by joining that network and calling `http://llama-gen:8000/v1`.
 
+For non-Docker HPC deployment on Aalto Triton or similar, the frontend can be hosted on a CPU node and the backend on a separate GPU node. In that case configure the frontend with explicit backend addresses:
+
+- `VITE_API_BASE_URL=http://<backend-host>:<backend-port>/api`
+- `VITE_WS_BASE_URL=ws://<backend-host>:<backend-port>/ws`
+
+If the frontend is served over HTTPS and the backend supports TLS, use `https://` and `wss://` accordingly.
+
+The backend should also allow CORS from the frontend origin via `settings.server.cors_origins` or the equivalent environment/configuration value.
+
 For backend-only work, see [noted-backend/README.md](/home/noted/noted-backend/README.md).
 
 ## Collaboration

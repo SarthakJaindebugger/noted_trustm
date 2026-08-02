@@ -171,6 +171,9 @@ class Settings:
         # --- Environment overrides for secrets and deployment ---
         self.hf_token: Optional[str] = os.getenv("HF_TOKEN")
         self.domain: str = os.getenv("DOMAIN", self.server.domain)
+        cors_origins = os.getenv("CORS_ORIGINS")
+        if cors_origins:
+            self.server.cors_origins = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
 
         # Override model URLs/keys from env if set (docker-compose compatibility)
         gen_url = os.getenv("LLAMA_BASE_URL")

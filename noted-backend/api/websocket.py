@@ -48,10 +48,14 @@ class ConnectionManager:
             logger.info("Initializing audio processor asynchronously...")
             # Run in thread pool to avoid blocking startup
             loop = asyncio.get_event_loop()
-            self.audio_processor = await loop.run_in_executor(
-                None,
-                lambda: AudioProcessor(enable_detailed_logging=settings.logging.enable_detailed)
-            )
+            # self.audio_processor = await loop.run_in_executor(
+            #     None,
+            #     lambda: AudioProcessor(enable_detailed_logging=settings.logging.enable_detailed)
+            # )
+
+            self.audio_processor = AudioProcessor(enable_detailed_logging=settings.logging.enable_detailed)
+            await self.audio_processor.initialize()
+
             logger.info("Audio processor initialized asynchronously")
 
     @staticmethod

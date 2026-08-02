@@ -102,6 +102,8 @@ services:
       args:
         VITE_DOMAIN: ${DOMAIN:-localhost}
         VITE_APP_BASE: /
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
+        VITE_WS_BASE_URL: ${VITE_WS_BASE_URL:-}
     container_name: noted-frontend
     restart: unless-stopped
     ports:

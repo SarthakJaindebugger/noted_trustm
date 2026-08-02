@@ -271,7 +271,7 @@
                         <span class="q-num">1</span> Control Location
                         <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span>
                     </div>
-                    <input class="form-control" :class="{ missing: missingFields.controlLocation }" v-model="form.controlLocation" placeholder="Iso Omena, Espoo" required />
+                    <input class="form-control" v-model="form.controlLocation" placeholder="Iso Omena, Espoo" required />
                 </div>
 
                 <!-- Q2 + Q3 grid -->
@@ -658,7 +658,6 @@
                 };
 
                 const markRequiredMissing = () => {
-                    missingFields.controlLocation = !form.controlLocation.trim();
                     missingFields.date = !form.date;
                     missingFields.time = !form.time;
                     missingFields.contactMethod = !form.contactMethod || form.contactMethod.length === 0;

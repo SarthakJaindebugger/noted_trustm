@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from api.auth import AuthenticatedUser, require_authenticated_user
 from knowledgebase.admin_dashboard_stats import fetch_all_stats
+from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files
 
 logger = logging.getLogger(__name__)
 
@@ -115,3 +116,28 @@ async def read_admin_file(
         "content": content,
         "extension": extension,
     }
+
+
+@admin_router.get("/audio-files")
+async def list_audio_files_for_analysis(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    _ensure_admin(current_user)
+    return {"audio_files": list_user_audio_files()}
+
+
+@admin_router.post("/analyze-audio")
+async def analyze_selected_audio(
+    payload: dict,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    _ensure_admin(current_user)
+    audio_path = payload.get("audio_path")
+    if not audio_path:
+        raise HTTPException(status_code=400, detail="audio_path is required")
+
+    try:
+        result = analyze_audio_file(audio_path)
+    except Exception as exc:
+        logger.error("Admin audio analysis failed for %s: %s", audio_path, exc)
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    return result

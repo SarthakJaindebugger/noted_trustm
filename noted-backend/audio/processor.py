@@ -43,7 +43,7 @@ class AudioProcessor:
         self.enable_detailed_logging = enable_detailed_logging
 
         # --- ASR + diarization ---
-        self.batch_transcriber = BatchSpeechTranscriber()
+        self.batch_transcriber = None
 
         # Chunker (for buffering live audio before sending to ASR)
         self.chunker = AudioChunker()
@@ -94,6 +94,10 @@ class AudioProcessor:
             settings.models.asr_batch.name,
             self.summary_model,
         )
+
+    async def initialize(self):
+        self.batch_transcriber = BatchSpeechTranscriber()
+        await self.batch_transcriber.initialize()
 
     @staticmethod
     def _is_context_budget_error(error_text: str) -> bool:

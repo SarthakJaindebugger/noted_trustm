@@ -11,10 +11,10 @@ ARG VITE_DOMAIN=localhost
 ENV VITE_DOMAIN=${VITE_DOMAIN}
 ARG VITE_APP_BASE=/
 ENV VITE_APP_BASE=${VITE_APP_BASE}
-
-RUN npm run build
-
-FROM nginx:alpine
+ARG VITE_API_BASE_URL=
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+ARG VITE_WS_BASE_URL=
+ENV VITE_WS_BASE_URL=${VITE_WS_BASE_URL}
 
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf

@@ -1,6 +1,7 @@
 import { ref, nextTick, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { authService } from '../services/auth_service.js';
+import { apiClient } from '../services/api_client.js';
 
 export default {
   name: 'AdminDashboard',
@@ -37,6 +38,13 @@ export default {
         timestamp: Date.now()
       }
     ]);
+    const audioFiles = ref([]);
+    const selectedAudioPath = ref('');
+    const isAnalyzingAudio = ref(false);
+    const analysisStatus = ref('');
+    const analysisError = ref('');
+    const analysisResult = ref(null);
+    const activeTab = ref('overview');
     const newMessage = ref('');
     const isTyping = ref(false);
     const isMinimized = ref(false);
@@ -159,6 +167,49 @@ export default {
       await router.push({ name: 'admin_files' });
     };
 
+    const loadAudioFiles = async () => {
+      try {
+        const data = await apiClient.get('/admin/audio-files');
+        audioFiles.value = data.audio_files || [];
+        if (!audioFiles.value.length) {
+          analysisStatus.value = 'No audio files were found in the configured user database.';
+        }
+      } catch (error) {
+        console.error('Failed to load audio files', error);
+        analysisError.value = error.message || 'Failed to load audio files.';
+        analysisStatus.value = 'Unable to load audio files.';
+      }
+    };
+
+    const analyzeSelectedAudio = async () => {
+      if (!selectedAudioPath.value) {
+        analysisError.value = 'Please select an audio file first.';
+        return;
+      }
+
+      isAnalyzingAudio.value = true;
+      analysisError.value = '';
+      analysisStatus.value = 'Starting speech analysis pipeline...';
+      analysisResult.value = null;
+
+      try {
+        const result = await apiClient.post('/admin/analyze-audio', { audio_path: selectedAudioPath.value });
+        analysisResult.value = result;
+        analysisStatus.value = 'Analysis completed successfully.';
+        activeTab.value = 'analyze';
+      } catch (error) {
+        console.error('Audio analysis failed', error);
+        analysisError.value = error.message || 'Audio analysis failed.';
+        analysisStatus.value = 'Analysis failed.';
+      } finally {
+        isAnalyzingAudio.value = false;
+      }
+    };
+
+    const setActiveTab = (tab) => {
+      activeTab.value = tab;
+    };
+
     const logout = async () => {
       authService.logout();
       localStorage.removeItem('isAdmin');
@@ -213,6 +264,7 @@ export default {
     };
     // load on setup
     fetchDashboardData();
+    loadAudioFiles();
 
     return {
       searchQuery,
@@ -234,6 +286,16 @@ export default {
       clearConversation,
       formatTime,
       expandChat,
+      audioFiles,
+      selectedAudioPath,
+      isAnalyzingAudio,
+      analysisStatus,
+      analysisError,
+      analysisResult,
+      loadAudioFiles,
+      analyzeSelectedAudio,
+      setActiveTab,
+      activeTab,
       // new dashboard fields
       averageConversationTime,
       contactMethods,
@@ -266,9 +328,56 @@ export default {
         </div>
       </div>
 
+      <div class="border-b border-slate-200 bg-white/70 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex gap-2">
+          <button @click="setActiveTab('overview')" class="rounded-full px-4 py-2 text-sm font-medium transition" :class="activeTab === 'overview' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'">
+            Overview
+          </button>
+          <button @click="setActiveTab('analyze')" class="rounded-full px-4 py-2 text-sm font-medium transition" :class="activeTab === 'analyze' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'">
+            Analyze Audio
+          </button>
+        </div>
+      </div>
+
       <div class="max-w-7xl mx-auto p-6 space-y-8">
-        <!-- New dashboard fields -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-if="activeTab === 'analyze'" class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
+          <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 class="text-xl font-semibold text-slate-900">Analyze Audio</h2>
+              <p class="text-sm text-slate-600">Select a recording from the user database and run the full speech-analysis pipeline, including CRM-form export.</p>
+            </div>
+            <div class="flex gap-3">
+              <button @click="loadAudioFiles" class="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Refresh list</button>
+              <button :disabled="isAnalyzingAudio || !selectedAudioPath" @click="analyzeSelectedAudio" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300">
+                {{ isAnalyzingAudio ? 'Analyzing…' : 'Analyze audio' }}
+              </button>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 md:grid-cols-[1fr_auto]">
+            <label class="text-sm font-medium text-slate-700">
+              <span class="mb-2 block">Audio file</span>
+              <select v-model="selectedAudioPath" class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none">
+                <option value="">Select an audio file…</option>
+                <option v-for="audio in audioFiles" :key="audio.path" :value="audio.path">{{ audio.display_name }}</option>
+              </select>
+            </label>
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              <div class="font-medium text-slate-800">Status</div>
+              <div class="mt-2">{{ analysisStatus || 'Idle' }}</div>
+              <div v-if="analysisError" class="mt-2 text-red-600">{{ analysisError }}</div>
+            </div>
+          </div>
+          <div v-if="analysisResult" class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+            <div class="font-semibold">Analysis completed</div>
+            <div class="mt-1">Output folder: {{ analysisResult.output_dir }}</div>
+            <div v-if="analysisResult.crm_form_json_path" class="mt-1">CRM JSON: {{ analysisResult.crm_form_json_path }}</div>
+            <div v-if="analysisResult.crm_form_html_path" class="mt-1">CRM HTML: {{ analysisResult.crm_form_html_path }}</div>
+          </div>
+        </div>
+
+        <div v-if="activeTab === 'overview'">
+          <!-- New dashboard fields -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="glass-card p-6 rounded-2xl">
             <div class="text-gray-500">Average Conversation Time</div>
             <div class="text-2xl font-bold mt-2">{{ averageConversationTime }}</div>
@@ -525,6 +634,7 @@ export default {
             </div>
             <p class="text-xs text-gray-400 mt-2 text-center">Data source not yet connected – add API call in setup()</p>
           </div>
+        </div>
         </div>
       </div>
     </div>

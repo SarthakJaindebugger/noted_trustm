@@ -161,7 +161,21 @@ def run_pipeline(
         }
 
     try:
-        print("\n=== STAGE 4: private transcript -> metadata JSON ===")
+        print("\n=== STAGE 1: audio -> diarized transcript ===")
+        if Path(paths["diarized_json_path"]).exists():
+            print(f"Skipping stage1: {paths['diarized_json_path']} already exists")
+        else:
+            stage1 = _import_stage("stage1_diarize_transcribe")
+            stage1.run(audio_path, paths["diarized_json_path"])
+
+        print("\n=== STAGE 2: diarized transcript -> private transcript + mapping ===")
+        if Path(paths["private_transcript_path"]).exists() and Path(paths["mapping_path"]).exists():
+            print(f"Skipping stage2: {paths['private_transcript_path']} and {paths['mapping_path']} already exist")
+        else:
+            stage2 = _import_stage("stage2_privacy")
+            stage2.run(paths["diarized_json_path"], paths["private_transcript_path"], paths["mapping_path"])
+
+        print("\n=== STAGE 3: private transcript -> metadata JSON ===")
         if Path(paths["metadata_path"]).exists():
             print(f"Skipping stage3: {paths['metadata_path']} already exists")
             total_advisor_time_sec = 0.0
@@ -173,7 +187,7 @@ def run_pipeline(
             )
 
         # Stage 4: private transcript -> private Q&A JSON
-        print("\n=== STAGE 5: private transcript -> private Q&A JSON ===")
+        print("\n=== STAGE 4: private transcript -> private Q&A JSON ===")
         if Path(paths["private_results_path"]).exists():
             print(f"Skipping stage4: {paths['private_results_path']} already exists")
         else:
@@ -181,7 +195,7 @@ def run_pipeline(
             stage4.run(paths["private_transcript_path"], paths["private_results_path"])
 
         # Stage 5: private Q&A JSON + mapping -> mapped JSON
-        print("\n=== STAGE 6: private Q&A JSON + mapping -> mapped JSON ===")
+        print("\n=== STAGE 5: private Q&A JSON + mapping -> mapped JSON ===")
         if Path(paths["mapped_results_path"]).exists():
             print(f"Skipping stage5: {paths['mapped_results_path']} already exists")
         else:
@@ -189,7 +203,7 @@ def run_pipeline(
             stage5.run(paths["private_results_path"], paths["mapping_path"], paths["mapped_results_path"])
 
         # Stage 6: mapped JSON -> CRM form parsed JSON
-        print("\n=== STAGE 7: mapped JSON -> CRM form parsed JSON ===")
+        print("\n=== STAGE 6: mapped JSON -> CRM form parsed JSON ===")
         if Path(paths["crm_form_parsed_path"]).exists() and Path(paths["crm_form_html_path"]).exists():
             print(f"Skipping stage6: {paths['crm_form_parsed_path']} and {paths['crm_form_html_path']} already exist")
         else:

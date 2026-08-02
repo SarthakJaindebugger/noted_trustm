@@ -60,7 +60,7 @@ class BatchSpeechTranscriber:
             api_key="none",
         )
 
-        self._fallback_model_lock = asyncio.Lock()
+        self._fallback_model_lock = None
         self._fallback_model_resolved = False
 
         logger.info(
@@ -71,6 +71,9 @@ class BatchSpeechTranscriber:
             self.diarization_url,
             self.diarization_model,
         )
+
+    async def initialize(self):
+        self._fallback_model_lock = asyncio.Lock()
 
     async def transcribe_full_recording(
         self,

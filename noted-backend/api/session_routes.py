@@ -16,7 +16,7 @@ from api.schemas import SessionNotesUpdateRequest, SessionRenameRequest
 from database.connection import AsyncSessionLocal
 from models.session import SessionData, SessionStats, SessionStatus
 from models.transcript import TranscriptEntry
-from services.account_store import principal_data_dir, uploads_dir_for_principal
+from services.account_store import principal_data_dir, recordings_dir_for_principal
 from services.file_service import save_upload_file
 from services.session_manager_async import AsyncSessionManager
 
@@ -38,8 +38,8 @@ async def upload_user_audio(
     if extension not in allowed_extensions:
         raise HTTPException(status_code=400, detail="Please upload a supported audio file.")
 
-    # User dashboard uploads always live under data_dir/users/<logged-in username>.
-    destination_dir = principal_data_dir("user", current_user.username)
+    # User dashboard uploads now save under recordings/ per desired architecture.
+    destination_dir = recordings_dir_for_principal("user", current_user.username)
     os.makedirs(destination_dir, exist_ok=True)
 
     try:

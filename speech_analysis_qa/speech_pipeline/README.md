@@ -2,6 +2,9 @@
 
 ## Command to run: python3 speech_analysis_qa/speech_pipeline/run_pipeline.py --all-users
 
+## docker compose up --build
+
+
 Restructured from the 4 original Colab notebooks into 6 sequential stages
 with no duplicated code. Shared logic (LLM calling, JSON parsing,
 transcript flattening, anonymization, retrieval) lives once in `common/`
