@@ -45,6 +45,11 @@ export default {
     const analysisError = ref('');
     const analysisResult = ref(null);
     const activeTab = ref('overview');
+    const crmFormHtmlPath = computed(() => {
+      const result = analysisResult.value;
+      if (!result) return '';
+      return result.crm_form_html_path || result.result?.crm_form_html_path || '';
+    });
     const newMessage = ref('');
     const isTyping = ref(false);
     const isMinimized = ref(false);
@@ -206,6 +211,36 @@ export default {
       }
     };
 
+    const openCrmForm = async () => {
+      const htmlPath = crmFormHtmlPath.value;
+      if (!htmlPath) {
+        analysisError.value = 'No CRM form HTML is available yet.';
+        return;
+      }
+
+      try {
+        const response = await apiClient.request(`/admin/files/content?path=${encodeURIComponent(htmlPath)}`);
+        if (!response.ok) {
+          const errText = await response.text();
+          throw new Error(errText || `Failed to open CRM form: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const htmlContent = data.content || '';
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const blobUrl = URL.createObjectURL(blob);
+        const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
+        if (!popup) {
+          throw new Error('Popup blocked. Please allow popups for this site.');
+        }
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+        analysisStatus.value = 'CRM form opened in a new window.';
+      } catch (error) {
+        console.error('Failed to open CRM form', error);
+        analysisError.value = error.message || 'Failed to open CRM form.';
+      }
+    };
+
     const setActiveTab = (tab) => {
       activeTab.value = tab;
     };
@@ -216,12 +251,15 @@ export default {
       router.push({ name: 'login' });
     };
 
-    // Uncomment and adapt when you have a real dashboard API
+    // Load the aggregated admin dashboard data from the backend and refresh it every 10 seconds.
     const fetchDashboardData = async () => {
       const token = authService.getToken();
       const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? 'http://127.0.0.1:8000/api/v1/admin/stats'
-        : '/api/v1/admin/stats';
+        // nginx maps /api/* to the backend's /api/v1/* routes. Including
+        // /v1 here caused production requests to become
+        // /api/v1/api/v1/admin/stats and return 404.
+        : '/api/admin/stats';
 
       try {
         const resp = await fetch(apiUrl, {
@@ -265,6 +303,14 @@ export default {
     // load on setup
     fetchDashboardData();
     loadAudioFiles();
+    const dashboardRefreshTimer = window.setInterval(() => {
+      fetchDashboardData();
+      loadAudioFiles();
+    }, 10000);
+
+    if (import.meta.hot) {
+      import.meta.hot.dispose(() => window.clearInterval(dashboardRefreshTimer));
+    }
 
     return {
       searchQuery,
@@ -292,8 +338,10 @@ export default {
       analysisStatus,
       analysisError,
       analysisResult,
+      crmFormHtmlPath,
       loadAudioFiles,
       analyzeSelectedAudio,
+      openCrmForm,
       setActiveTab,
       activeTab,
       // new dashboard fields
@@ -353,7 +401,7 @@ export default {
               </button>
             </div>
           </div>
-          <div class="mt-4 grid gap-4 md:grid-cols-[1fr_auto]">
+          <div class="mt-4">
             <label class="text-sm font-medium text-slate-700">
               <span class="mb-2 block">Audio file</span>
               <select v-model="selectedAudioPath" class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none">
@@ -361,17 +409,15 @@ export default {
                 <option v-for="audio in audioFiles" :key="audio.path" :value="audio.path">{{ audio.display_name }}</option>
               </select>
             </label>
-            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              <div class="font-medium text-slate-800">Status</div>
-              <div class="mt-2">{{ analysisStatus || 'Idle' }}</div>
-              <div v-if="analysisError" class="mt-2 text-red-600">{{ analysisError }}</div>
-            </div>
           </div>
           <div v-if="analysisResult" class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            <div class="font-semibold">Analysis completed</div>
-            <div class="mt-1">Output folder: {{ analysisResult.output_dir }}</div>
-            <div v-if="analysisResult.crm_form_json_path" class="mt-1">CRM JSON: {{ analysisResult.crm_form_json_path }}</div>
-            <div v-if="analysisResult.crm_form_html_path" class="mt-1">CRM HTML: {{ analysisResult.crm_form_html_path }}</div>
+            <div class="font-semibold">Analysis complete</div>
+            <button v-if="crmFormHtmlPath" @click="openCrmForm" class="mt-3 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
+              Open CRM Form
+            </button>
+          </div>
+          <div v-if="analysisError" class="mt-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {{ analysisError }}
           </div>
         </div>
 
@@ -385,7 +431,12 @@ export default {
 
           <div class="glass-card p-6 rounded-2xl">
             <div class="text-gray-500">Contact Methods Used</div>
-            <div class="text-lg mt-2" v-if="contactMethods.length">{{ contactMethods.join(', ') }}</div>
+            <div class="text-sm mt-2 space-y-1" v-if="contactMethods.length">
+              <div v-for="method in contactMethods" :key="method.label || method" class="flex items-center justify-between rounded-lg bg-white/70 px-3 py-2">
+                <span class="text-gray-700">{{ method.label || method }}</span>
+                <span class="text-gray-500">{{ method.pct ?? '' }}{{ method.pct !== undefined ? '%' : '' }}</span>
+              </div>
+            </div>
             <div class="text-gray-400 italic" v-else>—</div>
           </div>
 

@@ -101,7 +101,8 @@ def build_analysis_output_paths(audio_path: str | Path, users_root: Optional[Pat
 
     user_root = users_root / sanitize_username(username)
     safe_stem = re.sub(r"[^A-Za-z0-9._-]+", "_", resolved_audio.stem).strip("._-") or "audio"
-    stamp = (now or datetime.now()).strftime("%Y%m%d_%H%M%S")
+    stamp_dt = now or datetime.now()
+    stamp = stamp_dt.strftime("%d-%m-%Y_%H%M")
 
     target_dir = user_root / "uploads" / f"{safe_stem}_{stamp}"
     embedding_dir = user_root / "embedding" / f"{safe_stem}_{stamp}"

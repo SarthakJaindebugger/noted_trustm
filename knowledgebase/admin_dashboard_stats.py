@@ -9,8 +9,14 @@ import os
 import json
 import re
 import csv
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from collections import Counter
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_USERS_ROOT = REPO_ROOT / "knowledgebase" / "users_admin_data" / "users"
+DEFAULT_SUMMARY_OUTPUT = REPO_ROOT / "combined_admin_dashboard" / "combined_dashboard_summary.json"
+CRM_JSON_NAMES = {"6_crm_form_parsed.json", "crm_form_parsed.json"}
 
 FIELDS = [
     "Average Conversation time",
@@ -26,97 +32,52 @@ FIELDS = [
 ]
 
 
-def get_average_conversation_time(source: Optional[Any] = None, **kwargs) -> str:
-    """Return average conversation time (human readable or seconds)."""
-    # If a source directory is provided use it, otherwise read from default data folder
-    output_dir = None
-    if isinstance(source, str):
-        output_dir = source
-    else:
-        # default to the sibling data directory
-        output_dir = os.path.join(os.path.dirname(__file__), "data")
-
-    def parse_duration(duration_str: Optional[str], fallback_seconds: Optional[float] = None) -> Optional[int]:
-        if not duration_str:
-            return int(fallback_seconds) if fallback_seconds is not None else None
-        s = str(duration_str).strip().lower()
-        # format mm:ss or hh:mm:ss
-        if ":" in s:
-            parts = [p for p in s.split(":") if p != ""]
-            try:
-                parts = [int(p) for p in parts]
-            except Exception:
-                # fall back to regex parsing
-                parts = []
-            if parts:
-                # right-most is seconds
-                parts = parts[::-1]
-                secs = 0
-                for i, v in enumerate(parts):
-                    secs += v * (60 ** i)
-                return int(secs)
-
-        # regex for hours, minutes, seconds
-        hours = re.search(r"(\d+)\s*(?:h|hr|hour|hours)", s)
-        minutes = re.search(r"(\d+)\s*(?:m|min|minute|minutes)", s)
-        seconds = re.search(r"(\d+)\s*(?:s|sec|second|seconds)", s)
-
-        total = 0
-        found = False
-        if hours:
-            total += int(hours.group(1)) * 3600
-            found = True
-        if minutes:
-            total += int(minutes.group(1)) * 60
-            found = True
-        if seconds:
-            total += int(seconds.group(1))
-            found = True
-
-        if found:
-            return int(total)
-
-        # try to extract any number as seconds
-        simple_num = re.search(r"^(\d+)$", s)
-        if simple_num:
-            return int(simple_num.group(1))
-
-        # fallback to provided seconds value
+def _parse_duration(duration_str: Optional[str], fallback_seconds: Optional[float] = None) -> Optional[int]:
+    if not duration_str:
         return int(fallback_seconds) if fallback_seconds is not None else None
 
-    total_secs = 0
-    count = 0
+    s = str(duration_str).strip().lower()
+    if ":" in s:
+        parts = [p for p in s.split(":") if p != ""]
+        try:
+            parts = [int(p) for p in parts]
+        except Exception:
+            parts = []
+        if parts:
+            parts = parts[::-1]
+            secs = 0
+            for i, v in enumerate(parts):
+                secs += v * (60 ** i)
+            return int(secs)
 
-    try:
-        if os.path.isdir(output_dir):
-            for fname in os.listdir(output_dir):
-                if not fname.lower().endswith('.json'):
-                    continue
-                fpath = os.path.join(output_dir, fname)
-                try:
-                    with open(fpath, 'r', encoding='utf-8') as fh:
-                        data = json.load(fh)
-                except Exception:
-                    continue
+    hours = re.search(r"(\d+)\s*(?:h|hr|hour|hours)", s)
+    minutes = re.search(r"(\d+)\s*(?:m|min|minute|minutes)", s)
+    seconds = re.search(r"(\d+)\s*(?:s|sec|second|seconds)", s)
 
-                metadata = data.get('metadata', {}) if isinstance(data, dict) else {}
-                visit_duration = metadata.get('visit_duration')
-                audio_secs = metadata.get('audio_duration_sec')
-                secs = parse_duration(visit_duration, fallback_seconds=audio_secs)
-                if secs is None:
-                    continue
-                total_secs += secs
-                count += 1
-    except Exception:
-        return "—"
+    total = 0
+    found = False
+    if hours:
+        total += int(hours.group(1)) * 3600
+        found = True
+    if minutes:
+        total += int(minutes.group(1)) * 60
+        found = True
+    if seconds:
+        total += int(seconds.group(1))
+        found = True
 
-    if count == 0:
-        return "—"
+    if found:
+        return int(total)
 
-    avg = int(total_secs / count)
+    simple_num = re.search(r"^(\d+)$", s)
+    if simple_num:
+        return int(simple_num.group(1))
 
-    # format human readable
-    hours, rem = divmod(avg, 3600)
+    return int(fallback_seconds) if fallback_seconds is not None else None
+
+
+def _format_duration(total_seconds: int) -> str:
+    hours, rem = divmod(total_seconds, 3600)
     minutes, seconds = divmod(rem, 60)
     parts = []
     if hours:
@@ -127,35 +88,130 @@ def get_average_conversation_time(source: Optional[Any] = None, **kwargs) -> str
     return " ".join(parts)
 
 
-def get_contact_methods(source: Optional[Any] = None, **kwargs) -> List[str]:
-    """Return list of contact methods observed (e.g. ['phone', 'email'])."""
-    # TODO: implement
-    return []
+def _candidate_users_roots(source: Optional[Any] = None) -> List[Path]:
+    roots: List[Path] = []
+    if source is not None:
+        if isinstance(source, (str, os.PathLike)):
+            candidate = Path(source)
+            if candidate.exists():
+                roots.append(candidate)
+        elif isinstance(source, Path):
+            if source.exists():
+                roots.append(source)
+
+    env_root = os.environ.get("NOTED_USERS_ROOT")
+    if env_root:
+        env_path = Path(env_root)
+        if env_path.exists():
+            roots.append(env_path)
+
+    if DEFAULT_USERS_ROOT.exists():
+        roots.append(DEFAULT_USERS_ROOT)
+
+    scratch_root = Path("/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users")
+    if scratch_root.exists():
+        roots.append(scratch_root)
+
+    unique_roots: List[Path] = []
+    seen = set()
+    for root in roots:
+        key = str(root.resolve())
+        if key not in seen:
+            unique_roots.append(root)
+            seen.add(key)
+    return unique_roots
+
+
+def _find_final_crm_json_files(source: Optional[Any] = None) -> List[Path]:
+    files: List[Path] = []
+    seen = set()
+    for root in _candidate_users_roots(source):
+        if not root.exists():
+            continue
+        for path in root.rglob("*.json"):
+            if path.name in CRM_JSON_NAMES:
+                resolved = str(path.resolve())
+                if resolved not in seen:
+                    files.append(path)
+                    seen.add(resolved)
+    return sorted(files)
+
+
+def build_combined_summary(source: Optional[Any] = None, output_path: Optional[Path] = None) -> Dict[str, Any]:
+    json_files = _find_final_crm_json_files(source)
+    records: List[Dict[str, Any]] = []
+    for path in json_files:
+        try:
+            with open(path, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+            if isinstance(data, dict):
+                records.append(data)
+        except Exception:
+            continue
+
+    total_seconds = 0
+    count = 0
+    for record in records:
+        metadata = record.get("metadata", {}) or {}
+        visit_duration = metadata.get("visit_duration")
+        audio_duration = metadata.get("audio_duration_sec")
+        secs = _parse_duration(visit_duration, fallback_seconds=audio_duration)
+        if secs is None:
+            continue
+        total_seconds += secs
+        count += 1
+
+    average_conversation_time = _format_duration(int(total_seconds / count)) if count else "—"
+
+    contact_counter = Counter()
+    for record in records:
+        questionnaire = record.get("questionnaire", {}) or {}
+        raw_answer = questionnaire.get("What is the contact method used by Advisee(s)?") or ""
+        cleaned = str(raw_answer).strip()
+        if not cleaned or cleaned.lower() in {"not mentioned in transcript.", "none", "n/a", "unknown"}:
+            continue
+        for item in [part.strip() for part in cleaned.split(",") if part.strip()]:
+            contact_counter[item] += 1
+
+    contact_methods = []
+    if contact_counter:
+        total = sum(contact_counter.values())
+        for label, value in contact_counter.most_common():
+            contact_methods.append({
+                "label": label,
+                "count": value,
+                "pct": round(value / total * 100, 1),
+            })
+
+    summary = {
+        "average_conversation_time": average_conversation_time,
+        "contact_methods": contact_methods,
+        "number_of_customers": len(records),
+        "source_files": [str(path.relative_to(REPO_ROOT)).replace("\\", "/") for path in json_files],
+    }
+
+    target_path = output_path or DEFAULT_SUMMARY_OUTPUT
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(target_path, "w", encoding="utf-8") as fh:
+        json.dump(summary, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+
+    return summary
+
+
+def get_average_conversation_time(source: Optional[Any] = None, **kwargs) -> str:
+    """Return average conversation time based on all discovered CRM JSON files."""
+    return build_combined_summary(source=source)["average_conversation_time"]
+
+
+def get_contact_methods(source: Optional[Any] = None, **kwargs) -> List[Dict[str, Any]]:
+    """Return contact methods observed across all discovered CRM JSON files."""
+    return build_combined_summary(source=source)["contact_methods"]
 
 
 def get_number_of_customers(source: Optional[Any] = None, **kwargs) -> Union[int, str]:
-    """Return total number of customers based on unique JSON files in the data folder.
-
-    Counts files ending with `.json` in the `data` directory (or in `source` if
-    a directory path is provided). Returns integer count or placeholder "—"
-    on error or when directory is missing.
-    """
-    data_dir = None
-    if isinstance(source, str):
-        data_dir = source
-    else:
-        data_dir = os.path.join(os.path.dirname(__file__), "data")
-
-    try:
-        if not os.path.isdir(data_dir):
-            return "—"
-
-        files = os.listdir(data_dir)
-        # Count unique JSON files (by filename)
-        json_files = [f for f in files if f.lower().endswith('.json')]
-        return len(json_files)
-    except Exception:
-        return "—"
+    """Return the total number of analyzed audio files from all discovered CRM JSON files."""
+    return build_combined_summary(source=source)["number_of_customers"]
 
 
 def get_gender_ratio(source: Optional[Any] = None, **kwargs) -> str:
@@ -502,14 +558,12 @@ def get_customer_feedbacks(source: Optional[Any] = None, limit: int = 20, **kwar
 
 
 def fetch_all_stats(source: Optional[Any] = None, **kwargs) -> Dict[str, Any]:
-    """Return a dictionary containing all dashboard fields using the helper functions above.
-
-    Keep this function as a single place the API can call to retrieve dashboard data.
-    """
+    """Return a dictionary containing the aggregated dashboard fields for all CRM JSON files."""
+    summary = build_combined_summary(source=source)
     return {
-        "average_conversation_time": get_average_conversation_time(source, **kwargs),
-        "contact_methods": get_contact_methods(source, **kwargs),
-        "number_of_customers": get_number_of_customers(source, **kwargs),
+        "average_conversation_time": summary["average_conversation_time"],
+        "contact_methods": summary["contact_methods"],
+        "number_of_customers": summary["number_of_customers"],
         "gender_ratio": get_gender_ratio(source, **kwargs),
         "age_groups": get_age_groups(source, **kwargs),
         "country_of_origin": get_countries_of_origin(source, **kwargs),
@@ -517,6 +571,7 @@ def fetch_all_stats(source: Optional[Any] = None, **kwargs) -> Dict[str, Any]:
         "topics_discussed": get_topics_discussed(source, **kwargs),
         "purposes_of_visit": get_purposes_of_visit(source, **kwargs),
         "customer_feedbacks": get_customer_feedbacks(source, **kwargs),
+        "source_files": summary["source_files"],
     }
 
 

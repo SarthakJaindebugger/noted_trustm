@@ -1,16 +1,19 @@
 import logging
+import json
 from pathlib import Path
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 
 from api.auth import AuthenticatedUser, require_authenticated_user
-from knowledgebase.admin_dashboard_stats import fetch_all_stats
 from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files
 
 logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+COMBINED_DASHBOARD_SUMMARY = (
+    REPO_ROOT / "combined_admin_dashboard" / "combined_dashboard_summary.json"
+)
 admin_router = APIRouter(prefix="/admin")
 
 
@@ -36,14 +39,27 @@ def _normalize_path(path: Optional[str]) -> Path:
 
 @admin_router.get("/stats")
 async def get_admin_stats(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
-    """Return aggregated admin dashboard stats by reading processed JSON outputs."""
+    """Return the dashboard data published in the combined summary JSON file."""
     _ensure_admin(current_user)
     try:
-        stats = fetch_all_stats()
+        if not COMBINED_DASHBOARD_SUMMARY.is_file():
+            raise HTTPException(
+                status_code=404,
+                detail="Dashboard summary file has not been generated yet",
+            )
+
+        with COMBINED_DASHBOARD_SUMMARY.open("r", encoding="utf-8") as summary_file:
+            stats = json.load(summary_file)
+
+        if not isinstance(stats, dict):
+            raise ValueError("Dashboard summary must contain a JSON object")
+
         return stats
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Failed to fetch admin stats: {e}")
-        raise HTTPException(status_code=500, detail="Failed to fetch admin stats")
+        raise HTTPException(status_code=500, detail="Failed to read dashboard summary")
 
 
 @admin_router.get("/files")

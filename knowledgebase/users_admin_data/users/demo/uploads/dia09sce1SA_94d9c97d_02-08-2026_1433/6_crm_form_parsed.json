@@ -1,0 +1,79 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Not mentioned in transcript.",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Not mentioned in transcript.",
+    "Mother Tongue/Language": "Chinese",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Not mentioned in transcript.",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Contents of the customer visit": "Family life (eg.: children's school, early childhood education, relationships)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Early childhood education",
+    "Any Additional Information": "The customer is looking for a daycare center in Espoo, Finland, that offers English or Mandarin-speaking services for their three-year-old daughter, as they cannot take her to work every day and are concerned about language barriers. They are also interested in understanding the costs, potential government support, and the availability of private daycare options.",
+    "Any other Feedback": "The advisor noted that finding a Chinese-speaking daycare might be difficult and suggested looking for English-speaking options, mentioned the potential high cost of private daycare, and advised checking the website and contacting daycare centers directly for more information."
+  },
+  "metadata": {
+    "date_time": "02/08/2026 14:42",
+    "audio_file": "dia09sce1SA_94d9c97d.wav",
+    "visit_duration": "20 min 12 sec",
+    "audio_duration_sec": 1211.68,
+    "segment_count": 113,
+    "speakers_detected": [
+      "SPEAKER_01",
+      "SPEAKER_02",
+      "SPEAKER_04"
+    ],
+    "speaker_roles": {
+      "SPEAKER_01": "customer",
+      "SPEAKER_02": "advisor",
+      "SPEAKER_04": "advisor",
+      "UNKNOWN": "customer"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_01": 260.26,
+      "SPEAKER_04": 586.84,
+      "SPEAKER_02": 29.36
+    },
+    "total_advisor_time_sec": 616.2,
+    "total_advisor_time": "10 min 16 sec",
+    "total_customer_time_sec": 260.26,
+    "total_customer_time": "4 min 20 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "20 min 12 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "",
+    "customerCount": 1,
+    "gender": "",
+    "age": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "",
+    "motherTongue": "Chinese",
+    "educationLevel": "",
+    "labourPosition": [],
+    "domicile": "Espoo, Finland",
+    "residenceDuration": [],
+    "contents": [
+      "Family life (eg.: children's school",
+      "early childhood education",
+      "relationships)"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is looking for a daycare center in Espoo, Finland, that offers English or Mandarin-speaking services for their three-year-old daughter, as they cannot take her to work every day and are concerned about language barriers. They are also interested in understanding the costs, potential government support, and the availability of private daycare options.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The advisor noted that finding a Chinese-speaking daycare might be difficult and suggested looking for English-speaking options, mentioned the potential high cost of private daycare, and advised checking the website and contacting daycare centers directly for more information."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "audio_file": "dia11sce2SA_02c7e5c0.wav",
+  "private_transcript_path": "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/uploads/dia11sce2SA_02c7e5c0/2_private_transcript.json",
+  "chunk_count": 8,
+  "chunk_files": [
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk1_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk2_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk3_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk4_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk5_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk6_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk7_embedding.json",
+    "/scratch/work/jains6/noted/noted-main/knowledgebase/users_admin_data/users/alice/embedding/dia11sce2SA_02c7e5c0_20260802_130315/dia11sce2SA_02c7e5c0_chunk8_embedding.json"
+  ]
+}
