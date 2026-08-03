@@ -6,14 +6,19 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 
 from api.auth import AuthenticatedUser, require_authenticated_user
+from knowledgebase.admin_dashboard_stats import (
+    DEFAULT_SUMMARY_OUTPUT,
+    build_combined_summary,
+)
 from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files
 
 logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-COMBINED_DASHBOARD_SUMMARY = (
-    REPO_ROOT / "combined_admin_dashboard" / "combined_dashboard_summary.json"
-)
+# Keep this identical to the generator's output path.  In Docker the app lives
+# at /app, while in local development the repository root is one level above
+# noted-backend; DEFAULT_SUMMARY_OUTPUT handles both layouts correctly.
+COMBINED_DASHBOARD_SUMMARY = DEFAULT_SUMMARY_OUTPUT
 admin_router = APIRouter(prefix="/admin")
 
 
@@ -60,6 +65,20 @@ async def get_admin_stats(current_user: AuthenticatedUser = Depends(require_auth
     except Exception as e:
         logger.error(f"Failed to fetch admin stats: {e}")
         raise HTTPException(status_code=500, detail="Failed to read dashboard summary")
+
+
+@admin_router.post("/stats/refresh")
+async def refresh_admin_stats(
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Regenerate the dashboard summary from all users' processed CRM JSON files."""
+    _ensure_admin(current_user)
+    try:
+        stats = build_combined_summary(output_path=COMBINED_DASHBOARD_SUMMARY)
+        return stats
+    except Exception as e:
+        logger.error("Failed to refresh dashboard summary: %s", e)
+        raise HTTPException(status_code=500, detail="Failed to refresh dashboard summary")
 
 
 @admin_router.get("/files")

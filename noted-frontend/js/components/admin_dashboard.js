@@ -29,6 +29,8 @@ export default {
     const topicsDiscussed = ref([]); // e.g. ['work visa','benefits']
     const purposesOfVisit = ref([]); // e.g. ['consultation','application']
     const customerFeedbacks = ref([]); // e.g. [{text:'Great service', rating:5}]
+    const isRefreshingDashboard = ref(false);
+    const dashboardRefreshError = ref('');
 
     // ----- Floating Chat State -----
     const messages = ref([
@@ -300,6 +302,25 @@ export default {
         console.error('Error fetching dashboard data', err);
       }
     };
+
+    const refreshDashboardSummary = async () => {
+      if (isRefreshingDashboard.value) return;
+
+      isRefreshingDashboard.value = true;
+      dashboardRefreshError.value = '';
+      try {
+        const refreshedStats = await apiClient.post('/admin/stats/refresh');
+        averageConversationTime.value = refreshedStats.average_conversation_time || '—';
+        contactMethods.value = refreshedStats.contact_methods || [];
+        numberOfCustomers.value = refreshedStats.number_of_customers ?? '—';
+        await fetchDashboardData();
+      } catch (error) {
+        console.error('Failed to refresh dashboard summary', error);
+        dashboardRefreshError.value = error.message || 'Unable to refresh dashboard data.';
+      } finally {
+        isRefreshingDashboard.value = false;
+      }
+    };
     // load on setup
     fetchDashboardData();
     loadAudioFiles();
@@ -354,7 +375,10 @@ export default {
       durationResidence,
       topicsDiscussed,
       purposesOfVisit,
-      customerFeedbacks
+      customerFeedbacks,
+      isRefreshingDashboard,
+      dashboardRefreshError,
+      refreshDashboardSummary
     };
   },
 
@@ -368,6 +392,9 @@ export default {
             <p class="text-gray-600">Comprehensive overview of immigration operations</p>
           </div>
           <div class="flex items-center gap-3">
+            <button @click="refreshDashboardSummary" :disabled="isRefreshingDashboard" class="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition disabled:cursor-not-allowed disabled:bg-blue-300">
+              {{ isRefreshingDashboard ? 'Refreshing…' : 'Refresh statistics' }}
+            </button>
             <button @click="goToRawBackend" class="px-5 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-700 transition">
               Raw Backend Access
             </button>
@@ -388,6 +415,9 @@ export default {
       </div>
 
       <div class="max-w-7xl mx-auto p-6 space-y-8">
+        <div v-if="dashboardRefreshError" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          {{ dashboardRefreshError }}
+        </div>
         <div v-if="activeTab === 'analyze'" class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
           <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>

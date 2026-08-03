@@ -7,6 +7,7 @@ services:
     - ./speech_analysis_qa:/app/speech_analysis_qa
     - ./speech_analysis_qa:/data/speech_analysis_qa
     - ./knowledgebase:/app/knowledgebase
+    - ./combined_admin_dashboard:/app/combined_admin_dashboard
     container_name: noted-backend
     restart: unless-stopped
     environment:
