@@ -16,7 +16,13 @@ from api.schemas import SessionNotesUpdateRequest, SessionRenameRequest
 from database.connection import AsyncSessionLocal
 from models.session import SessionData, SessionStats, SessionStatus
 from models.transcript import TranscriptEntry
-from services.account_store import principal_data_dir, recordings_dir_for_principal
+from services.account_store import principal_data_dir, recordings_dir_for_principal, uploads_dir_for_principal
+from services.admin_audio_analysis import (
+    analyze_audio_file,
+    ensure_audio_belongs_to_user,
+    list_audio_files_for_username,
+    save_submitted_crm_form,
+)
 from services.file_service import save_upload_file
 from services.session_manager_async import AsyncSessionManager
 
@@ -76,6 +82,324 @@ async def process_uploaded_audio(
         await session_manager.set_session_progress(session_name, 100.0, "error", "Processing failed")
         await session_manager.set_session_status(session_name, SessionStatus.ERROR)
 
+
+@session_router.get("/audio/analyze-files")
+async def list_audio_files_for_analysis(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Return the audio files that belong to the authenticated user."""
+    return {"audio_files": list_audio_files_for_username(current_user.username)}
+
+
+@session_router.post("/audio/analyze")
+async def analyze_selected_audio(
+    payload: dict,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Run the speech-analysis pipeline on one of the user's own audio files."""
+    audio_path = payload.get("audio_path")
+    if not audio_path:
+        raise HTTPException(status_code=400, detail="audio_path is required")
+
+    try:
+        ensure_audio_belongs_to_user(audio_path, current_user.username)
+    except ValueError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    try:
+        result = analyze_audio_file(audio_path)
+    except Exception as exc:
+        # Log the full backend error for debugging, but never leak it to the
+        # frontend (e.g. CUDA out-of-memory dumps should not appear in the UI).
+        logger.error("Audio analysis failed for user %s: %s", current_user.username, exc)
+        raise HTTPException(
+            status_code=500,
+            detail="Analysis failed. Please ensure the speech-analysis services are available and try again.",
+        ) from exc
+
+    return result
+
+
+@session_router.get("/audio/crm-form-status")
+async def get_crm_form_status(
+    audio_filename: str,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Check if a CRM form exists for the given audio file."""
+    from services.admin_audio_analysis import check_crm_form_exists
+    
+    try:
+        exists = check_crm_form_exists(current_user.username, audio_filename)
+        return {"crm_form_exists": exists}
+    except Exception as exc:
+        logger.error("Failed to check CRM form status for user %s: %s", current_user.username, exc)
+        return {"crm_form_exists": False}
+
+
+@session_router.get("/audio/analyze-result")
+async def get_existing_analysis_result(
+    audio_path: str,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Return the analysis output paths for an already-analyzed audio file without re-running the pipeline.
+
+    Used by the frontend after a page refresh to re-enable the CRM form button for files
+    that were previously analyzed.
+    """
+    import re as _re
+    from services.admin_audio_analysis import (
+        ensure_audio_belongs_to_user,
+        get_default_users_root,
+        REPO_ROOT,
+    )
+    from speech_analysis_qa.utils import sanitize_username
+
+    try:
+        ensure_audio_belongs_to_user(audio_path, current_user.username)
+    except (ValueError, FileNotFoundError) as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
+
+    users_root = get_default_users_root()
+    safe_username = sanitize_username(current_user.username)
+    user_uploads = users_root / safe_username / "uploads"
+
+    if not user_uploads.exists():
+        raise HTTPException(status_code=404, detail="No analysis results found.")
+
+    audio_stem = _re.sub(r"[^A-Za-z0-9._-]+", "_", Path(audio_path).stem).strip("._-")
+    matching = sorted(
+        [d for d in user_uploads.iterdir() if d.is_dir() and d.name.startswith(audio_stem)],
+        reverse=True,
+    )
+
+    if not matching:
+        raise HTTPException(status_code=404, detail="No analysis results found for this file.")
+
+    target_dir = matching[0]
+
+    crm_form_json_path = None
+    crm_form_html_path = None
+    for candidate in (target_dir / "crm_form_parsed.json", target_dir / "6_crm_form_parsed.json"):
+        if candidate.exists():
+            crm_form_json_path = str(candidate.relative_to(REPO_ROOT)).replace("\\", "/")
+            break
+    for candidate in (target_dir / "crm_form_parsed.html", target_dir / "6_crm_form.html"):
+        if candidate.exists():
+            crm_form_html_path = str(candidate.relative_to(REPO_ROOT)).replace("\\", "/")
+            break
+
+    if not crm_form_html_path:
+        raise HTTPException(status_code=404, detail="CRM form HTML not found for this file.")
+
+    return {
+        "output_dir": str(target_dir.relative_to(REPO_ROOT)).replace("\\", "/"),
+        "crm_form_json_path": crm_form_json_path,
+        "crm_form_html_path": crm_form_html_path,
+        "result": None,
+    }
+
+
+@session_router.post("/audio/crm-form/submit")
+async def submit_crm_form_copy(
+    payload: dict,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Submit a CRM form by copying the existing 6_crm_form_parsed.json from the user's
+    uploads folder into knowledgebase/submitted_crm_forms.
+
+    The payload must contain 'audio_filename' (e.g. 'dia03sce1SA.wav' or stem only).
+    """
+    import re as _re
+    import shutil as _shutil
+    from datetime import datetime as _datetime
+    from services.admin_audio_analysis import (
+        get_default_users_root,
+        get_submitted_crm_root,
+        REPO_ROOT,
+    )
+    from speech_analysis_qa.utils import sanitize_username
+
+    audio_filename = payload.get("audio_filename") or payload.get("audio_path", "")
+    audio_stem = Path(audio_filename).stem  # strip extension if present
+    audio_stem_safe = _re.sub(r"[^A-Za-z0-9._-]+", "_", audio_stem).strip("._-")
+
+    users_root = get_default_users_root()
+    safe_username = sanitize_username(current_user.username)
+    user_uploads = users_root / safe_username / "uploads"
+
+    logger.info(
+        "[CRM_SUBMIT] user=%s audio_stem=%s user_uploads=%s",
+        safe_username, audio_stem_safe, user_uploads,
+    )
+
+    if not user_uploads.exists():
+        raise HTTPException(status_code=404, detail=f"No uploads folder for user {safe_username}")
+
+    # Find the most recent upload dir matching this audio stem
+    matching_dirs = sorted(
+        [d for d in user_uploads.iterdir() if d.is_dir() and d.name.startswith(audio_stem_safe)],
+        reverse=True,
+    )
+    logger.info("[CRM_SUBMIT] matching dirs: %s", [d.name for d in matching_dirs])
+
+    source_json = None
+    for d in matching_dirs:
+        for candidate_name in ("6_crm_form_parsed.json", "crm_form_parsed.json"):
+            candidate = d / candidate_name
+            if candidate.exists():
+                source_json = candidate
+                break
+        if source_json:
+            break
+
+    if not source_json:
+        logger.error("[CRM_SUBMIT] No CRM JSON found for %s in %s", audio_stem_safe, user_uploads)
+        raise HTTPException(
+            status_code=404,
+            detail=f"No CRM form JSON found for '{audio_stem}'. Please run analysis first.",
+        )
+
+    logger.info("[CRM_SUBMIT] Found source JSON: %s", source_json)
+
+    # Destination: knowledgebase/submitted_crm_forms/<username>_<DD.MM.YYYY>_<HH_MM_SS>.json
+    dest_root = get_submitted_crm_root()
+    dest_root.mkdir(parents=True, exist_ok=True)
+    stamp = _datetime.now().strftime("%d.%m.%Y_%H_%M_%S")
+    dest_filename = f"{safe_username}_{stamp}.json"
+    dest_path = dest_root / dest_filename
+
+    logger.info("[CRM_SUBMIT] Copying %s → %s", source_json, dest_path)
+    _shutil.copy2(str(source_json), str(dest_path))
+
+    if not dest_path.exists():
+        logger.error("[CRM_SUBMIT] Copy failed — dest file does not exist after copy")
+        raise HTTPException(status_code=500, detail="File copy failed.")
+
+    logger.info("[CRM_SUBMIT] SUCCESS — saved %s (%d bytes)", dest_path.name, dest_path.stat().st_size)
+    return {
+        "success": True,
+        "filename": dest_filename,
+        "source": str(source_json.relative_to(REPO_ROOT)).replace("\\", "/"),
+        "dest": str(dest_path.relative_to(REPO_ROOT)).replace("\\", "/"),
+    }
+
+
+@session_router.post("/audio/crm-form/save")
+async def save_crm_form_from_html(
+    payload: dict,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Save a submitted CRM form from the HTML popup directly to knowledgebase/submitted_crm_forms.
+
+    This endpoint is called by the CRM HTML form's submit button.
+    The payload contains the full form data including all questionnaire fields.
+    """
+    try:
+        result = save_submitted_crm_form(
+            username=current_user.username,
+            form_data=payload,
+        )
+        logger.info(
+            "CRM form saved for user %s: %s",
+            current_user.username,
+            result.get("filename"),
+        )
+        return {"success": True, "filename": result["filename"], "path": result["path"]}
+    except Exception as exc:
+        logger.error(
+            "Failed to save CRM form for user %s: %s",
+            current_user.username,
+            exc,
+            exc_info=True,
+        )
+        raise HTTPException(status_code=500, detail="Failed to save CRM form.")
+
+
+@session_router.get("/audio/file-content")
+async def read_user_audio_file_content(
+    path: str,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Read a text file (e.g. CRM form HTML) within the user's own directory."""
+    from pathlib import Path as _Path
+    from speech_analysis_qa.utils import sanitize_username
+
+    repo_root = _Path(__file__).resolve().parents[2]
+
+    requested = _Path(path)
+
+    if not requested.is_absolute():
+        requested = repo_root / requested
+
+    resolved = requested.resolve()
+
+    # Ensure the file belongs to the authenticated user's directory
+    safe_username = sanitize_username(current_user.username)
+
+    valid_prefix = (
+        repo_root
+        / "knowledgebase"
+        / "users_admin_data"
+        / "users"
+        / safe_username
+    )
+
+    if not str(resolved).startswith(str(valid_prefix.resolve())):
+        raise HTTPException(
+            status_code=403,
+            detail="Access denied"
+        )
+
+    supported_text = {
+        "html",
+        "htm",
+        "json",
+        "md",
+        "txt",
+        "css",
+        "js",
+        "csv",
+    }
+
+    extension = resolved.suffix.lower().lstrip(".")
+
+    if extension not in supported_text:
+        raise HTTPException(
+            status_code=415,
+            detail=f"Preview not supported for .{extension} files"
+        )
+
+    if not resolved.exists() or not resolved.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail="File not found"
+        )
+
+    try:
+        content = resolved.read_text(
+            encoding="utf-8",
+            errors="replace"
+        )
+
+    except Exception as exc:
+        logger.error(
+            "Failed to read file %s: %s",
+            resolved,
+            exc
+        )
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to read file"
+        )
+
+    return {
+        "path": str(
+            resolved.relative_to(repo_root)
+        ).replace("\\", "/"),
+        "name": resolved.name,
+        "content": content,
+        "extension": extension,
+    }
 
 @session_router.get("/sessions/next-name")
 async def get_next_session_name(

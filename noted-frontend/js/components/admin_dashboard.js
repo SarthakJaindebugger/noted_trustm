@@ -1,4 +1,4 @@
-import { ref, nextTick, computed } from 'vue';
+import { ref, nextTick, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { authService } from '../services/auth_service.js';
 import { apiClient } from '../services/api_client.js';
@@ -8,719 +8,477 @@ export default {
 
   setup() {
     const router = useRouter();
-    const searchQuery = ref('');
-    
-    // ----- Replace with real data source -----
-    const applications = ref([]);
-    const totalApplications = ref(0);
-    const pendingReview = ref(0);
-    const approvedToday = ref(0);
-    const activeOfficers = ref(0);
-    const trendsData = ref({});
-    const applicationTypes = ref([]);
-    // New dashboard fields (placeholders — will be filled dynamically)
-    const averageConversationTime = ref('—');
-    const contactMethods = ref([]); // e.g. ['phone','email']
-    const numberOfCustomers = ref('—');
-    const genderRatio = ref('—');
-    const ageGroups = ref([]); // e.g. [{range:'18-25', pct:20}, ...]
-    const countryOfOrigin = ref([]); // e.g. [{country:'Finland', pct:70}]
-    const durationResidence = ref([]); // e.g. [{range:'<1yr', pct:10}, ...]
-    const topicsDiscussed = ref([]); // e.g. ['work visa','benefits']
-    const purposesOfVisit = ref([]); // e.g. ['consultation','application']
-    const customerFeedbacks = ref([]); // e.g. [{text:'Great service', rating:5}]
-    const isRefreshingDashboard = ref(false);
-    const dashboardRefreshError = ref('');
 
-    // ----- Floating Chat State -----
-    const messages = ref([
-      {
-        role: 'assistant',
-        content: '👋 Hello! I\'m your AI immigration assistant. I can answer questions based on official immigration documents and policies. What would you like to know?',
-        timestamp: Date.now()
-      }
-    ]);
-    const audioFiles = ref([]);
-    const selectedAudioPath = ref('');
-    const isAnalyzingAudio = ref(false);
-    const analysisStatus = ref('');
-    const analysisError = ref('');
-    const analysisResult = ref(null);
-    const activeTab = ref('overview');
-    const crmFormHtmlPath = computed(() => {
-      const result = analysisResult.value;
-      if (!result) return '';
-      return result.crm_form_html_path || result.result?.crm_form_html_path || '';
-    });
-    const newMessage = ref('');
-    const isTyping = ref(false);
-    const isMinimized = ref(false);
+    // ── Dashboard fields (all questionnaire keys) ──
+    const totalForms        = ref(0);
+    const numberOfCustomers = ref('—');
+    const averageConvTime   = ref('—');
+    const contactMethods    = ref([]);
+    const topicsDiscussed   = ref([]);
+    const purposesOfVisit   = ref([]);
+    const labourPositions   = ref([]);
+    const birthCountries    = ref([]);
+    const languages         = ref([]);
+    const residences        = ref([]);
+    const durationResidence = ref([]);
+    const directedTo        = ref([]);
+    const heardFrom         = ref([]);
+    const immigrationReasons= ref([]);
+    const educationLevels   = ref([]);
+    const additionalInfoTags= ref([]);
+    const otherFeedback     = ref([]);
+
+    // ── CRM Modal state ──
+    const showCrmModal       = ref(false);
+    const crmForms           = ref([]);
+    const selectedCrmPaths   = reactive(new Set());
+    const isLoadingCrmForms  = ref(false);
+
+    const crmSelectAllChecked = computed(() =>
+      crmForms.value.length > 0 && crmForms.value.every(f => selectedCrmPaths.has(f.file_path))
+    );
+    const crmSelectAllIndeterminate = computed(() =>
+      selectedCrmPaths.size > 0 && !crmSelectAllChecked.value
+    );
+
+    // ── Floating chat state ──
+    const messages = ref([{
+      role: 'assistant',
+      content: '👋 Hello! I\'m your AI immigration assistant. What would you like to know?',
+      timestamp: Date.now()
+    }]);
+    const newMessage      = ref('');
+    const isTyping        = ref(false);
+    const isMinimized     = ref(false);
     const messagesContainer = ref(null);
-    let unreadCounter = 0;
-    const unreadCount = ref(0);
+    const unreadCount     = ref(0);
+    let   _unread         = 0;
+
 
     const scrollToBottom = async () => {
       await nextTick();
-      if (messagesContainer.value) {
-        messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-      }
+      if (messagesContainer.value) messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
     };
+    const formatTime = ts => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    const formatTime = (timestamp) => {
-      const date = new Date(timestamp);
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    };
-
-    // ----- REAL RAG API CALL -----
-    const getRAGResponse = async (userQuery) => {
+    const getRAGResponse = async (query) => {
       const token = authService.getToken();
       const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? 'http://127.0.0.1:8000/api/v1/rag/query'
-        : '/api/rag/query';
-
-      console.debug('Calling RAG API', { apiUrl, tokenPresent: !!token, query: userQuery });
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-          },
-          body: JSON.stringify({
-            query: userQuery,
-            top_k: 5   // you can adjust
-          })
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error('RAG API error response:', {
-            status: response.status,
-            statusText: response.statusText,
-            body: errorText,
-          });
-          throw new Error(`RAG API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data.response;   // backend returns { response, context_docs }
-      } catch (error) {
-        console.error('RAG API call failed:', error);
-        return 'Sorry, I could not retrieve information from the knowledge base. Please try again later.';
-      }
+        ? 'http://127.0.0.1:8000/api/v1/rag/query' : '/api/rag/query';
+      const resp = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...(token ? { 'Authorization': `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ query, top_k: 5 })
+      });
+      if (!resp.ok) throw new Error(`RAG API error: ${resp.status}`);
+      return (await resp.json()).response;
     };
 
-    // Updated sendMessage – uses real RAG
     const sendMessage = async () => {
       const content = newMessage.value.trim();
       if (!content || isTyping.value) return;
-
-      // Add user message
-      messages.value.push({
-        role: 'user',
-        content: content,
-        timestamp: Date.now()
-      });
+      messages.value.push({ role: 'user', content, timestamp: Date.now() });
       newMessage.value = '';
       await scrollToBottom();
-
       isTyping.value = true;
       try {
-        const responseContent = await getRAGResponse(content);
-        messages.value.push({
-          role: 'assistant',
-          content: responseContent,
-          timestamp: Date.now()
-        });
-        if (isMinimized.value) {
-          unreadCounter++;
-          unreadCount.value = unreadCounter;
-        }
+        const reply = await getRAGResponse(content);
+        messages.value.push({ role: 'assistant', content: reply, timestamp: Date.now() });
+        if (isMinimized.value) { _unread++; unreadCount.value = _unread; }
         await scrollToBottom();
-      } catch (error) {
-        messages.value.push({
-          role: 'assistant',
-          content: 'An unexpected error occurred. Please try again later.',
-          timestamp: Date.now()
-        });
-        await scrollToBottom();
-      } finally {
-        isTyping.value = false;
-      }
+      } catch {
+        messages.value.push({ role: 'assistant', content: 'Error fetching response. Try again.', timestamp: Date.now() });
+      } finally { isTyping.value = false; }
     };
 
     const clearConversation = () => {
-      messages.value = [
-        {
-          role: 'assistant',
-          content: '✨ Conversation cleared. How can I assist you with immigration questions today?',
-          timestamp: Date.now()
-        }
-      ];
-      unreadCounter = 0;
-      unreadCount.value = 0;
-      scrollToBottom();
+      messages.value = [{ role: 'assistant', content: '✨ Conversation cleared.', timestamp: Date.now() }];
+      _unread = 0; unreadCount.value = 0; scrollToBottom();
     };
+    const expandChat = () => { isMinimized.value = false; _unread = 0; unreadCount.value = 0; scrollToBottom(); };
+    const logout = async () => { authService.logout(); localStorage.removeItem('isAdmin'); router.push({ name: 'login' }); };
 
-    const expandChat = () => {
-      isMinimized.value = false;
-      unreadCounter = 0;
-      unreadCount.value = 0;
-      scrollToBottom();
-    };
 
-    const goToRawBackend = async () => {
-      await router.push({ name: 'admin_files' });
-    };
-
-    const loadAudioFiles = async () => {
+    // ── Load aggregated CRM data on mount ──
+    const fetchAggregatedCrmData = async () => {
       try {
-        const data = await apiClient.get('/admin/audio-files');
-        audioFiles.value = data.audio_files || [];
-        if (!audioFiles.value.length) {
-          analysisStatus.value = 'No audio files were found in the configured user database.';
-        }
-      } catch (error) {
-        console.error('Failed to load audio files', error);
-        analysisError.value = error.message || 'Failed to load audio files.';
-        analysisStatus.value = 'Unable to load audio files.';
-      }
+        const d = await apiClient.get('/admin/crm-forms/aggregated');
+        totalForms.value         = d.total_forms        || 0;
+        numberOfCustomers.value  = d.number_of_customers || d.total_forms || '—';
+        averageConvTime.value    = d.average_conversation_time || '—';
+        contactMethods.value     = d.contact_methods    || [];
+        topicsDiscussed.value    = d.topics_discussed   || [];
+        purposesOfVisit.value    = d.purposes_of_visit  || [];
+        labourPositions.value    = d.labour_positions   || [];
+        birthCountries.value     = d.birth_countries    || [];
+        languages.value          = d.languages          || [];
+        residences.value         = d.residences         || [];
+        durationResidence.value  = d.duration_of_residence || [];
+        directedTo.value         = d.directed_to        || [];
+        heardFrom.value          = d.heard_from         || [];
+        immigrationReasons.value = d.immigration_reasons || [];
+        educationLevels.value    = d.education_levels   || [];
+        additionalInfoTags.value = d.additional_info_tags || [];
+        otherFeedback.value      = d.other_feedback     || [];
+      } catch (err) { console.error('Error fetching aggregated CRM data', err); }
     };
 
-    const analyzeSelectedAudio = async () => {
-      if (!selectedAudioPath.value) {
-        analysisError.value = 'Please select an audio file first.';
-        return;
-      }
+    fetchAggregatedCrmData();
 
-      isAnalyzingAudio.value = true;
-      analysisError.value = '';
-      analysisStatus.value = 'Starting speech analysis pipeline...';
-      analysisResult.value = null;
-
+    // ── CRM modal ──
+    const openCrmModal = async () => {
+      showCrmModal.value = true;
+      isLoadingCrmForms.value = true;
+      selectedCrmPaths.clear();
       try {
-        const result = await apiClient.post('/admin/analyze-audio', { audio_path: selectedAudioPath.value });
-        analysisResult.value = result;
-        analysisStatus.value = 'Analysis completed successfully.';
-        activeTab.value = 'analyze';
-      } catch (error) {
-        console.error('Audio analysis failed', error);
-        analysisError.value = error.message || 'Audio analysis failed.';
-        analysisStatus.value = 'Analysis failed.';
-      } finally {
-        isAnalyzingAudio.value = false;
-      }
-    };
-
-    const openCrmForm = async () => {
-      const htmlPath = crmFormHtmlPath.value;
-      if (!htmlPath) {
-        analysisError.value = 'No CRM form HTML is available yet.';
-        return;
-      }
-
-      try {
-        const response = await apiClient.request(`/admin/files/content?path=${encodeURIComponent(htmlPath)}`);
-        if (!response.ok) {
-          const errText = await response.text();
-          throw new Error(errText || `Failed to open CRM form: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const htmlContent = data.content || '';
-        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-        const blobUrl = URL.createObjectURL(blob);
-        const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
-        if (!popup) {
-          throw new Error('Popup blocked. Please allow popups for this site.');
-        }
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-        analysisStatus.value = 'CRM form opened in a new window.';
-      } catch (error) {
-        console.error('Failed to open CRM form', error);
-        analysisError.value = error.message || 'Failed to open CRM form.';
-      }
-    };
-
-    const setActiveTab = (tab) => {
-      activeTab.value = tab;
-    };
-
-    const logout = async () => {
-      authService.logout();
-      localStorage.removeItem('isAdmin');
-      router.push({ name: 'login' });
-    };
-
-    // Load the aggregated admin dashboard data from the backend and refresh it every 10 seconds.
-    const fetchDashboardData = async () => {
-      const token = authService.getToken();
-      const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? 'http://127.0.0.1:8000/api/v1/admin/stats'
-        // nginx maps /api/* to the backend's /api/v1/* routes. Including
-        // /v1 here caused production requests to become
-        // /api/v1/api/v1/admin/stats and return 404.
-        : '/api/admin/stats';
-
-      try {
-        const resp = await fetch(apiUrl, {
-          headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-          }
+        const resp = await apiClient.get('/admin/crm-forms');
+        crmForms.value = (resp.crm_forms || []).sort((a, b) => {
+          return `${b.date} ${b.time}`.localeCompare(`${a.date} ${a.time}`);
         });
-        if (!resp.ok) {
-          console.error('Failed to load admin stats', resp.status);
-          return;
-        }
-        const data = await resp.json();
-        averageConversationTime.value = data.average_conversation_time || '—';
-        contactMethods.value = data.contact_methods || [];
-        numberOfCustomers.value = data.number_of_customers || '—';
-        genderRatio.value = data.gender_ratio || '—';
-        // Age groups: expect [{range, count, pct}]
-        ageGroups.value = data.age_groups || [];
-        countryOfOrigin.value = data.country_of_origin || [];
-        durationResidence.value = data.duration_of_residence || [];
-        // Clean topics: remove unspecified/none entries and normalize whitespace
-        const rawTopics = data.topics_discussed || [];
-        const cleaned = rawTopics
-          .map((t) => {
-            if (!t) return null;
-            const topic = (t.topic || t).toString();
-            let s = topic.replace(/The topics discussed in this visit are:\s*/i, '');
-            s = s.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
-            s = s.replace(/[\.|,;]$/g, '');
-            return { topic: s, pct: t.pct ?? null, count: t.count ?? null };
-          })
-          .filter((t) => t && t.topic && !/not specified|none|n\/a|not available/i.test(t.topic));
-        topicsDiscussed.value = cleaned;
-        purposesOfVisit.value = data.purposes_of_visit || [];
-        customerFeedbacks.value = data.customer_feedbacks || [];
-      } catch (err) {
-        console.error('Error fetching dashboard data', err);
-      }
+      } catch (err) { console.error('Failed to load CRM forms', err); crmForms.value = []; }
+      finally { isLoadingCrmForms.value = false; }
+    };
+    const closeCrmModal = () => { showCrmModal.value = false; selectedCrmPaths.clear(); };
+    const toggleCrmFormSelection = fp => selectedCrmPaths.has(fp) ? selectedCrmPaths.delete(fp) : selectedCrmPaths.add(fp);
+    const toggleCrmSelectAll = () => {
+      if (crmSelectAllChecked.value) selectedCrmPaths.clear();
+      else crmForms.value.forEach(f => selectedCrmPaths.add(f.file_path));
     };
 
-    const refreshDashboardSummary = async () => {
-      if (isRefreshingDashboard.value) return;
-
-      isRefreshingDashboard.value = true;
-      dashboardRefreshError.value = '';
+    // Parse selected forms and refresh dashboard fields
+    const parseCrmForms = async () => {
+      if (selectedCrmPaths.size === 0) { alert('Please select at least one CRM form.'); return; }
       try {
-        const refreshedStats = await apiClient.post('/admin/stats/refresh');
-        averageConversationTime.value = refreshedStats.average_conversation_time || '—';
-        contactMethods.value = refreshedStats.contact_methods || [];
-        numberOfCustomers.value = refreshedStats.number_of_customers ?? '—';
-        await fetchDashboardData();
-      } catch (error) {
-        console.error('Failed to refresh dashboard summary', error);
-        dashboardRefreshError.value = error.message || 'Unable to refresh dashboard data.';
-      } finally {
-        isRefreshingDashboard.value = false;
-      }
+        await apiClient.post('/admin/crm-forms/parse', { file_paths: Array.from(selectedCrmPaths) });
+        await fetchAggregatedCrmData();
+        closeCrmModal();
+      } catch (err) { console.error('Failed to parse CRM forms', err); alert('Failed to parse CRM forms.'); }
     };
-    // load on setup
-    fetchDashboardData();
-    loadAudioFiles();
-    const dashboardRefreshTimer = window.setInterval(() => {
-      fetchDashboardData();
-      loadAudioFiles();
-    }, 10000);
 
-    if (import.meta.hot) {
-      import.meta.hot.dispose(() => window.clearInterval(dashboardRefreshTimer));
-    }
 
     return {
-      searchQuery,
-      applications,
-      totalApplications,
-      pendingReview,
-      approvedToday,
-      activeOfficers,
-      applicationTypes,
-      logout,
-      goToRawBackend,
-      messages,
-      newMessage,
-      isTyping,
-      isMinimized,
-      unreadCount,
-      messagesContainer,
-      sendMessage,
-      clearConversation,
-      formatTime,
-      expandChat,
-      audioFiles,
-      selectedAudioPath,
-      isAnalyzingAudio,
-      analysisStatus,
-      analysisError,
-      analysisResult,
-      crmFormHtmlPath,
-      loadAudioFiles,
-      analyzeSelectedAudio,
-      openCrmForm,
-      setActiveTab,
-      activeTab,
-      // new dashboard fields
-      averageConversationTime,
-      contactMethods,
-      numberOfCustomers,
-      genderRatio,
-      ageGroups,
-      countryOfOrigin,
-      durationResidence,
-      topicsDiscussed,
-      purposesOfVisit,
-      customerFeedbacks,
-      isRefreshingDashboard,
-      dashboardRefreshError,
-      refreshDashboardSummary
+      logout, totalForms, numberOfCustomers, averageConvTime,
+      contactMethods, topicsDiscussed, purposesOfVisit, labourPositions,
+      birthCountries, languages, residences, durationResidence,
+      directedTo, heardFrom, immigrationReasons, educationLevels,
+      additionalInfoTags, otherFeedback,
+      showCrmModal, crmForms, selectedCrmPaths, isLoadingCrmForms,
+      crmSelectAllChecked, crmSelectAllIndeterminate,
+      openCrmModal, closeCrmModal, toggleCrmFormSelection, toggleCrmSelectAll, parseCrmForms,
+      messages, newMessage, isTyping, isMinimized, unreadCount, messagesContainer,
+      sendMessage, clearConversation, formatTime, expandChat,
     };
   },
 
-   template: `
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
-      <!-- Header -->
-      <div class="sticky top-0 z-10 backdrop-blur-md bg-white/60 border-b border-white/30">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 class="text-3xl font-bold text-blue-900">Admin Dashboard</h1>
-            <p class="text-gray-600">Comprehensive overview of immigration operations</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <button @click="refreshDashboardSummary" :disabled="isRefreshingDashboard" class="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition disabled:cursor-not-allowed disabled:bg-blue-300">
-              {{ isRefreshingDashboard ? 'Refreshing…' : 'Refresh statistics' }}
-            </button>
-            <button @click="goToRawBackend" class="px-5 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-700 transition">
-              Raw Backend Access
-            </button>
-            <button @click="logout" class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition">Logout</button>
-          </div>
-        </div>
-      </div>
+  template: `
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
 
-      <div class="border-b border-slate-200 bg-white/70 backdrop-blur">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex gap-2">
-          <button @click="setActiveTab('overview')" class="rounded-full px-4 py-2 text-sm font-medium transition" :class="activeTab === 'overview' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'">
-            Overview
+    <!-- ── Header ── -->
+    <div class="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/30">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-blue-900">Admin Dashboard</h1>
+          <p class="text-gray-500 text-sm">Aggregated from {{ totalForms }} submitted CRM form(s)</p>
+        </div>
+        <div class="flex gap-3">
+          <button @click="openCrmModal" class="px-5 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700 transition text-sm font-medium">
+            Analyze CRM Forms
           </button>
-          <button @click="setActiveTab('analyze')" class="rounded-full px-4 py-2 text-sm font-medium transition" :class="activeTab === 'analyze' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'">
-            Analyze Audio
-          </button>
-        </div>
-      </div>
-
-      <div class="max-w-7xl mx-auto p-6 space-y-8">
-        <div v-if="dashboardRefreshError" class="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          {{ dashboardRefreshError }}
-        </div>
-        <div v-if="activeTab === 'analyze'" class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
-          <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <h2 class="text-xl font-semibold text-slate-900">Analyze Audio</h2>
-              <p class="text-sm text-slate-600">Select a recording from the user database and run the full speech-analysis pipeline, including CRM-form export.</p>
-            </div>
-            <div class="flex gap-3">
-              <button @click="loadAudioFiles" class="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">Refresh list</button>
-              <button :disabled="isAnalyzingAudio || !selectedAudioPath" @click="analyzeSelectedAudio" class="rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300">
-                {{ isAnalyzingAudio ? 'Analyzing…' : 'Analyze audio' }}
-              </button>
-            </div>
-          </div>
-          <div class="mt-4">
-            <label class="text-sm font-medium text-slate-700">
-              <span class="mb-2 block">Audio file</span>
-              <select v-model="selectedAudioPath" class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-blue-500 focus:outline-none">
-                <option value="">Select an audio file…</option>
-                <option v-for="audio in audioFiles" :key="audio.path" :value="audio.path">{{ audio.display_name }}</option>
-              </select>
-            </label>
-          </div>
-          <div v-if="analysisResult" class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            <div class="font-semibold">Analysis complete</div>
-            <button v-if="crmFormHtmlPath" @click="openCrmForm" class="mt-3 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">
-              Open CRM Form
-            </button>
-          </div>
-          <div v-if="analysisError" class="mt-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-            {{ analysisError }}
-          </div>
-        </div>
-
-        <div v-if="activeTab === 'overview'">
-          <!-- New dashboard fields -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Average Conversation Time</div>
-            <div class="text-2xl font-bold mt-2">{{ averageConversationTime }}</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Contact Methods Used</div>
-            <div class="text-sm mt-2 space-y-1" v-if="contactMethods.length">
-              <div v-for="method in contactMethods" :key="method.label || method" class="flex items-center justify-between rounded-lg bg-white/70 px-3 py-2">
-                <span class="text-gray-700">{{ method.label || method }}</span>
-                <span class="text-gray-500">{{ method.pct ?? '' }}{{ method.pct !== undefined ? '%' : '' }}</span>
-              </div>
-            </div>
-            <div class="text-gray-400 italic" v-else>—</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl h-64">
-            <div class="text-gray-500">Number of Customers</div>
-            <div class="text-2xl font-bold mt-2">{{ numberOfCustomers }}</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Gender Ratio</div>
-            <div class="text-lg mt-2">{{ genderRatio }}</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl h-80">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="font-semibold text-gray-800">Age Groups</h3>
-              <span class="text-xs text-gray-500">{{ ageGroups.length }} groups</span>
-            </div>
-
-            <div v-if="ageGroups.length" class="space-y-4 overflow-y-auto h-[220px]">
-              <div v-for="g in ageGroups" :key="g.range">
-                <div class="flex justify-between text-sm mb-1">
-                  <span class="font-medium text-gray-700">{{ g.range }}</span>
-                  <span class="text-gray-500">{{ g.pct }}%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-green-500 h-2 rounded-full transition-all duration-500" :style="{ width: g.pct + '%' }"></div>
-                </div>
-              </div>
-            </div>
-
-            <div v-else class="h-[220px] flex items-center justify-center text-gray-400">—</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Countries of Origin</div>
-            <div class="text-sm mt-2" v-if="countryOfOrigin.length">
-              <div v-for="c in countryOfOrigin" :key="c.country">{{ c.country }}: {{ c.pct }}%</div>
-            </div>
-            <div class="text-gray-400 italic" v-else>—</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Duration of Residence</div>
-            <div class="text-sm mt-2" v-if="durationResidence.length">
-              <div v-for="d in durationResidence" :key="d.range">{{ d.range }}: {{ d.pct }}%</div>
-            </div>
-            <div class="text-gray-400 italic" v-else>—</div>
-          </div>
-
-
-
-
-
-
-
-          <div class="glass-card p-6 rounded-2xl h-80">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="font-semibold text-gray-800">
-                Topics Discussed
-              </h3>
-              <span class="text-xs text-gray-500">
-                {{ topicsDiscussed.length }} Topics
-              </span>
-            </div>
-
-            <div
-              v-if="topicsDiscussed.length"
-              class="space-y-4 overflow-y-auto h-[220px]"
-            >
-              <div
-                v-for="item in topicsDiscussed"
-                :key="item.topic"
-              >
-                <div class="flex justify-between text-sm mb-1">
-                  <span class="font-medium text-gray-700">
-                    {{ item.topic }}
-                  </span>
-
-                  <span class="text-gray-500">
-                    {{ item.pct }}%
-                  </span>
-                </div>
-
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    class="bg-blue-600 h-2 rounded-full transition-all duration-500"
-                    :style="{ width: item.pct + '%' }"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              v-else
-              class="h-[220px] flex items-center justify-center text-gray-400"
-            >
-              No topics available
-            </div>
-          </div>
-
-
-
-
-
-
-
-
-
-          <div class="glass-card p-6 rounded-2xl">
-            <div class="text-gray-500">Purposes of Visit</div>
-            <div class="text-sm mt-2" v-if="purposesOfVisit.length">{{ purposesOfVisit.join(', ') }}</div>
-            <div class="text-gray-400 italic" v-else>—</div>
-          </div>
-
-          <div class="glass-card p-6 rounded-2xl col-span-1 lg:col-span-4">
-            <div class="text-gray-500">Customer Feedbacks</div>
-            <div class="mt-3 space-y-2" v-if="customerFeedbacks.length">
-              <div v-for="(f, idx) in customerFeedbacks" :key="idx" class="bg-white/60 p-3 rounded-lg">
-                <div class="text-gray-800">{{ f.text }}</div>
-                <div class="text-xs text-gray-500">Rating: {{ f.rating || '—' }}</div>
-              </div>
-            </div>
-            <div class="text-gray-400 italic" v-else>No feedbacks yet</div>
-          </div>
-        </div>
-
-        <!-- Charts Row (placeholders – will be filled with real data) -->
-        <div class="grid lg:grid-cols-2 gap-6">
-          <div class="glass-card rounded-2xl p-6">
-            <h2 class="text-xl font-semibold mb-4">Application Trends</h2>
-            <div class="h-72 flex items-center justify-center text-gray-500">Chart placeholder – connect your charting library</div>
-          </div>
-          <div class="glass-card rounded-2xl p-6">
-            <h2 class="text-xl font-semibold mb-4">Applications by Type</h2>
-            <div v-if="applicationTypes.length" class="space-y-4">
-              <div v-for="type in applicationTypes" :key="type.name">{{ type.name }}: {{ type.percentage }}%</div>
-            </div>
-            <div v-else class="text-gray-500 italic">No type data loaded</div>
-          </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="glass-card rounded-2xl p-4">
-          <div class="flex gap-6">
-            <button class="font-semibold text-blue-600">Applications</button>
-            <button>Officers</button>
-            <button>Performance</button>
-            <button>Schedule</button>
-          </div>
-        </div>
-
-        <!-- Applications Table -->
-        <div class="glass-card rounded-2xl p-6">
-          <div class="flex justify-between items-center mb-6">
-            <div>
-              <h2 class="text-2xl font-semibold">Recent Applications</h2>
-              <p class="text-gray-500">All applications requiring attention</p>
-            </div>
-            <input v-model="searchQuery" placeholder="Search applications..." class="px-4 py-2 rounded-xl border border-gray-200 w-72" />
-          </div>
-          <div class="space-y-4">
-            <div v-if="applications.length === 0" class="text-center py-12 text-gray-500">
-              No applications loaded. Please connect your data source.
-            </div>
-            <div v-for="app in applications" :key="app.id" class="bg-white/50 backdrop-blur-md border border-white/30 rounded-2xl p-5">
-              <div class="flex justify-between items-start">
-                <div>
-                  <div class="flex items-center gap-3">
-                    <h3 class="font-semibold text-lg">{{ app.name }}</h3>
-                    <span class="px-3 py-1 rounded-full text-xs bg-red-100 text-red-700">{{ app.priority }}</span>
-                    <span class="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700">{{ app.status }}</span>
-                  </div>
-                  <div class="mt-3 text-gray-600">ID: {{ app.id }}</div>
-                  <div class="text-gray-600">Type: {{ app.type }}</div>
-                  <div class="text-gray-600">Officer: {{ app.officer }}</div>
-                  <div class="text-gray-600">Submitted: {{ app.submitted }}</div>
-                </div>
-                <div class="flex gap-3">
-                  <button class="px-4 py-2 rounded-xl bg-blue-500 text-white">Review</button>
-                  <button class="px-4 py-2 rounded-xl bg-gray-200">Assign</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Floating AI Assistant Widget (unchanged, but mock responses no longer rely on hardcoded data) -->
-      <div class="fixed bottom-6 right-6 z-20">
-        <div v-if="isMinimized" class="flex items-center gap-2 bg-white/90 backdrop-blur-md border border-white/30 rounded-full shadow-xl px-4 py-2 cursor-pointer hover:bg-white transition" @click="expandChat">
-          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          <span class="text-sm font-medium text-gray-700">AI Assistant</span>
-          <span v-if="unreadCount > 0" class="bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[20px] text-center">{{ unreadCount > 9 ? '9+' : unreadCount }}</span>
-          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-        <div v-else class="w-96 h-[500px] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 flex flex-col overflow-hidden transition-all duration-200">
-          <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 bg-gradient-to-r from-blue-50 to-cyan-50">
-            <div class="flex items-center gap-2">
-              <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <h3 class="font-semibold text-gray-800">Immigration Assistant</h3>
-              <span class="text-xs text-gray-500">LLM Powered</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button @click="clearConversation" class="text-gray-400 hover:text-gray-600 transition" title="Clear conversation">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-              <button @click="isMinimized = true" class="text-gray-400 hover:text-gray-600 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
-            <div v-for="(msg, idx) in messages" :key="idx" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
-              <div class="max-w-[80%] rounded-2xl px-4 py-2" :class="msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-100 text-gray-800 rounded-bl-none'">
-                <p class="text-sm whitespace-pre-wrap">{{ msg.content }}</p>
-                <span class="text-[10px] opacity-70 mt-1 block">{{ formatTime(msg.timestamp) }}</span>
-              </div>
-            </div>
-            <div v-if="isTyping" class="flex justify-start">
-              <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-2">
-                <div class="flex gap-1">
-                  <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
-                  <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
-                  <span class="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="border-t border-gray-200/50 p-3 bg-white/50">
-            <div class="flex items-center gap-2">
-              <input v-model="newMessage" @keypress.enter="sendMessage" type="text" placeholder="Ask about applications, stats, or any immigration question..." class="flex-1 px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" :disabled="isTyping" />
-              <button @click="sendMessage" :disabled="!newMessage.trim() || isTyping" class="p-2 rounded-xl bg-blue-600 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </div>
-            <p class="text-xs text-gray-400 mt-2 text-center">Data source not yet connected – add API call in setup()</p>
-          </div>
-        </div>
+          <button @click="logout" class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition text-sm font-medium">Logout</button>
         </div>
       </div>
     </div>
+
+    <!-- ── Dashboard grid ── -->
+    <div class="max-w-7xl mx-auto p-6 space-y-6">
+
+      <!-- Summary row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Total Forms</div>
+          <div class="text-3xl font-bold text-blue-700">{{ totalForms }}</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Customers</div>
+          <div class="text-3xl font-bold text-blue-700">{{ numberOfCustomers }}</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Avg. Conv. Time</div>
+          <div class="text-xl font-semibold text-gray-700 mt-1">{{ averageConvTime }}</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Languages Detected</div>
+          <div class="text-3xl font-bold text-blue-700">{{ languages.length }}</div>
+        </div>
+      </div>
+
+
+      <!-- Full questionnaire fields grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+
+        <!-- Contact Method -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q5 · Contact Method</div>
+          <div v-if="contactMethods.length" class="flex flex-wrap gap-2">
+            <span v-for="v in contactMethods" :key="v" class="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Heard From -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q6 · Heard From</div>
+          <div v-if="heardFrom.length" class="flex flex-wrap gap-2">
+            <span v-for="v in heardFrom" :key="v" class="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Immigration Reason -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q10 · Reason for Immigration</div>
+          <div v-if="immigrationReasons.length" class="flex flex-wrap gap-2">
+            <span v-for="v in immigrationReasons" :key="v" class="px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Additional Info Tags -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q11 · Additional Customer Info</div>
+          <div v-if="additionalInfoTags.length" class="flex flex-wrap gap-2">
+            <span v-for="v in additionalInfoTags" :key="v" class="px-2 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Birth Country -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q12 · Birth Country</div>
+          <div v-if="birthCountries.length" class="flex flex-wrap gap-2">
+            <span v-for="v in birthCountries" :key="v" class="px-2 py-1 bg-green-50 text-green-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Mother Tongue -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q13 · Mother Tongue / Language</div>
+          <div v-if="languages.length" class="flex flex-wrap gap-2">
+            <span v-for="v in languages" :key="v" class="px-2 py-1 bg-teal-50 text-teal-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+
+        <!-- Education Level -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q14 · Education Level</div>
+          <div v-if="educationLevels.length" class="flex flex-wrap gap-2">
+            <span v-for="v in educationLevels" :key="v" class="px-2 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Labour Position -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q15 · Position in Labour Market</div>
+          <div v-if="labourPositions.length" class="flex flex-wrap gap-2">
+            <span v-for="v in labourPositions" :key="v" class="px-2 py-1 bg-pink-50 text-pink-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Domicile -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q16 · Customer Domicile</div>
+          <div v-if="residences.length" class="flex flex-wrap gap-2">
+            <span v-for="v in residences" :key="v" class="px-2 py-1 bg-cyan-50 text-cyan-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Duration of Residence -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q17 · Duration of Residence in Finland</div>
+          <div v-if="durationResidence.length" class="flex flex-wrap gap-2">
+            <span v-for="v in durationResidence" :key="v" class="px-2 py-1 bg-sky-50 text-sky-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Contents of Visit -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-1">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q18 · Contents of Customer Visit</div>
+          <div v-if="topicsDiscussed.length" class="flex flex-wrap gap-2">
+            <span v-for="v in topicsDiscussed" :key="v" class="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Purpose of Visit -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q19 · Purpose of Visit</div>
+          <div v-if="purposesOfVisit.length" class="flex flex-wrap gap-2">
+            <span v-for="v in purposesOfVisit" :key="v" class="px-2 py-1 bg-violet-50 text-violet-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Where Directed -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q21 · Where Customer Is Directed</div>
+          <div v-if="directedTo.length" class="flex flex-wrap gap-2">
+            <span v-for="v in directedTo" :key="v" class="px-2 py-1 bg-lime-50 text-lime-700 rounded-lg text-xs font-medium">{{ v }}</span>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Other Feedback — full width -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-3">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q22 · Other Feedback</div>
+          <div v-if="otherFeedback.length" class="space-y-2">
+            <div v-for="(v, i) in otherFeedback" :key="i" class="text-sm text-gray-700 bg-gray-50 rounded-xl px-4 py-3 leading-relaxed">{{ v }}</div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ── CRM Forms Modal ── -->
+    <div v-if="showCrmModal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <h2 class="text-xl font-bold text-gray-900">Analyze Submitted CRM Forms</h2>
+          <button @click="closeCrmModal" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+        </div>
+
+        <!-- Body -->
+        <div class="flex-1 overflow-y-auto px-6 py-4">
+          <div v-if="isLoadingCrmForms" class="text-center py-16 text-gray-400">Loading...</div>
+          <div v-else-if="crmForms.length === 0" class="text-center py-16 text-gray-400">No CRM forms found.</div>
+          <div v-else class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-gray-50 border-b border-gray-200 text-left text-xs text-gray-500 uppercase tracking-wide">
+                  <th class="px-3 py-3">
+                    <input type="checkbox" @change="toggleCrmSelectAll"
+                      :checked="crmSelectAllChecked" :indeterminate="crmSelectAllIndeterminate"
+                      class="w-4 h-4 cursor-pointer" />
+                  </th>
+                  <th class="px-3 py-3">S.No.</th>
+                  <th class="px-3 py-3">Username</th>
+                  <th class="px-3 py-3">Audio File</th>
+                  <th class="px-3 py-3">Date</th>
+                  <th class="px-3 py-3">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(form, i) in crmForms" :key="form.file_path"
+                  class="border-b border-gray-100 hover:bg-purple-50 transition cursor-pointer"
+                  @click="toggleCrmFormSelection(form.file_path)">
+                  <td class="px-3 py-3">
+                    <input type="checkbox"
+                      :checked="selectedCrmPaths.has(form.file_path)"
+                      @click.stop="toggleCrmFormSelection(form.file_path)"
+                      class="w-4 h-4 cursor-pointer" />
+                  </td>
+                  <td class="px-3 py-3 text-gray-500">{{ i + 1 }}</td>
+                  <td class="px-3 py-3 font-medium text-gray-800">{{ form.username }}</td>
+                  <td class="px-3 py-3 text-gray-600">{{ form.audio_filename }}</td>
+                  <td class="px-3 py-3 text-gray-600">{{ form.date }}</td>
+                  <td class="px-3 py-3 text-gray-600">{{ form.time }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-2xl">
+          <span class="text-sm text-gray-500">{{ selectedCrmPaths.size }} form(s) selected</span>
+          <div class="flex gap-3">
+            <button @click="closeCrmModal" class="px-4 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 text-sm transition">Cancel</button>
+            <button @click="parseCrmForms" :disabled="selectedCrmPaths.size === 0"
+              class="px-4 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-40 text-sm transition">
+              Analyze Selected
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── Floating AI Assistant ── -->
+    <div class="fixed bottom-6 right-6 z-20">
+      <div v-if="isMinimized"
+        class="flex items-center gap-2 bg-white/90 backdrop-blur-md border border-white/30 rounded-full shadow-xl px-4 py-2 cursor-pointer hover:bg-white transition"
+        @click="expandChat">
+        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+        <span class="text-sm font-medium text-gray-700">AI Assistant</span>
+        <span v-if="unreadCount > 0" class="bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[20px] text-center">
+          {{ unreadCount > 9 ? '9+' : unreadCount }}
+        </span>
+      </div>
+      <div v-else class="w-96 h-[500px] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 bg-gradient-to-r from-blue-50 to-cyan-50">
+          <h3 class="font-semibold text-gray-800 text-sm">Immigration Assistant</h3>
+          <div class="flex gap-2">
+            <button @click="clearConversation" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+            <button @click="isMinimized = true" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
+          <div v-for="(msg, idx) in messages" :key="idx" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
+            <div class="max-w-[80%] rounded-2xl px-4 py-2 text-sm"
+              :class="msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-100 text-gray-800 rounded-bl-none'">
+              <p class="whitespace-pre-wrap">{{ msg.content }}</p>
+              <span class="text-[10px] opacity-60 mt-1 block">{{ formatTime(msg.timestamp) }}</span>
+            </div>
+          </div>
+          <div v-if="isTyping" class="flex justify-start">
+            <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3">
+              <div class="flex gap-1">
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:150ms"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:300ms"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-200/50 p-3 bg-white/50">
+          <div class="flex gap-2">
+            <input v-model="newMessage" @keypress.enter="sendMessage" type="text"
+              placeholder="Ask about applications..."
+              class="flex-1 px-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              :disabled="isTyping" />
+            <button @click="sendMessage" :disabled="!newMessage.trim() || isTyping"
+              class="p-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition disabled:opacity-40">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
   `
-
-
-
 };

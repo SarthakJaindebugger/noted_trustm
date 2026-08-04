@@ -10,7 +10,7 @@ from knowledgebase.admin_dashboard_stats import (
     DEFAULT_SUMMARY_OUTPUT,
     build_combined_summary,
 )
-from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files
+from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files, list_submitted_crm_forms, aggregate_all_crm_forms
 
 logger = logging.getLogger(__name__)
 
@@ -172,7 +172,153 @@ async def analyze_selected_audio(
     try:
         result = analyze_audio_file(audio_path)
     except Exception as exc:
+        # Log the full error server-side but never expose raw exception text
+        # (e.g. CUDA OOM traces) in the HTTP response.
         logger.error("Admin audio analysis failed for %s: %s", audio_path, exc)
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=500,
+            detail="Analysis failed. Please ensure the speech-analysis services are available and try again.",
+        ) from exc
 
     return result
+
+
+@admin_router.get("/crm-forms")
+async def list_crm_forms(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """List all submitted CRM forms."""
+    _ensure_admin(current_user)
+    try:
+        forms = list_submitted_crm_forms()
+        return {"crm_forms": forms}
+    except Exception as exc:
+        logger.error("Failed to list CRM forms: %s", exc)
+        return {"crm_forms": []}
+
+
+@admin_router.post("/crm-forms/parse")
+async def parse_crm_forms(
+    payload: dict,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Parse and aggregate data from selected CRM forms.
+    
+    Expected payload: { "file_paths": ["/path/to/form1.json", "/path/to/form2.json", ...] }
+    Returns aggregated dashboard data.
+    """
+    _ensure_admin(current_user)
+    file_paths = payload.get("file_paths", [])
+    
+    if not file_paths:
+        raise HTTPException(status_code=400, detail="file_paths is required")
+    
+    try:
+        # Parse each form and aggregate data
+        aggregated_data = {
+            "topics_discussed": [],
+            "contact_methods": [],
+            "outcomes": [],
+            "action_items": [],
+            "referrals": [],
+            "encounter_types": [],
+            "advisors": [],
+            "clients": [],
+            "form_count": 0,
+        }
+        
+        repo_root = Path(__file__).resolve().parents[2]
+        
+        for file_path_str in file_paths:
+            file_path = repo_root / file_path_str if not Path(file_path_str).is_absolute() else Path(file_path_str)
+            
+            if not file_path.exists() or not file_path.is_file():
+                logger.warning("CRM form file not found: %s", file_path)
+                continue
+            
+            try:
+                with file_path.open("r", encoding="utf-8") as fh:
+                    record = json.load(fh)
+                    form_data = record.get("form", {})
+                    
+                    aggregated_data["form_count"] += 1
+                    
+                    # Aggregate topics
+                    topics = form_data.get("topics_discussed", [])
+                    if isinstance(topics, list):
+                        aggregated_data["topics_discussed"].extend(topics)
+                    
+                    # Aggregate contact methods (from session data, not typically in form)
+                    contact = form_data.get("contact_method")
+                    if contact:
+                        aggregated_data["contact_methods"].append(contact)
+                    
+                    # Aggregate outcomes
+                    outcome = form_data.get("outcome")
+                    if outcome:
+                        aggregated_data["outcomes"].append(outcome)
+                    
+                    # Aggregate action items
+                    actions = form_data.get("action_items", [])
+                    if isinstance(actions, list):
+                        aggregated_data["action_items"].extend(actions)
+                    
+                    # Aggregate referrals
+                    referrals = form_data.get("referrals", [])
+                    if isinstance(referrals, list):
+                        aggregated_data["referrals"].extend(referrals)
+                    
+                    # Track encounter types
+                    enc_type = form_data.get("encounter_type")
+                    if enc_type:
+                        aggregated_data["encounter_types"].append(enc_type)
+                    
+                    # Track advisors
+                    advisor = form_data.get("advisor_name")
+                    if advisor:
+                        aggregated_data["advisors"].append(advisor)
+                    
+                    # Track clients
+                    client = form_data.get("client_name")
+                    if client:
+                        aggregated_data["clients"].append(client)
+                        
+            except Exception as e:
+                logger.error("Failed to parse CRM form %s: %s", file_path, e)
+                continue
+        
+        # Remove duplicates from lists
+        aggregated_data["topics_discussed"] = list(set(aggregated_data["topics_discussed"]))
+        aggregated_data["contact_methods"] = list(set(aggregated_data["contact_methods"]))
+        aggregated_data["outcomes"] = list(set(aggregated_data["outcomes"]))
+        aggregated_data["encounter_types"] = list(set(aggregated_data["encounter_types"]))
+        aggregated_data["advisors"] = list(set(aggregated_data["advisors"]))
+        aggregated_data["clients"] = list(set(aggregated_data["clients"]))
+        
+        return aggregated_data
+    except Exception as exc:
+        logger.error("Failed to parse CRM forms: %s", exc)
+        raise HTTPException(status_code=500, detail="Failed to parse CRM forms")
+
+
+@admin_router.get("/crm-forms/aggregated")
+async def get_aggregated_crm_data(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Get aggregated data from ALL submitted CRM forms for dashboard initialization."""
+    _ensure_admin(current_user)
+    try:
+        aggregated = aggregate_all_crm_forms()
+        return aggregated
+    except Exception as exc:
+        logger.error("Failed to aggregate CRM forms: %s", exc)
+        return {
+            "contact_methods": [],
+            "topics_discussed": [],
+            "labour_positions": [],
+            "birth_countries": [],
+            "languages": [],
+            "residences": [],
+            "purposes_of_visit": [],
+            "encounter_types": [],
+            "follow_up_notes": [],
+            "total_forms": 0,
+            "advisors": [],
+            "clients": [],
+        }

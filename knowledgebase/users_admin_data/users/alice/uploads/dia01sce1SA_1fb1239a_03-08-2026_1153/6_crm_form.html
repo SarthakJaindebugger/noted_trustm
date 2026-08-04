@@ -564,7 +564,7 @@
     </div>
 
     <!-- HTML export injects initial form data here -->
-    <!-- INITIAL_FORM_DATA_PLACEHOLDER -->
+    <script>window.initialData = {"form": {"controlLocation": "", "date": "", "time": "", "visitDuration": "11 min 49 sec", "contactMethod": [], "fieldWorkWhere": "", "heardFrom": "", "customerCount": 1, "gender": "", "age": null, "immigrationReason": "", "additionalInfo": [], "additionalInfoOther": "", "birthCountry": "", "motherTongue": "", "educationLevel": "", "labourPosition": ["Working in the open market"], "domicile": "Espoo, Finland", "residenceDuration": [], "contents": ["Matters related to education"], "contentsOther": "", "purpose": ["Clarification of decisions and process"], "additionalInfoText": "The customer is a migrant with a three-year-old child seeking childcare in Espoo, Finland, and is looking for options that include Finnish language support, meal provisions, and availability for full-time work hours. The child is not yet eligible for kindergarten, and the customer is interested in understanding the application process, language options, and whether there are any income-based considerations for the service.", "directedTo": "Early childhood education", "otherFeedback": "The customer is a migrant with a three-year-old child seeking childcare in Espoo, Finland, and is looking for options that include Finnish language support, meal provisions, and availability for full-time work hours. The child is not yet eligible for kindergarten, and the customer is interested in understanding the application process, language options, and whether there are any income-based considerations for the service."}, "questionnaire": {"What is the contact method used by Advisee(s)?": "Not mentioned in transcript.", "Heard from the guidance/advice position (if other where?)": "Not mentioned in transcript.", "Reason for Immigration": "Not mentioned in transcript.", "Additional Information about the customers": "Not mentioned in transcript.", "Education Level": "Not mentioned in transcript.", "Customer birth country": "Not mentioned in transcript.", "Mother Tongue/Language": "Not mentioned in transcript.", "Customer Domicile": "Espoo, Finland", "Position in labour market": "Working in the open market", "Duration of residence in Finland": "Not mentioned in transcript.", "Contents of the customer visit": "Matters related to education", "Purpose of visit": "Clarification of decisions and process", "Where the customer is directed": "Early childhood education", "Any Additional Information": "The customer is a migrant with a three-year-old child seeking childcare in Espoo, Finland, and is looking for options that include Finnish language support, meal provisions, and availability for full-time work hours. The child is not yet eligible for kindergarten, and the customer is interested in understanding the application process, language options, and whether there are any income-based considerations for the service.", "Any other Feedback": "The customer is a migrant with a three-year-old child seeking childcare in Espoo, Finland, and is looking for options that include Finnish language support, meal provisions, and availability for full-time work hours. The child is not yet eligible for kindergarten, and the customer is interested in understanding the application process, language options, and whether there are any income-based considerations for the service."}};</script>
 
     <!-- Vue 3 (CDN) -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -911,7 +911,7 @@
                 };
 
                 // ─── submit ───
-                const submitForm = async (e) => {
+                const submitForm = (e) => {
                     e.preventDefault();
                     markRequiredMissing();
                     if (!form.controlLocation.trim() || !form.date || !form.time || form.contactMethod.length === 0) {
@@ -919,40 +919,9 @@
                         return;
                     }
                     const payload = buildPayload();
-
-                    // Resolve backend URL and auth token injected at HTML generation time
-                    // or passed in by the parent window when opening the popup
-                    const backendUrl = window.crmBackendUrl || '';
-                    const authToken = window.crmAuthToken || '';
-                    const saveUrl = `${backendUrl}/api/v1/audio/crm-form/save`;
-
-                    try {
-                        const headers = { 'Content-Type': 'application/json' };
-                        if (authToken) {
-                            headers['Authorization'] = `Bearer ${authToken}`;
-                        }
-                        const response = await fetch(saveUrl, {
-                            method: 'POST',
-                            headers,
-                            credentials: 'include',
-                            body: JSON.stringify(payload),
-                        });
-
-                        if (!response.ok) {
-                            const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
-                            throw new Error(error.detail || `Server returned ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        console.log('📋 CRM form saved successfully:', result);
-                        toastVisible.value = true;
-                        setTimeout(() => { toastVisible.value = false; }, 4000);
-                    } catch (error) {
-                        console.error('❌ Failed to save CRM form:', error);
-                        // Still show toast so user knows submit was received locally,
-                        // but alert them about the save failure
-                        alert(`Form could not be saved to server: ${error.message}\nPlease check your connection and try again.`);
-                    }
+                    toastVisible.value = true;
+                    setTimeout(() => { toastVisible.value = false; }, 4000);
+                    console.log('📋 Form submitted:', payload);
                 };
 
                 // ─── reset ───

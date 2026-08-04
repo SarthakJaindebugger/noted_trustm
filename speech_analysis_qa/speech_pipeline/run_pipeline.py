@@ -207,12 +207,14 @@ def run_pipeline(
         if Path(paths["crm_form_parsed_path"]).exists() and Path(paths["crm_form_html_path"]).exists():
             print(f"Skipping stage6: {paths['crm_form_parsed_path']} and {paths['crm_form_html_path']} already exist")
         else:
+            import os as _os
             stage6 = _import_stage("stage6_crm_form_parsing")
             stage6.run(
                 paths["mapped_results_path"],
                 paths["metadata_path"],
                 paths["crm_form_parsed_path"],
                 paths["crm_form_html_path"],
+                backend_url=_os.getenv("NOTED_BACKEND_URL", ""),
             )
 
         embedding_paths: List[str] = []

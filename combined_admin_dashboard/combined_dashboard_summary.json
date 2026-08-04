@@ -1,0 +1,16 @@
+{
+  "average_conversation_time": "16 min 40 sec",
+  "contact_methods": [
+    {
+      "label": "Visit for guidance/advice in-person",
+      "count": 1,
+      "pct": 100.0
+    }
+  ],
+  "number_of_customers": 3,
+  "source_files": [
+    "knowledgebase/users_admin_data/users/alice/uploads/dia03sce1SA/6_crm_form_parsed.json",
+    "knowledgebase/users_admin_data/users/alice/uploads/dia11sce2SA_02c7e5c0_20260802_130315/6_crm_form_parsed.json",
+    "knowledgebase/users_admin_data/users/demo/uploads/dia09sce1SA_94d9c97d_02-08-2026_1433/6_crm_form_parsed.json"
+  ]
+}

@@ -1,9 +1,14 @@
+import logging
+
 from fastapi import APIRouter, Depends, HTTPException
 
 from api.auth import AuthenticatedUser, require_authenticated_user
 from api.schemas import CRMFormUpdate
 from database.connection import AsyncSessionLocal
+from services.admin_audio_analysis import save_submitted_crm_form
 
+
+logger = logging.getLogger(__name__)
 
 crm_router = APIRouter(dependencies=[Depends(require_authenticated_user)])
 
@@ -101,6 +106,34 @@ async def update_crm_form(
 
         await db.commit()
         await db.refresh(form)
+
+        logger.info(f"[CRM_ROUTE] ===== FORM UPDATE COMPLETE =====")
+        logger.info(f"[CRM_ROUTE] Session ID: {session.session_id}")
+        logger.info(f"[CRM_ROUTE] Form ID: {form.id}")
+        logger.info(f"[CRM_ROUTE] Form status value: '{form.status}'")
+        logger.info(f"[CRM_ROUTE] Status is None: {form.status is None}")
+        logger.info(f"[CRM_ROUTE] Status == 'submitted': {form.status == 'submitted'}")
+        logger.info(f"[CRM_ROUTE] Status type: {type(form.status)}")
+        logger.info(f"[CRM_ROUTE] =============================")
+
+        # Persist a snapshot of the submitted CRM form to knowledgebase/submitted_crm_forms.
+        if form.status and form.status.lower() == "submitted":
+            logger.info(f"[CRM_ROUTE] ✓ Form status matches 'submitted', saving...")
+            try:
+                form_dict = _crm_form_to_dict(form)
+                logger.info(f"[CRM_ROUTE] Form dict keys: {list(form_dict.keys())}")
+                logger.info(f"[CRM_ROUTE] Form dict topics_discussed: {form_dict.get('topics_discussed')}")
+                
+                result = save_submitted_crm_form(
+                    current_user.username,
+                    form_dict,
+                )
+                logger.info(f"[CRM_ROUTE] ✓ CRM form saved successfully: {result}")
+            except Exception as exc:
+                logger.error(f"[CRM_ROUTE] ✗ Failed to save submitted CRM form for user {current_user.username}: {exc}", exc_info=True)
+        else:
+            logger.info(f"[CRM_ROUTE] ✗ Form status is '{form.status}' (not 'submitted'). Skipping save.")
+
         return _crm_form_to_dict(form)
 
 

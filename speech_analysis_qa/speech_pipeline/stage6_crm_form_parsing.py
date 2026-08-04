@@ -85,7 +85,7 @@ def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
     }
 
 
-def render_html_template(form_payload: dict, questionnaire: dict, template_path: Path) -> str:
+def render_html_template(form_payload: dict, questionnaire: dict, template_path: Path, backend_url: str = "", auth_token: str = "") -> str:
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
 
@@ -94,7 +94,12 @@ def render_html_template(form_payload: dict, questionnaire: dict, template_path:
         "questionnaire": questionnaire,
     }
     json_text = json.dumps(initial_data, ensure_ascii=False).replace("</", "<\\/")
-    injection = f"<script>window.initialData = {json_text};</script>"
+    injection = (
+        f"<script>window.initialData = {json_text};"
+        f"window.crmBackendUrl = {json.dumps(backend_url)};"
+        f"window.crmAuthToken = {json.dumps(auth_token)};"
+        f"</script>"
+    )
 
     if "<!-- INITIAL_FORM_DATA_PLACEHOLDER -->" not in html:
         raise ValueError("CRM form template is missing INITIAL_FORM_DATA_PLACEHOLDER")
@@ -102,7 +107,7 @@ def render_html_template(form_payload: dict, questionnaire: dict, template_path:
     return html.replace("<!-- INITIAL_FORM_DATA_PLACEHOLDER -->", injection)
 
 
-def run(mapped_results_path: str, metadata_path: str, output_path: str, html_output_path: str) -> dict:
+def run(mapped_results_path: str, metadata_path: str, output_path: str, html_output_path: str, backend_url: str = "", auth_token: str = "") -> dict:
     with open(mapped_results_path, "r", encoding="utf-8") as f:
         mapped = json.load(f)
 
@@ -121,7 +126,7 @@ def run(mapped_results_path: str, metadata_path: str, output_path: str, html_out
         json.dump(output, f, indent=2, ensure_ascii=False)
 
     template_path = REPO_ROOT / "crm_forms" / "crm_form_template.html"
-    html = render_html_template(form_payload, questionnaire, template_path)
+    html = render_html_template(form_payload, questionnaire, template_path, backend_url=backend_url, auth_token=auth_token)
     with open(html_output_path, "w", encoding="utf-8") as f:
         f.write(html)
 
