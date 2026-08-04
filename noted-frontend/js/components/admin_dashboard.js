@@ -145,12 +145,29 @@ export default {
       else crmForms.value.forEach(f => selectedCrmPaths.add(f.file_path));
     };
 
-    // Parse selected forms and refresh dashboard fields
+    // Parse selected forms and apply result directly to dashboard fields
     const parseCrmForms = async () => {
       if (selectedCrmPaths.size === 0) { alert('Please select at least one CRM form.'); return; }
       try {
-        await apiClient.post('/admin/crm-forms/parse', { file_paths: Array.from(selectedCrmPaths) });
-        await fetchAggregatedCrmData();
+        const d = await apiClient.post('/admin/crm-forms/parse', { file_paths: Array.from(selectedCrmPaths) });
+        // Apply parsed data directly — replaces dashboard with data from selected forms only
+        totalForms.value         = d.total_forms        || 0;
+        numberOfCustomers.value  = d.number_of_customers || d.total_forms || '—';
+        averageConvTime.value    = d.average_conversation_time || '—';
+        contactMethods.value     = d.contact_methods    || [];
+        topicsDiscussed.value    = d.topics_discussed   || [];
+        purposesOfVisit.value    = d.purposes_of_visit  || [];
+        labourPositions.value    = d.labour_positions   || [];
+        birthCountries.value     = d.birth_countries    || [];
+        languages.value          = d.languages          || [];
+        residences.value         = d.residences         || [];
+        durationResidence.value  = d.duration_of_residence || [];
+        directedTo.value         = d.directed_to        || [];
+        heardFrom.value          = d.heard_from         || [];
+        immigrationReasons.value = d.immigration_reasons || [];
+        educationLevels.value    = d.education_levels   || [];
+        additionalInfoTags.value = d.additional_info_tags || [];
+        otherFeedback.value      = d.other_feedback     || [];
         closeCrmModal();
       } catch (err) { console.error('Failed to parse CRM forms', err); alert('Failed to parse CRM forms.'); }
     };
