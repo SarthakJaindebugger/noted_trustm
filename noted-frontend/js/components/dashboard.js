@@ -15,7 +15,6 @@ export default {
         const error = ref('');
 
         // ----- Analyze Audio State -----
-        const analyzedAudioFolders = ref([]);
         const audioFiles = ref([]);
         const selectedPaths = reactive(new Set()); // Multi-select: audio paths
         const processingQueue = ref([]); // Queue of paths to process
@@ -96,12 +95,10 @@ export default {
         const loadAudioFiles = async () => {
             try {
                 const data = await apiClient.get('/audio/analyze-files');
-                analyzedAudioFolders.value = (data.analyzed_audio_folders || []).sort((a, b) => a.name.localeCompare(b.name));
-                audioFiles.value = (data.pending_audio_files || data.audio_files || []).sort((a, b) => a.name.localeCompare(b.name));
+                audioFiles.value = (data.audio_files || []).sort((a, b) => a.name.localeCompare(b.name));
                 selectedPaths.clear();
-
-                // Pre-populate CRM form status for pending audio files. Analyzed folders
-                // carry their CRM paths directly from the backend.
+                
+                // Pre-populate CRM form status for all audio files
                 for (const af of audioFiles.value) {
                     await checkCrmFormStatus(af.name);
                 }
@@ -122,12 +119,10 @@ export default {
         };
 
         const isCrmFormAvailable = (audioFile) => {
-            // CRM is available if: analysis folder includes an HTML form, analysis is
-            // complete in-memory, or a form already exists for a pending audio file.
-            const hasAnalysisFolderForm = Boolean(audioFile.crm_form_html_path);
+            // CRM is available if: analysis is complete (in results) OR form already exists
             const hasAnalysis = analysisResults[audioFile.path];
             const formExists = crmFormStatusCache[audioFile.name];
-            return hasAnalysisFolderForm || hasAnalysis || formExists;
+            return hasAnalysis || formExists;
         };
 
         const startBatchAnalysis = async () => {
@@ -193,8 +188,8 @@ export default {
         };
 
         const openCrmForm = async (audioFile) => {
-            // Analyzed folders already include CRM output paths from the backend.
-            let result = audioFile.crm_form_html_path ? audioFile : analysisResults[audioFile.path];
+            // Try in-memory result first, then fall back to fetching from backend
+            let result = analysisResults[audioFile.path];
 
             if (!result) {
                 // Already analyzed (page refresh) — fetch the result paths from backend
@@ -221,7 +216,7 @@ export default {
 
             // Copy the CRM JSON to submitted_crm_forms when user opens the form
             try {
-                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.analysis_dir_name || audioFile.name });
+                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.name });
                 // Update CRM form status cache
                 crmFormStatusCache[audioFile.name] = true;
             } catch (submitErr) {
@@ -271,7 +266,7 @@ export default {
 
         return {
             fileInput, isUploading, uploadProgress, message, error, chooseAudio, uploadAudio, logout,
-            analyzedAudioFolders, audioFiles, selectedPaths, isAnalyzing, selectAllChecked, selectAllIndeterminate,
+            audioFiles, selectedPaths, isAnalyzing, selectAllChecked, selectAllIndeterminate,
             processingProgress, analysisResults, crmFormStatusCache,
             loadAudioFiles, toggleAudioSelection, toggleSelectAll, startBatchAnalysis, cancelBatchAnalysis,
             isCrmFormAvailable, openCrmForm, parseAudioFileInfo,
@@ -312,43 +307,8 @@ export default {
                     <button type="button" class="cancel-button" @click="cancelBatchAnalysis">Cancel</button>
                 </div>
 
-                <!-- Analyzed Audio Folders Table -->
-                <div v-if="!isAnalyzing && analyzedAudioFolders.length > 0" class="table-container">
-                    <h3 class="table-title">Analysed Audios</h3>
-                    <table class="audio-files-table">
-                        <thead>
-                            <tr>
-                                <th class="col-sno">S.No.</th>
-                                <th class="col-name">Audio Folder Name</th>
-                                <th class="col-date">Date</th>
-                                <th class="col-time">Time</th>
-                                <th class="col-crm">CRM Form</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(audioFile, index) in analyzedAudioFolders" :key="audioFile.path" class="audio-row">
-                                <td class="col-sno">{{ index + 1 }}</td>
-                                <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
-                                <td class="col-date">{{ parseAudioFileInfo(audioFile).date }}</td>
-                                <td class="col-time">{{ parseAudioFileInfo(audioFile).time }}</td>
-                                <td class="col-crm">
-                                    <button
-                                        type="button"
-                                        class="crm-button"
-                                        :disabled="!isCrmFormAvailable(audioFile)"
-                                        @click="openCrmForm(audioFile)"
-                                    >
-                                        Open CRM
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pending Audio Files Table -->
+                <!-- Audio Files Table -->
                 <div v-if="!isAnalyzing && audioFiles.length > 0" class="table-container">
-                    <h3 class="table-title">To Be Analysed Audios</h3>
                     <table class="audio-files-table">
                         <thead>
                             <tr>
@@ -369,9 +329,6 @@ export default {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-if="audioFiles.length === 0">
-                                <td colspan="6" class="empty-table-cell">No new audios found.</td>
-                            </tr>
                             <tr v-for="(audioFile, index) in audioFiles" :key="audioFile.path" class="audio-row">
                                 <td class="col-checkbox">
                                     <input 
@@ -412,10 +369,7 @@ export default {
                     </div>
                 </div>
 
-                <div v-if="!isAnalyzing && audioFiles.length === 0 && analyzedAudioFolders.length === 0" class="empty-audio-state">
-                    <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh List</button>
-                    <p class="status">No audio files found. Upload some audio files to get started.</p>
-                </div>
+                <p v-else-if="!isAnalyzing" class="status">No audio files found. Upload some audio files to get started.</p>
             </section>
         </main>
     `,

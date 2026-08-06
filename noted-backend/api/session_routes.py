@@ -20,7 +20,6 @@ from services.account_store import principal_data_dir, recordings_dir_for_princi
 from services.admin_audio_analysis import (
     analyze_audio_file,
     ensure_audio_belongs_to_user,
-    list_analyzed_audio_folders_for_username,
     list_audio_files_for_username,
     save_submitted_crm_form,
 )
@@ -86,14 +85,8 @@ async def process_uploaded_audio(
 
 @session_router.get("/audio/analyze-files")
 async def list_audio_files_for_analysis(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
-    """Return separate analyzed and pending audio lists for the authenticated user."""
-    pending_audio_files = list_audio_files_for_username(current_user.username)
-    analyzed_audio_folders = list_analyzed_audio_folders_for_username(current_user.username)
-    return {
-        "audio_files": pending_audio_files,
-        "pending_audio_files": pending_audio_files,
-        "analyzed_audio_folders": analyzed_audio_folders,
-    }
+    """Return the audio files that belong to the authenticated user."""
+    return {"audio_files": list_audio_files_for_username(current_user.username)}
 
 
 @session_router.post("/audio/analyze")
