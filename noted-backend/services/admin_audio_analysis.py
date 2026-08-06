@@ -169,77 +169,65 @@ def _find_crm_output_paths(analysis_dir: Path) -> tuple[Optional[str], Optional[
     return crm_form_json_path, crm_form_html_path
 
 
-def _audio_analysis_key(path: Path) -> str:
-    """Return the matching key before the first underscore in an uploaded audio name."""
-    return path.stem.split("_", 1)[0]
+def list_analyzed_audio_folders_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return analysis result folders from users/<username>/uploads for the user dashboard."""
+    users_root = (users_root or get_default_users_root()).resolve()
+    safe_username = sanitize_username(username)
+    uploads_root = users_root / safe_username / "uploads"
+    if not uploads_root.exists():
+        return []
+
+    analyzed_audio_folders: list[dict] = []
+    for path in sorted(uploads_root.iterdir()):
+        if not path.is_dir():
+            continue
+        try:
+            relative_path = _relative_repo_path(path)
+        except ValueError:
+            continue
+        crm_form_json_path, crm_form_html_path = _find_crm_output_paths(path)
+        analyzed_audio_folders.append({
+            "path": relative_path,
+            "display_name": path.name,
+            "name": path.name,
+            "username": safe_username,
+            "status": "analyzed",
+            "crm_form_json_path": crm_form_json_path,
+            "crm_form_html_path": crm_form_html_path,
+        })
+
+    return analyzed_audio_folders
 
 
-def _find_matching_analysis_dir(uploads_root: Path, audio_key: str) -> Optional[tuple[Path, Optional[str], str]]:
-    """Find the latest CRM-bearing analysis folder matching an uploaded audio key."""
-    if not uploads_root.exists() or not audio_key:
-        return None
+def list_audio_files_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return the user's unanalysed audio files that can be selected for analysis.
 
-    matching_dirs = sorted(
-        (
-            directory
-            for directory in uploads_root.iterdir()
-            if directory.is_dir()
-            and (directory.name == audio_key or directory.name.startswith(f"{audio_key}_"))
-        ),
-        key=lambda directory: directory.name,
-        reverse=True,
-    )
-
-    for directory in matching_dirs:
-        crm_form_json_path, crm_form_html_path = _find_crm_output_paths(directory)
-        if crm_form_html_path:
-            return directory, crm_form_json_path, crm_form_html_path
-
-    return None
-
-
-def _audio_file_payload(path: Path, safe_username: str, status: str) -> dict:
-    return {
-        "path": _relative_repo_path(path),
-        "display_name": path.name,
-        "name": path.name,
-        "username": safe_username,
-        "status": status,
-        "analysis_key": _audio_analysis_key(path),
-    }
-
-
-def list_dashboard_audio_files_for_username(username: str, users_root: Optional[Path] = None) -> dict[str, list[dict]]:
-    """Classify user-uploaded recordings into analyzed and pending dashboard lists.
-
-    A recording is considered analyzed only when its filename segment before the
-    first underscore matches a folder under users/<username>/uploads that also
-    contains a generated CRM HTML form. For example,
-    dia01sce1SA_1fb1239a.WAV matches uploads/dia01sce1SA_1fb1239a_... when that
-    folder contains 6_crm_form.html or crm_form_parsed.html.
+    User uploads are saved under users/<username>/recordings. Generated analysis
+    folders live under users/<username>/uploads and are listed separately by
+    list_analyzed_audio_folders_for_username().
     """
     users_root = (users_root or get_default_users_root()).resolve()
     safe_username = sanitize_username(username)
     recordings_root = users_root / safe_username / "recordings"
-    uploads_root = users_root / safe_username / "uploads"
-
-    analyzed_audio_files: list[dict] = []
-    pending_audio_files: list[dict] = []
-
     if not recordings_root.exists():
-        return {
-            "analyzed_audio_files": analyzed_audio_files,
-            "pending_audio_files": pending_audio_files,
-        }
+        return []
 
+    audio_files: list[dict] = []
     for path in sorted(recordings_root.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in AUDIO_EXTENSIONS:
             continue
 
         try:
-            payload = _audio_file_payload(path, safe_username, "pending_analysis")
+            relative_path = _relative_repo_path(path)
         except ValueError:
             continue
+        audio_files.append({
+            "path": relative_path,
+            "display_name": path.name,
+            "name": path.name,
+            "username": safe_username,
+            "status": "pending_analysis",
+        })
 
         matching_analysis = _find_matching_analysis_dir(uploads_root, payload["analysis_key"])
         if matching_analysis:

@@ -96,12 +96,12 @@ export default {
         const loadAudioFiles = async () => {
             try {
                 const data = await apiClient.get('/audio/analyze-files');
-                analyzedAudioFolders.value = (data.analyzed_audio_files || data.analyzed_audio_folders || []).sort((a, b) => a.name.localeCompare(b.name));
+                analyzedAudioFolders.value = (data.analyzed_audio_folders || []).sort((a, b) => a.name.localeCompare(b.name));
                 audioFiles.value = (data.pending_audio_files || data.audio_files || []).sort((a, b) => a.name.localeCompare(b.name));
                 selectedPaths.clear();
 
-                // Pre-populate CRM form status for pending audio files. Analyzed files
-                // carry their matching CRM paths directly from the backend.
+                // Pre-populate CRM form status for pending audio files. Analyzed folders
+                // carry their CRM paths directly from the backend.
                 for (const af of audioFiles.value) {
                     await checkCrmFormStatus(af.name);
                 }
@@ -122,8 +122,8 @@ export default {
         };
 
         const isCrmFormAvailable = (audioFile) => {
-            // CRM is available if: the matched analysis folder includes an HTML form,
-            // analysis is complete in-memory, or a form already exists for a pending audio file.
+            // CRM is available if: analysis folder includes an HTML form, analysis is
+            // complete in-memory, or a form already exists for a pending audio file.
             const hasAnalysisFolderForm = Boolean(audioFile.crm_form_html_path);
             const hasAnalysis = analysisResults[audioFile.path];
             const formExists = crmFormStatusCache[audioFile.name];
@@ -193,7 +193,7 @@ export default {
         };
 
         const openCrmForm = async (audioFile) => {
-            // Analyzed rows already include CRM output paths from the backend.
+            // Analyzed folders already include CRM output paths from the backend.
             let result = audioFile.crm_form_html_path ? audioFile : analysisResults[audioFile.path];
 
             if (!result) {
@@ -319,7 +319,7 @@ export default {
                         <thead>
                             <tr>
                                 <th class="col-sno">S.No.</th>
-                                <th class="col-name">Audio File Name</th>
+                                <th class="col-name">Audio Folder Name</th>
                                 <th class="col-date">Date</th>
                                 <th class="col-time">Time</th>
                                 <th class="col-crm">CRM Form</th>
