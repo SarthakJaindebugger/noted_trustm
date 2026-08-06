@@ -148,35 +148,87 @@ def list_user_audio_files(users_root: Optional[Path] = None) -> list[dict]:
     return audio_files
 
 
-def list_audio_files_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
-    """Return only the audio files that belong to the given username.
+def _relative_repo_path(path: Path) -> str:
+    return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
 
-    This is used by the user dashboard so a logged-in user can see and analyze
-    only their own recordings (saved under users/<username>/recordings or
-    users/<username>/uploads).
+
+def _find_crm_output_paths(analysis_dir: Path) -> tuple[Optional[str], Optional[str]]:
+    crm_form_json_path = None
+    crm_form_html_path = None
+
+    for candidate in (analysis_dir / "crm_form_parsed.json", analysis_dir / "6_crm_form_parsed.json"):
+        if candidate.exists():
+            crm_form_json_path = _relative_repo_path(candidate)
+            break
+
+    for candidate in (analysis_dir / "crm_form_parsed.html", analysis_dir / "6_crm_form.html"):
+        if candidate.exists():
+            crm_form_html_path = _relative_repo_path(candidate)
+            break
+
+    return crm_form_json_path, crm_form_html_path
+
+
+def list_analyzed_audio_folders_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return analysis result folders from users/<username>/uploads for the user dashboard."""
+    users_root = (users_root or get_default_users_root()).resolve()
+    safe_username = sanitize_username(username)
+    uploads_root = users_root / safe_username / "uploads"
+    if not uploads_root.exists():
+        return []
+
+    analyzed_audio_folders: list[dict] = []
+    for path in sorted(uploads_root.iterdir()):
+        if not path.is_dir():
+            continue
+        try:
+            relative_path = _relative_repo_path(path)
+        except ValueError:
+            continue
+        crm_form_json_path, crm_form_html_path = _find_crm_output_paths(path)
+        analyzed_audio_folders.append({
+            "path": relative_path,
+            "display_name": path.name,
+            "name": path.name,
+            "username": safe_username,
+            "status": "analyzed",
+            "crm_form_json_path": crm_form_json_path,
+            "crm_form_html_path": crm_form_html_path,
+        })
+
+    return analyzed_audio_folders
+
+
+def list_audio_files_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return the user's unanalysed audio files that can be selected for analysis.
+
+    User uploads are saved under users/<username>/recordings. Generated analysis
+    folders live under users/<username>/uploads and are listed separately by
+    list_analyzed_audio_folders_for_username().
     """
     users_root = (users_root or get_default_users_root()).resolve()
     if not users_root.exists():
         return []
 
     safe_username = sanitize_username(username)
-    user_root = users_root / safe_username
-    if not user_root.exists():
+    recordings_root = users_root / safe_username / "recordings"
+    if not recordings_root.exists():
         return []
 
     audio_files: list[dict] = []
-    for path in sorted(user_root.rglob("*")):
+    for path in sorted(recordings_root.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in AUDIO_EXTENSIONS:
             continue
         try:
-            relative_path = path.relative_to(REPO_ROOT)
+            relative_path = _relative_repo_path(path)
         except ValueError:
             continue
         audio_files.append({
-            "path": str(relative_path).replace("\\", "/"),
+            "path": relative_path,
             "display_name": path.name,
             "name": path.name,
             "username": safe_username,
+            "status": "pending_analysis",
         })
 
     return audio_files
