@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .upload-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        #uploadAudioBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #uploadAudioBtn:hover {
+            background-color: #45a049;
+        }
+        .table-container {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .status-unanalyzed {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .status-analyzed {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Dashboard</h1>
+        
+        <!-- Upload Audio Button -->
+        <div class="upload-section">
+            <button id="uploadAudioBtn">Upload Audio</button>
+        </div>
+
+        <!-- Unanalyzed Audios Table -->
+        <div class="table-container">
+            <h2>Unanalyzed Audios</h2>
+            <table id="unanalyzedAudiosTable">
+                <thead>
+                    <tr>
+                        <th>Audio Name</th>
+                        <th>Upload Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="unanalyzedTableBody">
+                    <!-- Unanalyzed audio rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Analyzed Audios Table -->
+        <div class="table-container">
+            <h2>Analyzed Audios</h2>
+            <table id="analyzedAudiosTable">
+                <thead>
+                    <tr>
+                        <th>Audio Name</th>
+                        <th>Upload Date</th>
+                        <th>Analysis Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="analyzedTableBody">
+                    <!-- Analyzed audio rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Mock data - in a real application, this would come from your backend API
+        const mockAudios = [
+            { id: 1, name: 'meeting_recording.wav', uploadDate: '2024-01-15', analyzed: false },
+            { id: 2, name: 'podcast_episode.mp3', uploadDate: '2024-01-14', analyzed: true, analysisDate: '2024-01-16' },
+            { id: 3, name: 'interview_audio.flac', uploadDate: '2024-01-13', analyzed: false },
+            { id: 4, name: 'lecture_sound.mp4', uploadDate: '2024-01-12', analyzed: true, analysisDate: '2024-01-14' },
+            { id: 5, name: 'conference_call.aac', uploadDate: '2024-01-11', analyzed: false },
+        ];
+
+        // Function to initialize the dashboard
+        function initDashboard() {
+            // Populate unanalyzed audios table
+            const unanalyzedTableBody = document.getElementById('unanalyzedTableBody');
+            const unanalyzedAudios = mockAudios.filter(audio => !audio.analyzed);
+            
+            unanalyzedTableBody.innerHTML = '';
+            unanalyzedAudios.forEach(audio => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${audio.name}</td>
+                    <td>${audio.uploadDate}</td>
+                    <td class="status-unanalyzed">Unanalyzed</td>
+                `;
+                unanalyzedTableBody.appendChild(row);
+            });
+
+            // Populate analyzed audios table
+            const analyzedTableBody = document.getElementById('analyzedTableBody');
+            const analyzedAudios = mockAudios.filter(audio => audio.analyzed);
+            
+            analyzedTableBody.innerHTML = '';
+            analyzedAudios.forEach(audio => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${audio.name}</td>
+                    <td>${audio.uploadDate}</td>
+                    <td>${audio.analysisDate}</td>
+                    <td class="status-analyzed">Analyzed</td>
+                `;
+                analyzedTableBody.appendChild(row);
+            });
+
+            // Add event listener to upload button
+            document.getElementById('uploadAudioBtn').addEventListener('click', function() {
+                alert('Upload audio functionality would be implemented here!');
+                // In a real application, you'd implement file upload logic here
+            });
+        }
+
+        // Initialize the dashboard when the page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

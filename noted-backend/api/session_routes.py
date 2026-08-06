@@ -21,6 +21,7 @@ from services.admin_audio_analysis import (
     analyze_audio_file,
     ensure_audio_belongs_to_user,
     list_audio_files_for_username,
+    list_audio_files_categorized_for_username,
     save_submitted_crm_form,
 )
 from services.file_service import save_upload_file
@@ -87,6 +88,12 @@ async def process_uploaded_audio(
 async def list_audio_files_for_analysis(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
     """Return the audio files that belong to the authenticated user."""
     return {"audio_files": list_audio_files_for_username(current_user.username)}
+
+
+@session_router.get("/audio/analyze-files-categorized")
+async def list_audio_files_categorized(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Return audio files split into 'completed' and 'new' based on CRM form presence."""
+    return list_audio_files_categorized_for_username(current_user.username)
 
 
 @session_router.post("/audio/analyze")

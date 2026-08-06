@@ -15,8 +15,10 @@ export default {
         const error = ref('');
 
         // ----- Analyze Audio State -----
+        const completedAudioFiles = ref([]);
+        const newAudioFiles = ref([]);
         const audioFiles = ref([]);
-        const selectedPaths = reactive(new Set()); // Multi-select: audio paths
+        const selectedPaths = reactive(new Set()); // Multi-select: audio paths (only from newAudioFiles)
         const processingQueue = ref([]); // Queue of paths to process
         const currentProcessingPath = ref(null); // Currently processing audio
         const processingProgress = ref(null); // { path, percent, status }
@@ -25,9 +27,9 @@ export default {
 
         // Computed helpers
         const isAnalyzing = computed(() => processingQueue.value.length > 0 || currentProcessingPath.value !== null);
-        
+
         const selectAllChecked = computed(() => {
-            return audioFiles.value.length > 0 && audioFiles.value.every(af => selectedPaths.has(af.path));
+            return newAudioFiles.value.length > 0 && newAudioFiles.value.every(af => selectedPaths.has(af.path));
         });
 
         const selectAllIndeterminate = computed(() => {
@@ -55,7 +57,7 @@ export default {
             if (selectAllChecked.value) {
                 selectedPaths.clear();
             } else {
-                audioFiles.value.forEach(af => selectedPaths.add(af.path));
+                newAudioFiles.value.forEach(af => selectedPaths.add(af.path));
             }
         };
 
@@ -94,14 +96,11 @@ export default {
 
         const loadAudioFiles = async () => {
             try {
-                const data = await apiClient.get('/audio/analyze-files');
-                audioFiles.value = (data.audio_files || []).sort((a, b) => a.name.localeCompare(b.name));
+                const data = await apiClient.get('/audio/analyze-files-categorized');
+                completedAudioFiles.value = (data.completed || []).sort((a, b) => a.name.localeCompare(b.name));
+                newAudioFiles.value = (data.new || []).sort((a, b) => a.name.localeCompare(b.name));
+                audioFiles.value = [...completedAudioFiles.value, ...newAudioFiles.value];
                 selectedPaths.clear();
-                
-                // Pre-populate CRM form status for all audio files
-                for (const af of audioFiles.value) {
-                    await checkCrmFormStatus(af.name);
-                }
             } catch (loadError) {
                 console.error('Failed to load audio files', loadError);
                 error.value = loadError.message || 'Failed to load audio files.';
@@ -178,6 +177,7 @@ export default {
             currentProcessingPath.value = null;
             processingProgress.value = null;
             message.value = 'Batch analysis complete.';
+            await loadAudioFiles();
         };
 
         const cancelBatchAnalysis = () => {
@@ -266,7 +266,8 @@ export default {
 
         return {
             fileInput, isUploading, uploadProgress, message, error, chooseAudio, uploadAudio, logout,
-            audioFiles, selectedPaths, isAnalyzing, selectAllChecked, selectAllIndeterminate,
+            audioFiles, completedAudioFiles, newAudioFiles,
+            selectedPaths, isAnalyzing, selectAllChecked, selectAllIndeterminate,
             processingProgress, analysisResults, crmFormStatusCache,
             loadAudioFiles, toggleAudioSelection, toggleSelectAll, startBatchAnalysis, cancelBatchAnalysis,
             isCrmFormAvailable, openCrmForm, parseAudioFileInfo,
@@ -294,83 +295,119 @@ export default {
 
             <hr class="divider">
 
-            <section class="analyze-section">
-                <h2 class="analyze-title">Analyze Audio</h2>
-                <p class="analyze-hint">Select one or more recordings and analyze them. CRM forms will be available after analysis is complete.</p>
-
-                <!-- Processing Progress Display -->
-                <div v-if="isAnalyzing" class="analysis-progress-container">
-                    <div class="analysis-progress" role="progressbar" aria-label="Analysis in progress">
-                        <div class="analysis-progress__bar"></div>
-                    </div>
-                    <p class="analysis-status-label">{{ processingProgress?.status || 'Processing...' }}</p>
-                    <button type="button" class="cancel-button" @click="cancelBatchAnalysis">Cancel</button>
+            <!-- Processing Progress Display -->
+            <div v-if="isAnalyzing" class="analysis-progress-container">
+                <div class="analysis-progress" role="progressbar" aria-label="Analysis in progress">
+                    <div class="analysis-progress__bar"></div>
                 </div>
+                <p class="analysis-status-label">{{ processingProgress?.status || 'Processing...' }}</p>
+                <button type="button" class="cancel-button" @click="cancelBatchAnalysis">Cancel</button>
+            </div>
 
-                <!-- Audio Files Table -->
-                <div v-if="!isAnalyzing && audioFiles.length > 0" class="table-container">
-                    <table class="audio-files-table">
-                        <thead>
-                            <tr>
-                                <th class="col-checkbox">
-                                    <input 
-                                        type="checkbox" 
-                                        @change="toggleSelectAll"
-                                        :checked="selectAllChecked"
-                                        :indeterminate="selectAllIndeterminate"
-                                        class="select-all-checkbox"
-                                    />
-                                </th>
-                                <th class="col-sno">S.No.</th>
-                                <th class="col-name">Audio File Name</th>
-                                <th class="col-date">Date</th>
-                                <th class="col-time">Time</th>
-                                <th class="col-crm">CRM Form</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(audioFile, index) in audioFiles" :key="audioFile.path" class="audio-row">
-                                <td class="col-checkbox">
-                                    <input 
-                                        type="checkbox"
-                                        @change="toggleAudioSelection(audioFile.path)"
-                                        :checked="selectedPaths.has(audioFile.path)"
-                                        class="audio-checkbox"
-                                    />
-                                </td>
-                                <td class="col-sno">{{ index + 1 }}</td>
-                                <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
-                                <td class="col-date">{{ parseAudioFileInfo(audioFile).date }}</td>
-                                <td class="col-time">{{ parseAudioFileInfo(audioFile).time }}</td>
-                                <td class="col-crm">
-                                    <button 
-                                        type="button" 
-                                        class="crm-button"
-                                        :disabled="!isCrmFormAvailable(audioFile)"
-                                        @click="openCrmForm(audioFile)"
-                                    >
-                                        Open CRM
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- ===== Side-by-side tables ===== -->
+            <div class="tables-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
 
-                    <div class="analyze-controls">
-                        <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh List</button>
-                        <button 
-                            type="button" 
-                            class="analyze-button" 
-                            :disabled="selectedPaths.size === 0"
-                            @click="startBatchAnalysis"
-                        >
-                            Analyze Selected ({{ selectedPaths.size }})
-                        </button>
+                <!-- Left: Completed Audio Analysis -->
+                <section class="analyze-section">
+                    <h2 class="analyze-title">Completed Audio Analysis</h2>
+                    <p class="analyze-hint">Analyzed recordings with CRM forms available.</p>
+
+                    <div v-if="completedAudioFiles.length > 0" class="table-container">
+                        <table class="audio-files-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-sno">S.No.</th>
+                                    <th class="col-name">Audio File Name</th>
+                                    <th class="col-crm">CRM Form</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(audioFile, index) in completedAudioFiles" :key="audioFile.path" class="audio-row">
+                                    <td class="col-sno">{{ index + 1 }}</td>
+                                    <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
+                                    <td class="col-crm">
+                                        <button
+                                            type="button"
+                                            class="crm-button"
+                                            @click="openCrmForm(audioFile)"
+                                        >
+                                            Open CRM
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                    <p v-else class="status">No completed analyses yet.</p>
+                </section>
 
-                <p v-else-if="!isAnalyzing" class="status">No audio files found. Upload some audio files to get started.</p>
-            </section>
+                <!-- Right: New Audios -->
+                <section class="analyze-section">
+                    <h2 class="analyze-title">New Audios</h2>
+                    <p class="analyze-hint">Select recordings to analyze. CRM forms available after analysis.</p>
+
+                    <div v-if="!isAnalyzing && newAudioFiles.length > 0" class="table-container">
+                        <table class="audio-files-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-checkbox">
+                                        <input
+                                            type="checkbox"
+                                            @change="toggleSelectAll"
+                                            :checked="selectAllChecked"
+                                            :indeterminate="selectAllIndeterminate"
+                                            class="select-all-checkbox"
+                                        />
+                                    </th>
+                                    <th class="col-sno">S.No.</th>
+                                    <th class="col-name">Audio File Name</th>
+                                    <th class="col-crm">CRM Form</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(audioFile, index) in newAudioFiles" :key="audioFile.path" class="audio-row">
+                                    <td class="col-checkbox">
+                                        <input
+                                            type="checkbox"
+                                            @change="toggleAudioSelection(audioFile.path)"
+                                            :checked="selectedPaths.has(audioFile.path)"
+                                            class="audio-checkbox"
+                                        />
+                                    </td>
+                                    <td class="col-sno">{{ index + 1 }}</td>
+                                    <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
+                                    <td class="col-crm">
+                                        <button
+                                            type="button"
+                                            class="crm-button"
+                                            :disabled="!isCrmFormAvailable(audioFile)"
+                                            @click="openCrmForm(audioFile)"
+                                        >
+                                            Open CRM
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="analyze-controls">
+                            <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh List</button>
+                            <button
+                                type="button"
+                                class="analyze-button"
+                                :disabled="selectedPaths.size === 0"
+                                @click="startBatchAnalysis"
+                            >
+                                Analyze Selected ({{ selectedPaths.size }})
+                            </button>
+                        </div>
+                    </div>
+
+                    <p v-else-if="!isAnalyzing && newAudioFiles.length === 0 && completedAudioFiles.length > 0" class="status">All audio files have been analyzed.</p>
+                    <p v-else-if="!isAnalyzing" class="status">No audio files found. Upload some audio files to get started.</p>
+                </section>
+
+            </div>
         </main>
     `,
 };

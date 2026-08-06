@@ -1,0 +1,81 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Telephone (eg. call, WhatsApp etc)",
+    "Heard from the guidance/advice position (if other where?)": "Not mentioned in transcript.",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Pakistan",
+    "Mother Tongue/Language": "Not mentioned in transcript.",
+    "Customer Domicile": "Pakistan",
+    "Position in labour market": "Not mentioned in transcript.",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Contents of the customer visit": "Family life (eg.: children's school, early childhood education, relationships)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Early childhood education",
+    "Any Additional Information": "The customer mentioned their daughter is three years old and seeking daycare options, with a specific interest in understanding the process for enrollment, transportation, and the availability of vegetarian food choices. They also inquired about medical services and emergency procedures in case of accidents at the daycare.",
+    "Any other Feedback": "The customer mentioned their daughter is three years old and seeking daycare options, with a specific interest in understanding the process for enrollment, transportation, and the availability of vegetarian food choices. They also inquired about medical services and emergency procedures in case of accidents at the daycare."
+  },
+  "metadata": {
+    "date_time": "06/08/2026 11:07",
+    "audio_file": "dia5sce1SA_4d85b5e0.wav",
+    "visit_duration": "11 min 48 sec",
+    "audio_duration_sec": 707.94,
+    "segment_count": 99,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01",
+      "SPEAKER_02"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "SPEAKER_02": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_02": 425.22,
+      "SPEAKER_00": 122.28,
+      "SPEAKER_01": 7.12
+    },
+    "total_advisor_time_sec": 432.34,
+    "total_advisor_time": "7 min 12 sec",
+    "total_customer_time_sec": 122.28,
+    "total_customer_time": "2 min 2 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "11 min 48 sec",
+    "contactMethod": [
+      "Telephone (eg. call",
+      "WhatsApp etc)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "",
+    "customerCount": 1,
+    "gender": "",
+    "age": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "Pakistan",
+    "motherTongue": "",
+    "educationLevel": "",
+    "labourPosition": [],
+    "domicile": "Pakistan",
+    "residenceDuration": [],
+    "contents": [
+      "Family life (eg.: children's school",
+      "early childhood education",
+      "relationships)"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer mentioned their daughter is three years old and seeking daycare options, with a specific interest in understanding the process for enrollment, transportation, and the availability of vegetarian food choices. They also inquired about medical services and emergency procedures in case of accidents at the daycare.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer mentioned their daughter is three years old and seeking daycare options, with a specific interest in understanding the process for enrollment, transportation, and the availability of vegetarian food choices. They also inquired about medical services and emergency procedures in case of accidents at the daycare."
+  }
+}

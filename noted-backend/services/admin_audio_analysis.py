@@ -182,6 +182,66 @@ def list_audio_files_for_username(username: str, users_root: Optional[Path] = No
     return audio_files
 
 
+def list_audio_files_categorized_for_username(username: str, users_root: Optional[Path] = None) -> dict:
+    """Return audio files split into 'completed' (CRM form exists in uploads) and 'new'.
+
+    An audio file is considered completed if any directory in the user's uploads/
+    folder whose name starts with the audio's base stem (text before the first '_')
+    contains a CRM form file (6_crm_form.html or 6_crm_form_parsed.json).
+    """
+    users_root = (users_root or get_default_users_root()).resolve()
+    if not users_root.exists():
+        return {"completed": [], "new": []}
+
+    safe_username = sanitize_username(username)
+    user_root = users_root / safe_username
+    if not user_root.exists():
+        return {"completed": [], "new": []}
+
+    uploads_dir = user_root / "uploads"
+
+    # Build set of base stems that have a CRM form in uploads
+    completed_stems: set[str] = set()
+    if uploads_dir.exists():
+        for d in uploads_dir.iterdir():
+            if not d.is_dir():
+                continue
+            has_crm = any(
+                (d / name).exists()
+                for name in ("6_crm_form.html", "6_crm_form_parsed.json", "crm_form_parsed.html", "crm_form_parsed.json")
+            )
+            if has_crm:
+                # The base stem is the part before the first '_' in the directory name
+                base_stem = d.name.split("_")[0] if "_" in d.name else d.name
+                completed_stems.add(base_stem)
+
+    completed: list[dict] = []
+    new: list[dict] = []
+
+    for path in sorted(user_root.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in AUDIO_EXTENSIONS:
+            continue
+        try:
+            relative_path = path.relative_to(REPO_ROOT)
+        except ValueError:
+            continue
+
+        audio_stem = path.stem.split("_")[0] if "_" in path.stem else path.stem
+        entry = {
+            "path": str(relative_path).replace("\\", "/"),
+            "display_name": path.name,
+            "name": path.name,
+            "username": safe_username,
+        }
+
+        if audio_stem in completed_stems:
+            completed.append(entry)
+        else:
+            new.append(entry)
+
+    return {"completed": completed, "new": new}
+
+
 def ensure_audio_belongs_to_user(audio_path: str | Path, username: str, users_root: Optional[Path] = None) -> Path:
     """Validate that the audio file belongs to the given username.
 

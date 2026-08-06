@@ -1,0 +1,76 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Not mentioned in transcript.",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Not mentioned in transcript.",
+    "Mother Tongue/Language": "English",
+    "Customer Domicile": "Not mentioned in transcript.",
+    "Position in labour market": "Entrepreneur",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Contents of the customer visit": "Matters related to immigration process (eg.: residence permit)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Finnish Immigration Service (Migri)",
+    "Any Additional Information": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting a company for a new job offer, which would require changing their residence permit from a worker permit to an entrepreneur permit. They are unsure about the process of registering a company, tax implications, and the feasibility of working as a freelancer in Finland.",
+    "Any other Feedback": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting a company for a new job offer, which would require changing their residence permit from a worker permit to an entrepreneur permit. They are unsure about the process of registering a company, tax implications, and the feasibility of working as a freelancer in Finland."
+  },
+  "metadata": {
+    "date_time": "02/08/2026 13:08",
+    "audio_file": "dia11sce2SA_02c7e5c0.wav",
+    "visit_duration": "12 min 8 sec",
+    "audio_duration_sec": 727.86,
+    "segment_count": 124,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "UNKNOWN": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 196.82,
+      "SPEAKER_01": 274.58
+    },
+    "total_advisor_time_sec": 274.58,
+    "total_advisor_time": "4 min 35 sec",
+    "total_customer_time_sec": 196.82,
+    "total_customer_time": "3 min 17 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "12 min 8 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "",
+    "customerCount": 1,
+    "gender": "",
+    "age": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "",
+    "motherTongue": "English",
+    "educationLevel": "",
+    "labourPosition": [
+      "Entrepreneur"
+    ],
+    "domicile": "",
+    "residenceDuration": [],
+    "contents": [
+      "Matters related to immigration process (eg.: residence permit)"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting a company for a new job offer, which would require changing their residence permit from a worker permit to an entrepreneur permit. They are unsure about the process of registering a company, tax implications, and the feasibility of working as a freelancer in Finland.",
+    "directedTo": "Finnish Immigration Service (Migri)",
+    "otherFeedback": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting a company for a new job offer, which would require changing their residence permit from a worker permit to an entrepreneur permit. They are unsure about the process of registering a company, tax implications, and the feasibility of working as a freelancer in Finland."
+  }
+}

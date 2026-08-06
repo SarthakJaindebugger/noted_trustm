@@ -1,0 +1,344 @@
+import { ref, computed, onMounted, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { authService } from '../services/auth_service.js';
+import { sessionService } from '../services/session_service.js';
+import { apiClient } from '../services/api_client.js';
+
+export default {
+    name: 'Dashboard',
+    setup() {
+        const router = useRouter();
+        const fileInput   = ref(null);
+        const isUploading = ref(false);
+        const uploadProgress = ref(0);
+        const message = ref('');
+        const error   = ref('');
+
+        // ── Two separate file lists ──
+        const uploadedFiles = ref([]);   // files not yet analyzed
+        const analyzedFiles = ref([]);   // files with completed analysis
+
+        // ── Selection state (uploaded table only) ──
+        const selectedPaths = reactive(new Set());
+
+        // ── Analysis progress ──
+        const processingQueue       = ref([]);
+        const currentProcessingPath = ref(null);
+        const processingProgress    = ref(null);
+        const analysisResults       = reactive({});
+
+        const isAnalyzing = computed(
+            () => processingQueue.value.length > 0 || currentProcessingPath.value !== null
+        );
+
+        const selectAllChecked = computed(
+            () => uploadedFiles.value.length > 0 &&
+                  uploadedFiles.value.every(f => selectedPaths.has(f.path))
+        );
+        const selectAllIndeterminate = computed(
+            () => selectedPaths.size > 0 && !selectAllChecked.value
+        );
+
+        // ── Load both lists from backend ──
+        const loadAudioFiles = async () => {
+            try {
+                const data = await apiClient.get('/audio/files-with-status');
+                uploadedFiles.value = data.uploaded || [];
+                analyzedFiles.value = data.analyzed || [];
+                selectedPaths.clear();
+            } catch (err) {
+                console.error('Failed to load audio files', err);
+                error.value = err.message || 'Failed to load audio files.';
+            }
+        };
+
+        // ── Upload ──
+        const chooseAudio = () => fileInput.value?.click();
+        const logout = async () => {
+            authService.logout();
+            await router.push({ name: 'login' });
+        };
+
+        const uploadAudio = async (event) => {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            isUploading.value   = true;
+            uploadProgress.value = 0;
+            message.value = '';
+            error.value   = '';
+            try {
+                const result = await sessionService.uploadUserAudio(file, p => { uploadProgress.value = p; });
+                uploadProgress.value = 100;
+                message.value = result.message || 'Uploaded successfully.';
+                await loadAudioFiles();
+            } catch (e) {
+                error.value = e.message || 'Unable to upload the audio file.';
+            } finally {
+                isUploading.value = false;
+                event.target.value = '';
+            }
+        };
+
+        // ── Selection helpers (uploaded table) ──
+        const toggleSelect = path => selectedPaths.has(path) ? selectedPaths.delete(path) : selectedPaths.add(path);
+        const toggleSelectAll = () => {
+            if (selectAllChecked.value) selectedPaths.clear();
+            else uploadedFiles.value.forEach(f => selectedPaths.add(f.path));
+        };
+
+
+        // ── Batch analysis (uploaded files) ──
+        const startBatchAnalysis = async () => {
+            if (selectedPaths.size === 0) { error.value = 'Select at least one file.'; return; }
+            processingQueue.value = Array.from(selectedPaths).sort();
+            selectedPaths.clear();
+            error.value = '';
+            message.value = '';
+            await processQueueSequentially();
+        };
+
+        const processQueueSequentially = async () => {
+            while (processingQueue.value.length > 0) {
+                const audioPath = processingQueue.value.shift();
+                currentProcessingPath.value = audioPath;
+                processingProgress.value = { path: audioPath, percent: 0, status: 'Starting analysis...' };
+                try {
+                    processingProgress.value.status  = 'Analyzing audio...';
+                    processingProgress.value.percent = 50;
+                    const result = await apiClient.post('/audio/analyze', { audio_path: audioPath });
+                    analysisResults[audioPath] = result;
+                    processingProgress.value.percent = 100;
+                    processingProgress.value.status  = 'Analysis complete';
+                    await new Promise(r => setTimeout(r, 800));
+                } catch (e) {
+                    console.error('Analysis failed for', audioPath, e);
+                    processingProgress.value.status  = `Failed: ${e.message || 'Unknown error'}`;
+                    processingProgress.value.percent = 100;
+                    await new Promise(r => setTimeout(r, 800));
+                }
+            }
+            currentProcessingPath.value = null;
+            processingProgress.value = null;
+            message.value = 'Analysis complete. Refreshing list...';
+            await loadAudioFiles();   // move freshly-analyzed files to the analyzed table
+            message.value = 'Batch analysis complete.';
+        };
+
+        const cancelBatchAnalysis = () => {
+            processingQueue.value = [];
+            currentProcessingPath.value = null;
+            processingProgress.value = null;
+            message.value = '';
+        };
+
+        // ── Open CRM form ──
+        const openCrmForm = async (audioFile) => {
+            // Use pre-fetched paths (analyzed table already has them) or look up in-memory result
+            let htmlPath = audioFile.crm_form_html_path || '';
+            if (!htmlPath) {
+                const mem = analysisResults[audioFile.path];
+                htmlPath = mem?.crm_form_html_path || mem?.result?.crm_form_html_path || '';
+            }
+            if (!htmlPath) {
+                // Fallback: ask backend
+                try {
+                    const r = await apiClient.get(`/audio/analyze-result?audio_path=${encodeURIComponent(audioFile.path)}`);
+                    htmlPath = r?.crm_form_html_path || '';
+                } catch (e) { console.error('Could not fetch analysis result', e); }
+            }
+            if (!htmlPath) { error.value = 'CRM form not found. Please analyze this file first.'; return; }
+
+            // Copy JSON to submitted_crm_forms (non-fatal if it fails)
+            try {
+                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.name });
+            } catch (e) { console.warn('CRM JSON copy failed:', e.message); }
+
+            try {
+                const resp = await apiClient.request(`/audio/file-content?path=${encodeURIComponent(htmlPath)}`);
+                if (!resp.ok) throw new Error(`Failed to load CRM HTML: ${resp.status}`);
+                const data = await resp.json();
+                let html = data.content || '';
+
+                // Inject auth token + backend URL into the popup
+                const { config } = await import('../config.js');
+                const backendUrl  = config.getApiBaseUrl().replace('/api/v1', '');
+                const authToken   = sessionStorage.getItem('auth_token') || '';
+                const inject = `<script>window.crmBackendUrl=${JSON.stringify(backendUrl)};window.crmAuthToken=${JSON.stringify(authToken)};<\/script>`;
+                html = html.includes('</head>') ? html.replace('</head>', inject + '</head>') : inject + html;
+
+                const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+                const url  = URL.createObjectURL(blob);
+                const popup = window.open(url, '_blank', 'noopener,noreferrer');
+                if (!popup) throw new Error('Popup blocked. Please allow popups for this site.');
+                setTimeout(() => URL.revokeObjectURL(url), 10000);
+                message.value = 'CRM form opened in a new window.';
+            } catch (e) {
+                console.error('Failed to open CRM form', e);
+                error.value = e.message || 'Failed to open CRM form.';
+            }
+        };
+
+        onMounted(loadAudioFiles);
+
+        return {
+            fileInput, isUploading, uploadProgress, message, error,
+            chooseAudio, uploadAudio, logout,
+            uploadedFiles, analyzedFiles,
+            selectedPaths, selectAllChecked, selectAllIndeterminate,
+            isAnalyzing, processingProgress,
+            loadAudioFiles, toggleSelect, toggleSelectAll,
+            startBatchAnalysis, cancelBatchAnalysis, openCrmForm,
+        };
+    },
+
+
+    template: `
+    <main class="audio-upload-dashboard">
+        <button type="button" class="logout-button" @click="logout">Logout</button>
+        <input ref="fileInput" type="file" accept="audio/*" class="sr-only" @change="uploadAudio" />
+
+        <!-- ══════════════════════════════════════════
+             SECTION 1 · Upload Audio (Positioned Above Unanalyzed Table)
+        ══════════════════════════════════════════ -->
+        <section class="upload-section">
+            <h2 class="section-title">Upload Audio</h2>
+            <p class="section-hint">Upload a new recording to queue it for analysis.</p>
+
+            <button type="button" class="upload-button" :disabled="isUploading" @click="chooseAudio">
+                {{ isUploading ? 'Uploading…' : '+ Upload Audio File' }}
+            </button>
+
+            <div v-if="isUploading" class="upload-progress" role="progressbar"
+                :aria-valuenow="uploadProgress" aria-valuemin="0" aria-valuemax="100">
+                <div class="upload-progress__bar" :style="{ width: uploadProgress + '%' }"></div>
+            </div>
+            <p v-if="isUploading" class="status">Uploading {{ uploadProgress }}%</p>
+        </section>
+
+        <!-- Messages -->
+        <p v-if="message" class="status success">{{ message }}</p>
+        <p v-if="error"   class="status error">{{ error }}</p>
+
+        <hr class="divider" />
+
+        <!-- ══════════════════════════════════════════
+             SECTION 2 · Unanalyzed Audios Table
+        ══════════════════════════════════════════ -->
+        <section class="analyze-section">
+            <h2 class="analyze-title">Unanalyzed Audios</h2>
+            <p class="analyze-hint">These audios have not been analyzed yet. Select files and click Analyze.</p>
+
+            <!-- Progress bar while analyzing -->
+            <div v-if="isAnalyzing" class="analysis-progress-container">
+                <div class="analysis-progress" role="progressbar" aria-label="Analysis in progress">
+                    <div class="analysis-progress__bar"></div>
+                </div>
+                <p class="analysis-status-label">{{ processingProgress?.status || 'Processing...' }}</p>
+                <button type="button" class="cancel-button" @click="cancelBatchAnalysis">Cancel</button>
+            </div>
+
+            <!-- Unanalyzed files table -->
+            <div v-if="!isAnalyzing && uploadedFiles.length > 0" class="table-container">
+                <table class="audio-files-table">
+                    <thead>
+                        <tr>
+                            <th class="col-checkbox">
+                                <input type="checkbox"
+                                    @change="toggleSelectAll"
+                                    :checked="selectAllChecked"
+                                    :indeterminate="selectAllIndeterminate"
+                                    class="select-all-checkbox" />
+                            </th>
+                            <th class="col-sno">S.No.</th>
+                            <th class="col-name">File Name</th>
+                            <th class="col-status">Status</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(f, i) in uploadedFiles" :key="f.path" class="audio-row">
+                            <td class="col-checkbox">
+                                <input type="checkbox"
+                                    @change="toggleSelect(f.path)"
+                                    :checked="selectedPaths.has(f.path)"
+                                    class="audio-checkbox" />
+                            </td>
+                            <td class="col-sno">{{ i + 1 }}</td>
+                            <td class="col-name">{{ f.name }}</td>
+                            <td class="col-status">
+                                <span class="status-badge">Unanalyzed</span>
+                            </td>
+                            <td class="col-actions">
+                                <button type="button" class="analyze-btn" @click="openCrmForm(f)">Analyze</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="analyze-controls">
+                    <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh</button>
+                    <button type="button" class="analyze-button"
+                        :disabled="selectedPaths.size === 0"
+                        @click="startBatchAnalysis">
+                        Analyze Selected ({{ selectedPaths.size }})
+                    </button>
+                </div>
+            </div>
+
+            <p v-else-if="!isAnalyzing && uploadedFiles.length === 0" class="status">
+                No unanalyzed recordings found. Upload a file above to get started.
+            </p>
+
+            <p v-else-if="isAnalyzing && uploadedFiles.length === 0" class="status">
+                No unanalyzed recordings to display.
+            </p>
+        </section>
+
+        <hr class="divider" />
+
+        <!-- ══════════════════════════════════════════
+             SECTION 3 · Analyzed Audios Table
+        ══════════════════════════════════════════ -->
+        <section class="analyze-section">
+            <h2 class="analyze-title">Analyzed Audios</h2>
+            <p class="analyze-hint">Analysis complete — click Open CRM to view and submit the form.</p>
+
+            <div v-if="analyzedFiles.length > 0" class="table-container">
+                <table class="audio-files-table">
+                    <thead>
+                        <tr>
+                            <th class="col-sno">S.No.</th>
+                            <th class="col-name">File Name</th>
+                            <th class="col-date">Analysis Date</th>
+                            <th class="col-status">Status</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(f, i) in analyzedFiles" :key="f.path" class="audio-row">
+                            <td class="col-sno">{{ i + 1 }}</td>
+                            <td class="col-name">{{ f.name }}</td>
+                            <td class="col-date">{{ f.analysis_date || 'Not available' }}</td>
+                            <td class="col-status">
+                                <span class="status-badge success">Analyzed</span>
+                            </td>
+                            <td class="col-actions">
+                                <button type="button" class="crm-button crm-button--ready"
+                                    @click="openCrmForm(f)">
+                                    Open CRM
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="analyze-controls">
+                    <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh</button>
+                </div>
+            </div>
+
+            <p v-else class="status">No analyzed recordings yet.</p>
+        </section>
+    </main>
+    `,
+};

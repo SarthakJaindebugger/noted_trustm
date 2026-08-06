@@ -1,0 +1,638 @@
+[
+  {
+    "start": 1.6999999999999993,
+    "end": 4.8,
+    "speaker": "SPEAKER_03",
+    "text": "on this road."
+  },
+  {
+    "start": 21.3,
+    "end": 21.94,
+    "speaker": "SPEAKER_00",
+    "text": "Hi."
+  },
+  {
+    "start": 23.2,
+    "end": 24.16,
+    "speaker": "SPEAKER_01",
+    "text": "You're welcome."
+  },
+  {
+    "start": 25.2,
+    "end": 28.22,
+    "speaker": "SPEAKER_01",
+    "text": "I was there for the first language in this language."
+  },
+  {
+    "start": 28.46,
+    "end": 29.1,
+    "speaker": "SPEAKER_03",
+    "text": "English."
+  },
+  {
+    "start": 29.34,
+    "end": 29.6,
+    "speaker": "SPEAKER_03",
+    "text": "OK."
+  },
+  {
+    "start": 29.92,
+    "end": 29.98,
+    "speaker": "SPEAKER_03",
+    "text": "Okay."
+  },
+  {
+    "start": 29.98,
+    "end": 32.02,
+    "speaker": "SPEAKER_01",
+    "text": "My name is <PERSON_1>."
+  },
+  {
+    "start": 32.78,
+    "end": 33.66,
+    "speaker": "SPEAKER_01",
+    "text": "So, welcome."
+  },
+  {
+    "start": 34.3,
+    "end": 34.44,
+    "speaker": "SPEAKER_01",
+    "text": "Thank you."
+  },
+  {
+    "start": 34.66,
+    "end": 34.82,
+    "speaker": "SPEAKER_01",
+    "text": "Thank you."
+  },
+  {
+    "start": 39.14,
+    "end": 40.12,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 40.54,
+    "end": 42.14,
+    "speaker": "SPEAKER_02",
+    "text": "So, what's the question you have today?"
+  },
+  {
+    "start": 43.02,
+    "end": 56.76,
+    "speaker": "SPEAKER_03",
+    "text": "Well, I was working in a tech company as a software developer, and I got laid off recently."
+  },
+  {
+    "start": 58.120000000000005,
+    "end": 69.66,
+    "speaker": "SPEAKER_03",
+    "text": "So, right now, I'm unemployed and booked for a job, and recently, I got an offer on"
+  },
+  {
+    "start": 69.66,
+    "end": 80.52,
+    "speaker": "SPEAKER_03",
+    "text": "another company that they would give me a job, but I would need to be a freelancer or have"
+  },
+  {
+    "start": 81.8,
+    "end": 82.76,
+    "speaker": "SPEAKER_03",
+    "text": "my own company."
+  },
+  {
+    "start": 82.76,
+    "end": 91.42,
+    "speaker": "SPEAKER_03",
+    "text": "So, they would just make a contract with me instead of really hiring me."
+  },
+  {
+    "start": 95.03999999999999,
+    "end": 103.16,
+    "speaker": "SPEAKER_03",
+    "text": "So, this is something I never did, even in my home country, so I never worked as a freelancer"
+  },
+  {
+    "start": 103.16,
+    "end": 104.02,
+    "speaker": "SPEAKER_03",
+    "text": "as a contractor."
+  },
+  {
+    "start": 104.02,
+    "end": 118.6,
+    "speaker": "SPEAKER_03",
+    "text": "So, I'm not sure how this worked, like one thing, my main question is more related to"
+  },
+  {
+    "start": 118.6,
+    "end": 127.64,
+    "speaker": "SPEAKER_03",
+    "text": "my business status, so I don't have a permanent resident permit here yet."
+  },
+  {
+    "start": 127.64,
+    "end": 136.46,
+    "speaker": "SPEAKER_03",
+    "text": "So, how being a contractor would affect my residence permit?"
+  },
+  {
+    "start": 138.48,
+    "end": 142.06,
+    "speaker": "SPEAKER_03",
+    "text": "Should I keep my current one?"
+  },
+  {
+    "start": 142.3,
+    "end": 143.56,
+    "speaker": "SPEAKER_03",
+    "text": "Should I light on you one?"
+  },
+  {
+    "start": 144.76,
+    "end": 145.7,
+    "speaker": "SPEAKER_02",
+    "text": "For that."
+  },
+  {
+    "start": 146.6,
+    "end": 152.22,
+    "speaker": "SPEAKER_02",
+    "text": "Have you visited the Migri office by any chance?"
+  },
+  {
+    "start": 152.94,
+    "end": 153.58,
+    "speaker": "SPEAKER_03",
+    "text": "No, not yet."
+  },
+  {
+    "start": 153.58,
+    "end": 163.38,
+    "speaker": "SPEAKER_02",
+    "text": "Okay. So, usually for resident permits and legal statuses, you should go to the Migri website."
+  },
+  {
+    "start": 163.78,
+    "end": 165.24,
+    "speaker": "SPEAKER_02",
+    "text": "You can find out the details."
+  },
+  {
+    "start": 165.66,
+    "end": 167.48,
+    "speaker": "SPEAKER_02",
+    "text": "It's called this."
+  },
+  {
+    "start": 169.28,
+    "end": 178.52,
+    "speaker": "SPEAKER_02",
+    "text": "So, now your case is you need to apply for a visa type, and then you're supposed to be an"
+  },
+  {
+    "start": 179.94,
+    "end": 180.58,
+    "speaker": "SPEAKER_02",
+    "text": "entrepreneur."
+  },
+  {
+    "start": 181.42,
+    "end": 182.0,
+    "speaker": "SPEAKER_02",
+    "text": "Is it a visa?"
+  },
+  {
+    "start": 182.38,
+    "end": 182.54,
+    "speaker": "SPEAKER_00",
+    "text": "Yeah."
+  },
+  {
+    "start": 182.88,
+    "end": 183.28,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 183.44,
+    "end": 186.42,
+    "speaker": "SPEAKER_02",
+    "text": "Let me look for some entrepreneurship pieces."
+  },
+  {
+    "start": 187.32,
+    "end": 188.26,
+    "speaker": "SPEAKER_02",
+    "text": "Give me a moment."
+  },
+  {
+    "start": 234.9,
+    "end": 236.3,
+    "speaker": "UNKNOWN",
+    "text": "Okay."
+  },
+  {
+    "start": 243.32,
+    "end": 246.48,
+    "speaker": "SPEAKER_02",
+    "text": "Do you plan to expand your company?"
+  },
+  {
+    "start": 246.92,
+    "end": 247.18,
+    "speaker": "SPEAKER_02",
+    "text": "I know."
+  },
+  {
+    "start": 247.5,
+    "end": 252.6,
+    "speaker": "SPEAKER_02",
+    "text": "Like, if you start as an entrepreneur, would you just need it for the contract for the current"
+  },
+  {
+    "start": 253.52,
+    "end": 254.06,
+    "speaker": "SPEAKER_02",
+    "text": "working conditions?"
+  },
+  {
+    "start": 256.28,
+    "end": 262.52,
+    "speaker": "SPEAKER_03",
+    "text": "I don't want to have a company just want to get a job from this company, so I don't"
+  },
+  {
+    "start": 262.52,
+    "end": 265.4,
+    "speaker": "SPEAKER_03",
+    "text": "have the opportunity to expand it or anything."
+  },
+  {
+    "start": 268.11999999999995,
+    "end": 273.6,
+    "speaker": "SPEAKER_02",
+    "text": "So, about the entrepreneur resident permit, you can find it in the info file."
+  },
+  {
+    "start": 274.62,
+    "end": 279.04,
+    "speaker": "SPEAKER_02",
+    "text": "So, if you go here, that's for you."
+  },
+  {
+    "start": 279.32,
+    "end": 285.4,
+    "speaker": "SPEAKER_02",
+    "text": "It should be like your own company or you have like a general partnership or you have"
+  },
+  {
+    "start": 285.4,
+    "end": 292.24,
+    "speaker": "SPEAKER_02",
+    "text": "like a, you have to get a limited obligation contract for a company."
+  },
+  {
+    "start": 293.8,
+    "end": 301.84,
+    "speaker": "SPEAKER_02",
+    "text": "So, first what you do have to do is you have to register your company in the trade register."
+  },
+  {
+    "start": 303.82,
+    "end": 311.28,
+    "speaker": "SPEAKER_02",
+    "text": "You can see this office and then before applying for the residence permit you have to be registered"
+  },
+  {
+    "start": 311.28,
+    "end": 311.86,
+    "speaker": "SPEAKER_02",
+    "text": "for this."
+  },
+  {
+    "start": 312.54,
+    "end": 319.76,
+    "speaker": "SPEAKER_02",
+    "text": "So, after you register for that, you need to get a business ID, so which means that your"
+  },
+  {
+    "start": 319.76,
+    "end": 325.12,
+    "speaker": "SPEAKER_02",
+    "text": "business is legal and then after that you can apply for your residence permit."
+  },
+  {
+    "start": 325.94,
+    "end": 331.48,
+    "speaker": "SPEAKER_02",
+    "text": "The residence permit itself, as you can see in this website, it says that it denotes"
+  },
+  {
+    "start": 331.48,
+    "end": 332.74,
+    "speaker": "SPEAKER_02",
+    "text": "two faces."
+  },
+  {
+    "start": 332.74,
+    "end": 341.02,
+    "speaker": "SPEAKER_02",
+    "text": "So, if first checks if you are profitable and then issues the decision of the residence permit."
+  },
+  {
+    "start": 349.3399999999999,
+    "end": 360.74,
+    "speaker": "SPEAKER_03",
+    "text": "So, this is the, this is the, this is the, this apply also from, I already have a permit,"
+  },
+  {
+    "start": 360.74,
+    "end": 368.06,
+    "speaker": "SPEAKER_03",
+    "text": "so this work in my case that I would have a permit, but then it means that I need to"
+  },
+  {
+    "start": 368.06,
+    "end": 369.34,
+    "speaker": "SPEAKER_03",
+    "text": "change another permit."
+  },
+  {
+    "start": 369.76,
+    "end": 374.38,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, that kind of permit you have right now."
+  },
+  {
+    "start": 375.1,
+    "end": 389.02,
+    "speaker": "SPEAKER_03",
+    "text": "It's a job for a worker, it's a worker permit, so it was tied for, with my life's company"
+  },
+  {
+    "start": 389.02,
+    "end": 390.04,
+    "speaker": "SPEAKER_03",
+    "text": "that I was looking for."
+  },
+  {
+    "start": 390.04,
+    "end": 396.42,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so this is a new contract, so this is a new part, so you have to apply for another"
+  },
+  {
+    "start": 396.96,
+    "end": 399.14,
+    "speaker": "SPEAKER_02",
+    "text": "visa type according to this."
+  },
+  {
+    "start": 400.18,
+    "end": 407.02,
+    "speaker": "SPEAKER_02",
+    "text": "And before that you have to start register your company in the..."
+  },
+  {
+    "start": 413.41999999999996,
+    "end": 419.2,
+    "speaker": "SPEAKER_03",
+    "text": "But then you do have some, some kind of money to open my company."
+  },
+  {
+    "start": 432.02,
+    "end": 444.08,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, so if you've got it echo.fi, it has a guide for self-employment, so I'm sorry"
+  },
+  {
+    "start": 444.08,
+    "end": 452.08,
+    "speaker": "SPEAKER_02",
+    "text": "first I understood as that you wanted the entrepreneurs, so here you can know about something"
+  },
+  {
+    "start": 452.08,
+    "end": 467.24,
+    "speaker": "SPEAKER_02",
+    "text": "called the light entrepreneurship and entrepreneurship, so it depends on if you are like, so they're like,"
+  },
+  {
+    "start": 467.5,
+    "end": 471.22,
+    "speaker": "SPEAKER_02",
+    "text": "they buy your work and then private trade is like you start your own business."
+  },
+  {
+    "start": 471.22,
+    "end": 480.26,
+    "speaker": "SPEAKER_02",
+    "text": "So like, for example, in this scenario your work is being brought by a company, so I think"
+  },
+  {
+    "start": 480.26,
+    "end": 486.78,
+    "speaker": "SPEAKER_02",
+    "text": "if you can go to the slight entrepreneurship process, it will be the best situation."
+  },
+  {
+    "start": 487.2,
+    "end": 487.42,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 487.42,
+    "end": 498.78,
+    "speaker": "SPEAKER_02",
+    "text": "So if you can type in your phone, or code that if I can find more information about that."
+  },
+  {
+    "start": 507.98,
+    "end": 509.84,
+    "speaker": "SPEAKER_03",
+    "text": "Yeah, you can see it."
+  },
+  {
+    "start": 510.38,
+    "end": 519.28,
+    "speaker": "SPEAKER_03",
+    "text": "Okay, I can take a look there, but I have another question, so it's not like..."
+  },
+  {
+    "start": 520.28,
+    "end": 531.14,
+    "speaker": "SPEAKER_03",
+    "text": "But text, how text works in my disk is."
+  },
+  {
+    "start": 532.14,
+    "end": 543.3,
+    "speaker": "SPEAKER_03",
+    "text": "It does normally, my company is taking the money out of my salary right normally,"
+  },
+  {
+    "start": 543.82,
+    "end": 549.82,
+    "speaker": "SPEAKER_03",
+    "text": "so in this self-employment, all this work."
+  },
+  {
+    "start": 574.98,
+    "end": 584.46,
+    "speaker": "SPEAKER_02",
+    "text": "So according to this, you have to check with the tax office, you can go to www.vera.fi"
+  },
+  {
+    "start": 586.9600000000002,
+    "end": 593.6,
+    "speaker": "SPEAKER_02",
+    "text": "and then they will type you through this because usually the text is deducted from"
+  },
+  {
+    "start": 593.6,
+    "end": 599.86,
+    "speaker": "SPEAKER_02",
+    "text": "normal company employees as a salary itself, but in this case, because you get the full income,"
+  },
+  {
+    "start": 600.64,
+    "end": 606.46,
+    "speaker": "SPEAKER_02",
+    "text": "you have to file the taxes, you can get help from there."
+  },
+  {
+    "start": 608.9200000000001,
+    "end": 609.44,
+    "speaker": "SPEAKER_03",
+    "text": "Okay."
+  },
+  {
+    "start": 610.64,
+    "end": 613.34,
+    "speaker": "SPEAKER_03",
+    "text": "But do you think there's..."
+  },
+  {
+    "start": 615.84,
+    "end": 622.54,
+    "speaker": "SPEAKER_03",
+    "text": "I'm still a bit unsure about this arrangement of this company, like your experience is"
+  },
+  {
+    "start": 622.54,
+    "end": 628.08,
+    "speaker": "SPEAKER_03",
+    "text": "there's a good idea to work as a freelancer for a company instead of being like salary."
+  },
+  {
+    "start": 637.76,
+    "end": 643.38,
+    "speaker": "SPEAKER_03",
+    "text": "Because I don't know, that will look like this one, kind of, a bit afraid too."
+  },
+  {
+    "start": 644.38,
+    "end": 644.88,
+    "speaker": "SPEAKER_03",
+    "text": "This is the arrangement."
+  },
+  {
+    "start": 645.86,
+    "end": 648.3,
+    "speaker": "SPEAKER_03",
+    "text": "You should just keep the work for jobs."
+  },
+  {
+    "start": 657.26,
+    "end": 663.38,
+    "speaker": "SPEAKER_02",
+    "text": "I'm usually in Finland because most of the contractors, they don't,"
+  },
+  {
+    "start": 668.28,
+    "end": 676.2,
+    "speaker": "SPEAKER_02",
+    "text": "through scammy company, so it directly to the customer through a consulting company"
+  },
+  {
+    "start": 676.2,
+    "end": 680.08,
+    "speaker": "SPEAKER_02",
+    "text": "usually, so you'll be acting as a consulting company."
+  },
+  {
+    "start": 680.92,
+    "end": 688.5,
+    "speaker": "SPEAKER_02",
+    "text": "So there's like employee, employer bond there, but if you're unsure, you can actually get"
+  },
+  {
+    "start": 688.5,
+    "end": 692.92,
+    "speaker": "SPEAKER_02",
+    "text": "it like a consultation session, especially for light entrepreneurs."
+  },
+  {
+    "start": 701.9200000000001,
+    "end": 710.62,
+    "speaker": "SPEAKER_02",
+    "text": "I can give you like a general way of going, but you can go to Yukko and then kind of see"
+  },
+  {
+    "start": 710.62,
+    "end": 712.88,
+    "speaker": "SPEAKER_02",
+    "text": "what's there in the website."
+  },
+  {
+    "start": 713.48,
+    "end": 713.76,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 713.8,
+    "end": 714.36,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 715.6400000000001,
+    "end": 716.2,
+    "speaker": "SPEAKER_03",
+    "text": "Okay."
+  },
+  {
+    "start": 716.2,
+    "end": 721.64,
+    "speaker": "SPEAKER_03",
+    "text": "I think that's all the questions I have left."
+  },
+  {
+    "start": 722.58,
+    "end": 724.82,
+    "speaker": "SPEAKER_03",
+    "text": "So thank you very much for your time."
+  },
+  {
+    "start": 725.6800000000001,
+    "end": 726.32,
+    "speaker": "SPEAKER_00",
+    "text": "See you."
+  },
+  {
+    "start": 726.48,
+    "end": 726.66,
+    "speaker": "SPEAKER_03",
+    "text": "Bye."
+  },
+  {
+    "start": 729.0400000000001,
+    "end": 729.78,
+    "speaker": "UNKNOWN",
+    "text": "Thank you."
+  }
+]
