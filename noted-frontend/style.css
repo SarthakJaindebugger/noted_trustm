@@ -338,6 +338,19 @@
     margin: 16px 0;
 }
 
+.table-title {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.empty-audio-state {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+}
+
 .audio-files-table {
     width: 100%;
     border-collapse: collapse;
