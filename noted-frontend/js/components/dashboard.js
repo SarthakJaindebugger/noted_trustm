@@ -369,6 +369,9 @@ export default {
                             </tr>
                         </thead>
                         <tbody>
+                            <tr v-if="audioFiles.length === 0">
+                                <td colspan="6" class="empty-table-cell">No new audios found.</td>
+                            </tr>
                             <tr v-for="(audioFile, index) in audioFiles" :key="audioFile.path" class="audio-row">
                                 <td class="col-checkbox">
                                     <input 
