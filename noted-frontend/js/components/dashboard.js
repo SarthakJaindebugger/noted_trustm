@@ -221,7 +221,7 @@ export default {
 
             // Copy the CRM JSON to submitted_crm_forms when user opens the form
             try {
-                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.name });
+                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.analysis_dir_name || audioFile.name });
                 // Update CRM form status cache
                 crmFormStatusCache[audioFile.name] = true;
             } catch (submitErr) {

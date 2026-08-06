@@ -207,9 +207,6 @@ def list_audio_files_for_username(username: str, users_root: Optional[Path] = No
     list_analyzed_audio_folders_for_username().
     """
     users_root = (users_root or get_default_users_root()).resolve()
-    if not users_root.exists():
-        return []
-
     safe_username = sanitize_username(username)
     recordings_root = users_root / safe_username / "recordings"
     if not recordings_root.exists():
@@ -219,6 +216,7 @@ def list_audio_files_for_username(username: str, users_root: Optional[Path] = No
     for path in sorted(recordings_root.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in AUDIO_EXTENSIONS:
             continue
+
         try:
             relative_path = _relative_repo_path(path)
         except ValueError:
@@ -231,7 +229,34 @@ def list_audio_files_for_username(username: str, users_root: Optional[Path] = No
             "status": "pending_analysis",
         })
 
-    return audio_files
+        matching_analysis = _find_matching_analysis_dir(uploads_root, payload["analysis_key"])
+        if matching_analysis:
+            analysis_dir, crm_form_json_path, crm_form_html_path = matching_analysis
+            payload.update({
+                "status": "analyzed",
+                "analysis_dir_path": _relative_repo_path(analysis_dir),
+                "analysis_dir_name": analysis_dir.name,
+                "crm_form_json_path": crm_form_json_path,
+                "crm_form_html_path": crm_form_html_path,
+            })
+            analyzed_audio_files.append(payload)
+        else:
+            pending_audio_files.append(payload)
+
+    return {
+        "analyzed_audio_files": analyzed_audio_files,
+        "pending_audio_files": pending_audio_files,
+    }
+
+
+def list_analyzed_audio_folders_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return analyzed user recordings for backward-compatible API consumers."""
+    return list_dashboard_audio_files_for_username(username, users_root)["analyzed_audio_files"]
+
+
+def list_audio_files_for_username(username: str, users_root: Optional[Path] = None) -> list[dict]:
+    """Return user recordings that do not yet have a matching CRM-bearing analysis folder."""
+    return list_dashboard_audio_files_for_username(username, users_root)["pending_audio_files"]
 
 
 def ensure_audio_belongs_to_user(audio_path: str | Path, username: str, users_root: Optional[Path] = None) -> Path:
