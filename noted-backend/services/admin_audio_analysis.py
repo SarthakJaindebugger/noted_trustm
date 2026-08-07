@@ -421,6 +421,8 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "visit_durations": [], "customer_counts": [],
         "total_forms": 0, "number_of_customers": 0,
         "average_conversation_time": "—", "gender_ratio": "—",
+        "age_groups": {"0-10": 0, "10-20": 0, "20-30": 0, "30-50": 0, "50+": 0},
+        "gender_counts": {"Male": 0, "Female": 0},
     }
     if not root.exists():
         return empty
@@ -435,6 +437,9 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
     agg["total_forms"] = 0
     agg["customer_counts"] = []
     agg["visit_durations"] = []
+    unique_usernames = set()
+    age_groups = {"0-10": 0, "10-20": 0, "20-30": 0, "30-50": 0, "50+": 0}
+    gender_counts = {"Male": 0, "Female": 0}
     total_duration_sec = 0.0
     duration_count = 0
 
@@ -448,6 +453,13 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             continue
 
         agg["total_forms"] += 1
+
+        # Extract username from filename: <username>_<DD.MM.YYYY>_<HH>_<MM>_<SS>.json
+        fname = file_path.stem
+        date_match = re.search(r"_\d{2}\.\d{2}\.\d{4}_", fname)
+        if date_match:
+            unique_usernames.add(fname[:date_match.start()])
+
         q = record.get("questionnaire", {})
         f = record.get("form", {})
         m = record.get("metadata", {})
@@ -545,6 +557,31 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         if cc and isinstance(cc, (int, float)) and cc > 0:
             agg["customer_counts"].append(int(cc))
 
+        # ── Customer age ──
+        age_val = f.get("age") or q.get("Customer Age")
+        if age_val and age_val != "Not mentioned in transcript.":
+            try:
+                age = int(age_val) if isinstance(age_val, (int, float)) else int(re.search(r"\d+", str(age_val)).group())
+                if age <= 10:
+                    age_groups["0-10"] += 1
+                elif age <= 20:
+                    age_groups["10-20"] += 1
+                elif age <= 30:
+                    age_groups["20-30"] += 1
+                elif age <= 50:
+                    age_groups["30-50"] += 1
+                else:
+                    age_groups["50+"] += 1
+            except (ValueError, TypeError, AttributeError):
+                pass
+
+        # ── Customer gender ──
+        gender_val = f.get("gender") or q.get("Customer Gender")
+        if gender_val and gender_val != "Not mentioned in transcript.":
+            g = str(gender_val).strip().capitalize()
+            if g in ("Male", "Female"):
+                gender_counts[g] += 1
+
         # ── Average conversation time ──
         dur_sec = m.get("audio_duration_sec", 0) or 0
         if dur_sec > 0:
@@ -559,7 +596,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         secs = int(avg_sec % 60)
         avg_time = f"{mins} min {secs} sec"
 
-    total_customers = sum(agg["customer_counts"]) if agg["customer_counts"] else agg["total_forms"]
+    total_customers = len(unique_usernames) if unique_usernames else agg["total_forms"]
 
     return {
         "contact_methods":       sorted(agg["contact_methods"]),
@@ -580,6 +617,8 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "number_of_customers":   total_customers,
         "average_conversation_time": avg_time,
         "gender_ratio": "—",
+        "age_groups":            age_groups,
+        "gender_counts":         gender_counts,
     }
 
 

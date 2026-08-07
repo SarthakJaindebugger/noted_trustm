@@ -48,6 +48,31 @@ def guess_customer_count_from_metadata(metadata: dict) -> Optional[int]:
     return len(customers) if customers else None
 
 
+def parse_age(value: Optional[str]) -> Optional[int]:
+    """Parse a numeric age from the questionnaire answer, or return None."""
+    if not value or value == "Not mentioned in transcript.":
+        return None
+    import re
+    match = re.search(r"\b(\d{1,3})\b", str(value))
+    if match:
+        age = int(match.group(1))
+        if 0 <= age <= 150:
+            return age
+    return None
+
+
+def parse_gender(value: Optional[str]) -> Optional[str]:
+    """Parse gender from the questionnaire answer. Returns 'Male', 'Female', or None."""
+    if not value or value == "Not mentioned in transcript.":
+        return None
+    lower = str(value).lower().strip()
+    if "female" in lower:
+        return "Female"
+    if "male" in lower:
+        return "Male"
+    return None
+
+
 def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
     additional_info, additional_info_other = parse_other_list(
         questionnaire.get("Additional Information about the customers")
@@ -65,8 +90,8 @@ def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
         "fieldWorkWhere": "",
         "heardFrom": map_answer(questionnaire.get("Heard from the guidance/advice position (if other where?)")) or "",
         "customerCount": guess_customer_count_from_metadata(metadata),
-        "gender": "",
-        "age": None,
+        "gender": parse_gender(questionnaire.get("Customer Gender")),
+        "age": parse_age(questionnaire.get("Customer Age")),
         "immigrationReason": map_answer(questionnaire.get("Reason for Immigration")) or "",
         "additionalInfo": additional_info,
         "additionalInfoOther": additional_info_other,

@@ -27,6 +27,8 @@ export default {
     const educationLevels   = ref([]);
     const additionalInfoTags= ref([]);
     const otherFeedback     = ref([]);
+    const ageGroups         = ref({});
+    const genderCounts      = ref({});
 
     // ── CRM Modal state ──
     const showCrmModal       = ref(false);
@@ -120,6 +122,8 @@ export default {
         educationLevels.value    = d.education_levels   || [];
         additionalInfoTags.value = d.additional_info_tags || [];
         otherFeedback.value      = d.other_feedback     || [];
+        ageGroups.value          = d.age_groups         || {};
+        genderCounts.value       = d.gender_counts      || {};
       } catch (err) { console.error('Error fetching aggregated CRM data', err); }
     };
 
@@ -168,17 +172,23 @@ export default {
         educationLevels.value    = d.education_levels   || [];
         additionalInfoTags.value = d.additional_info_tags || [];
         otherFeedback.value      = d.other_feedback     || [];
+        ageGroups.value          = d.age_groups         || {};
+        genderCounts.value       = d.gender_counts      || {};
         closeCrmModal();
       } catch (err) { console.error('Failed to parse CRM forms', err); alert('Failed to parse CRM forms.'); }
     };
 
+
+    const ageGroupMax = computed(() => Math.max(1, ...Object.values(ageGroups.value || {})));
+    const genderTotal = computed(() => (genderCounts.value.Male || 0) + (genderCounts.value.Female || 0));
 
     return {
       logout, totalForms, numberOfCustomers, averageConvTime,
       contactMethods, topicsDiscussed, purposesOfVisit, labourPositions,
       birthCountries, languages, residences, durationResidence,
       directedTo, heardFrom, immigrationReasons, educationLevels,
-      additionalInfoTags, otherFeedback,
+      additionalInfoTags, otherFeedback, ageGroups, ageGroupMax,
+      genderCounts, genderTotal,
       showCrmModal, crmForms, selectedCrmPaths, isLoadingCrmForms,
       crmSelectAllChecked, crmSelectAllIndeterminate,
       openCrmModal, closeCrmModal, toggleCrmFormSelection, toggleCrmSelectAll, parseCrmForms,
@@ -349,6 +359,58 @@ export default {
             <span v-for="v in directedTo" :key="v" class="px-2 py-1 bg-lime-50 text-lime-700 rounded-lg text-xs font-medium">{{ v }}</span>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Customer Age Distribution — horizontal bar chart -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-1">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Customer Age Distribution</div>
+          <div v-if="Object.keys(ageGroups).length" class="space-y-2">
+            <div v-for="(label, idx) in ['0-10', '10-20', '20-30', '30-50', '50+']" :key="label" class="flex items-center gap-3">
+              <span class="text-xs text-gray-600 w-10 text-right font-medium">{{ label }}</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-lg overflow-hidden relative">
+                <div class="h-full rounded-lg transition-all duration-500"
+                  :style="{ width: ((ageGroups[label] || 0) / ageGroupMax * 100) + '%' }"
+                  :class="['bg-blue-500', 'bg-cyan-500', 'bg-teal-500', 'bg-indigo-500', 'bg-purple-500'][idx]">
+                </div>
+              </div>
+              <span class="text-xs text-gray-500 w-6 text-right font-semibold">{{ ageGroups[label] || 0 }}</span>
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Gender Ratio -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Customer Gender Ratio</div>
+          <div v-if="genderTotal > 0" class="space-y-4">
+            <!-- Ratio bar -->
+            <div class="w-full h-8 rounded-xl overflow-hidden flex">
+              <div class="h-full bg-blue-500 transition-all duration-500 flex items-center justify-center"
+                :style="{ width: ((genderCounts.Male || 0) / genderTotal * 100) + '%' }">
+                <span v-if="(genderCounts.Male || 0) / genderTotal > 0.15" class="text-xs font-bold text-white">{{ genderCounts.Male || 0 }}</span>
+              </div>
+              <div class="h-full bg-pink-500 transition-all duration-500 flex items-center justify-center"
+                :style="{ width: ((genderCounts.Female || 0) / genderTotal * 100) + '%' }">
+                <span v-if="(genderCounts.Female || 0) / genderTotal > 0.15" class="text-xs font-bold text-white">{{ genderCounts.Female || 0 }}</span>
+              </div>
+            </div>
+            <!-- Legend -->
+            <div class="flex items-center justify-center gap-6">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                <span class="text-sm text-gray-700 font-medium">Male ({{ genderCounts.Male || 0 }})</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+                <span class="text-sm text-gray-700 font-medium">Female ({{ genderCounts.Female || 0 }})</span>
+              </div>
+            </div>
+            <!-- Ratio text -->
+            <div class="text-center text-lg font-bold text-gray-800">
+              {{ genderCounts.Male || 0 }} : {{ genderCounts.Female || 0 }}
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">No gender data available</span>
         </div>
 
         <!-- Other Feedback — full width -->

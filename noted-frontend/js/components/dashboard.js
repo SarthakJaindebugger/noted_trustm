@@ -274,140 +274,204 @@ export default {
         };
     },
     template: `
-        <main class="audio-upload-dashboard">
-            <button type="button" class="logout-button" @click="logout">Logout</button>
-            <input
-                ref="fileInput"
-                type="file"
-                accept="audio/*"
-                class="sr-only"
-                @change="uploadAudio"
-            >
-            <button type="button" class="upload-button" :disabled="isUploading" @click="chooseAudio">
-                {{ isUploading ? 'Uploading…' : 'Upload audio' }}
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+
+      <!-- ── Sticky Header ── -->
+      <div class="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/30">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div>
+            <h1 class="text-3xl font-bold text-blue-900">Audio Dashboard</h1>
+            <p class="text-gray-500 text-sm">Upload, analyze, and manage your audio recordings</p>
+          </div>
+          <div class="flex gap-3">
+            <button @click="chooseAudio" :disabled="isUploading"
+              class="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition text-sm font-medium disabled:opacity-50">
+              {{ isUploading ? 'Uploading...' : 'Upload Audio' }}
             </button>
-            <div v-if="isUploading" class="upload-progress" role="progressbar" :aria-valuenow="uploadProgress" aria-valuemin="0" aria-valuemax="100">
-                <div class="upload-progress__bar" :style="{ width: uploadProgress + '%' }"></div>
+            <button @click="loadAudioFiles"
+              class="px-5 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 transition text-sm font-medium">
+              Refresh
+            </button>
+            <button @click="logout"
+              class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition text-sm font-medium">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <input ref="fileInput" type="file" accept="audio/*" class="sr-only" @change="uploadAudio">
+
+      <!-- ── Status messages ── -->
+      <div class="max-w-7xl mx-auto px-6 pt-4">
+        <div v-if="isUploading" class="mb-4">
+          <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+            <div class="h-full bg-blue-600 rounded-full transition-all duration-300" :style="{ width: uploadProgress + '%' }"></div>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Uploading {{ uploadProgress }}%</p>
+        </div>
+        <div v-if="message" class="mb-4 px-4 py-3 rounded-xl bg-green-50 border border-green-200 text-green-700 text-sm">{{ message }}</div>
+        <div v-if="error" class="mb-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">{{ error }}</div>
+      </div>
+
+      <!-- ── Processing progress ── -->
+      <div v-if="isAnalyzing" class="max-w-7xl mx-auto px-6 mb-6">
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm font-medium text-gray-700">{{ processingProgress?.status || 'Processing...' }}</span>
+            <button @click="cancelBatchAnalysis"
+              class="px-3 py-1.5 rounded-lg border border-red-300 text-red-600 hover:bg-red-50 text-xs font-medium transition">
+              Cancel
+            </button>
+          </div>
+          <div class="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+            <div class="h-full bg-blue-600 rounded-full animate-pulse" style="width: 60%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Side-by-side floating cards ── -->
+      <div class="max-w-7xl mx-auto px-6 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
+        <!-- LEFT CARD: Completed Audio Analysis -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <!-- Card header -->
+          <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-green-50 to-emerald-50">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold text-gray-900">Completed Audio Analysis</h2>
+                <p class="text-xs text-gray-500">Analyzed recordings with CRM forms ready</p>
+              </div>
             </div>
-            <p v-if="isUploading" class="status">Uploading {{ uploadProgress }}%</p>
-            <p v-if="message" class="status success">{{ message }}</p>
-            <p v-if="error" class="status error">{{ error }}</p>
+          </div>
+          <!-- Card body -->
+          <div class="p-0">
+            <div v-if="completedAudioFiles.length > 0" class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-50 border-b border-gray-200 text-left text-xs text-gray-500 uppercase tracking-wide">
+                    <th class="px-4 py-3">S.No.</th>
+                    <th class="px-4 py-3">Audio File</th>
+                    <th class="px-4 py-3 text-center">CRM Form</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(audioFile, index) in completedAudioFiles" :key="audioFile.path"
+                    class="border-b border-gray-50 hover:bg-green-50/50 transition">
+                    <td class="px-4 py-3 text-gray-500">{{ index + 1 }}</td>
+                    <td class="px-4 py-3 font-medium text-gray-800">{{ parseAudioFileInfo(audioFile).name }}</td>
+                    <td class="px-4 py-3 text-center">
+                      <button @click="openCrmForm(audioFile)"
+                        class="px-3 py-1.5 rounded-lg bg-green-600 text-white text-xs font-medium hover:bg-green-700 transition shadow-sm">
+                        Open CRM
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div v-else class="px-6 py-12 text-center">
+              <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <p class="text-gray-400 text-sm">No completed analyses yet</p>
+            </div>
+          </div>
+        </div>
 
-            <hr class="divider">
-
-            <!-- Processing Progress Display -->
-            <div v-if="isAnalyzing" class="analysis-progress-container">
-                <div class="analysis-progress" role="progressbar" aria-label="Analysis in progress">
-                    <div class="analysis-progress__bar"></div>
+        <!-- RIGHT CARD: New Audios -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <!-- Card header -->
+          <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                  </svg>
                 </div>
-                <p class="analysis-status-label">{{ processingProgress?.status || 'Processing...' }}</p>
-                <button type="button" class="cancel-button" @click="cancelBatchAnalysis">Cancel</button>
+                <div>
+                  <h2 class="text-lg font-bold text-gray-900">New Audios</h2>
+                  <p class="text-xs text-gray-500">Select and analyze pending recordings</p>
+                </div>
+              </div>
+              <button v-if="!isAnalyzing && newAudioFiles.length > 0"
+                @click="startBatchAnalysis"
+                :disabled="selectedPaths.size === 0"
+                class="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-medium hover:bg-blue-700 transition disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+                Analyze ({{ selectedPaths.size }})
+              </button>
             </div>
-
-            <!-- ===== Side-by-side tables ===== -->
-            <div class="tables-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
-
-                <!-- Left: Completed Audio Analysis -->
-                <section class="analyze-section">
-                    <h2 class="analyze-title">Completed Audio Analysis</h2>
-                    <p class="analyze-hint">Analyzed recordings with CRM forms available.</p>
-
-                    <div v-if="completedAudioFiles.length > 0" class="table-container">
-                        <table class="audio-files-table">
-                            <thead>
-                                <tr>
-                                    <th class="col-sno">S.No.</th>
-                                    <th class="col-name">Audio File Name</th>
-                                    <th class="col-crm">CRM Form</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(audioFile, index) in completedAudioFiles" :key="audioFile.path" class="audio-row">
-                                    <td class="col-sno">{{ index + 1 }}</td>
-                                    <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
-                                    <td class="col-crm">
-                                        <button
-                                            type="button"
-                                            class="crm-button"
-                                            @click="openCrmForm(audioFile)"
-                                        >
-                                            Open CRM
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p v-else class="status">No completed analyses yet.</p>
-                </section>
-
-                <!-- Right: New Audios -->
-                <section class="analyze-section">
-                    <h2 class="analyze-title">New Audios</h2>
-                    <p class="analyze-hint">Select recordings to analyze. CRM forms available after analysis.</p>
-
-                    <div v-if="!isAnalyzing && newAudioFiles.length > 0" class="table-container">
-                        <table class="audio-files-table">
-                            <thead>
-                                <tr>
-                                    <th class="col-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            @change="toggleSelectAll"
-                                            :checked="selectAllChecked"
-                                            :indeterminate="selectAllIndeterminate"
-                                            class="select-all-checkbox"
-                                        />
-                                    </th>
-                                    <th class="col-sno">S.No.</th>
-                                    <th class="col-name">Audio File Name</th>
-                                    <th class="col-crm">CRM Form</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(audioFile, index) in newAudioFiles" :key="audioFile.path" class="audio-row">
-                                    <td class="col-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            @change="toggleAudioSelection(audioFile.path)"
-                                            :checked="selectedPaths.has(audioFile.path)"
-                                            class="audio-checkbox"
-                                        />
-                                    </td>
-                                    <td class="col-sno">{{ index + 1 }}</td>
-                                    <td class="col-name">{{ parseAudioFileInfo(audioFile).name }}</td>
-                                    <td class="col-crm">
-                                        <button
-                                            type="button"
-                                            class="crm-button"
-                                            :disabled="!isCrmFormAvailable(audioFile)"
-                                            @click="openCrmForm(audioFile)"
-                                        >
-                                            Open CRM
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="analyze-controls">
-                            <button type="button" class="refresh-button" @click="loadAudioFiles">Refresh List</button>
-                            <button
-                                type="button"
-                                class="analyze-button"
-                                :disabled="selectedPaths.size === 0"
-                                @click="startBatchAnalysis"
-                            >
-                                Analyze Selected ({{ selectedPaths.size }})
-                            </button>
-                        </div>
-                    </div>
-
-                    <p v-else-if="!isAnalyzing && newAudioFiles.length === 0 && completedAudioFiles.length > 0" class="status">All audio files have been analyzed.</p>
-                    <p v-else-if="!isAnalyzing" class="status">No audio files found. Upload some audio files to get started.</p>
-                </section>
-
+          </div>
+          <!-- Card body -->
+          <div class="p-0">
+            <div v-if="!isAnalyzing && newAudioFiles.length > 0" class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-gray-50 border-b border-gray-200 text-left text-xs text-gray-500 uppercase tracking-wide">
+                    <th class="px-4 py-3 w-12">
+                      <input type="checkbox" @change="toggleSelectAll"
+                        :checked="selectAllChecked" :indeterminate="selectAllIndeterminate"
+                        class="w-4 h-4 cursor-pointer accent-blue-600 rounded" />
+                    </th>
+                    <th class="px-4 py-3">S.No.</th>
+                    <th class="px-4 py-3">Audio File</th>
+                    <th class="px-4 py-3 text-center">CRM Form</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(audioFile, index) in newAudioFiles" :key="audioFile.path"
+                    class="border-b border-gray-50 hover:bg-blue-50/50 transition cursor-pointer"
+                    @click="toggleAudioSelection(audioFile.path)">
+                    <td class="px-4 py-3">
+                      <input type="checkbox"
+                        :checked="selectedPaths.has(audioFile.path)"
+                        @click.stop="toggleAudioSelection(audioFile.path)"
+                        class="w-4 h-4 cursor-pointer accent-blue-600 rounded" />
+                    </td>
+                    <td class="px-4 py-3 text-gray-500">{{ index + 1 }}</td>
+                    <td class="px-4 py-3 font-medium text-gray-800">{{ parseAudioFileInfo(audioFile).name }}</td>
+                    <td class="px-4 py-3 text-center">
+                      <button @click.stop="openCrmForm(audioFile)"
+                        :disabled="!isCrmFormAvailable(audioFile)"
+                        class="px-3 py-1.5 rounded-lg border text-xs font-medium transition shadow-sm"
+                        :class="isCrmFormAvailable(audioFile)
+                          ? 'bg-green-600 text-white border-green-600 hover:bg-green-700'
+                          : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'">
+                        Open CRM
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-        </main>
+            <div v-else-if="!isAnalyzing && newAudioFiles.length === 0 && completedAudioFiles.length > 0" class="px-6 py-12 text-center">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <p class="text-gray-500 text-sm font-medium">All audio files have been analyzed</p>
+            </div>
+            <div v-else-if="!isAnalyzing" class="px-6 py-12 text-center">
+              <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+              </div>
+              <p class="text-gray-400 text-sm">No audio files found. Upload some to get started.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     `,
 };
