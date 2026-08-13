@@ -6,7 +6,7 @@ import time
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
-from fastapi import Depends, HTTPException, WebSocket, status
+from fastapi import Depends, HTTPException, Request, WebSocket, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from config import settings
@@ -122,6 +122,7 @@ def authenticate_credentials(username: str, password: str) -> AuthenticatedUser:
 
 
 def get_current_user(
+    request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
 ) -> AuthenticatedUser:
     if not settings.auth.enabled:
@@ -140,11 +141,26 @@ def get_current_user(
         )
 
     payload = _decode_access_token(credentials.credentials)
+    token_role = str(payload.get("role") or settings.auth.role)
+
+    acting_as = request.headers.get("X-Acting-As")
+    if acting_as and token_role == "admin":
+        target_username = acting_as.strip()
+        ensure_principal_directories(
+            principal_id("user", target_username), target_username, "user"
+        )
+        return AuthenticatedUser(
+            id=principal_id("user", target_username),
+            username=target_username,
+            name=target_username.capitalize(),
+            role="user",
+        )
+
     return AuthenticatedUser(
         id=str(payload.get("sub") or settings.auth.user_id),
         username=str(payload.get("username") or settings.auth.username),
         name=str(payload.get("name") or settings.auth.display_name),
-        role=str(payload.get("role") or settings.auth.role),
+        role=token_role,
     )
 
 

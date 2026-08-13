@@ -1,6 +1,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { authService } from '../services/auth_service.js';
+import { languageService } from '../services/language_service.js';
 
 export default {
     name: 'LoginView',
@@ -190,6 +191,15 @@ export default {
         });
 
         
+        const showLangDropdown = ref(false);
+        const languages = languageService.LANGUAGES;
+        const currentLanguage = languageService.currentLanguage;
+        const changeLanguage = async (code) => {
+            showLangDropdown.value = false;
+            await languageService.setLanguage(code);
+        };
+        const getLanguageLabel = languageService.getLanguageLabel;
+
         return {
         username,
         password,
@@ -203,13 +213,37 @@ export default {
         adminError,
         handleAdminLogin,
 
-        handleKeyPress
+        handleKeyPress,
+        showLangDropdown,
+        languages,
+        currentLanguage,
+        changeLanguage,
+        getLanguageLabel,
     };
 
 
     },
     template: `
-        <div class="glass-login flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="glass-login flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+            <!-- Language Selector -->
+            <div class="absolute top-4 right-6 z-20 notranslate" translate="no">
+              <div class="relative">
+                <button @click="showLangDropdown = !showLangDropdown"
+                  class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/70 backdrop-blur border border-gray-200 text-sm font-medium text-gray-700 hover:bg-white/90 transition shadow-sm">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                  {{ getLanguageLabel() }}
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <div v-if="showLangDropdown" class="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 max-h-64 overflow-y-auto z-30">
+                  <button v-for="lang in languages" :key="lang.code"
+                    @click="changeLanguage(lang.code)"
+                    :class="['w-full text-left px-4 py-2 text-sm hover:bg-blue-50 transition', currentLanguage === lang.code ? 'text-blue-600 font-medium bg-blue-50/50' : 'text-gray-700']">
+                    {{ lang.label }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div class="max-w-6xl w-full space-y-10">
                 <!-- Header Section -->
                 <div class="text-center">

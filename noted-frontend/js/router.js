@@ -5,7 +5,7 @@
  * Vue Router handles them fine — they don't need to be SFCs.
  */
 
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import { authService } from './services/auth_service.js';
 
 // Import components (they export default objects)
@@ -72,10 +72,14 @@ const routes = [
         component: () => import('./components/crm_form.js').then(m => m.default),
         props: true,
     },
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/login',
+    },
 ];
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(),
     routes,
 });
 
@@ -89,7 +93,9 @@ router.beforeEach((to, from, next) => {
     } else if (adminOnly.includes(to.name) && !authService.isAdmin()) {
         next({ name: 'dashboard' });
     } else if (to.name === 'login' && authService.isAuthenticated()) {
-        next({ name: authService.isAdmin() ? 'admin_dashboard' : 'dashboard' });
+        // If user is logged in and navigates back to login, log them out
+        authService.logout();
+        next();
     } else {
         next();
     }

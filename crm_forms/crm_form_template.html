@@ -219,24 +219,41 @@
             box-shadow: 0 0 0 0.25rem rgba(215, 42, 42, 0.20);
         }
         .toast {
-            background: #1d3a2e;
-            color: #e6f3ea;
-            padding: 0.9rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 500;
-            display: inline-flex;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
             align-items: center;
-            gap: 0.7rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            margin-top: 1.2rem;
+            justify-content: center;
             opacity: 0;
-            transform: translateY(10px);
-            transition: 0.25s ease;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9999;
         }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast i { font-size: 1.3rem; }
+        .toast.show { opacity: 1; pointer-events: auto; }
+        .toast-inner {
+            background: #fff;
+            padding: 2.5rem 3rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .toast-inner i { font-size: 3rem; color: #16a34a; display: block; margin-bottom: 1rem; }
+        .toast-inner span { font-size: 1.2rem; font-weight: 600; color: #1e293b; }
+        .toast-inner .toast-sub { font-size: 0.9rem; color: #64748b; margin-top: 0.5rem; }
         .field-hint { font-size: 0.8rem; color: #6a7f96; margin-top: 0.15rem; }
         .cond-field.hidden { display: none; }
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-dropdown {
+            position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+            background: #fff; border: 1px solid #d1d9e6; border-top: none;
+            border-radius: 0 0 12px 12px; max-height: 200px; overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .autocomplete-item {
+            padding: 0.5rem 0.85rem; cursor: pointer; font-size: 0.9rem;
+        }
+        .autocomplete-item:hover { background: #eef3fb; }
         @media (max-width: 700px) {
             .form-container { padding: 1.2rem 1.2rem; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 0.8rem; }
@@ -271,7 +288,11 @@
                         <span class="q-num">1</span> Control Location
                         <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span>
                     </div>
-                    <input class="form-control" v-model="form.controlLocation" placeholder="Iso Omena, Espoo" required />
+                    <select class="form-control" :class="{ missing: missingFields.controlLocation }" v-model="form.controlLocation" required>
+                        <option value="" disabled>Select a service point...</option>
+                        <option value="Service Square Iso Omena">Service Square Iso Omena</option>
+                        <option value="International House Helsinki">International House Helsinki</option>
+                    </select>
                 </div>
 
                 <!-- Q2 + Q3 grid -->
@@ -332,8 +353,26 @@
                 <!-- Q6 -->
                 <div class="q-row">
                     <div class="q-label"><span class="q-num">6</span> Heard from the guidance/advice position</div>
-                    <div class="q-desc">if other, where?</div>
-                    <input class="form-control" :class="{ missing: missingFields.heardFrom }" v-model="form.heardFrom" placeholder="e.g. city library, TE office, other..." />
+                    <select class="form-control" :class="{ missing: missingFields.heardFrom }" v-model="form.heardFrom">
+                        <option value="" disabled>Select option...</option>
+                        <option value="Digital and population data services agency">Digital and population data services agency</option>
+                        <option value="Organisation/association">Organisation/association</option>
+                        <option value="Reel">Reel</option>
+                        <option value="Municipal integration/immigrant services">Municipal integration/immigrant services</option>
+                        <option value="Multicultural Centre">Multicultural Centre</option>
+                        <option value="Marketing communications of the control point">Marketing communications of the control point</option>
+                        <option value="Educational institution">Educational institution</option>
+                        <option value="Participatory Center">Participatory Center</option>
+                        <option value="Congregation/religious community">Congregation/religious community</option>
+                        <option value="Social services">Social services</option>
+                        <option value="Relatives/acquaintances">Relatives/acquaintances</option>
+                        <option value="TE Services">TE Services</option>
+                        <option value="Employer">Employer</option>
+                        <option value="Shared service point">Shared service point</option>
+                        <option value="Visited in the past">Visited in the past</option>
+                        <option value="Other">Other</option>
+                        <option value="No information">No information</option>
+                    </select>
                 </div>
 
                 <!-- Q7 -->
@@ -349,15 +388,22 @@
                         <input class="form-control" v-model="form.gender" placeholder="e.g. male, female, non-binary" />
                     </div>
                     <div class="q-row">
-                        <div class="q-label"><span class="q-num">9</span> Age</div>
-                        <input class="form-control" type="number" min="0" max="120" v-model.number="form.age" placeholder="years" />
+                        <div class="q-label"><span class="q-num">9</span> Age Group</div>
+                        <select class="form-control" v-model="form.ageGroup">
+                            <option value="" disabled>Select age group...</option>
+                            <option value="Under 18">Under 18</option>
+                            <option value="18-29">18-29</option>
+                            <option value="30-49">30-49</option>
+                            <option value="50-64">50-64</option>
+                            <option value="Over 65">Over 65</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- Q10 -->
                 <div class="q-row">
                     <div class="q-label"><span class="q-num">10</span> Reason for Immigration</div>
-                    <input class="form-control" v-model="form.immigrationReason" placeholder="e.g. work, family, asylum, study…" />
+                    <input class="form-control" :class="{ missing: missingFields.immigrationReason }" v-model="form.immigrationReason" placeholder="e.g. work, family, asylum, study…" />
                 </div>
 
             </div><!-- end section 1 -->
@@ -388,11 +434,35 @@
                 <div class="grid-2">
                     <div class="q-row">
                         <div class="q-label"><span class="q-num">12</span> Customer birth country</div>
-                        <input class="form-control" :class="{ missing: missingFields.birthCountry }" v-model="form.birthCountry" placeholder="e.g. Finland, Somalia, Iraq…" />
+                        <div class="autocomplete-wrapper">
+                            <input class="form-control" :class="{ missing: missingFields.birthCountry }"
+                                v-model="form.birthCountry"
+                                @input="filterCountries"
+                                @focus="showCountryDropdown = true"
+                                @blur="hideCountryDropdown"
+                                placeholder="Type to search country..." autocomplete="off" />
+                            <div v-if="showCountryDropdown && filteredCountries.length > 0" class="autocomplete-dropdown">
+                                <div v-for="c in filteredCountries" :key="c"
+                                    class="autocomplete-item"
+                                    @mousedown.prevent="selectCountry(c)">{{ c }}</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="q-row">
                         <div class="q-label"><span class="q-num">13</span> Mother Tongue / Language</div>
-                        <input class="form-control" :class="{ missing: missingFields.motherTongue }" v-model="form.motherTongue" placeholder="e.g. Finnish, Arabic, Somali…" />
+                        <div class="autocomplete-wrapper">
+                            <input class="form-control" :class="{ missing: missingFields.motherTongue }"
+                                v-model="form.motherTongue"
+                                @input="filterLanguages"
+                                @focus="showLanguageDropdown = true"
+                                @blur="hideLanguageDropdown"
+                                placeholder="Type to search language..." autocomplete="off" />
+                            <div v-if="showLanguageDropdown && filteredLanguages.length > 0" class="autocomplete-dropdown">
+                                <div v-for="l in filteredLanguages" :key="l"
+                                    class="autocomplete-item"
+                                    @mousedown.prevent="selectLanguage(l)">{{ l }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -423,6 +493,18 @@
                 <div class="q-row">
                     <div class="q-label"><span class="q-num">16</span> Customer Domicile</div>
                     <input class="form-control" :class="{ missing: missingFields.domicile }" v-model="form.domicile" placeholder="e.g. Helsinki, Espoo, Vantaa…" />
+                </div>
+
+                <!-- Q16b – Customer Coming From -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">16b</span> Customer Coming From</div>
+                    <select class="form-control" :class="{ missing: missingFields.customerComingFrom }" v-model="form.customerComingFrom">
+                        <option value="" disabled>Select origin category...</option>
+                        <option value="Nordic">Nordic</option>
+                        <option value="EU Country / Switzerland / EEA">EU Country / Switzerland / EEA</option>
+                        <option value="Third Country">Third Country</option>
+                        <option value="3rd Country citizen living in Europe">3rd Country citizen living in Europe</option>
+                    </select>
                 </div>
 
                 <!-- Q17 – now checkboxes -->
@@ -553,10 +635,13 @@
                 <button type="button" class="btn-reset" @click="resetForm"><i class="fas fa-undo-alt"></i> Reset</button>
             </div>
 
-            <!-- Toast message -->
+            <!-- Success popup -->
             <div class="toast" :class="toastVisible ? 'show' : ''" id="toastMsg">
-                <i class="fas fa-check-circle"></i>
-                <span>Form submitted successfully!</span>
+                <div class="toast-inner">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Form submitted successfully!</span>
+                    <div class="toast-sub">Closing and returning to dashboard...</div>
+                </div>
             </div>
 
         </form>
@@ -585,7 +670,7 @@
                     heardFrom: '',
                     customerCount: null,
                     gender: '',
-                    age: null,
+                    ageGroup: '',
                     immigrationReason: '',
                     additionalInfo: [],
                     additionalInfoOther: '',
@@ -594,6 +679,7 @@
                     educationLevel: '',
                     labourPosition: [],     // array
                     domicile: '',
+                    customerComingFrom: '',
                     residenceDuration: [],  // array
                     contents: [],
                     contentsOther: '',
@@ -615,6 +701,7 @@
                     motherTongue: false,
                     educationLevel: false,
                     domicile: false,
+                    customerComingFrom: false,
                     labourPosition: false,
                     residenceDuration: false,
                     contents: false,
@@ -658,9 +745,25 @@
                 };
 
                 const markRequiredMissing = () => {
+                    missingFields.controlLocation = !form.controlLocation || !form.controlLocation.trim();
                     missingFields.date = !form.date;
                     missingFields.time = !form.time;
                     missingFields.contactMethod = !form.contactMethod || form.contactMethod.length === 0;
+                    missingFields.heardFrom = !form.heardFrom || !form.heardFrom.trim();
+                    missingFields.immigrationReason = !form.immigrationReason || !form.immigrationReason.trim();
+                    missingFields.additionalInfo = !form.additionalInfo || form.additionalInfo.length === 0;
+                    missingFields.birthCountry = !form.birthCountry || !form.birthCountry.trim();
+                    missingFields.motherTongue = !form.motherTongue || !form.motherTongue.trim();
+                    missingFields.educationLevel = !form.educationLevel || !form.educationLevel.trim();
+                    missingFields.labourPosition = !form.labourPosition || form.labourPosition.length === 0;
+                    missingFields.domicile = !form.domicile || !form.domicile.trim();
+                    missingFields.customerComingFrom = !form.customerComingFrom || !form.customerComingFrom.trim();
+                    missingFields.residenceDuration = !form.residenceDuration || form.residenceDuration.length === 0;
+                    missingFields.contents = !form.contents || form.contents.length === 0;
+                    missingFields.purpose = !form.purpose || form.purpose.length === 0;
+                    missingFields.additionalInfoText = !form.additionalInfoText || !form.additionalInfoText.trim();
+                    missingFields.directedTo = !form.directedTo || !form.directedTo.trim();
+                    missingFields.otherFeedback = !form.otherFeedback || !form.otherFeedback.trim();
                 };
 
                 const splitList = (value) => {
@@ -756,7 +859,7 @@
                     form.heardFrom = payload.heardFrom || '';
                     form.customerCount = payload.customerCount ?? null;
                     form.gender = payload.gender || '';
-                    form.age = payload.age ?? null;
+                    form.ageGroup = payload.ageGroup || '';
                     form.immigrationReason = payload.immigrationReason || '';
 
                     if (Array.isArray(payload.additionalInfo)) {
@@ -774,6 +877,7 @@
                         ? payload.labourPosition
                         : splitList(payload.labourPosition);
                     form.domicile = payload.domicile || '';
+                    form.customerComingFrom = payload.customerComingFrom || '';
                     form.residenceDuration = Array.isArray(payload.residenceDuration)
                         ? payload.residenceDuration
                         : splitList(payload.residenceDuration);
@@ -920,39 +1024,39 @@
                     }
                     const payload = buildPayload();
 
-                    // Resolve backend URL and auth token injected at HTML generation time
-                    // or passed in by the parent window when opening the popup
                     const backendUrl = window.crmBackendUrl || '';
                     const authToken = window.crmAuthToken || '';
-                    const saveUrl = `${backendUrl}/api/v1/audio/crm-form/save`;
 
-                    try {
-                        const headers = { 'Content-Type': 'application/json' };
-                        if (authToken) {
-                            headers['Authorization'] = `Bearer ${authToken}`;
+                    if (backendUrl) {
+                        const saveUrl = `${backendUrl}/api/v1/audio/crm-form/save`;
+                        try {
+                            const headers = { 'Content-Type': 'application/json' };
+                            if (authToken) {
+                                headers['Authorization'] = `Bearer ${authToken}`;
+                            }
+                            const response = await fetch(saveUrl, {
+                                method: 'POST',
+                                headers,
+                                credentials: 'include',
+                                body: JSON.stringify(payload),
+                            });
+                            if (response.ok) {
+                                console.log('CRM form saved successfully');
+                            }
+                        } catch (e) {
+                            console.warn('Backend save skipped:', e.message);
                         }
-                        const response = await fetch(saveUrl, {
-                            method: 'POST',
-                            headers,
-                            credentials: 'include',
-                            body: JSON.stringify(payload),
-                        });
-
-                        if (!response.ok) {
-                            const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
-                            throw new Error(error.detail || `Server returned ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        console.log('📋 CRM form saved successfully:', result);
-                        toastVisible.value = true;
-                        setTimeout(() => { toastVisible.value = false; }, 4000);
-                    } catch (error) {
-                        console.error('❌ Failed to save CRM form:', error);
-                        // Still show toast so user knows submit was received locally,
-                        // but alert them about the save failure
-                        alert(`Form could not be saved to server: ${error.message}\nPlease check your connection and try again.`);
                     }
+
+                    toastVisible.value = true;
+                    setTimeout(() => {
+                        toastVisible.value = false;
+                        if (window.opener) {
+                            window.close();
+                        } else {
+                            window.location.href = '/#/dashboard';
+                        }
+                    }, 2500);
                 };
 
                 // ─── reset ───
@@ -966,7 +1070,7 @@
                     form.heardFrom = '';
                     form.customerCount = null;
                     form.gender = '';
-                    form.age = null;
+                    form.ageGroup = '';
                     form.immigrationReason = '';
                     form.additionalInfo = [];
                     form.additionalInfoOther = '';
@@ -975,6 +1079,7 @@
                     form.educationLevel = '';
                     form.labourPosition = [];
                     form.domicile = '';
+                    form.customerComingFrom = '';
                     form.residenceDuration = [];
                     form.contents = [];
                     form.contentsOther = '';
@@ -998,6 +1103,7 @@
                     if (form.motherTongue && form.motherTongue.trim()) missingFields.motherTongue = false;
                     if (form.educationLevel && form.educationLevel.trim()) missingFields.educationLevel = false;
                     if (form.domicile && form.domicile.trim()) missingFields.domicile = false;
+                    if (form.customerComingFrom && form.customerComingFrom.trim()) missingFields.customerComingFrom = false;
                     if (form.labourPosition && form.labourPosition.length > 0) missingFields.labourPosition = false;
                     if (form.residenceDuration && form.residenceDuration.length > 0) missingFields.residenceDuration = false;
                     if ((form.contents && form.contents.length > 0) || (form.contentsOther && form.contentsOther.trim())) missingFields.contents = false;
@@ -1012,7 +1118,61 @@
                     loadFinalJson(initialPayload);
                 }
 
-                return { form, missingFields, originalJsonFileName, jsonFileInput, toastVisible, submitForm, resetForm, triggerJsonFile, onJsonFileChange, downloadPdf };
+                // ─── Autocomplete: Countries ───
+                const allCountries = [
+                    'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
+                    'Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia',
+                    'Bosnia and Herzegovina','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cambodia','Cameroon','Canada',
+                    'Cape Verde','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Croatia',
+                    'Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','DR Congo','East Timor','Ecuador',
+                    'Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France',
+                    'Gabon','Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana',
+                    'Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Ivory Coast',
+                    'Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon',
+                    'Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives',
+                    'Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Micronesia','Moldova','Monaco','Mongolia',
+                    'Montenegro','Morocco','Mozambique','Myanmar','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua',
+                    'Niger','Nigeria','North Korea','North Macedonia','Norway','Oman','Pakistan','Palau','Palestine','Panama',
+                    'Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda',
+                    'Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe',
+                    'Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands',
+                    'Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Suriname','Sweden','Switzerland',
+                    'Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey',
+                    'Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay',
+                    'Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+                ];
+                const showCountryDropdown = ref(false);
+                const filteredCountries = ref([]);
+                const filterCountries = () => {
+                    const q = form.birthCountry.toLowerCase().trim();
+                    if (q.length < 1) { filteredCountries.value = []; return; }
+                    filteredCountries.value = allCountries.filter(c => c.toLowerCase().includes(q)).slice(0, 10);
+                };
+                const selectCountry = (c) => { form.birthCountry = c; showCountryDropdown.value = false; filteredCountries.value = []; };
+                const hideCountryDropdown = () => { setTimeout(() => { showCountryDropdown.value = false; }, 150); };
+
+                // ─── Autocomplete: Languages ───
+                const allLanguages = [
+                    'Finnish','Swedish','English','Arabic','Somali','Russian','Kurdish','Persian','Dari','Turkish','Vietnamese',
+                    'Chinese','Thai','Estonian','French','Spanish','Portuguese','German','Italian','Polish','Romanian','Hungarian',
+                    'Bulgarian','Nepali','Hindi','Urdu','Bengali','Punjabi','Tamil','Telugu','Tagalog','Japanese','Korean',
+                    'Swahili','Amharic','Tigrinya','Oromo','Pashto','Albanian','Bosnian','Serbian','Croatian','Greek',
+                    'Dutch','Czech','Slovak','Latvian','Lithuanian','Ukrainian','Burmese','Khmer','Lao','Malay','Indonesian',
+                    'Sinhala','Mongolian','Georgian','Armenian','Hebrew','Azerbaijani','Uzbek','Kazakh','Kyrgyz','Tajik','Turkmen'
+                ];
+                const showLanguageDropdown = ref(false);
+                const filteredLanguages = ref([]);
+                const filterLanguages = () => {
+                    const q = form.motherTongue.toLowerCase().trim();
+                    if (q.length < 1) { filteredLanguages.value = []; return; }
+                    filteredLanguages.value = allLanguages.filter(l => l.toLowerCase().includes(q)).slice(0, 10);
+                };
+                const selectLanguage = (l) => { form.motherTongue = l; showLanguageDropdown.value = false; filteredLanguages.value = []; };
+                const hideLanguageDropdown = () => { setTimeout(() => { showLanguageDropdown.value = false; }, 150); };
+
+                return { form, missingFields, originalJsonFileName, jsonFileInput, toastVisible, submitForm, resetForm, triggerJsonFile, onJsonFileChange, downloadPdf,
+                    showCountryDropdown, filteredCountries, filterCountries, selectCountry, hideCountryDropdown,
+                    showLanguageDropdown, filteredLanguages, filterLanguages, selectLanguage, hideLanguageDropdown };
             }
         });
 

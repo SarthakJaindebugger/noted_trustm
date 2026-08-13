@@ -421,7 +421,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "visit_durations": [], "customer_counts": [],
         "total_forms": 0, "number_of_customers": 0,
         "average_conversation_time": "—", "gender_ratio": "—",
-        "age_groups": {"0-10": 0, "10-20": 0, "20-30": 0, "30-50": 0, "50+": 0},
+        "age_groups": {"Under 18": 0, "18-29": 0, "30-49": 0, "50-64": 0, "Over 65": 0},
         "gender_counts": {"Male": 0, "Female": 0},
     }
     if not root.exists():
@@ -438,10 +438,40 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
     agg["customer_counts"] = []
     agg["visit_durations"] = []
     unique_usernames = set()
-    age_groups = {"0-10": 0, "10-20": 0, "20-30": 0, "30-50": 0, "50+": 0}
+    age_groups = {"Under 18": 0, "18-29": 0, "30-49": 0, "50-64": 0, "Over 65": 0}
     gender_counts = {"Male": 0, "Female": 0}
+    birth_country_counts = {}
     total_duration_sec = 0.0
     duration_count = 0
+
+    customer_coming_from_counts = {"Nordic": 0, "EU Country / Switzerland / EEA": 0, "Third Country": 0, "3rd Country citizen living in Europe": 0}
+
+    # Count dicts for all categorical fields
+    counts = {
+        "contact_methods": {},
+        "topics_discussed": {},
+        "labour_positions": {},
+        "languages": {},
+        "residences": {},
+        "purposes_of_visit": {},
+        "duration_of_residence": {},
+        "directed_to": {},
+        "heard_from": {},
+        "immigration_reasons": {},
+        "education_levels": {},
+        "additional_info_tags": {},
+    }
+
+    def _count(field_key, value):
+        """Increment count for a value in the given field."""
+        if isinstance(value, list):
+            for v in value:
+                v = str(v).strip() if v else ""
+                if v and v not in SKIP:
+                    counts[field_key][v] = counts[field_key].get(v, 0) + 1
+        elif value and str(value).strip() not in SKIP:
+            k = str(value).strip()
+            counts[field_key][k] = counts[field_key].get(k, 0) + 1
 
     for file_path in root.glob("*.json"):
         if not file_path.is_file():
@@ -465,84 +495,120 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         m = record.get("metadata", {})
 
         # ── Contact method ──
-        # Prefer form.contactMethod (array), fall back to questionnaire string
         cm = f.get("contactMethod")
         if cm:
             _add(agg["contact_methods"], cm)
+            _count("contact_methods", cm)
         else:
-            _add(agg["contact_methods"], q.get("What is the contact method used by Advisee(s)?"))
+            cm_raw = q.get("What is the contact method used by Advisee(s)?")
+            _add(agg["contact_methods"], cm_raw)
+            _count("contact_methods", cm_raw)
 
         # ── Topics (Contents of the customer visit) ──
         contents = f.get("contents")
         if contents:
             _add(agg["topics_discussed"], contents)
+            _count("topics_discussed", contents)
             if f.get("contentsOther"):
                 _add(agg["topics_discussed"], f["contentsOther"])
+                _count("topics_discussed", f["contentsOther"])
         else:
             raw = q.get("Contents of the customer visit", "")
             if raw and raw not in SKIP:
                 for part in raw.split(","):
-                    _add(agg["topics_discussed"], part.strip().rstrip(")"))
+                    p = part.strip().rstrip(")")
+                    _add(agg["topics_discussed"], p)
+                    _count("topics_discussed", p)
 
         # ── Purpose of visit ──
         purpose = f.get("purpose")
         if purpose:
             _add(agg["purposes_of_visit"], purpose)
+            _count("purposes_of_visit", purpose)
         else:
             raw = q.get("Purpose of visit", "")
             if raw and raw not in SKIP:
                 for part in raw.split(","):
-                    _add(agg["purposes_of_visit"], part.strip())
+                    p = part.strip()
+                    _add(agg["purposes_of_visit"], p)
+                    _count("purposes_of_visit", p)
 
         # ── Labour position ──
         labour = f.get("labourPosition")
         if labour:
             _add(agg["labour_positions"], labour)
+            _count("labour_positions", labour)
         else:
             raw = q.get("Position in labour market", "")
             if raw and raw not in SKIP:
                 for part in raw.split(","):
-                    _add(agg["labour_positions"], part.strip())
+                    p = part.strip()
+                    _add(agg["labour_positions"], p)
+                    _count("labour_positions", p)
 
         # ── Birth country ──
-        _add(agg["birth_countries"], f.get("birthCountry") or q.get("Customer birth country"))
+        bc_val = f.get("birthCountry") or q.get("Customer birth country")
+        _add(agg["birth_countries"], bc_val)
+        if bc_val and str(bc_val).strip() and str(bc_val).strip() not in SKIP:
+            bc_key = str(bc_val).strip()
+            birth_country_counts[bc_key] = birth_country_counts.get(bc_key, 0) + 1
 
         # ── Mother tongue / language ──
-        _add(agg["languages"], f.get("motherTongue") or q.get("Mother Tongue/Language"))
+        lang_val = f.get("motherTongue") or q.get("Mother Tongue/Language")
+        _add(agg["languages"], lang_val)
+        _count("languages", lang_val)
 
         # ── Domicile / residence ──
-        _add(agg["residences"], f.get("domicile") or q.get("Customer Domicile"))
+        dom_val = f.get("domicile") or q.get("Customer Domicile")
+        _add(agg["residences"], dom_val)
+        _count("residences", dom_val)
 
         # ── Duration of residence ──
         dur = f.get("residenceDuration")
         if dur:
             _add(agg["duration_of_residence"], dur)
+            _count("duration_of_residence", dur)
         else:
             raw = q.get("Duration of residence in Finland", "")
             if raw and raw not in SKIP:
                 for part in raw.split(","):
-                    _add(agg["duration_of_residence"], part.strip())
+                    p = part.strip()
+                    _add(agg["duration_of_residence"], p)
+                    _count("duration_of_residence", p)
 
         # ── Where directed ──
-        _add(agg["directed_to"], f.get("directedTo") or q.get("Where the customer is directed"))
+        dir_val = f.get("directedTo") or q.get("Where the customer is directed")
+        _add(agg["directed_to"], dir_val)
+        _count("directed_to", dir_val)
 
         # ── Heard from ──
-        _add(agg["heard_from"], f.get("heardFrom") or q.get("Heard from the guidance/advice position (if other where?)"))
+        hf_val = f.get("heardFrom") or q.get("Heard from the guidance/advice position (if other where?)")
+        _add(agg["heard_from"], hf_val)
+        _count("heard_from", hf_val)
 
         # ── Immigration reason ──
-        _add(agg["immigration_reasons"], f.get("immigrationReason") or q.get("Reason for Immigration"))
+        ir_val = f.get("immigrationReason") or q.get("Reason for Immigration")
+        _add(agg["immigration_reasons"], ir_val)
+        _count("immigration_reasons", ir_val)
 
         # ── Education level ──
-        _add(agg["education_levels"], f.get("educationLevel") or q.get("Education Level"))
+        ed_val = f.get("educationLevel") or q.get("Education Level")
+        _add(agg["education_levels"], ed_val)
+        _count("education_levels", ed_val)
 
         # ── Additional info tags ──
         ai = f.get("additionalInfo")
         if ai:
-            _add(agg["additional_info_tags"], [x for x in ai if x != "__other__"])
+            ai_clean = [x for x in ai if x != "__other__"]
+            _add(agg["additional_info_tags"], ai_clean)
+            _count("additional_info_tags", ai_clean)
             if f.get("additionalInfoOther"):
                 _add(agg["additional_info_tags"], f["additionalInfoOther"])
+                _count("additional_info_tags", f["additionalInfoOther"])
         else:
-            _add(agg["additional_info_tags"], q.get("Additional Information about the customers"))
+            ai_raw = q.get("Additional Information about the customers")
+            _add(agg["additional_info_tags"], ai_raw)
+            _count("additional_info_tags", ai_raw)
 
         # ── Other feedback ──
         _add(agg["other_feedback"], f.get("otherFeedback") or q.get("Any other Feedback"))
@@ -557,23 +623,27 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         if cc and isinstance(cc, (int, float)) and cc > 0:
             agg["customer_counts"].append(int(cc))
 
-        # ── Customer age ──
-        age_val = f.get("age") or q.get("Customer Age")
-        if age_val and age_val != "Not mentioned in transcript.":
-            try:
-                age = int(age_val) if isinstance(age_val, (int, float)) else int(re.search(r"\d+", str(age_val)).group())
-                if age <= 10:
-                    age_groups["0-10"] += 1
-                elif age <= 20:
-                    age_groups["10-20"] += 1
-                elif age <= 30:
-                    age_groups["20-30"] += 1
-                elif age <= 50:
-                    age_groups["30-50"] += 1
-                else:
-                    age_groups["50+"] += 1
-            except (ValueError, TypeError, AttributeError):
-                pass
+        # ── Customer age group ──
+        age_group_val = f.get("ageGroup") or q.get("Customer Age")
+        if age_group_val and age_group_val != "Not mentioned in transcript.":
+            ag = str(age_group_val).strip()
+            if ag in age_groups:
+                age_groups[ag] += 1
+            else:
+                try:
+                    age = int(re.search(r"\d+", ag).group())
+                    if age < 18:
+                        age_groups["Under 18"] += 1
+                    elif age <= 29:
+                        age_groups["18-29"] += 1
+                    elif age <= 49:
+                        age_groups["30-49"] += 1
+                    elif age <= 64:
+                        age_groups["50-64"] += 1
+                    else:
+                        age_groups["Over 65"] += 1
+                except (ValueError, TypeError, AttributeError):
+                    pass
 
         # ── Customer gender ──
         gender_val = f.get("gender") or q.get("Customer Gender")
@@ -581,6 +651,11 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             g = str(gender_val).strip().capitalize()
             if g in ("Male", "Female"):
                 gender_counts[g] += 1
+
+        # ── Customer coming from ──
+        ccf_val = f.get("customerComingFrom")
+        if ccf_val and ccf_val in customer_coming_from_counts:
+            customer_coming_from_counts[ccf_val] += 1
 
         # ── Average conversation time ──
         dur_sec = m.get("audio_duration_sec", 0) or 0
@@ -596,7 +671,10 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         secs = int(avg_sec % 60)
         avg_time = f"{mins} min {secs} sec"
 
-    total_customers = len(unique_usernames) if unique_usernames else agg["total_forms"]
+    # Count unique users = number of subdirectories in users_admin_data/users/
+    users_dir = DEFAULT_USERS_ROOT
+    user_list = [d.name for d in users_dir.iterdir() if d.is_dir()] if users_dir.exists() else []
+    total_customers = len(user_list) if user_list else (len(unique_usernames) if unique_usernames else 0)
 
     return {
         "contact_methods":       sorted(agg["contact_methods"]),
@@ -615,10 +693,14 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "other_feedback":        sorted(agg["other_feedback"]),
         "total_forms":           agg["total_forms"],
         "number_of_customers":   total_customers,
+        "user_list":             user_list,
         "average_conversation_time": avg_time,
         "gender_ratio": "—",
+        "birth_country_counts":  birth_country_counts,
+        "field_counts":          counts,
         "age_groups":            age_groups,
         "gender_counts":         gender_counts,
+        "customer_coming_from_counts": customer_coming_from_counts,
     }
 
 
@@ -798,4 +880,58 @@ def save_submitted_crm_form(
     except Exception as exc:
         logger.error(f"[CRM_SAVE] EXCEPTION during save: {exc}", exc_info=True)
         raise
+
+
+def clear_user_database() -> dict:
+    """Delete all files inside each user's subfolders but keep the folder structure intact.
+
+    Also clears all submitted CRM forms.
+    Returns a summary of what was deleted.
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+
+    users_root = DEFAULT_USERS_ROOT
+    deleted_files = 0
+    users_cleared = []
+
+    if users_root.exists():
+        for user_dir in users_root.iterdir():
+            if not user_dir.is_dir():
+                continue
+            user_file_count = 0
+            for sub in user_dir.iterdir():
+                if not sub.is_dir():
+                    sub.unlink()
+                    user_file_count += 1
+                    continue
+                # Walk subdirectories recursively: delete files and nested dirs (but keep top-level subfolder)
+                for item in sorted(sub.rglob("*"), reverse=True):
+                    if item.is_file():
+                        item.unlink()
+                        user_file_count += 1
+                    elif item.is_dir():
+                        # Remove nested subdirectories (e.g. uploads/dia01sce1SA_xxx/)
+                        try:
+                            item.rmdir()
+                        except OSError:
+                            pass
+            if user_file_count > 0:
+                users_cleared.append(user_dir.name)
+                deleted_files += user_file_count
+
+    # Clear submitted CRM forms
+    crm_root = get_submitted_crm_root()
+    crm_deleted = 0
+    if crm_root.exists():
+        for f in crm_root.glob("*.json"):
+            f.unlink()
+            crm_deleted += 1
+
+    logger.info(f"[CLEAR_DB] Cleared {deleted_files} files from users: {users_cleared}, {crm_deleted} CRM forms")
+    return {
+        "deleted_files": deleted_files,
+        "crm_forms_deleted": crm_deleted,
+        "users_cleared": users_cleared,
+    }
 

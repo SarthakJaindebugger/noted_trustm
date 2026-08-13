@@ -28,6 +28,13 @@
         .animate-pulse-black {
             animation: pulse-black 2s infinite;
         }
+
+        /* Hide Google Translate toolbar/banner */
+        .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        body { top: 0 !important; }
+        .skiptranslate { display: none !important; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">

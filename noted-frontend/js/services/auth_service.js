@@ -44,15 +44,42 @@ class AuthService {
         return this.user?.role === 'admin';
     }
 
+    switchRole(newRole) {
+        if (this.user) {
+            if (this.user.role === 'admin' && newRole === 'user') {
+                this.user = {
+                    ...this.user,
+                    role: 'user',
+                    username: 'demo',
+                    _actingAs: true,
+                };
+                sessionStorage.setItem('user', JSON.stringify(this.user));
+                return;
+            }
+            if (this.user.role === 'user' && newRole === 'admin') {
+                this.user.role = 'admin';
+                delete this.user._actingAs;
+                sessionStorage.setItem('user', JSON.stringify(this.user));
+                return;
+            }
+            this.user.role = newRole;
+            sessionStorage.setItem('user', JSON.stringify(this.user));
+        }
+    }
+
     getToken() {
         return this.token;
     }
 
     getAuthHeaders() {
-        return {
+        const headers = {
             'Authorization': `Bearer ${this.token}`,
             'Content-Type': 'application/json',
         };
+        if (this.user && this.user._actingAs) {
+            headers['X-Acting-As'] = this.user.username;
+        }
+        return headers;
     }
 }
 

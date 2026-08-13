@@ -2,6 +2,7 @@ import { ref, nextTick, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { authService } from '../services/auth_service.js';
 import { apiClient } from '../services/api_client.js';
+import { languageService } from '../services/language_service.js';
 
 export default {
   name: 'AdminDashboard',
@@ -29,6 +30,8 @@ export default {
     const otherFeedback     = ref([]);
     const ageGroups         = ref({});
     const genderCounts      = ref({});
+    const birthCountryCounts = ref({});
+    const fieldCounts       = ref({});
 
     // ── CRM Modal state ──
     const showCrmModal       = ref(false);
@@ -124,6 +127,9 @@ export default {
         otherFeedback.value      = d.other_feedback     || [];
         ageGroups.value          = d.age_groups         || {};
         genderCounts.value       = d.gender_counts      || {};
+        birthCountryCounts.value = d.birth_country_counts || {};
+        fieldCounts.value        = d.field_counts       || {};
+        customerComingFromCounts.value = d.customer_coming_from_counts || {};
       } catch (err) { console.error('Error fetching aggregated CRM data', err); }
     };
 
@@ -174,13 +180,41 @@ export default {
         otherFeedback.value      = d.other_feedback     || [];
         ageGroups.value          = d.age_groups         || {};
         genderCounts.value       = d.gender_counts      || {};
+        birthCountryCounts.value = d.birth_country_counts || {};
+        fieldCounts.value        = d.field_counts       || {};
+        customerComingFromCounts.value = d.customer_coming_from_counts || {};
         closeCrmModal();
       } catch (err) { console.error('Failed to parse CRM forms', err); alert('Failed to parse CRM forms.'); }
     };
 
 
+    const clearUserDatabase = async () => {
+      if (!confirm('Are you sure you want to clear ALL user data? This will delete all files from every user folder and all submitted CRM forms. This action cannot be undone.')) return;
+      try {
+        const result = await apiClient.delete('/admin/clear-user-database');
+        alert(`Database cleared:\n• ${result.deleted_files} user files deleted\n• ${result.crm_forms_deleted} CRM forms deleted\n• Users affected: ${result.users_cleared.join(', ') || 'none'}`);
+        fetchAggregatedCrmData();
+      } catch (err) { console.error('Failed to clear database', err); alert('Failed to clear user database.'); }
+    };
+
+    const customerComingFromCounts = ref({});
     const ageGroupMax = computed(() => Math.max(1, ...Object.values(ageGroups.value || {})));
     const genderTotal = computed(() => (genderCounts.value.Male || 0) + (genderCounts.value.Female || 0));
+    const birthCountryMax = computed(() => Math.max(1, ...Object.values(birthCountryCounts.value || {})));
+    const customerComingFromMax = computed(() => Math.max(1, ...Object.values(customerComingFromCounts.value || {})));
+
+    const showLangDropdown = ref(false);
+    const uiLanguages = languageService.LANGUAGES;
+    const currentLanguage = languageService.currentLanguage;
+    const changeLanguage = async (code) => { showLangDropdown.value = false; await languageService.setLanguage(code); };
+    const getLanguageLabel = languageService.getLanguageLabel;
+
+    const showProfileMenu = ref(false);
+    const userInitial = computed(() => (authService.getUser()?.username || 'A')[0].toUpperCase());
+    const switchToUser = () => {
+      authService.switchRole('user');
+      router.push({ name: 'dashboard' });
+    };
 
     return {
       logout, totalForms, numberOfCustomers, averageConvTime,
@@ -188,30 +222,61 @@ export default {
       birthCountries, languages, residences, durationResidence,
       directedTo, heardFrom, immigrationReasons, educationLevels,
       additionalInfoTags, otherFeedback, ageGroups, ageGroupMax,
-      genderCounts, genderTotal,
+      genderCounts, genderTotal, birthCountryCounts, birthCountryMax, fieldCounts,
+      customerComingFromCounts, customerComingFromMax,
       showCrmModal, crmForms, selectedCrmPaths, isLoadingCrmForms,
       crmSelectAllChecked, crmSelectAllIndeterminate,
-      openCrmModal, closeCrmModal, toggleCrmFormSelection, toggleCrmSelectAll, parseCrmForms,
+      showLangDropdown, uiLanguages, currentLanguage, changeLanguage, getLanguageLabel,
+      showProfileMenu, userInitial, switchToUser,
+      openCrmModal, closeCrmModal, toggleCrmFormSelection, toggleCrmSelectAll, parseCrmForms, clearUserDatabase,
       messages, newMessage, isTyping, isMinimized, unreadCount, messagesContainer,
       sendMessage, clearConversation, formatTime, expandChat,
     };
   },
 
   template: `
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+  <div class="min-h-screen bg-gray-50">
 
     <!-- ── Header ── -->
-    <div class="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/30">
+    <div class="sticky top-0 z-10 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div>
-          <h1 class="text-3xl font-bold text-blue-900">Admin Dashboard</h1>
-          <p class="text-gray-500 text-sm">Aggregated from {{ totalForms }} submitted CRM form(s)</p>
+          <h1 class="text-2xl font-semibold text-slate-800">Admin Dashboard</h1>
+          <p class="text-slate-500 text-sm">Aggregated from {{ totalForms }} submitted CRM form(s)</p>
         </div>
-        <div class="flex gap-3">
-          <button @click="openCrmModal" class="px-5 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700 transition text-sm font-medium">
+        <div class="flex gap-3 items-center">
+          <!-- Language Selector -->
+          <div class="relative notranslate" translate="no">
+            <button @click="showLangDropdown = !showLangDropdown"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 text-sm text-slate-600 hover:bg-gray-50 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+              {{ getLanguageLabel() }}
+            </button>
+            <div v-if="showLangDropdown" class="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-200 py-1 max-h-64 overflow-y-auto z-30">
+              <button v-for="lang in uiLanguages" :key="lang.code"
+                @click="changeLanguage(lang.code)"
+                :class="['w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition', currentLanguage === lang.code ? 'text-blue-600 font-medium bg-blue-50' : 'text-slate-700']">
+                {{ lang.label }}
+              </button>
+            </div>
+          </div>
+          <button @click="openCrmModal" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition text-sm font-medium">
             Analyze CRM Forms
           </button>
-          <button @click="logout" class="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition text-sm font-medium">Logout</button>
+          <button @click="clearUserDatabase" class="px-4 py-2 rounded-lg border border-gray-200 text-slate-600 hover:bg-gray-50 transition text-sm font-medium">
+            Clear User Database
+          </button>
+          <!-- Profile Icon -->
+          <div class="relative">
+            <button @click="showProfileMenu = !showProfileMenu"
+              class="w-9 h-9 rounded-full bg-slate-800 text-white flex items-center justify-center text-sm font-semibold hover:bg-slate-700 transition">
+              {{ userInitial }}
+            </button>
+            <div v-if="showProfileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-30">
+              <button @click="switchToUser" class="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-gray-50 transition">Switch to User</button>
+              <button @click="logout" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">Logout</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -221,21 +286,21 @@ export default {
 
       <!-- Summary row -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Total Forms</div>
-          <div class="text-3xl font-bold text-blue-700">{{ totalForms }}</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Total Forms</div>
+          <div class="text-3xl font-bold text-slate-800">{{ totalForms }}</div>
         </div>
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Customers</div>
-          <div class="text-3xl font-bold text-blue-700">{{ numberOfCustomers }}</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Customers</div>
+          <div class="text-3xl font-bold text-slate-800">{{ numberOfCustomers }}</div>
         </div>
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Avg. Conv. Time</div>
-          <div class="text-xl font-semibold text-gray-700 mt-1">{{ averageConvTime }}</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Avg. Conv. Time</div>
+          <div class="text-xl font-semibold text-slate-800 mt-1">{{ averageConvTime }}</div>
         </div>
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">Languages Detected</div>
-          <div class="text-3xl font-bold text-blue-700">{{ languages.length }}</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Languages Detected</div>
+          <div class="text-3xl font-bold text-slate-800">{{ languages.length }}</div>
         </div>
       </div>
 
@@ -243,134 +308,244 @@ export default {
       <!-- Full questionnaire fields grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 
-        <!-- Contact Method -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q5 · Contact Method</div>
-          <div v-if="contactMethods.length" class="flex flex-wrap gap-2">
-            <span v-for="v in contactMethods" :key="v" class="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Contact Method — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q5 · Contact Method</div>
+          <div v-if="fieldCounts.contact_methods && Object.keys(fieldCounts.contact_methods).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Method</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.contact_methods" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Heard From -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q6 · Heard From</div>
-          <div v-if="heardFrom.length" class="flex flex-wrap gap-2">
-            <span v-for="v in heardFrom" :key="v" class="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Heard From — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q6 · Heard From</div>
+          <div v-if="fieldCounts.heard_from && Object.keys(fieldCounts.heard_from).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Source</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.heard_from" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Immigration Reason -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q10 · Reason for Immigration</div>
-          <div v-if="immigrationReasons.length" class="flex flex-wrap gap-2">
-            <span v-for="v in immigrationReasons" :key="v" class="px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Immigration Reason — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q10 · Reason for Immigration</div>
+          <div v-if="fieldCounts.immigration_reasons && Object.keys(fieldCounts.immigration_reasons).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
+            <div v-for="(count, label) in fieldCounts.immigration_reasons" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-20 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.immigration_reasons)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Additional Info Tags -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q11 · Additional Customer Info</div>
-          <div v-if="additionalInfoTags.length" class="flex flex-wrap gap-2">
-            <span v-for="v in additionalInfoTags" :key="v" class="px-2 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Additional Info — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q11 · Additional Customer Info</div>
+          <div v-if="fieldCounts.additional_info_tags && Object.keys(fieldCounts.additional_info_tags).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
+            <div v-for="(count, label) in fieldCounts.additional_info_tags" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-28 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.additional_info_tags)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Birth Country -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q12 · Birth Country</div>
-          <div v-if="birthCountries.length" class="flex flex-wrap gap-2">
-            <span v-for="v in birthCountries" :key="v" class="px-2 py-1 bg-green-50 text-green-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Birth Country — X-Y axis bar chart (full width) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-2" style="height: 320px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q12 · Birth Country Distribution</div>
+          <div v-if="Object.keys(birthCountryCounts).length" class="h-full flex flex-col" style="max-height: 260px;">
+            <!-- Y-axis label -->
+            <div class="flex items-end gap-1 flex-1 overflow-x-auto pb-2 border-b-2 border-gray-300 border-l-2 pl-1 ml-6 relative">
+              <!-- Y-axis tick marks -->
+              <div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-xs text-gray-400 -ml-6" style="width: 24px;">
+                <span>{{ birthCountryMax }}</span>
+                <span>{{ Math.round(birthCountryMax / 2) }}</span>
+                <span>0</span>
+              </div>
+              <!-- Bars -->
+              <div v-for="(count, country) in birthCountryCounts" :key="country"
+                class="flex flex-col items-center flex-1 min-w-[40px] max-w-[60px] gap-1 justify-end h-full">
+                <span class="text-xs font-bold text-slate-800">{{ count }}</span>
+                <div class="w-8 bg-blue-600 rounded-t-md transition-all duration-500"
+                  :style="{ height: (count / birthCountryMax * 100) + '%' }"></div>
+              </div>
+            </div>
+            <!-- X-axis labels -->
+            <div class="flex gap-1 overflow-x-auto pt-1 ml-6">
+              <div v-for="(count, country) in birthCountryCounts" :key="country + '-label'"
+                class="flex-1 min-w-[40px] max-w-[60px] text-center">
+                <span class="text-xs text-gray-500 block truncate" :title="country">{{ country }}</span>
+              </div>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Mother Tongue -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q13 · Mother Tongue / Language</div>
-          <div v-if="languages.length" class="flex flex-wrap gap-2">
-            <span v-for="v in languages" :key="v" class="px-2 py-1 bg-teal-50 text-teal-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Mother Tongue — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q13 · Mother Tongue / Language</div>
+          <div v-if="fieldCounts.languages && Object.keys(fieldCounts.languages).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
+            <div v-for="(count, label) in fieldCounts.languages" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-20 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.languages)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-
-        <!-- Education Level -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q14 · Education Level</div>
-          <div v-if="educationLevels.length" class="flex flex-wrap gap-2">
-            <span v-for="v in educationLevels" :key="v" class="px-2 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Education Level — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q14 · Education Level</div>
+          <div v-if="fieldCounts.education_levels && Object.keys(fieldCounts.education_levels).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Level</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.education_levels" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Labour Position -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q15 · Position in Labour Market</div>
-          <div v-if="labourPositions.length" class="flex flex-wrap gap-2">
-            <span v-for="v in labourPositions" :key="v" class="px-2 py-1 bg-pink-50 text-pink-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Labour Position — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q15 · Position in Labour Market</div>
+          <div v-if="fieldCounts.labour_positions && Object.keys(fieldCounts.labour_positions).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
+            <div v-for="(count, label) in fieldCounts.labour_positions" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-24 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.labour_positions)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Domicile -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q16 · Customer Domicile</div>
-          <div v-if="residences.length" class="flex flex-wrap gap-2">
-            <span v-for="v in residences" :key="v" class="px-2 py-1 bg-cyan-50 text-cyan-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Domicile — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q16 · Customer Domicile</div>
+          <div v-if="fieldCounts.residences && Object.keys(fieldCounts.residences).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Location</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.residences" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Duration of Residence -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q17 · Duration of Residence in Finland</div>
-          <div v-if="durationResidence.length" class="flex flex-wrap gap-2">
-            <span v-for="v in durationResidence" :key="v" class="px-2 py-1 bg-sky-50 text-sky-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Duration of Residence — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q17 · Duration of Residence</div>
+          <div v-if="fieldCounts.duration_of_residence && Object.keys(fieldCounts.duration_of_residence).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
+            <div v-for="(count, label) in fieldCounts.duration_of_residence" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-24 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.duration_of_residence)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Contents of Visit -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-1">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q18 · Contents of Customer Visit</div>
-          <div v-if="topicsDiscussed.length" class="flex flex-wrap gap-2">
-            <span v-for="v in topicsDiscussed" :key="v" class="px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Contents of Visit — horizontal bars (wider) -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-2" style="height: 300px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q18 · Contents of Customer Visit</div>
+          <div v-if="fieldCounts.topics_discussed && Object.keys(fieldCounts.topics_discussed).length" class="overflow-y-auto space-y-2" style="max-height: 240px;">
+            <div v-for="(count, label) in fieldCounts.topics_discussed" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-44 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.topics_discussed)) * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Purpose of Visit -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q19 · Purpose of Visit</div>
-          <div v-if="purposesOfVisit.length" class="flex flex-wrap gap-2">
-            <span v-for="v in purposesOfVisit" :key="v" class="px-2 py-1 bg-violet-50 text-violet-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Purpose of Visit — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q19 · Purpose of Visit</div>
+          <div v-if="fieldCounts.purposes_of_visit && Object.keys(fieldCounts.purposes_of_visit).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Purpose</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.purposes_of_visit" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Where Directed -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q21 · Where Customer Is Directed</div>
-          <div v-if="directedTo.length" class="flex flex-wrap gap-2">
-            <span v-for="v in directedTo" :key="v" class="px-2 py-1 bg-lime-50 text-lime-700 rounded-lg text-xs font-medium">{{ v }}</span>
+        <!-- Where Directed — table -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q21 · Where Customer Is Directed</div>
+          <div v-if="fieldCounts.directed_to && Object.keys(fieldCounts.directed_to).length" class="overflow-y-auto" style="max-height: 200px;">
+            <table class="w-full text-xs">
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Destination</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <tbody>
+                <tr v-for="(count, label) in fieldCounts.directed_to" :key="label" class="border-b border-gray-50">
+                  <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
         <!-- Customer Age Distribution — horizontal bar chart -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-1">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Customer Age Distribution</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Customer Age Distribution</div>
           <div v-if="Object.keys(ageGroups).length" class="space-y-2">
-            <div v-for="(label, idx) in ['0-10', '10-20', '20-30', '30-50', '50+']" :key="label" class="flex items-center gap-3">
-              <span class="text-xs text-gray-600 w-10 text-right font-medium">{{ label }}</span>
+            <div v-for="(label, idx) in ['Under 18', '18-29', '30-49', '50-64', 'Over 65']" :key="label" class="flex items-center gap-3">
+              <span class="text-xs text-gray-600 w-14 text-right font-medium">{{ label }}</span>
               <div class="flex-1 h-6 bg-gray-100 rounded-lg overflow-hidden relative">
-                <div class="h-full rounded-lg transition-all duration-500"
-                  :style="{ width: ((ageGroups[label] || 0) / ageGroupMax * 100) + '%' }"
-                  :class="['bg-blue-500', 'bg-cyan-500', 'bg-teal-500', 'bg-indigo-500', 'bg-purple-500'][idx]">
+                <div class="h-full rounded-lg transition-all duration-500 bg-blue-600"
+                  :style="{ width: ((ageGroups[label] || 0) / ageGroupMax * 100) + '%' }">
                 </div>
               </div>
               <span class="text-xs text-gray-500 w-6 text-right font-semibold">{{ ageGroups[label] || 0 }}</span>
@@ -380,32 +555,29 @@ export default {
         </div>
 
         <!-- Gender Ratio -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Customer Gender Ratio</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Customer Gender Ratio</div>
           <div v-if="genderTotal > 0" class="space-y-4">
-            <!-- Ratio bar -->
-            <div class="w-full h-8 rounded-xl overflow-hidden flex">
-              <div class="h-full bg-blue-500 transition-all duration-500 flex items-center justify-center"
+            <div class="w-full h-8 rounded-lg overflow-hidden flex">
+              <div class="h-full bg-blue-600 transition-all duration-500 flex items-center justify-center"
                 :style="{ width: ((genderCounts.Male || 0) / genderTotal * 100) + '%' }">
                 <span v-if="(genderCounts.Male || 0) / genderTotal > 0.15" class="text-xs font-bold text-white">{{ genderCounts.Male || 0 }}</span>
               </div>
-              <div class="h-full bg-pink-500 transition-all duration-500 flex items-center justify-center"
+              <div class="h-full bg-slate-800 transition-all duration-500 flex items-center justify-center"
                 :style="{ width: ((genderCounts.Female || 0) / genderTotal * 100) + '%' }">
                 <span v-if="(genderCounts.Female || 0) / genderTotal > 0.15" class="text-xs font-bold text-white">{{ genderCounts.Female || 0 }}</span>
               </div>
             </div>
-            <!-- Legend -->
             <div class="flex items-center justify-center gap-6">
               <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                <span class="text-sm text-gray-700 font-medium">Male ({{ genderCounts.Male || 0 }})</span>
+                <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                <span class="text-sm text-slate-700 font-medium">Male ({{ genderCounts.Male || 0 }})</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-pink-500"></span>
-                <span class="text-sm text-gray-700 font-medium">Female ({{ genderCounts.Female || 0 }})</span>
+                <span class="w-3 h-3 rounded-full bg-slate-800"></span>
+                <span class="text-sm text-slate-700 font-medium">Female ({{ genderCounts.Female || 0 }})</span>
               </div>
             </div>
-            <!-- Ratio text -->
             <div class="text-center text-lg font-bold text-gray-800">
               {{ genderCounts.Male || 0 }} : {{ genderCounts.Female || 0 }}
             </div>
@@ -413,11 +585,30 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">No gender data available</span>
         </div>
 
+        <!-- Customer Coming From — horizontal bars -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Customer Coming From</div>
+          <div v-if="Object.keys(customerComingFromCounts).length" class="space-y-2">
+            <div v-for="(count, label) in customerComingFromCounts" :key="label" class="flex items-center gap-2">
+              <span class="text-xs text-gray-600 w-36 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+                  :style="{ width: (count / customerComingFromMax * 100) + '%' }"></div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">No data available</span>
+        </div>
+
         <!-- Other Feedback — full width -->
-        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 md:col-span-2 xl:col-span-3">
-          <div class="text-xs text-gray-400 uppercase tracking-wide mb-3">Q22 · Other Feedback</div>
-          <div v-if="otherFeedback.length" class="space-y-2">
-            <div v-for="(v, i) in otherFeedback" :key="i" class="text-sm text-gray-700 bg-gray-50 rounded-xl px-4 py-3 leading-relaxed">{{ v }}</div>
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-3">
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q22 · Other Feedback ({{ otherFeedback.length }} entries)</div>
+          <div v-if="otherFeedback.length" class="space-y-2 overflow-y-auto" style="max-height: 200px;">
+            <div v-for="(v, i) in otherFeedback" :key="i" class="text-sm text-gray-700 bg-gray-50 rounded-xl px-4 py-3 leading-relaxed flex items-start gap-3">
+              <span class="text-xs font-bold text-gray-400 mt-0.5">#{{ i + 1 }}</span>
+              <span>{{ v }}</span>
+            </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
@@ -428,7 +619,7 @@ export default {
 
     <!-- ── CRM Forms Modal ── -->
     <div v-if="showCrmModal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl">
+      <div class="bg-white rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl">
 
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -458,7 +649,7 @@ export default {
               </thead>
               <tbody>
                 <tr v-for="(form, i) in crmForms" :key="form.file_path"
-                  class="border-b border-gray-100 hover:bg-purple-50 transition cursor-pointer"
+                  class="border-b border-gray-100 hover:bg-blue-50 transition cursor-pointer"
                   @click="toggleCrmFormSelection(form.file_path)">
                   <td class="px-3 py-3">
                     <input type="checkbox"
@@ -483,7 +674,7 @@ export default {
           <div class="flex gap-3">
             <button @click="closeCrmModal" class="px-4 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 text-sm transition">Cancel</button>
             <button @click="parseCrmForms" :disabled="selectedCrmPaths.size === 0"
-              class="px-4 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-40 text-sm transition">
+              class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-40 text-sm transition">
               Analyze Selected
             </button>
           </div>
@@ -506,8 +697,8 @@ export default {
           {{ unreadCount > 9 ? '9+' : unreadCount }}
         </span>
       </div>
-      <div v-else class="w-96 h-[500px] bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/50 flex flex-col overflow-hidden">
-        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 bg-gradient-to-r from-blue-50 to-cyan-50">
+      <div v-else class="w-96 h-[500px] bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/50 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 bg-gray-50">
           <h3 class="font-semibold text-gray-800 text-sm">Immigration Assistant</h3>
           <div class="flex gap-2">
             <button @click="clearConversation" class="text-gray-400 hover:text-gray-600">
@@ -525,14 +716,14 @@ export default {
         </div>
         <div ref="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-3">
           <div v-for="(msg, idx) in messages" :key="idx" class="flex" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
-            <div class="max-w-[80%] rounded-2xl px-4 py-2 text-sm"
+            <div class="max-w-[80%] rounded-xl px-4 py-2 text-sm"
               :class="msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-gray-100 text-gray-800 rounded-bl-none'">
               <p class="whitespace-pre-wrap">{{ msg.content }}</p>
               <span class="text-[10px] opacity-60 mt-1 block">{{ formatTime(msg.timestamp) }}</span>
             </div>
           </div>
           <div v-if="isTyping" class="flex justify-start">
-            <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3">
+            <div class="bg-gray-100 rounded-xl rounded-bl-none px-4 py-3">
               <div class="flex gap-1">
                 <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
                 <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:150ms"></span>

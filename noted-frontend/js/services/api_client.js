@@ -16,9 +16,16 @@ class ApiClient {
             return {};
         }
 
-        return {
+        const headers = {
             Authorization: `Bearer ${token}`,
         };
+
+        const user = JSON.parse(sessionStorage.getItem('user') || 'null');
+        if (user && user.role === 'user' && user._actingAs) {
+            headers['X-Acting-As'] = user.username;
+        }
+
+        return headers;
     }
 
     clearStoredAuth() {

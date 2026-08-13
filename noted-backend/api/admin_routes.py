@@ -10,7 +10,7 @@ from knowledgebase.admin_dashboard_stats import (
     DEFAULT_SUMMARY_OUTPUT,
     build_combined_summary,
 )
-from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files, list_submitted_crm_forms, aggregate_all_crm_forms
+from services.admin_audio_analysis import analyze_audio_file, list_user_audio_files, list_submitted_crm_forms, aggregate_all_crm_forms, clear_user_database
 
 logger = logging.getLogger(__name__)
 
@@ -258,3 +258,15 @@ async def get_aggregated_crm_data(current_user: AuthenticatedUser = Depends(requ
             "advisors": [],
             "clients": [],
         }
+
+
+@admin_router.delete("/clear-user-database")
+async def clear_database(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Delete all files from every user's subfolders and submitted CRM forms. Keeps folder structure."""
+    _ensure_admin(current_user)
+    try:
+        result = clear_user_database()
+        return result
+    except Exception as exc:
+        logger.error("Failed to clear user database: %s", exc)
+        raise HTTPException(status_code=500, detail="Failed to clear user database")

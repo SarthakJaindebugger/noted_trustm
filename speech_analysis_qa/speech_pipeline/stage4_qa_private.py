@@ -136,68 +136,6 @@ def generate_feedback(tokenizer, model, transcript: str, previous_answers: Dict)
                                   transcript, previous_answers, max_new_tokens=256)
 
 
-def generate_customer_age(tokenizer, model, transcript: str) -> str:
-    prompt = f"""
-    You are an expert analyst reading a customer-advisor conversation transcript.
-
-    Your task: determine the age of the main customer/advisee ONLY if their age
-    is explicitly mentioned somewhere in the transcript (e.g. "I am 34 years old",
-    "the customer is 28", "born in 1990" which you can calculate from).
-
-    Rules:
-    1. Return ONLY the numeric age as a plain integer (e.g. "34").
-    2. If the age is not explicitly stated or clearly calculable from a birth year
-       mentioned in the transcript, return exactly: "Not mentioned in transcript."
-    3. Do NOT guess or infer age from context, tone, or topics discussed.
-    4. Do NOT output reasoning or <think> tags. Return ONLY the age number or the
-       "Not mentioned" phrase.
-
-    TRANSCRIPT
-    -------------------------
-    {transcript[:2000]}
-    -------------------------
-
-    Customer age:
-    """
-    result = clean_answer(ask_question(tokenizer, model, prompt, max_new_tokens=16).strip())
-    # Validate: must be a number or the "not mentioned" phrase
-    import re as _re
-    age_match = _re.search(r"\b(\d{1,3})\b", result)
-    if age_match:
-        return age_match.group(1)
-    return "Not mentioned in transcript."
-
-
-def generate_customer_gender(tokenizer, model, transcript: str) -> str:
-    prompt = f"""
-    You are an expert analyst reading a customer-advisor conversation transcript.
-
-    Your task: determine the gender of the main customer/advisee ONLY based on
-    explicit evidence in the transcript such as:
-    - Pronouns used to refer to the customer (he/him/his = Male, she/her/hers = Female)
-    - Explicit statements ("I am a man/woman", "the gentleman/lady")
-    - Gendered titles or references (Mr., Mrs., husband, wife, brother, sister, son, daughter)
-
-    Rules:
-    1. Return ONLY one of: "Male", "Female", or "Not mentioned in transcript."
-    2. Do NOT guess based on name, voice, or topic discussed.
-    3. Only answer if there is clear linguistic evidence in the transcript.
-    4. Do NOT output reasoning or <think> tags. Return ONLY the answer.
-
-    TRANSCRIPT
-    -------------------------
-    {transcript[:2000]}
-    -------------------------
-
-    Customer gender:
-    """
-    result = clean_answer(ask_question(tokenizer, model, prompt, max_new_tokens=16).strip())
-    lower = result.lower().strip().rstrip(".")
-    if "male" in lower and "female" not in lower:
-        return "Male"
-    if "female" in lower:
-        return "Female"
-    return "Not mentioned in transcript."
 
 
 # --------------------------------------------------------------------
@@ -380,15 +318,6 @@ def run(private_transcript_path: str, output_path: str) -> Dict:
         all_results["Any other Feedback"] = generate_feedback(
             tokenizer, model, feedback_context, all_results)
 
-        print("Extracting customer age...")
-        age_context = retriever.get_context(
-            "age years old born birth year customer", top_k=5)
-        all_results["Customer Age"] = generate_customer_age(tokenizer, model, age_context)
-
-        print("Extracting customer gender...")
-        gender_context = retriever.get_context(
-            "gender he she him her man woman male female husband wife brother sister son daughter", top_k=5)
-        all_results["Customer Gender"] = generate_customer_gender(tokenizer, model, gender_context)
 
         private_output = {"summary": summary, "questionnaire": all_results}
     finally:

@@ -48,16 +48,28 @@ def guess_customer_count_from_metadata(metadata: dict) -> Optional[int]:
     return len(customers) if customers else None
 
 
-def parse_age(value: Optional[str]) -> Optional[int]:
-    """Parse a numeric age from the questionnaire answer, or return None."""
+def parse_age_group(value: Optional[str]) -> Optional[str]:
+    """Parse age group from the questionnaire answer. Returns a valid group label or None."""
     if not value or value == "Not mentioned in transcript.":
         return None
+    valid_groups = {"Under 18", "18-29", "30-49", "50-64", "Over 65"}
+    stripped = str(value).strip()
+    if stripped in valid_groups:
+        return stripped
     import re
-    match = re.search(r"\b(\d{1,3})\b", str(value))
+    match = re.search(r"\b(\d{1,3})\b", stripped)
     if match:
         age = int(match.group(1))
-        if 0 <= age <= 150:
-            return age
+        if age < 18:
+            return "Under 18"
+        elif age <= 29:
+            return "18-29"
+        elif age <= 49:
+            return "30-49"
+        elif age <= 64:
+            return "50-64"
+        else:
+            return "Over 65"
     return None
 
 
@@ -73,6 +85,37 @@ def parse_gender(value: Optional[str]) -> Optional[str]:
     return None
 
 
+NORDIC_COUNTRIES = {
+    "finland", "sweden", "norway", "denmark", "iceland",
+    "faroe islands", "greenland", "åland", "aland",
+}
+
+EU_EEA_SWISS = {
+    "austria", "belgium", "bulgaria", "croatia", "cyprus", "czech republic",
+    "czechia", "estonia", "france", "germany", "greece", "hungary", "ireland",
+    "italy", "latvia", "lithuania", "luxembourg", "malta", "netherlands",
+    "poland", "portugal", "romania", "slovakia", "slovenia", "spain",
+    "switzerland", "liechtenstein",
+}
+
+
+def classify_customer_coming_from(birth_country: Optional[str], domicile: Optional[str]) -> Optional[str]:
+    """Classify where the customer is coming from based on birth country and domicile."""
+    country = (birth_country or "").strip().lower()
+    dom = (domicile or "").strip().lower()
+    if not country:
+        return None
+    if country in NORDIC_COUNTRIES:
+        return "Nordic"
+    if country in EU_EEA_SWISS:
+        return "EU Country / Switzerland / EEA"
+    # Third country citizen living in Europe (domicile is in an EU/EEA/Nordic country)
+    if dom and (dom in NORDIC_COUNTRIES or dom in EU_EEA_SWISS or "finland" in dom
+                or "helsinki" in dom or "espoo" in dom or "vantaa" in dom):
+        return "3rd Country citizen living in Europe"
+    return "Third Country"
+
+
 def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
     additional_info, additional_info_other = parse_other_list(
         questionnaire.get("Additional Information about the customers")
@@ -80,6 +123,9 @@ def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
     contents, contents_other = parse_other_list(
         questionnaire.get("Contents of the customer visit")
     )
+
+    birth_country = map_answer(questionnaire.get("Customer birth country")) or ""
+    domicile = map_answer(questionnaire.get("Customer Domicile")) or ""
 
     return {
         "controlLocation": "",
@@ -91,16 +137,17 @@ def build_crm_form_payload(questionnaire: dict, metadata: dict) -> dict:
         "heardFrom": map_answer(questionnaire.get("Heard from the guidance/advice position (if other where?)")) or "",
         "customerCount": guess_customer_count_from_metadata(metadata),
         "gender": parse_gender(questionnaire.get("Customer Gender")),
-        "age": parse_age(questionnaire.get("Customer Age")),
+        "ageGroup": parse_age_group(questionnaire.get("Customer Age")),
         "immigrationReason": map_answer(questionnaire.get("Reason for Immigration")) or "",
         "additionalInfo": additional_info,
         "additionalInfoOther": additional_info_other,
-        "birthCountry": map_answer(questionnaire.get("Customer birth country")) or "",
+        "birthCountry": birth_country,
         "motherTongue": map_answer(questionnaire.get("Mother Tongue/Language")) or "",
         "educationLevel": map_answer(questionnaire.get("Education Level")) or "",
         "labourPosition": split_list(questionnaire.get("Position in labour market")),
-        "domicile": map_answer(questionnaire.get("Customer Domicile")) or "",
+        "domicile": domicile,
         "residenceDuration": split_list(questionnaire.get("Duration of residence in Finland")),
+        "customerComingFrom": classify_customer_coming_from(birth_country, domicile),
         "contents": contents,
         "contentsOther": contents_other,
         "purpose": split_list(questionnaire.get("Purpose of visit")),

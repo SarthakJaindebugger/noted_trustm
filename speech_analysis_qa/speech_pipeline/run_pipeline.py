@@ -194,6 +194,41 @@ def run_pipeline(
             stage4 = _import_stage("stage4_qa_private")
             stage4.run(paths["private_transcript_path"], paths["private_results_path"])
 
+        # Stage 4b: audio-based age/gender prediction
+        print("\n=== STAGE 4b: audio -> age/gender prediction ===")
+        try:
+            import json as _json
+            stage_ag = _import_stage("stage_age_and_gender_prediction")
+            stage_ag.authenticate_huggingface(stage_ag.HF_TOKEN)
+            audio_np = stage_ag.load_audio(audio_path, stage_ag.SAMPLE_RATE)
+            diarization_pipeline = stage_ag.load_diarization_pipeline()
+            ag_processor, ag_model = stage_ag.load_age_gender_model()
+            annotation = stage_ag.run_diarization(diarization_pipeline, audio_np, stage_ag.SAMPLE_RATE)
+            speaker_segments = stage_ag.collect_speaker_segments(annotation)
+
+            speaker_results = []
+            for spk, segs in speaker_segments.items():
+                result = stage_ag.process_speaker(
+                    spk, segs, audio_np, stage_ag.SAMPLE_RATE,
+                    ag_processor, ag_model, stage_ag.DEVICE
+                )
+                if result.available:
+                    speaker_results.append(result)
+
+            if speaker_results:
+                primary = max(speaker_results, key=lambda r: r.segments_used)
+                with open(paths["private_results_path"], "r", encoding="utf-8") as _f:
+                    private_data = _json.load(_f)
+                private_data.setdefault("questionnaire", {})["Customer Age"] = primary.age_group or "Not mentioned in transcript."
+                private_data["questionnaire"]["Customer Gender"] = primary.gender or "Not mentioned in transcript."
+                with open(paths["private_results_path"], "w", encoding="utf-8") as _f:
+                    _json.dump(private_data, _f, indent=2, ensure_ascii=False)
+                print(f"  Age/gender injected: age_group={primary.age_group}, gender={primary.gender}")
+            else:
+                print("  No available speaker results for age/gender prediction")
+        except Exception as _ag_err:
+            print(f"  Age/gender prediction failed (non-fatal): {_ag_err}")
+
         # Stage 5: private Q&A JSON + mapping -> mapped JSON
         print("\n=== STAGE 5: private Q&A JSON + mapping -> mapped JSON ===")
         if Path(paths["mapped_results_path"]).exists():
