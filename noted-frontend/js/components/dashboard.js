@@ -25,6 +25,7 @@ export default {
         const processingProgress = ref(null); // { path, percent, status }
         const analysisResults = reactive({}); // { path: result }
         const crmFormStatusCache = reactive({}); // { filename: exists }
+        const submittedAudioFiles = ref(new Set());
 
         // Computed helpers
         const isAnalyzing = computed(() => processingQueue.value.length > 0 || currentProcessingPath.value !== null);
@@ -102,10 +103,24 @@ export default {
                 newAudioFiles.value = (data.new || []).sort((a, b) => a.name.localeCompare(b.name));
                 audioFiles.value = [...completedAudioFiles.value, ...newAudioFiles.value];
                 selectedPaths.clear();
+                await loadSubmissionStatuses();
             } catch (loadError) {
                 console.error('Failed to load audio files', loadError);
                 error.value = loadError.message || 'Failed to load audio files.';
             }
+        };
+
+        const loadSubmissionStatuses = async () => {
+            try {
+                const resp = await apiClient.get('/audio/crm-form-submissions');
+                submittedAudioFiles.value = new Set(resp.submitted_audio_files || []);
+            } catch (err) {
+                console.error('Failed to load submission statuses', err);
+            }
+        };
+
+        const isSubmitted = (audioFile) => {
+            return submittedAudioFiles.value.has(audioFile.name);
         };
 
         const checkCrmFormStatus = async (audioFilename) => {
@@ -188,7 +203,7 @@ export default {
             message.value = '';
         };
 
-        const openCrmForm = async (audioFile) => {
+        const openCrmForm = async (audioFile, viewOnly = false) => {
             // Try in-memory result first, then fall back to fetching from backend
             let result = analysisResults[audioFile.path];
 
@@ -215,15 +230,7 @@ export default {
                 return;
             }
 
-            // Copy the CRM JSON to submitted_crm_forms when user opens the form
-            try {
-                await apiClient.post('/audio/crm-form/submit', { audio_filename: audioFile.name });
-                // Update CRM form status cache
-                crmFormStatusCache[audioFile.name] = true;
-            } catch (submitErr) {
-                console.warn('Could not copy CRM JSON on open:', submitErr.message);
-                // Non-fatal — still open the form
-            }
+            // Don't auto-submit on open — the user submits via the form's Save button
 
             try {
                 const response = await apiClient.request(`/audio/file-content?path=${encodeURIComponent(htmlPath)}`);
@@ -235,11 +242,26 @@ export default {
                 const data = await response.json();
                 let htmlContent = data.content || '';
 
-                // Inject auth token and backend URL so the popup can POST back on submit
+                // Inject auth token, save URL, and audio filename so the popup can POST back on submit
                 const { config } = await import('../config.js');
-                const backendUrl = config.getApiBaseUrl().replace('/api/v1', '');
+                const saveUrl = `${config.getApiBaseUrl()}/audio/crm-form/save`;
                 const authToken = sessionStorage.getItem('auth_token') || '';
-                const tokenScript = `<script>window.crmBackendUrl = ${JSON.stringify(backendUrl)};window.crmAuthToken = ${JSON.stringify(authToken)};<\/script>`;
+                const readOnlyFlag = viewOnly ? 'true' : 'false';
+
+                // When opening in view-only mode, fetch the actual submitted form data
+                let initialDataScript = '';
+                if (viewOnly) {
+                    try {
+                        const submittedData = await apiClient.get(`/audio/crm-form-submitted-data?audio_filename=${encodeURIComponent(audioFile.name)}`);
+                        if (submittedData && submittedData.form) {
+                            initialDataScript = `<script>window.crmSubmittedFormData = ${JSON.stringify(submittedData.form)};<\/script>`;
+                        }
+                    } catch (fetchErr) {
+                        console.warn('Could not fetch submitted form data, opening with original data', fetchErr);
+                    }
+                }
+
+                const tokenScript = `<script>window.crmSaveUrl = ${JSON.stringify(saveUrl)};window.crmAuthToken = ${JSON.stringify(authToken)};window.crmAudioFilename = ${JSON.stringify(audioFile.name)};window.crmReadOnly = ${readOnlyFlag};<\/script>${initialDataScript}`;
 
                 if (htmlContent.includes('</head>')) {
                     htmlContent = htmlContent.replace('</head>', `${tokenScript}</head>`);
@@ -277,15 +299,27 @@ export default {
 
         onMounted(() => {
             loadAudioFiles();
+            window.addEventListener('message', async (event) => {
+                if (!event.data || !event.data.type) return;
+                if (event.data.type === 'crm-form-save') {
+                    try {
+                        await apiClient.post('/audio/crm-form/save', event.data.payload);
+                        event.source.postMessage({ type: 'crm-form-save-result', success: true }, '*');
+                        loadSubmissionStatuses();
+                    } catch (err) {
+                        event.source.postMessage({ type: 'crm-form-save-result', success: false, error: err.message || 'Save failed' }, '*');
+                    }
+                }
+            });
         });
 
         return {
             fileInput, isUploading, uploadProgress, message, error, chooseAudio, uploadAudio, logout,
             audioFiles, completedAudioFiles, newAudioFiles,
             selectedPaths, isAnalyzing, selectAllChecked, selectAllIndeterminate,
-            processingProgress, analysisResults, crmFormStatusCache,
+            processingProgress, analysisResults, crmFormStatusCache, submittedAudioFiles,
             loadAudioFiles, toggleAudioSelection, toggleSelectAll, startBatchAnalysis, cancelBatchAnalysis,
-            isCrmFormAvailable, openCrmForm, parseAudioFileInfo,
+            isCrmFormAvailable, openCrmForm, parseAudioFileInfo, isSubmitted,
             showLangDropdown, languages, currentLanguage, changeLanguage, getLanguageLabel,
             showProfileMenu, userInitial, switchToAdmin,
         };
@@ -480,7 +514,8 @@ export default {
                   <tr class="bg-gray-50 border-b border-gray-200 text-left text-xs text-gray-500 uppercase tracking-wide">
                     <th class="px-4 py-3">S.No.</th>
                     <th class="px-4 py-3">Audio File</th>
-                    <th class="px-4 py-3 text-center">CRM Form</th>
+                    <th class="px-4 py-3 text-center">Status</th>
+                    <th class="px-4 py-3 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -489,10 +524,26 @@ export default {
                     <td class="px-4 py-3 text-gray-500">{{ index + 1 }}</td>
                     <td class="px-4 py-3 font-medium text-gray-800">{{ parseAudioFileInfo(audioFile).name }}</td>
                     <td class="px-4 py-3 text-center">
-                      <button @click="openCrmForm(audioFile)"
-                        class="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-medium hover:bg-slate-700 transition shadow-sm">
-                        Open CRM
-                      </button>
+                      <span v-if="isSubmitted(audioFile)" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-50 text-green-700 text-xs font-medium">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Submitted
+                      </span>
+                      <span v-else class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-medium">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                        Pending
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                      <div class="flex items-center justify-center gap-2">
+                        <button v-if="!isSubmitted(audioFile)" @click="openCrmForm(audioFile)"
+                          class="px-3 py-1.5 rounded-lg bg-slate-800 text-white text-xs font-medium hover:bg-slate-700 transition shadow-sm">
+                          Open CRM
+                        </button>
+                        <button v-if="isSubmitted(audioFile)" @click="openCrmForm(audioFile, true)"
+                          class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-medium hover:bg-blue-700 transition shadow-sm">
+                          View CRM
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

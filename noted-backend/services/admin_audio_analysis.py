@@ -462,6 +462,15 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "additional_info_tags": {},
     }
 
+    # Gender breakdown per field: {field_key: {value: {"Male": N, "Female": N, "Unknown": N}}}
+    gender_breakdown = {k: {} for k in counts}
+    # Also track counselling/interpreter/first-visit with gender
+    extra_gender_fields = {
+        "counselling_own_language": {},
+        "interpreter_present": {},
+        "first_time_visitor": {},
+    }
+
     def _count(field_key, value):
         """Increment count for a value in the given field."""
         if isinstance(value, list):
@@ -472,6 +481,22 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         elif value and str(value).strip() not in SKIP:
             k = str(value).strip()
             counts[field_key][k] = counts[field_key].get(k, 0) + 1
+
+    def _count_gender(field_key, value, gender_label):
+        """Track gender breakdown for a field value."""
+        target = gender_breakdown if field_key in gender_breakdown else extra_gender_fields
+        if field_key not in target:
+            return
+        if isinstance(value, list):
+            for v in value:
+                v = str(v).strip() if v else ""
+                if v and v not in SKIP:
+                    target[field_key].setdefault(v, {"Male": 0, "Female": 0, "Unknown": 0})
+                    target[field_key][v][gender_label] += 1
+        elif value and str(value).strip() not in SKIP:
+            k = str(value).strip()
+            target[field_key].setdefault(k, {"Male": 0, "Female": 0, "Unknown": 0})
+            target[field_key][k][gender_label] += 1
 
     for file_path in root.glob("*.json"):
         if not file_path.is_file():
@@ -494,24 +519,36 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         f = record.get("form", {})
         m = record.get("metadata", {})
 
+        # Determine gender label for this record (used for per-field gender breakdown)
+        _g_val = f.get("gender") or q.get("Customer Gender")
+        _g_label = "Unknown"
+        if _g_val and _g_val != "Not mentioned in transcript.":
+            _g_cap = str(_g_val).strip().capitalize()
+            if _g_cap in ("Male", "Female"):
+                _g_label = _g_cap
+
         # ── Contact method ──
         cm = f.get("contactMethod")
         if cm:
             _add(agg["contact_methods"], cm)
             _count("contact_methods", cm)
+            _count_gender("contact_methods", cm, _g_label)
         else:
             cm_raw = q.get("What is the contact method used by Advisee(s)?")
             _add(agg["contact_methods"], cm_raw)
             _count("contact_methods", cm_raw)
+            _count_gender("contact_methods", cm_raw, _g_label)
 
         # ── Topics (Contents of the customer visit) ──
         contents = f.get("contents")
         if contents:
             _add(agg["topics_discussed"], contents)
             _count("topics_discussed", contents)
+            _count_gender("topics_discussed", contents, _g_label)
             if f.get("contentsOther"):
                 _add(agg["topics_discussed"], f["contentsOther"])
                 _count("topics_discussed", f["contentsOther"])
+                _count_gender("topics_discussed", f["contentsOther"], _g_label)
         else:
             raw = q.get("Contents of the customer visit", "")
             if raw and raw not in SKIP:
@@ -519,12 +556,14 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
                     p = part.strip().rstrip(")")
                     _add(agg["topics_discussed"], p)
                     _count("topics_discussed", p)
+                    _count_gender("topics_discussed", p, _g_label)
 
         # ── Purpose of visit ──
         purpose = f.get("purpose")
         if purpose:
             _add(agg["purposes_of_visit"], purpose)
             _count("purposes_of_visit", purpose)
+            _count_gender("purposes_of_visit", purpose, _g_label)
         else:
             raw = q.get("Purpose of visit", "")
             if raw and raw not in SKIP:
@@ -532,12 +571,14 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
                     p = part.strip()
                     _add(agg["purposes_of_visit"], p)
                     _count("purposes_of_visit", p)
+                    _count_gender("purposes_of_visit", p, _g_label)
 
         # ── Labour position ──
         labour = f.get("labourPosition")
         if labour:
             _add(agg["labour_positions"], labour)
             _count("labour_positions", labour)
+            _count_gender("labour_positions", labour, _g_label)
         else:
             raw = q.get("Position in labour market", "")
             if raw and raw not in SKIP:
@@ -545,6 +586,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
                     p = part.strip()
                     _add(agg["labour_positions"], p)
                     _count("labour_positions", p)
+                    _count_gender("labour_positions", p, _g_label)
 
         # ── Birth country ──
         bc_val = f.get("birthCountry") or q.get("Customer birth country")
@@ -557,17 +599,20 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         lang_val = f.get("motherTongue") or q.get("Mother Tongue/Language")
         _add(agg["languages"], lang_val)
         _count("languages", lang_val)
+        _count_gender("languages", lang_val, _g_label)
 
         # ── Domicile / residence ──
         dom_val = f.get("domicile") or q.get("Customer Domicile")
         _add(agg["residences"], dom_val)
         _count("residences", dom_val)
+        _count_gender("residences", dom_val, _g_label)
 
         # ── Duration of residence ──
         dur = f.get("residenceDuration")
         if dur:
             _add(agg["duration_of_residence"], dur)
             _count("duration_of_residence", dur)
+            _count_gender("duration_of_residence", dur, _g_label)
         else:
             raw = q.get("Duration of residence in Finland", "")
             if raw and raw not in SKIP:
@@ -575,26 +620,31 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
                     p = part.strip()
                     _add(agg["duration_of_residence"], p)
                     _count("duration_of_residence", p)
+                    _count_gender("duration_of_residence", p, _g_label)
 
         # ── Where directed ──
         dir_val = f.get("directedTo") or q.get("Where the customer is directed")
         _add(agg["directed_to"], dir_val)
         _count("directed_to", dir_val)
+        _count_gender("directed_to", dir_val, _g_label)
 
         # ── Heard from ──
         hf_val = f.get("heardFrom") or q.get("Heard from the guidance/advice position (if other where?)")
         _add(agg["heard_from"], hf_val)
         _count("heard_from", hf_val)
+        _count_gender("heard_from", hf_val, _g_label)
 
         # ── Immigration reason ──
         ir_val = f.get("immigrationReason") or q.get("Reason for Immigration")
         _add(agg["immigration_reasons"], ir_val)
         _count("immigration_reasons", ir_val)
+        _count_gender("immigration_reasons", ir_val, _g_label)
 
         # ── Education level ──
         ed_val = f.get("educationLevel") or q.get("Education Level")
         _add(agg["education_levels"], ed_val)
         _count("education_levels", ed_val)
+        _count_gender("education_levels", ed_val, _g_label)
 
         # ── Additional info tags ──
         ai = f.get("additionalInfo")
@@ -602,16 +652,40 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             ai_clean = [x for x in ai if x != "__other__"]
             _add(agg["additional_info_tags"], ai_clean)
             _count("additional_info_tags", ai_clean)
+            _count_gender("additional_info_tags", ai_clean, _g_label)
             if f.get("additionalInfoOther"):
                 _add(agg["additional_info_tags"], f["additionalInfoOther"])
                 _count("additional_info_tags", f["additionalInfoOther"])
+                _count_gender("additional_info_tags", f["additionalInfoOther"], _g_label)
         else:
             ai_raw = q.get("Additional Information about the customers")
             _add(agg["additional_info_tags"], ai_raw)
             _count("additional_info_tags", ai_raw)
+            _count_gender("additional_info_tags", ai_raw, _g_label)
 
         # ── Other feedback ──
         _add(agg["other_feedback"], f.get("otherFeedback") or q.get("Any other Feedback"))
+
+        # ── Counselling own language ──
+        col_val = f.get("counsellingOwnLanguage") or q.get("Was the language of counselling the customer's own language?")
+        if col_val and str(col_val).strip() not in SKIP:
+            k = str(col_val).strip()
+            extra_gender_fields["counselling_own_language"].setdefault(k, {"Male": 0, "Female": 0, "Unknown": 0})
+            extra_gender_fields["counselling_own_language"][k][_g_label] += 1
+
+        # ── Interpreter present ──
+        ip_val = f.get("interpreterPresent") or q.get("External interpreter present or telephone?")
+        if ip_val and str(ip_val).strip() not in SKIP:
+            k = str(ip_val).strip()
+            extra_gender_fields["interpreter_present"].setdefault(k, {"Male": 0, "Female": 0, "Unknown": 0})
+            extra_gender_fields["interpreter_present"][k][_g_label] += 1
+
+        # ── First time visitor ──
+        ftv_val = f.get("firstTimeVisitor") or q.get("Is this the customer's first visit?")
+        if ftv_val and str(ftv_val).strip() not in SKIP:
+            k = str(ftv_val).strip()
+            extra_gender_fields["first_time_visitor"].setdefault(k, {"Male": 0, "Female": 0, "Unknown": 0})
+            extra_gender_fields["first_time_visitor"][k][_g_label] += 1
 
         # ── Visit duration ──
         vd = f.get("visitDuration") or m.get("visit_duration")
@@ -701,6 +775,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "age_groups":            age_groups,
         "gender_counts":         gender_counts,
         "customer_coming_from_counts": customer_coming_from_counts,
+        "gender_breakdown": {**gender_breakdown, **extra_gender_fields},
     }
 
 

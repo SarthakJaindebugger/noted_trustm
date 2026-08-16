@@ -241,6 +241,19 @@
         .toast-inner i { font-size: 3rem; color: #16a34a; display: block; margin-bottom: 1rem; }
         .toast-inner span { font-size: 1.2rem; font-weight: 600; color: #1e293b; }
         .toast-inner .toast-sub { font-size: 0.9rem; color: #64748b; margin-top: 0.5rem; }
+        .btn-exit {
+            margin-top: 1.2rem;
+            padding: 0.7rem 2rem;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-exit:hover { background: #1d4ed8; }
         .field-hint { font-size: 0.8rem; color: #6a7f96; margin-top: 0.15rem; }
         .cond-field.hidden { display: none; }
         .autocomplete-wrapper { position: relative; }
@@ -277,8 +290,14 @@
 
         <div class="form-toolbar">
                     <button type="button" class="btn-pdf" @click="downloadPdf"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        </div>
 
-        <form id="mainForm" @submit.prevent="submitForm">
+        <div v-if="isReadOnly" style="background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+            <svg style="width:20px;height:20px;color:#0284c7;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+            <span style="font-size:14px;color:#0369a1;font-weight:500;">View Only — This form has already been submitted.</span>
+        </div>
+        <form id="mainForm" @submit.prevent @keydown.enter="handleEnterKey">
+        <fieldset :disabled="isReadOnly" style="border:none;padding:0;margin:0;">
             <!-- ====== SECTION 1: basic info ====== -->
             <div class="form-section">
 
@@ -360,7 +379,7 @@
                         <option value="Reel">Reel</option>
                         <option value="Municipal integration/immigrant services">Municipal integration/immigrant services</option>
                         <option value="Multicultural Centre">Multicultural Centre</option>
-                        <option value="Marketing communications of the control point">Marketing communications of the control point</option>
+                        <option value="Marketing communications of the control point (brochure, website, newspaper advertisement, bulletin board)">Marketing communications of the control point (brochure, website, newspaper advertisement, bulletin board)</option>
                         <option value="Educational institution">Educational institution</option>
                         <option value="Participatory Center">Participatory Center</option>
                         <option value="Congregation/religious community">Congregation/religious community</option>
@@ -403,7 +422,48 @@
                 <!-- Q10 -->
                 <div class="q-row">
                     <div class="q-label"><span class="q-num">10</span> Reason for Immigration</div>
-                    <input class="form-control" :class="{ missing: missingFields.immigrationReason }" v-model="form.immigrationReason" placeholder="e.g. work, family, asylum, study…" />
+                    <select class="form-control" :class="{ missing: missingFields.immigrationReason }" v-model="form.immigrationReason">
+                        <option value="" disabled>Select reason...</option>
+                        <option value="No information">No information</option>
+                        <option value="Returnee (Ingrian people)">Returnee (Ingrian people)</option>
+                        <option value="Returnee">Returnee</option>
+                        <option value="Refugee">Refugee</option>
+                        <option value="Asylum seeker">Asylum seeker</option>
+                        <option value="Work">Work</option>
+                        <option value="Family">Family</option>
+                        <option value="Student">Student</option>
+                        <option value="Entrepreneurship">Entrepreneurship</option>
+                    </select>
+                </div>
+
+                <!-- Q10b - Counselling language -->
+                <div class="grid-2">
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">10b</span> Was the counselling in customer's own language?</div>
+                        <select class="form-control" v-model="form.counsellingOwnLanguage">
+                            <option value="" disabled>Select...</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                            <option value="No information">No information</option>
+                        </select>
+                    </div>
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">10c</span> External interpreter?</div>
+                        <select class="form-control" v-model="form.interpreterPresent">
+                            <option value="" disabled>Select...</option>
+                            <option value="No">No</option>
+                            <option value="Yes, interpretation method unknown">Yes, method unknown</option>
+                            <option value="Present">Present</option>
+                            <option value="Telephone">Telephone</option>
+                            <option value="Express interpretation">Express interpretation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Q10d - Interpreting language -->
+                <div class="q-row" v-if="form.interpreterPresent && form.interpreterPresent !== 'No'">
+                    <div class="q-label"><span class="q-num">10d</span> Interpreting language</div>
+                    <input class="form-control" v-model="form.interpretingLanguage" placeholder="e.g. Arabic, Somali, Dari..." />
                 </div>
 
             </div><!-- end section 1 -->
@@ -469,7 +529,15 @@
                 <!-- Q14 -->
                 <div class="q-row">
                     <div class="q-label"><span class="q-num">14</span> Education Level</div>
-                    <input class="form-control" :class="{ missing: missingFields.educationLevel }" v-model="form.educationLevel" placeholder="e.g. primary, secondary, bachelor, master…" />
+                    <select class="form-control" :class="{ missing: missingFields.educationLevel }" v-model="form.educationLevel">
+                        <option value="" disabled>Select education level...</option>
+                        <option value="No information">No information</option>
+                        <option value="No education at all or less than the basic education syllabus">No education / less than basic</option>
+                        <option value="Primary education">Primary education</option>
+                        <option value="Secondary education (incl. basic/matriculation)">Secondary education</option>
+                        <option value="Post-secondary non-tertiary education">Post-secondary non-tertiary</option>
+                        <option value="Tertiary education (college, bachelor/master degree or university degree)">Tertiary education (college/university)</option>
+                    </select>
                 </div>
 
                 <!-- Q15 – now checkboxes -->
@@ -518,6 +586,17 @@
                         <label class="check-option"><input type="checkbox" value="More than 5 years" v-model="form.residenceDuration" /> More than 5 years</label>
                     </div>
                     <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q17b - First time visitor -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">17b</span> First time visitor?</div>
+                    <select class="form-control" v-model="form.firstTimeVisitor">
+                        <option value="" disabled>Select...</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="No information">No information</option>
+                    </select>
                 </div>
 
             </div><!-- end section 2 -->
@@ -628,11 +707,15 @@
                 </div>
 
             </div><!-- end section 4 -->
+        </fieldset>
 
             <!-- ====== BUTTONS ====== -->
-            <div class="btn-row">
-                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Submit Form</button>
+            <div class="btn-row" v-if="!isReadOnly">
+                <button type="button" class="btn-submit" @click="submitForm"><i class="fas fa-paper-plane"></i> Submit Form</button>
                 <button type="button" class="btn-reset" @click="resetForm"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
+            <div class="btn-row" v-else>
+                <button type="button" class="btn-exit" @click="exitToDashboard" style="margin:0 auto;"><i class="fas fa-arrow-left"></i> Return to Dashboard</button>
             </div>
 
             <!-- Success popup -->
@@ -640,7 +723,8 @@
                 <div class="toast-inner">
                     <i class="fas fa-check-circle"></i>
                     <span>Form submitted successfully!</span>
-                    <div class="toast-sub">Closing and returning to dashboard...</div>
+                    <div class="toast-sub">You can now return to the dashboard.</div>
+                    <button class="btn-exit" @click="exitToDashboard">Exit &amp; Return to Dashboard</button>
                 </div>
             </div>
 
@@ -681,6 +765,10 @@
                     domicile: '',
                     customerComingFrom: '',
                     residenceDuration: [],  // array
+                    firstTimeVisitor: '',
+                    counsellingOwnLanguage: '',
+                    interpreterPresent: '',
+                    interpretingLanguage: '',
                     contents: [],
                     contentsOther: '',
                     purpose: [],            // array
@@ -714,6 +802,7 @@
                 const originalJsonFileName = ref('');
                 const jsonFileInput = ref(null);
                 const toastVisible = ref(false);
+                const audioFilename = ref('');
 
                 const buildPayload = () => {
                     const payload = JSON.parse(JSON.stringify(form));
@@ -727,6 +816,9 @@
                         payload.contents.splice(idx, 1, `Other: ${payload.contentsOther || '(not specified)'}`);
                     }
                     delete payload.contentsOther;
+                    if (audioFilename.value) {
+                        payload.audio_filename = audioFilename.value;
+                    }
                     return payload;
                 };
 
@@ -881,6 +973,10 @@
                     form.residenceDuration = Array.isArray(payload.residenceDuration)
                         ? payload.residenceDuration
                         : splitList(payload.residenceDuration);
+                    form.firstTimeVisitor = payload.firstTimeVisitor || '';
+                    form.counsellingOwnLanguage = payload.counsellingOwnLanguage || '';
+                    form.interpreterPresent = payload.interpreterPresent || '';
+                    form.interpretingLanguage = payload.interpretingLanguage || '';
                     const hydrateContents = (values) => {
                         const parsed = Array.isArray(values) ? values.filter(Boolean) : splitList(values);
                         const mapped = parsed.map((item) => findContentLabel(item) || item);
@@ -1015,48 +1111,58 @@
                 };
 
                 // ─── submit ───
-                const submitForm = async (e) => {
-                    e.preventDefault();
+                const submitForm = async () => {
                     markRequiredMissing();
-                    if (!form.controlLocation.trim() || !form.date || !form.time || form.contactMethod.length === 0) {
-                        alert('Please fill in all required fields: Control Location, Date, Time, and at least one Contact Method.');
+                    const hasMissing = Object.values(missingFields).some(v => v === true);
+                    if (hasMissing) {
+                        alert('Please fill in all required fields before submitting.');
                         return;
                     }
                     const payload = buildPayload();
 
-                    const backendUrl = window.crmBackendUrl || '';
-                    const authToken = window.crmAuthToken || '';
-
-                    if (backendUrl) {
-                        const saveUrl = `${backendUrl}/api/v1/audio/crm-form/save`;
-                        try {
-                            const headers = { 'Content-Type': 'application/json' };
-                            if (authToken) {
-                                headers['Authorization'] = `Bearer ${authToken}`;
+                    // Send payload to opener window for saving (avoids CORS issues from blob: origin)
+                    if (window.opener) {
+                        window.opener.postMessage({ type: 'crm-form-save', payload }, '*');
+                        // Wait for response from opener
+                        await new Promise((resolve, reject) => {
+                            const timeout = setTimeout(() => { reject(new Error('Save timeout')); }, 15000);
+                            const handler = (event) => {
+                                if (event.data && event.data.type === 'crm-form-save-result') {
+                                    clearTimeout(timeout);
+                                    window.removeEventListener('message', handler);
+                                    if (event.data.success) resolve();
+                                    else reject(new Error(event.data.error || 'Save failed'));
+                                }
+                            };
+                            window.addEventListener('message', handler);
+                        }).then(() => {
+                            console.log('CRM form saved successfully');
+                            toastVisible.value = true;
+                        }).catch((err) => {
+                            console.error('CRM form save failed:', err.message);
+                            alert('Failed to save form: ' + err.message);
+                        });
+                    } else {
+                        // Fallback: direct fetch (e.g. standalone mode)
+                        const saveUrl = window.crmSaveUrl || (window.crmBackendUrl ? `${window.crmBackendUrl}/api/v1/audio/crm-form/save` : '');
+                        const authToken = window.crmAuthToken || '';
+                        if (saveUrl) {
+                            try {
+                                const headers = { 'Content-Type': 'application/json' };
+                                if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+                                const response = await fetch(saveUrl, { method: 'POST', headers, body: JSON.stringify(payload) });
+                                if (response.ok) {
+                                    toastVisible.value = true;
+                                } else {
+                                    alert('Failed to save form: ' + (await response.text()));
+                                }
+                            } catch (err) {
+                                alert('Could not connect to server: ' + err.message);
                             }
-                            const response = await fetch(saveUrl, {
-                                method: 'POST',
-                                headers,
-                                credentials: 'include',
-                                body: JSON.stringify(payload),
-                            });
-                            if (response.ok) {
-                                console.log('CRM form saved successfully');
-                            }
-                        } catch (e) {
-                            console.warn('Backend save skipped:', e.message);
+                        } else {
+                            toastVisible.value = true;
                         }
                     }
-
-                    toastVisible.value = true;
-                    setTimeout(() => {
-                        toastVisible.value = false;
-                        if (window.opener) {
-                            window.close();
-                        } else {
-                            window.location.href = '/#/dashboard';
-                        }
-                    }, 2500);
                 };
 
                 // ─── reset ───
@@ -1081,6 +1187,10 @@
                     form.domicile = '';
                     form.customerComingFrom = '';
                     form.residenceDuration = [];
+                    form.firstTimeVisitor = '';
+                    form.counsellingOwnLanguage = '';
+                    form.interpreterPresent = '';
+                    form.interpretingLanguage = '';
                     form.contents = [];
                     form.contentsOther = '';
                     form.purpose = [];
@@ -1092,30 +1202,41 @@
                 };
 
                 watchEffect(() => {
-                    if (form.controlLocation && form.controlLocation.trim()) missingFields.controlLocation = false;
-                    if (form.date) missingFields.date = false;
-                    if (form.time) missingFields.time = false;
-                    if (form.contactMethod && form.contactMethod.length > 0) missingFields.contactMethod = false;
-                    if (form.heardFrom && form.heardFrom.trim()) missingFields.heardFrom = false;
-                    if (form.immigrationReason && form.immigrationReason.trim()) missingFields.immigrationReason = false;
-                    if (form.additionalInfo && form.additionalInfo.length > 0) missingFields.additionalInfo = false;
-                    if (form.birthCountry && form.birthCountry.trim()) missingFields.birthCountry = false;
-                    if (form.motherTongue && form.motherTongue.trim()) missingFields.motherTongue = false;
-                    if (form.educationLevel && form.educationLevel.trim()) missingFields.educationLevel = false;
-                    if (form.domicile && form.domicile.trim()) missingFields.domicile = false;
-                    if (form.customerComingFrom && form.customerComingFrom.trim()) missingFields.customerComingFrom = false;
-                    if (form.labourPosition && form.labourPosition.length > 0) missingFields.labourPosition = false;
-                    if (form.residenceDuration && form.residenceDuration.length > 0) missingFields.residenceDuration = false;
-                    if ((form.contents && form.contents.length > 0) || (form.contentsOther && form.contentsOther.trim())) missingFields.contents = false;
-                    if (form.purpose && form.purpose.length > 0) missingFields.purpose = false;
-                    if (form.additionalInfoText && form.additionalInfoText.trim()) missingFields.additionalInfoText = false;
-                    if (form.directedTo && form.directedTo.trim()) missingFields.directedTo = false;
-                    if (form.otherFeedback && form.otherFeedback.trim()) missingFields.otherFeedback = false;
+                    missingFields.controlLocation = !form.controlLocation || !form.controlLocation.trim();
+                    missingFields.date = !form.date;
+                    missingFields.time = !form.time;
+                    missingFields.contactMethod = !form.contactMethod || form.contactMethod.length === 0;
+                    missingFields.heardFrom = !form.heardFrom || !form.heardFrom.trim();
+                    missingFields.immigrationReason = !form.immigrationReason || !form.immigrationReason.trim();
+                    missingFields.additionalInfo = !form.additionalInfo || form.additionalInfo.length === 0;
+                    missingFields.birthCountry = !form.birthCountry || !form.birthCountry.trim();
+                    missingFields.motherTongue = !form.motherTongue || !form.motherTongue.trim();
+                    missingFields.educationLevel = !form.educationLevel || !form.educationLevel.trim();
+                    missingFields.domicile = !form.domicile || !form.domicile.trim();
+                    missingFields.customerComingFrom = !form.customerComingFrom || !form.customerComingFrom.trim();
+                    missingFields.labourPosition = !form.labourPosition || form.labourPosition.length === 0;
+                    missingFields.residenceDuration = !form.residenceDuration || form.residenceDuration.length === 0;
+                    missingFields.contents = (!form.contents || form.contents.length === 0) && (!form.contentsOther || !form.contentsOther.trim());
+                    missingFields.purpose = !form.purpose || form.purpose.length === 0;
+                    missingFields.additionalInfoText = !form.additionalInfoText || !form.additionalInfoText.trim();
+                    missingFields.directedTo = !form.directedTo || !form.directedTo.trim();
+                    missingFields.otherFeedback = !form.otherFeedback || !form.otherFeedback.trim();
                 });
 
-                const initialPayload = window.initialData || window.initialQuestionnaire || null;
-                if (initialPayload) {
+                const isReadOnly = ref(window.crmReadOnly === true || window.crmReadOnly === 'true');
+
+                const submittedFormData = window.crmSubmittedFormData || null;
+                const initialPayload = submittedFormData || window.initialData || window.initialQuestionnaire || null;
+                if (submittedFormData) {
+                    loadFormPayload(submittedFormData);
+                } else if (initialPayload) {
                     loadFinalJson(initialPayload);
+                    if (initialPayload.metadata && initialPayload.metadata.audio_file) {
+                        audioFilename.value = initialPayload.metadata.audio_file;
+                    }
+                }
+                if (!audioFilename.value && window.crmAudioFilename) {
+                    audioFilename.value = window.crmAudioFilename;
                 }
 
                 // ─── Autocomplete: Countries ───
@@ -1170,9 +1291,23 @@
                 const selectLanguage = (l) => { form.motherTongue = l; showLanguageDropdown.value = false; filteredLanguages.value = []; };
                 const hideLanguageDropdown = () => { setTimeout(() => { showLanguageDropdown.value = false; }, 150); };
 
+                const handleEnterKey = (event) => {
+                    if (event.target.tagName === 'TEXTAREA') return;
+                    event.preventDefault();
+                };
+
+                const exitToDashboard = () => {
+                    if (window.opener) {
+                        window.close();
+                    } else {
+                        window.location.href = '/#/dashboard';
+                    }
+                };
+
                 return { form, missingFields, originalJsonFileName, jsonFileInput, toastVisible, submitForm, resetForm, triggerJsonFile, onJsonFileChange, downloadPdf,
                     showCountryDropdown, filteredCountries, filterCountries, selectCountry, hideCountryDropdown,
-                    showLanguageDropdown, filteredLanguages, filterLanguages, selectLanguage, hideLanguageDropdown };
+                    showLanguageDropdown, filteredLanguages, filterLanguages, selectLanguage, hideLanguageDropdown,
+                    exitToDashboard, isReadOnly, handleEnterKey };
             }
         });
 

@@ -22,7 +22,7 @@ QUESTION_GROUPS = [
             "c) Reel",
             "d) Municipal integration/immigrant services",
             "e) Multicultural Centre",
-            "f) Marketing communications of the control point",
+            "f) Marketing communications of the control point (brochure, website, newspaper advertisement, bulletin board)",
             "g) Educational institution",
             "h) Participatory Center",
             "i) Congregation/religious community",
@@ -33,16 +33,42 @@ QUESTION_GROUPS = [
             "n) Shared service point",
             "o) Visited in the past",
             "p) Other",
-            "r) No information"]},
+            "q) No information"]},
     ]},
     {"id": "GROUP 2", "questions": [
-        {"id": "Ques.10", "text": "Reason for Immigration", "options": None},
+        {"id": "Ques.10", "text": "Reason for Immigration", "options": [
+            "a) No information",
+            "b) Returnee (Ingrian people)",
+            "c) Returnee",
+            "d) Refugee",
+            "e) Asylum seeker",
+            "f) Work",
+            "g) Family",
+            "h) Student",
+            "i) Entrepreneurship"]},
+        {"id": "Ques.7a", "text": "Was the language of counselling the customer's own language?", "options": [
+            "a) Yes",
+            "b) No",
+            "c) No information"]},
+        {"id": "Ques.7b", "text": "External interpreter present or telephone?", "options": [
+            "a) No",
+            "b) Yes, interpretation method unknown",
+            "c) Present",
+            "d) Telephone",
+            "e) Express interpretation"]},
+        {"id": "Ques.7c", "text": "Interpreting language", "options": None},
     ]},
     {"id": "GROUP 3", "questions": [
         {"id": "Ques.11", "text": "Additional Information about the customers", "options": [
             "a) Illiterate", "b) Paperless", "c) Tourist", "d) Ukraine Crisis", "e) If something else type"],
          "allow_other": True},
-        {"id": "Ques.14", "text": "Education Level", "options": None},
+        {"id": "Ques.14", "text": "Education Level", "options": [
+            "a) No information",
+            "b) No education at all or less than the basic education syllabus",
+            "c) Primary education",
+            "d) Secondary education (incl. basic/matriculation)",
+            "e) Post-secondary non-tertiary education",
+            "f) Tertiary education (college, bachelor/master degree or university degree, licentiate, doctor)"]},
     ]},
     {"id": "GROUP 4", "questions": [
         {"id": "Ques.12", "text": "Customer birth country", "options": None},
@@ -52,7 +78,7 @@ QUESTION_GROUPS = [
     {"id": "GROUP 5", "questions": [
         {"id": "Ques.15", "text": "Position in labour market", "options": [
             "a) No Information", "b) Working in the open market",
-            "c) Working outside the open market (eg.: wage subsidy, work trail)",
+            "c) Working outside the open market (eg.: wage subsidy, work trial)",
             "d) Entrepreneur", "e) Unemployed",
             "f) In labour policy training (including integration training)",
             "g) Student", "h) Outside the labour market (eg.: stay-home-parent, retiree)",
@@ -62,6 +88,10 @@ QUESTION_GROUPS = [
         {"id": "Ques.17", "text": "Duration of residence in Finland", "options": [
             "a) No information", "b) Does not live in Finland", "c) Less than 3 years",
             "d) 3-5 years", "e) More than 5 years"]},
+        {"id": "Ques.17b", "text": "Is this the customer's first visit?", "options": [
+            "a) Yes",
+            "b) No",
+            "c) No information"]},
     ]},
     {"id": "GROUP 7", "questions": [
         {"id": "Ques.18", "text": "Contents of the customer visit:", "options": [
@@ -86,15 +116,17 @@ QUESTION_GROUPS = [
             "a) Trade-unions, occupational safety and health", "b) Lawyer and legal aid services",
             "c) Real estate agency/real estate, housing agency", "d) Digital and Population Information Agency",
             "e) Victims of human trafficking", "f) help system", "g) Organizations and associations",
-            "h) School activity (basic education)", "i) Crisis services",
-            "j) Municipal immigrant and integration services", "k) Finnish Immigration Service (Migri)",
-            "l) Youth services (e.g., Ohjaamo)", "m) Educational institution (secondary school, higher education or other)",
-            "n) Police", "o) Congregations and other religious communities", "p) Social and family services",
-            "q) Embassy", "r) TE services", "s) Health services", "t) Customs", "u) Early childhood education",
-            "v) Tax office", "w) Shared service point", "x) Support services for entrepreneurs",
-            "y) Companies/employers", "z) Other entities", "aa) Case closed",
-            "ab) Customer service continues/Make a new appointment",
-            "ac) Guidance and counseling service in another location"],
+            "h) Reel",
+            "i) School activity (basic education)", "j) Crisis services",
+            "k) Municipal immigrant and integration services", "l) Finnish Immigration Service (Migri)",
+            "m) Youth services (e.g., Ohjaamo)", "n) Educational institution (secondary school, higher education or other)",
+            "o) Police", "p) Congregations and other religious communities", "q) Social and family services",
+            "r) Embassy", "s) TE services", "t) Health services", "u) Customs", "v) Early childhood education",
+            "w) Tax office", "x) Shared service point", "y) Support services for entrepreneurs",
+            "z) Companies/employers", "aa) Other entities", "ab) Case closed",
+            "ac) Customer service continues/Make a new appointment",
+            "ad) Guidance and counseling service in another location"],
          "allow_other": False},
+        {"id": "Ques.22", "text": "Any other Feedback", "options": None},
     ]},
 ]

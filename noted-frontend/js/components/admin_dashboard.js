@@ -32,6 +32,7 @@ export default {
     const genderCounts      = ref({});
     const birthCountryCounts = ref({});
     const fieldCounts       = ref({});
+    const genderBreakdown   = ref({});
 
     // ── CRM Modal state ──
     const showCrmModal       = ref(false);
@@ -130,6 +131,7 @@ export default {
         birthCountryCounts.value = d.birth_country_counts || {};
         fieldCounts.value        = d.field_counts       || {};
         customerComingFromCounts.value = d.customer_coming_from_counts || {};
+        genderBreakdown.value = d.gender_breakdown || {};
       } catch (err) { console.error('Error fetching aggregated CRM data', err); }
     };
 
@@ -183,6 +185,7 @@ export default {
         birthCountryCounts.value = d.birth_country_counts || {};
         fieldCounts.value        = d.field_counts       || {};
         customerComingFromCounts.value = d.customer_coming_from_counts || {};
+        genderBreakdown.value = d.gender_breakdown || {};
         closeCrmModal();
       } catch (err) { console.error('Failed to parse CRM forms', err); alert('Failed to parse CRM forms.'); }
     };
@@ -216,6 +219,15 @@ export default {
       router.push({ name: 'dashboard' });
     };
 
+    const getGenderBar = (fieldKey, label) => {
+      const bd = genderBreakdown.value[fieldKey];
+      if (!bd || !bd[label]) return null;
+      const d = bd[label];
+      const total = (d.Male || 0) + (d.Female || 0) + (d.Unknown || 0);
+      if (total === 0) return null;
+      return { m: d.Male || 0, f: d.Female || 0, u: d.Unknown || 0, total };
+    };
+
     return {
       logout, totalForms, numberOfCustomers, averageConvTime,
       contactMethods, topicsDiscussed, purposesOfVisit, labourPositions,
@@ -224,6 +236,7 @@ export default {
       additionalInfoTags, otherFeedback, ageGroups, ageGroupMax,
       genderCounts, genderTotal, birthCountryCounts, birthCountryMax, fieldCounts,
       customerComingFromCounts, customerComingFromMax,
+      genderBreakdown, getGenderBar,
       showCrmModal, crmForms, selectedCrmPaths, isLoadingCrmForms,
       crmSelectAllChecked, crmSelectAllIndeterminate,
       showLangDropdown, uiLanguages, currentLanguage, changeLanguage, getLanguageLabel,
@@ -308,15 +321,23 @@ export default {
       <!-- Full questionnaire fields grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 
-        <!-- Contact Method — table -->
+        <!-- Contact Method — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q5 · Contact Method</div>
           <div v-if="fieldCounts.contact_methods && Object.keys(fieldCounts.contact_methods).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Method</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Method</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.contact_methods" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('contact_methods', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('contact_methods', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('contact_methods', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -325,15 +346,23 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Heard From — table -->
+        <!-- Heard From — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q6 · Heard From</div>
           <div v-if="fieldCounts.heard_from && Object.keys(fieldCounts.heard_from).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Source</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Source</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.heard_from" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('heard_from', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('heard_from', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('heard_from', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -342,14 +371,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Immigration Reason — horizontal bars -->
+        <!-- Immigration Reason — split M/F bars -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q10 · Reason for Immigration</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q10 · Reason for Immigration</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.immigration_reasons && Object.keys(fieldCounts.immigration_reasons).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
             <div v-for="(count, label) in fieldCounts.immigration_reasons" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-20 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('immigration_reasons', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('immigration_reasons', label).m / Math.max(1, ...Object.values(fieldCounts.immigration_reasons)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('immigration_reasons', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('immigration_reasons', label).f / Math.max(1, ...Object.values(fieldCounts.immigration_reasons)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('immigration_reasons', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.immigration_reasons)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -358,14 +394,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Additional Info — horizontal bars -->
+        <!-- Additional Info — split M/F bars -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q11 · Additional Customer Info</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q11 · Additional Customer Info</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.additional_info_tags && Object.keys(fieldCounts.additional_info_tags).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
             <div v-for="(count, label) in fieldCounts.additional_info_tags" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-28 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('additional_info_tags', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('additional_info_tags', label).m / Math.max(1, ...Object.values(fieldCounts.additional_info_tags)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('additional_info_tags', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('additional_info_tags', label).f / Math.max(1, ...Object.values(fieldCounts.additional_info_tags)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('additional_info_tags', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.additional_info_tags)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -405,14 +448,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Mother Tongue — horizontal bars -->
+        <!-- Mother Tongue — split M/F bars -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q13 · Mother Tongue / Language</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q13 · Mother Tongue / Language</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.languages && Object.keys(fieldCounts.languages).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
             <div v-for="(count, label) in fieldCounts.languages" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-20 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('languages', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('languages', label).m / Math.max(1, ...Object.values(fieldCounts.languages)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('languages', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('languages', label).f / Math.max(1, ...Object.values(fieldCounts.languages)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('languages', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.languages)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -421,15 +471,23 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Education Level — table -->
+        <!-- Education Level — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q14 · Education Level</div>
           <div v-if="fieldCounts.education_levels && Object.keys(fieldCounts.education_levels).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Level</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Level</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.education_levels" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('education_levels', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('education_levels', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('education_levels', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -438,14 +496,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Labour Position — horizontal bars -->
+        <!-- Labour Position — split M/F bars -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q15 · Position in Labour Market</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q15 · Position in Labour Market</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.labour_positions && Object.keys(fieldCounts.labour_positions).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
             <div v-for="(count, label) in fieldCounts.labour_positions" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-24 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('labour_positions', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('labour_positions', label).m / Math.max(1, ...Object.values(fieldCounts.labour_positions)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('labour_positions', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('labour_positions', label).f / Math.max(1, ...Object.values(fieldCounts.labour_positions)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('labour_positions', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.labour_positions)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -454,15 +519,23 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Domicile — table -->
+        <!-- Domicile — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q16 · Customer Domicile</div>
           <div v-if="fieldCounts.residences && Object.keys(fieldCounts.residences).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Location</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Location</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.residences" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('residences', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('residences', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('residences', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -471,14 +544,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Duration of Residence — horizontal bars -->
+        <!-- Duration of Residence — split M/F bars -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q17 · Duration of Residence</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q17 · Duration of Residence</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.duration_of_residence && Object.keys(fieldCounts.duration_of_residence).length" class="overflow-y-auto space-y-2" style="max-height: 200px;">
             <div v-for="(count, label) in fieldCounts.duration_of_residence" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-24 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('duration_of_residence', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('duration_of_residence', label).m / Math.max(1, ...Object.values(fieldCounts.duration_of_residence)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('duration_of_residence', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('duration_of_residence', label).f / Math.max(1, ...Object.values(fieldCounts.duration_of_residence)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('duration_of_residence', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.duration_of_residence)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -487,14 +567,21 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Contents of Visit — horizontal bars (wider) -->
+        <!-- Contents of Visit — split M/F bars (wider) -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-2" style="height: 300px;">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q18 · Contents of Customer Visit</div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q18 · Contents of Customer Visit</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
           <div v-if="fieldCounts.topics_discussed && Object.keys(fieldCounts.topics_discussed).length" class="overflow-y-auto space-y-2" style="max-height: 240px;">
             <div v-for="(count, label) in fieldCounts.topics_discussed" :key="label" class="flex items-center gap-2">
               <span class="text-xs text-gray-600 w-44 truncate flex-shrink-0" :title="label">{{ label }}</span>
-              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-600 rounded-full transition-all duration-500"
+              <div class="flex-1 h-5 bg-gray-100 rounded-full overflow-hidden flex">
+                <div v-if="getGenderBar('topics_discussed', label)" class="h-full bg-blue-600 transition-all duration-500"
+                  :style="{ width: (getGenderBar('topics_discussed', label).m / Math.max(1, ...Object.values(fieldCounts.topics_discussed)) * 100) + '%' }"></div>
+                <div v-if="getGenderBar('topics_discussed', label)" class="h-full bg-slate-800 transition-all duration-500"
+                  :style="{ width: (getGenderBar('topics_discussed', label).f / Math.max(1, ...Object.values(fieldCounts.topics_discussed)) * 100) + '%' }"></div>
+                <div v-if="!getGenderBar('topics_discussed', label)" class="h-full bg-blue-600 rounded-full transition-all duration-500"
                   :style="{ width: (count / Math.max(1, ...Object.values(fieldCounts.topics_discussed)) * 100) + '%' }"></div>
               </div>
               <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ count }}</span>
@@ -503,15 +590,23 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Purpose of Visit — table -->
+        <!-- Purpose of Visit — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q19 · Purpose of Visit</div>
           <div v-if="fieldCounts.purposes_of_visit && Object.keys(fieldCounts.purposes_of_visit).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Purpose</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Purpose</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.purposes_of_visit" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('purposes_of_visit', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('purposes_of_visit', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('purposes_of_visit', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -520,15 +615,23 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Where Directed — table -->
+        <!-- Where Directed — table with M/F -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 260px;">
           <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q21 · Where Customer Is Directed</div>
           <div v-if="fieldCounts.directed_to && Object.keys(fieldCounts.directed_to).length" class="overflow-y-auto" style="max-height: 200px;">
             <table class="w-full text-xs">
-              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Destination</th><th class="text-right py-1 text-gray-500 w-12">Count</th></tr></thead>
+              <thead><tr class="border-b border-gray-100"><th class="text-left py-1 text-gray-500">Destination</th><th class="py-1 text-gray-500 w-20 text-center">M / F</th><th class="text-right py-1 text-gray-500 w-10">N</th></tr></thead>
               <tbody>
                 <tr v-for="(count, label) in fieldCounts.directed_to" :key="label" class="border-b border-gray-50">
                   <td class="py-1.5 text-gray-700">{{ label }}</td>
+                  <td class="py-1.5 text-center">
+                    <span v-if="getGenderBar('directed_to', label)" class="inline-flex items-center gap-0.5">
+                      <span class="text-blue-600 font-semibold">{{ getGenderBar('directed_to', label).m }}</span>
+                      <span class="text-gray-300">/</span>
+                      <span class="text-slate-800 font-semibold">{{ getGenderBar('directed_to', label).f }}</span>
+                    </span>
+                    <span v-else class="text-gray-300">—</span>
+                  </td>
                   <td class="py-1.5 text-right font-bold text-slate-800">{{ count }}</td>
                 </tr>
               </tbody>
@@ -599,6 +702,81 @@ export default {
             </div>
           </div>
           <span v-else class="text-gray-300 italic text-sm">No data available</span>
+        </div>
+
+        <!-- Q7a · Counselling Own Language — M/F breakdown -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 220px;">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q7a · Counselling in Own Language</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
+          <div v-if="genderBreakdown.counselling_own_language && Object.keys(genderBreakdown.counselling_own_language).length" class="space-y-3">
+            <div v-for="(gd, label) in genderBreakdown.counselling_own_language" :key="label" class="flex items-center gap-3">
+              <span class="text-xs text-gray-700 font-medium w-24 flex-shrink-0">{{ label }}</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden flex">
+                <div class="h-full bg-blue-600 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Male / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Male" class="text-[10px] text-white font-bold">{{ gd.Male }}</span>
+                </div>
+                <div class="h-full bg-slate-800 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Female / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Female" class="text-[10px] text-white font-bold">{{ gd.Female }}</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ gd.Male + gd.Female + gd.Unknown }}</span>
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Q7b · Interpreter Present — M/F breakdown -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 220px;">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q7b · Interpreter Present</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
+          <div v-if="genderBreakdown.interpreter_present && Object.keys(genderBreakdown.interpreter_present).length" class="space-y-3 overflow-y-auto" style="max-height: 160px;">
+            <div v-for="(gd, label) in genderBreakdown.interpreter_present" :key="label" class="flex items-center gap-3">
+              <span class="text-xs text-gray-700 font-medium w-24 truncate flex-shrink-0" :title="label">{{ label }}</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden flex">
+                <div class="h-full bg-blue-600 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Male / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Male" class="text-[10px] text-white font-bold">{{ gd.Male }}</span>
+                </div>
+                <div class="h-full bg-slate-800 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Female / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Female" class="text-[10px] text-white font-bold">{{ gd.Female }}</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ gd.Male + gd.Female + gd.Unknown }}</span>
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- Q17b · First Time Visitor — M/F breakdown -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200" style="height: 220px;">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">Q17b · First Time Visitor</div>
+            <div class="flex items-center gap-2 text-[10px]"><span class="w-2.5 h-2.5 rounded-sm bg-blue-600"></span><span class="text-gray-500">M</span><span class="w-2.5 h-2.5 rounded-sm bg-slate-800"></span><span class="text-gray-500">F</span></div>
+          </div>
+          <div v-if="genderBreakdown.first_time_visitor && Object.keys(genderBreakdown.first_time_visitor).length" class="space-y-3">
+            <div v-for="(gd, label) in genderBreakdown.first_time_visitor" :key="label" class="flex items-center gap-3">
+              <span class="text-xs text-gray-700 font-medium w-24 flex-shrink-0">{{ label }}</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden flex">
+                <div class="h-full bg-blue-600 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Male / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Male" class="text-[10px] text-white font-bold">{{ gd.Male }}</span>
+                </div>
+                <div class="h-full bg-slate-800 transition-all duration-500 flex items-center justify-center"
+                  :style="{ width: (gd.Female / Math.max(1, gd.Male + gd.Female + gd.Unknown) * 100) + '%' }">
+                  <span v-if="gd.Female" class="text-[10px] text-white font-bold">{{ gd.Female }}</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-slate-800 w-6 text-right flex-shrink-0">{{ gd.Male + gd.Female + gd.Unknown }}</span>
+            </div>
+          </div>
+          <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
         <!-- Other Feedback — full width -->

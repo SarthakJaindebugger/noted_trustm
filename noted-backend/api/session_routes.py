@@ -127,20 +127,99 @@ async def analyze_selected_audio(
     return result
 
 
+@session_router.get("/audio/crm-form-submitted-data")
+async def get_submitted_crm_form_data(
+    audio_filename: str,
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Return the submitted CRM form data for a given audio file."""
+    from services.admin_audio_analysis import get_submitted_crm_root
+    from speech_analysis_qa.utils import sanitize_username
+    import json as _json
+
+    safe_username = sanitize_username(current_user.username)
+    root = get_submitted_crm_root()
+
+    if not root.exists():
+        raise HTTPException(status_code=404, detail="No submitted forms found.")
+
+    audio_stem = Path(audio_filename).stem
+
+    for file_path in sorted(root.glob(f"{safe_username}_*.json"), reverse=True):
+        if not file_path.is_file():
+            continue
+        try:
+            record = _json.loads(file_path.read_text(encoding="utf-8"))
+            form_section = record.get("form", {})
+            saved_audio = form_section.get("audio_filename", "")
+            if saved_audio and Path(saved_audio).stem == audio_stem:
+                return {"form": form_section}
+        except Exception:
+            continue
+
+    raise HTTPException(status_code=404, detail="No submitted form found for this audio file.")
+
+
 @session_router.get("/audio/crm-form-status")
 async def get_crm_form_status(
     audio_filename: str,
     current_user: AuthenticatedUser = Depends(require_authenticated_user),
 ):
-    """Check if a CRM form exists for the given audio file."""
-    from services.admin_audio_analysis import check_crm_form_exists
-    
-    try:
-        exists = check_crm_form_exists(current_user.username, audio_filename)
-        return {"crm_form_exists": exists}
-    except Exception as exc:
-        logger.error("Failed to check CRM form status for user %s: %s", current_user.username, exc)
+    """Check if a submitted CRM form exists for the given audio file (saved via Save button)."""
+    from services.admin_audio_analysis import get_submitted_crm_root
+    from speech_analysis_qa.utils import sanitize_username
+    import json as _json
+
+    safe_username = sanitize_username(current_user.username)
+    root = get_submitted_crm_root()
+
+    if not root.exists():
         return {"crm_form_exists": False}
+
+    audio_stem = Path(audio_filename).stem
+
+    for file_path in root.glob(f"{safe_username}_*.json"):
+        if not file_path.is_file():
+            continue
+        try:
+            record = _json.loads(file_path.read_text(encoding="utf-8"))
+            form_section = record.get("form", {})
+            saved_audio = form_section.get("audio_filename", "")
+            if saved_audio and Path(saved_audio).stem == audio_stem:
+                return {"crm_form_exists": True}
+        except Exception:
+            continue
+
+    return {"crm_form_exists": False}
+
+
+@session_router.get("/audio/crm-form-submissions")
+async def get_all_crm_form_submissions(
+    current_user: AuthenticatedUser = Depends(require_authenticated_user),
+):
+    """Return a set of audio filenames for which the user has submitted CRM forms."""
+    from services.admin_audio_analysis import get_submitted_crm_root
+    from speech_analysis_qa.utils import sanitize_username
+    import json as _json
+
+    safe_username = sanitize_username(current_user.username)
+    root = get_submitted_crm_root()
+    submitted = []
+
+    if root.exists():
+        for file_path in root.glob(f"{safe_username}_*.json"):
+            if not file_path.is_file():
+                continue
+            try:
+                record = _json.loads(file_path.read_text(encoding="utf-8"))
+                form_section = record.get("form", {})
+                audio_fn = form_section.get("audio_filename", "")
+                if audio_fn:
+                    submitted.append(audio_fn)
+            except Exception:
+                continue
+
+    return {"submitted_audio_files": submitted}
 
 
 @session_router.get("/audio/analyze-result")
@@ -383,10 +462,25 @@ async def read_user_audio_file_content(
         )
 
     try:
-        content = resolved.read_text(
-            encoding="utf-8",
-            errors="replace"
-        )
+        # For CRM HTML files, always regenerate from the current template
+        if resolved.name == "crm_form_parsed.html":
+            json_sibling = resolved.with_name("crm_form_parsed.json")
+            template_path = repo_root / "crm_forms" / "crm_form_template.html"
+            if json_sibling.exists() and template_path.exists():
+                import json as _json
+                parsed_data = _json.loads(json_sibling.read_text(encoding="utf-8"))
+                template_html = template_path.read_text(encoding="utf-8")
+                form_payload = parsed_data.get("form", {})
+                questionnaire = parsed_data.get("questionnaire", {})
+                metadata = parsed_data.get("metadata", {})
+                initial_data = {"form": form_payload, "questionnaire": questionnaire, "metadata": metadata}
+                json_text = _json.dumps(initial_data, ensure_ascii=False).replace("</", "<\\/")
+                injection = f"<script>window.initialData = {json_text};</script>"
+                content = template_html.replace("<!-- INITIAL_FORM_DATA_PLACEHOLDER -->", injection)
+            else:
+                content = resolved.read_text(encoding="utf-8", errors="replace")
+        else:
+            content = resolved.read_text(encoding="utf-8", errors="replace")
 
     except Exception as exc:
         logger.error(
