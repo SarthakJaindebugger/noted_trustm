@@ -44,7 +44,7 @@ class AuthService {
         return this.user?.role === 'admin';
     }
 
-    switchRole(newRole) {
+    async switchRole(newRole) {
         if (this.user) {
             if (this.user.role === 'admin' && newRole === 'user') {
                 this.user = {
@@ -52,14 +52,25 @@ class AuthService {
                     role: 'user',
                     username: 'demo',
                     _actingAs: true,
+                    _originalToken: this.token,
                 };
                 sessionStorage.setItem('user', JSON.stringify(this.user));
                 return;
             }
-            if (this.user.role === 'user' && newRole === 'admin') {
-                this.user.role = 'admin';
-                delete this.user._actingAs;
-                sessionStorage.setItem('user', JSON.stringify(this.user));
+            if (newRole === 'admin') {
+                // Restore original admin token if available, otherwise re-login as admin
+                if (this.user._originalToken) {
+                    this.token = this.user._originalToken;
+                    sessionStorage.setItem('auth_token', this.token);
+                    this.user.role = 'admin';
+                    this.user.username = 'admin';
+                    delete this.user._actingAs;
+                    delete this.user._originalToken;
+                    sessionStorage.setItem('user', JSON.stringify(this.user));
+                } else {
+                    // Login as admin to get a valid admin token
+                    await this.login('admin', 'admin');
+                }
                 return;
             }
             this.user.role = newRole;

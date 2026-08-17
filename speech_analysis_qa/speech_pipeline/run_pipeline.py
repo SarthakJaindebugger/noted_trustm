@@ -252,6 +252,15 @@ def run_pipeline(
                 backend_url=_os.getenv("NOTED_BACKEND_URL", ""),
             )
 
+        # Stage 8: Extract tags from Additional Info & Other Feedback
+        print("\n=== STAGE 8: Extract tags from Additional Info & Other Feedback ===")
+        tags_path = str(Path(paths["output_dir"]) / "8_tags.json")
+        if Path(tags_path).exists():
+            print(f"Skipping stage8: {tags_path} already exists")
+        else:
+            stage8 = _import_stage("stage8_tag_extraction")
+            stage8.run(paths["crm_form_parsed_path"], tags_path)
+
         embedding_paths: List[str] = []
         if embedding_dir:
             if Path(embedding_dir).exists() and any(Path(embedding_dir).glob("*_embedding_manifest.json")):

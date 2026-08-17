@@ -270,3 +270,34 @@ async def clear_database(current_user: AuthenticatedUser = Depends(require_authe
     except Exception as exc:
         logger.error("Failed to clear user database: %s", exc)
         raise HTTPException(status_code=500, detail="Failed to clear user database")
+
+
+FAQS_FILE = REPO_ROOT / "knowledgebase" / "generated_faqs.json"
+
+
+@admin_router.get("/faqs")
+async def get_faqs(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Get previously generated FAQs."""
+    _ensure_admin(current_user)
+    if FAQS_FILE.exists():
+        try:
+            data = json.loads(FAQS_FILE.read_text(encoding="utf-8"))
+            return {"faqs": data.get("faqs", [])}
+        except Exception:
+            pass
+    return {"faqs": []}
+
+
+@admin_router.post("/generate-faqs")
+async def generate_faqs(current_user: AuthenticatedUser = Depends(require_authenticated_user)):
+    """Generate FAQs from Q20 and Q22 text across all submitted CRM forms using LLM."""
+    _ensure_admin(current_user)
+    from services.faq_generator import generate_faqs_from_forms
+    try:
+        faqs = generate_faqs_from_forms()
+        FAQS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        FAQS_FILE.write_text(json.dumps({"faqs": faqs}, indent=2, ensure_ascii=False), encoding="utf-8")
+        return {"faqs": faqs}
+    except Exception as exc:
+        logger.error("Failed to generate FAQs: %s", exc, exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to generate FAQs: {str(exc)}")

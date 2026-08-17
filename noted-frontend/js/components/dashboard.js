@@ -292,8 +292,8 @@ export default {
 
         const showProfileMenu = ref(false);
         const userInitial = computed(() => (authService.getUser()?.username || 'U')[0].toUpperCase());
-        const switchToAdmin = () => {
-            authService.switchRole('admin');
+        const switchToAdmin = async () => {
+            await authService.switchRole('admin');
             router.push({ name: 'admin_dashboard' });
         };
 

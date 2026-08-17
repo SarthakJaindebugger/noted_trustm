@@ -27,7 +27,10 @@ export default {
     const immigrationReasons= ref([]);
     const educationLevels   = ref([]);
     const additionalInfoTags= ref([]);
+    const additionalInfoTextTags = ref([]);
     const otherFeedback     = ref([]);
+    const faqs              = ref([]);
+    const isGeneratingFaqs  = ref(false);
     const ageGroups         = ref({});
     const genderCounts      = ref({});
     const birthCountryCounts = ref({});
@@ -125,6 +128,7 @@ export default {
         immigrationReasons.value = d.immigration_reasons || [];
         educationLevels.value    = d.education_levels   || [];
         additionalInfoTags.value = d.additional_info_tags || [];
+        additionalInfoTextTags.value = d.additional_info_text_tags || [];
         otherFeedback.value      = d.other_feedback     || [];
         ageGroups.value          = d.age_groups         || {};
         genderCounts.value       = d.gender_counts      || {};
@@ -136,6 +140,27 @@ export default {
     };
 
     fetchAggregatedCrmData();
+
+    const combinedInsightTags = computed(() => {
+      const merged = new Set([...additionalInfoTextTags.value, ...otherFeedback.value]);
+      return [...merged].sort();
+    });
+
+    const generateFaqs = async () => {
+      isGeneratingFaqs.value = true;
+      try {
+        const result = await apiClient.post('/admin/generate-faqs');
+        faqs.value = result.faqs || [];
+      } catch (err) {
+        console.error('Failed to generate FAQs', err);
+        alert('Failed to generate FAQs.');
+      } finally {
+        isGeneratingFaqs.value = false;
+      }
+    };
+
+    // Load existing FAQs on mount
+    apiClient.get('/admin/faqs').then(d => { faqs.value = d.faqs || []; }).catch(() => {});
 
     // ── CRM modal ──
     const openCrmModal = async () => {
@@ -179,6 +204,7 @@ export default {
         immigrationReasons.value = d.immigration_reasons || [];
         educationLevels.value    = d.education_levels   || [];
         additionalInfoTags.value = d.additional_info_tags || [];
+        additionalInfoTextTags.value = d.additional_info_text_tags || [];
         otherFeedback.value      = d.other_feedback     || [];
         ageGroups.value          = d.age_groups         || {};
         genderCounts.value       = d.gender_counts      || {};
@@ -214,8 +240,8 @@ export default {
 
     const showProfileMenu = ref(false);
     const userInitial = computed(() => (authService.getUser()?.username || 'A')[0].toUpperCase());
-    const switchToUser = () => {
-      authService.switchRole('user');
+    const switchToUser = async () => {
+      await authService.switchRole('user');
       router.push({ name: 'dashboard' });
     };
 
@@ -233,7 +259,8 @@ export default {
       contactMethods, topicsDiscussed, purposesOfVisit, labourPositions,
       birthCountries, languages, residences, durationResidence,
       directedTo, heardFrom, immigrationReasons, educationLevels,
-      additionalInfoTags, otherFeedback, ageGroups, ageGroupMax,
+      additionalInfoTags, additionalInfoTextTags, otherFeedback, combinedInsightTags,
+      faqs, isGeneratingFaqs, generateFaqs, ageGroups, ageGroupMax,
       genderCounts, genderTotal, birthCountryCounts, birthCountryMax, fieldCounts,
       customerComingFromCounts, customerComingFromMax,
       genderBreakdown, getGenderBar,
@@ -304,7 +331,7 @@ export default {
           <div class="text-3xl font-bold text-slate-800">{{ totalForms }}</div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Customers</div>
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-1">Service Advisors</div>
           <div class="text-3xl font-bold text-slate-800">{{ numberOfCustomers }}</div>
         </div>
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
@@ -779,16 +806,38 @@ export default {
           <span v-else class="text-gray-300 italic text-sm">—</span>
         </div>
 
-        <!-- Other Feedback — full width -->
+        <!-- Combined Insights Tags (Q20 + Q22) -->
         <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-3">
-          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Q22 · Other Feedback ({{ otherFeedback.length }} entries)</div>
-          <div v-if="otherFeedback.length" class="space-y-2 overflow-y-auto" style="max-height: 200px;">
-            <div v-for="(v, i) in otherFeedback" :key="i" class="text-sm text-gray-700 bg-gray-50 rounded-xl px-4 py-3 leading-relaxed flex items-start gap-3">
-              <span class="text-xs font-bold text-gray-400 mt-0.5">#{{ i + 1 }}</span>
-              <span>{{ v }}</span>
-            </div>
+          <div class="text-xs text-slate-500 uppercase tracking-wide mb-3">Insights · Additional Info & Feedback ({{ combinedInsightTags.length }} tags)</div>
+          <div v-if="combinedInsightTags.length" class="flex flex-wrap gap-2 overflow-y-auto" style="max-height: 200px;">
+            <span v-for="(v, i) in combinedInsightTags" :key="i" class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-indigo-50 text-indigo-800 border border-indigo-200">
+              {{ v }}
+            </span>
           </div>
           <span v-else class="text-gray-300 italic text-sm">—</span>
+        </div>
+
+        <!-- FAQs Section -->
+        <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 md:col-span-2 xl:col-span-3">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs text-slate-500 uppercase tracking-wide">FAQs · Common Customer Queries ({{ faqs.length }})</div>
+            <button v-if="!faqs.length && totalForms > 0" @click="generateFaqs" :disabled="isGeneratingFaqs" class="text-xs px-3 py-1 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 transition">
+              {{ isGeneratingFaqs ? 'Generating...' : 'Generate FAQs' }}
+            </button>
+            <button v-if="faqs.length" @click="generateFaqs" :disabled="isGeneratingFaqs" class="text-xs px-3 py-1 rounded-lg border border-gray-200 text-slate-600 hover:bg-gray-50 disabled:opacity-50 transition">
+              {{ isGeneratingFaqs ? 'Regenerating...' : 'Regenerate' }}
+            </button>
+          </div>
+          <div v-if="faqs.length" class="space-y-3 overflow-y-auto" style="max-height: 360px;">
+            <details v-for="(faq, i) in faqs" :key="i" class="group border border-gray-100 rounded-lg">
+              <summary class="flex items-center gap-2 px-4 py-3 cursor-pointer text-sm font-medium text-slate-800 hover:bg-gray-50 transition">
+                <svg class="w-4 h-4 text-indigo-500 flex-shrink-0 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                {{ faq.question }}
+              </summary>
+              <div class="px-4 pb-3 pt-1 text-sm text-gray-600 border-t border-gray-50 ml-6">{{ faq.answer }}</div>
+            </details>
+          </div>
+          <span v-else-if="!isGeneratingFaqs" class="text-gray-300 italic text-sm">Click "Generate FAQs" to create FAQ entries from submitted forms.</span>
         </div>
 
       </div>

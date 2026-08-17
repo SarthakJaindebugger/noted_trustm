@@ -387,6 +387,75 @@ def check_crm_form_exists(
     return False
 
 
+def _extract_keyword_tags(text: str, max_tags: int = 6) -> list:
+    """Extract short keyword tags from free text using simple pattern matching.
+
+    Looks for known domain keywords and short noun phrases.
+    Returns up to max_tags unique short tags.
+    """
+    if not text or not isinstance(text, str):
+        return []
+
+    text_lower = text.lower()
+    tags = set()
+
+    # Domain-specific keyword patterns (keyword -> tag label)
+    KEYWORD_MAP = {
+        "daycare": "daycare", "kindergarten": "daycare", "early childhood": "daycare",
+        "school": "school", "education": "education", "university": "education",
+        "language": "language support", "finnish": "Finnish language", "swedish": "Swedish language",
+        "interpreter": "interpreter", "translation": "translation",
+        "housing": "housing", "apartment": "housing", "rent": "housing",
+        "employment": "employment", "job": "job search", "work permit": "work permit",
+        "unemploy": "unemployment", "te services": "TE services", "te office": "TE services",
+        "residence permit": "residence permit", "migri": "Migri",
+        "kela": "Kela benefits", "benefit": "benefits", "allowance": "benefits",
+        "health": "healthcare", "doctor": "healthcare", "hospital": "healthcare",
+        "family": "family", "child": "childcare", "children": "childcare",
+        "spouse": "family reunification", "reunification": "family reunification",
+        "integration": "integration", "kotoutuminen": "integration",
+        "tax": "taxation", "bank": "banking", "debt": "debt",
+        "transport": "transportation", "bus": "transportation",
+        "legal": "legal matters", "lawyer": "legal matters", "police": "police",
+        "asylum": "asylum", "refugee": "refugee",
+        "social": "social services", "social worker": "social services",
+        "dietary": "dietary needs", "vegetarian": "dietary needs", "halal": "dietary needs",
+        "religion": "religious needs", "mosque": "religious needs", "church": "religious needs",
+        "google": "digital guidance", "website": "digital guidance", "online": "digital guidance",
+        "appointment": "appointment", "follow-up": "follow-up",
+        "crisis": "crisis situation", "domestic violence": "domestic violence",
+        "entrepreneur": "entrepreneurship", "business": "entrepreneurship",
+        "pension": "pension", "retirement": "pension",
+    }
+
+    for keyword, tag in KEYWORD_MAP.items():
+        if keyword in text_lower:
+            tags.add(tag)
+            if len(tags) >= max_tags:
+                break
+
+    return sorted(tags)[:max_tags]
+
+
+def _parse_visit_duration(value: str) -> float:
+    """Parse a visit duration string like '45 min', '1h 20min', '1h20min' into seconds."""
+    if not value or not isinstance(value, str):
+        return 0.0
+    value = value.strip().lower()
+    total_sec = 0.0
+    hours = re.search(r"(\d+)\s*h", value)
+    minutes = re.search(r"(\d+)\s*min", value)
+    if hours:
+        total_sec += int(hours.group(1)) * 3600
+    if minutes:
+        total_sec += int(minutes.group(1)) * 60
+    if not hours and not minutes:
+        digits = re.search(r"(\d+)", value)
+        if digits:
+            total_sec = int(digits.group(1)) * 60
+    return total_sec
+
+
 def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
     """Aggregate data from ALL submitted CRM forms for dashboard initialization.
 
@@ -417,7 +486,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "birth_countries": [], "languages": [], "residences": [],
         "purposes_of_visit": [], "duration_of_residence": [], "directed_to": [],
         "heard_from": [], "immigration_reasons": [], "education_levels": [],
-        "additional_info_tags": [], "other_feedback": [],
+        "additional_info_tags": [], "other_feedback": [], "additional_info_text_tags": [],
         "visit_durations": [], "customer_counts": [],
         "total_forms": 0, "number_of_customers": 0,
         "average_conversation_time": "—", "gender_ratio": "—",
@@ -432,7 +501,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "birth_countries", "languages", "residences",
         "purposes_of_visit", "duration_of_residence", "directed_to",
         "heard_from", "immigration_reasons", "education_levels",
-        "additional_info_tags", "other_feedback",
+        "additional_info_tags", "other_feedback", "additional_info_text_tags",
     ]}
     agg["total_forms"] = 0
     agg["customer_counts"] = []
@@ -646,7 +715,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         _count("education_levels", ed_val)
         _count_gender("education_levels", ed_val, _g_label)
 
-        # ── Additional info tags ──
+        # ── Additional info tags (Q11 checkboxes) ──
         ai = f.get("additionalInfo")
         if ai:
             ai_clean = [x for x in ai if x != "__other__"]
@@ -663,8 +732,29 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             _count("additional_info_tags", ai_raw)
             _count_gender("additional_info_tags", ai_raw, _g_label)
 
-        # ── Other feedback ──
-        _add(agg["other_feedback"], f.get("otherFeedback") or q.get("Any other Feedback"))
+        # ── Q20 Additional Info text → extract keyword tags ──
+        q20_tags = f.get("additional_info_text_tags")
+        if q20_tags and isinstance(q20_tags, list) and len(q20_tags) > 0:
+            for t in q20_tags:
+                if t and str(t).strip():
+                    agg["additional_info_text_tags"].add(str(t).strip())
+        else:
+            raw_q20 = f.get("additionalInfoText") or q.get("Any Additional Information", "")
+            if raw_q20 and raw_q20 not in SKIP:
+                for tag in _extract_keyword_tags(raw_q20):
+                    agg["additional_info_text_tags"].add(tag)
+
+        # ── Q22 Other feedback → extract keyword tags ──
+        of_tags = f.get("other_feedback_tags")
+        if of_tags and isinstance(of_tags, list) and len(of_tags) > 0:
+            for t in of_tags:
+                if t and str(t).strip():
+                    agg["other_feedback"].add(str(t).strip())
+        else:
+            raw_q22 = f.get("otherFeedback") or q.get("Any other Feedback", "")
+            if raw_q22 and raw_q22 not in SKIP:
+                for tag in _extract_keyword_tags(raw_q22):
+                    agg["other_feedback"].add(tag)
 
         # ── Counselling own language ──
         col_val = f.get("counsellingOwnLanguage") or q.get("Was the language of counselling the customer's own language?")
@@ -732,10 +822,17 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             customer_coming_from_counts[ccf_val] += 1
 
         # ── Average conversation time ──
-        dur_sec = m.get("audio_duration_sec", 0) or 0
-        if dur_sec > 0:
-            total_duration_sec += dur_sec
+        # Prefer visitDuration from form, fall back to audio_duration_sec from metadata
+        vd_str = f.get("visitDuration") or m.get("visit_duration") or ""
+        vd_parsed = _parse_visit_duration(vd_str)
+        if vd_parsed > 0:
+            total_duration_sec += vd_parsed
             duration_count += 1
+        else:
+            dur_sec = m.get("audio_duration_sec", 0) or 0
+            if dur_sec > 0:
+                total_duration_sec += dur_sec
+                duration_count += 1
 
     # Build average conversation time string
     avg_time = "—"
@@ -764,6 +861,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "immigration_reasons":   sorted(agg["immigration_reasons"]),
         "education_levels":      sorted(agg["education_levels"]),
         "additional_info_tags":  sorted(agg["additional_info_tags"]),
+        "additional_info_text_tags": sorted(agg["additional_info_text_tags"]),
         "other_feedback":        sorted(agg["other_feedback"]),
         "total_forms":           agg["total_forms"],
         "number_of_customers":   total_customers,
