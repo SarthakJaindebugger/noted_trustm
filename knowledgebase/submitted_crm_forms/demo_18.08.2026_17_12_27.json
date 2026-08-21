@@ -1,0 +1,79 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Refugee",
+    "Additional Information about the customers": "Illiterate",
+    "Education Level": "Secondary education (incl. basic/matriculation)",
+    "Customer birth country": "Afghanistan",
+    "Mother Tongue/Language": "Arabic",
+    "Customer Domicile": "Espoo",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "Any other Feedback": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 17:12",
+    "audio_file": "dia01sce1MC.WAV",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-27",
+    "time": "09:10",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [
+      "Electronic service (eg. forms)",
+      "Visit for guidance/advice in-person"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 3,
+    "gender": "Male",
+    "ageGroup": "30-49",
+    "immigrationReason": "Refugee",
+    "additionalInfo": [
+      "Illiterate"
+    ],
+    "birthCountry": "Afghanistan",
+    "motherTongue": "Arabic",
+    "educationLevel": "Secondary education (incl. basic/matriculation)",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo",
+    "customerComingFrom": "Third Country",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "audio_filename": "dia01sce1MC.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-18T17:12:27.401564"
+}

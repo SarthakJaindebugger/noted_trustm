@@ -1,0 +1,107 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "Yes",
+    "Ques.7b) External interpreter present or telephone?": "No",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Pakistan",
+    "Mother Tongue/Language": "Not mentioned in transcript.",
+    "Customer Domicile": "Jermon, Finland",
+    "Position in labour market": "Not mentioned in transcript.",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Ques.17b) Is this the customer's first visit?": "Yes",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Early childhood education",
+    "Any other Feedback": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "Any Additional Information": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 16:02",
+    "audio_file": "dia05sce1MC_83876f4a.WAV",
+    "visit_duration": "11 min 47 sec",
+    "audio_duration_sec": 706.72,
+    "segment_count": 112,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01",
+      "SPEAKER_02",
+      "SPEAKER_03"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "customer",
+      "SPEAKER_02": "advisor",
+      "SPEAKER_03": "advisor",
+      "UNKNOWN": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 1.5,
+      "SPEAKER_02": 512.08,
+      "SPEAKER_01": 27.66,
+      "SPEAKER_03": 2.6
+    },
+    "total_advisor_time_sec": 514.68,
+    "total_advisor_time": "8 min 35 sec",
+    "total_customer_time_sec": 29.16,
+    "total_customer_time": "0 min 29 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "11 min 47 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 2,
+    "gender": null,
+    "ageGroup": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "Pakistan",
+    "motherTongue": "",
+    "educationLevel": "",
+    "labourPosition": [],
+    "domicile": "Jermon, Finland",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "additional_info_text_tags": [
+      "daycare",
+      "transportation",
+      "dietary needs",
+      "admission process",
+      "religious education",
+      "vegetarian"
+    ],
+    "other_feedback_tags": [
+      "daycare",
+      "transportation",
+      "dietary needs",
+      "admission process",
+      "religious education",
+      "vegetarian"
+    ]
+  }
+}

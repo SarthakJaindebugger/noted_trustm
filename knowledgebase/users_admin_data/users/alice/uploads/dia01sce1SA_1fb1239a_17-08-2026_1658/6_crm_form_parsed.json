@@ -1,0 +1,103 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "No",
+    "Ques.7b) External interpreter present or telephone?": "Yes, interpretation method unknown",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Not mentioned in transcript.",
+    "Mother Tongue/Language": "Not mentioned in transcript.",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Municipal immigrant and integration services",
+    "Any other Feedback": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "Any Additional Information": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "Customer Age": "18-29",
+    "Customer Gender": "Female"
+  },
+  "metadata": {
+    "date_time": "17/08/2026 17:05",
+    "audio_file": "dia01sce1SA_1fb1239a.wav",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 709.18,
+    "segment_count": 192,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "advisor",
+      "SPEAKER_01": "customer",
+      "UNKNOWN": "customer"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_01": 133.34,
+      "SPEAKER_00": 298.5
+    },
+    "total_advisor_time_sec": 298.5,
+    "total_advisor_time": "4 min 58 sec",
+    "total_customer_time_sec": 133.34,
+    "total_customer_time": "2 min 13 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "18-29",
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "",
+    "motherTongue": "",
+    "educationLevel": "",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo, Finland",
+    "residenceDuration": [],
+    "customerComingFrom": null,
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "additional_info_text_tags": [
+      "migrant",
+      "childcare",
+      "language",
+      "free meals",
+      "city service",
+      "shift care"
+    ],
+    "other_feedback_tags": [
+      "migrant",
+      "childcare",
+      "language",
+      "free meals",
+      "city service",
+      "shift care"
+    ]
+  }
+}

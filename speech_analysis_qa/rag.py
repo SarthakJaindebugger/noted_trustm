@@ -84,26 +84,37 @@ class QdrantStore:
         qdrant_host = qdrant_host or os.getenv("QDRANT_HOST")
         qdrant_port = qdrant_port or int(os.getenv("QDRANT_PORT", "6333"))
 
-        client_kwargs: Dict[str, Any] = {}
-        if qdrant_url:
-            client_kwargs["url"] = qdrant_url
-        else:
-            client_kwargs["host"] = qdrant_host or "127.0.0.1"
-            client_kwargs["port"] = qdrant_port
-
-        if qdrant_api_key:
-            client_kwargs["api_key"] = qdrant_api_key
-
         self.client = None
         self.enabled = True
-        try:
-            self.client = QdrantClient(**client_kwargs)
-        except Exception as exc:
-            print(
-                "WARNING: could not initialize Qdrant client; Qdrant persistence will be disabled.",
-                exc,
-            )
-            self.enabled = False
+
+        # Try remote server first, then fall back to local embedded mode
+        if qdrant_url or qdrant_host:
+            client_kwargs: Dict[str, Any] = {}
+            if qdrant_url:
+                client_kwargs["url"] = qdrant_url
+            else:
+                client_kwargs["host"] = qdrant_host
+                client_kwargs["port"] = qdrant_port
+            if qdrant_api_key:
+                client_kwargs["api_key"] = qdrant_api_key
+            try:
+                self.client = QdrantClient(**client_kwargs, timeout=5)
+                self.client.get_collections()
+            except Exception as exc:
+                print(f"WARNING: Remote Qdrant unavailable ({exc}), using local embedded mode.")
+                self.client = None
+
+        if self.client is None:
+            try:
+                import pathlib
+                repo_root = pathlib.Path(__file__).resolve().parents[1]
+                storage_path = os.getenv("QDRANT_STORAGE_PATH", str(repo_root / "qdrant_data"))
+                os.makedirs(storage_path, exist_ok=True)
+                self.client = QdrantClient(path=storage_path)
+                print(f"Using local embedded Qdrant (storage: {storage_path})")
+            except Exception as exc:
+                print(f"WARNING: Could not initialize Qdrant at all; persistence disabled. {exc}")
+                self.enabled = False
 
         self.collection_name = collection_name
         self._distance = Distance.COSINE

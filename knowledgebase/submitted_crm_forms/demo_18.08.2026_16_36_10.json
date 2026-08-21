@@ -1,0 +1,78 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Work",
+    "Additional Information about the customers": "Paperless",
+    "Education Level": "Primary education",
+    "Customer birth country": "Pakistan",
+    "Mother Tongue/Language": "Arabic",
+    "Customer Domicile": "Jermon, Finland",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "Any other Feedback": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 16:36",
+    "audio_file": "dia05sce1MC_83876f4a.WAV",
+    "visit_duration": "11 min 47 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-27",
+    "time": "07:07",
+    "visitDuration": "11 min 47 sec",
+    "contactMethod": [
+      "Telephone (call, WhatsApp etc)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "",
+    "ageGroup": "",
+    "immigrationReason": "Work",
+    "additionalInfo": [
+      "Paperless"
+    ],
+    "birthCountry": "Pakistan",
+    "motherTongue": "Arabic",
+    "educationLevel": "Primary education",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Jermon, Finland",
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer is looking for daycare options for their three-year-old daughter and is concerned about the process of admission, transportation, and the availability of services like food choices and medical care. They also asked about differences in education based on religious perspectives and the possibility of vegetarian options in daycare.",
+    "audio_filename": "dia05sce1MC_83876f4a.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-18T16:36:10.073013"
+}

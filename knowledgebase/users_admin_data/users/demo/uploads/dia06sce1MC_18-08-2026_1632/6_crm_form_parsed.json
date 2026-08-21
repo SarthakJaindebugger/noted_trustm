@@ -1,0 +1,104 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Remote Connection",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "Yes",
+    "Ques.7b) External interpreter present or telephone?": "No",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Iran",
+    "Mother Tongue/Language": "Persian",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Not mentioned in transcript.",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Filling out the forms",
+    "Where the customer is directed": "Early childhood education",
+    "Any other Feedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "Any Additional Information": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 16:33",
+    "audio_file": "dia06sce1MC.WAV",
+    "visit_duration": "10 min 20 sec",
+    "audio_duration_sec": 619.68,
+    "segment_count": 134,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01",
+      "SPEAKER_02"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "SPEAKER_02": "customer",
+      "UNKNOWN": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 3.0,
+      "SPEAKER_01": 250.48,
+      "SPEAKER_02": 95.78
+    },
+    "total_advisor_time_sec": 250.48,
+    "total_advisor_time": "4 min 10 sec",
+    "total_customer_time_sec": 98.78,
+    "total_customer_time": "1 min 39 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "10 min 20 sec",
+    "contactMethod": [
+      "Remote Connection"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 2,
+    "gender": null,
+    "ageGroup": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "Iran",
+    "motherTongue": "Persian",
+    "educationLevel": "",
+    "labourPosition": [],
+    "domicile": "Espoo, Finland",
+    "residenceDuration": [],
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Filling out the forms"
+    ],
+    "additionalInfoText": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "additional_info_text_tags": [
+      "daycare",
+      "espoo",
+      "persian",
+      "language",
+      "costs",
+      "communication"
+    ],
+    "other_feedback_tags": [
+      "daycare",
+      "espoo",
+      "persian",
+      "language",
+      "costs",
+      "communication"
+    ]
+  }
+}

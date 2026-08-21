@@ -1,0 +1,103 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Not mentioned in transcript.",
+    "Reason for Immigration": "Entrepreneurship",
+    "Ques.7a) Was the language of counselling the customer's own language?": "Yes",
+    "Ques.7b) External interpreter present or telephone?": "No",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Mexico",
+    "Mother Tongue/Language": "English",
+    "Customer Domicile": "Not mentioned in transcript.",
+    "Position in labour market": "Entrepreneur",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Matters related to immigration process (eg.: residence permit)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Finnish Immigration Service (Migri)",
+    "Any other Feedback": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting their own company to secure a contract with a new firm instead of being hired as a full-time employee. They are unsure about the legal and tax implications of self-employment in Finland and are concerned about the process of changing their residence permit from a worker permit to an entrepreneur permit.",
+    "Any Additional Information": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting their own company to secure a contract with a new firm instead of being hired as a full-time employee. They are unsure about the legal and tax implications of self-employment in Finland and are concerned about the process of changing their residence permit from a worker permit to an entrepreneur permit.",
+    "Customer Age": "30-49",
+    "Customer Gender": "Male"
+  },
+  "metadata": {
+    "date_time": "18/08/2026 09:46",
+    "audio_file": "dia11sce2SA_02c7e5c0.wav",
+    "visit_duration": "12 min 8 sec",
+    "audio_duration_sec": 727.84,
+    "segment_count": 129,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "UNKNOWN": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 208.66,
+      "SPEAKER_01": 264.34
+    },
+    "total_advisor_time_sec": 264.34,
+    "total_advisor_time": "4 min 24 sec",
+    "total_customer_time_sec": 208.66,
+    "total_customer_time": "3 min 29 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "12 min 8 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "No information",
+    "customerCount": 1,
+    "gender": "Male",
+    "ageGroup": "30-49",
+    "immigrationReason": "Entrepreneurship",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "Mexico",
+    "motherTongue": "English",
+    "educationLevel": "",
+    "labourPosition": [
+      "Entrepreneur"
+    ],
+    "domicile": "",
+    "residenceDuration": [],
+    "customerComingFrom": "Third Country",
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to immigration process (eg.: residence permit)"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting their own company to secure a contract with a new firm instead of being hired as a full-time employee. They are unsure about the legal and tax implications of self-employment in Finland and are concerned about the process of changing their residence permit from a worker permit to an entrepreneur permit.",
+    "directedTo": "Finnish Immigration Service (Migri)",
+    "otherFeedback": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing or starting their own company to secure a contract with a new firm instead of being hired as a full-time employee. They are unsure about the legal and tax implications of self-employment in Finland and are concerned about the process of changing their residence permit from a worker permit to an entrepreneur permit.",
+    "additional_info_text_tags": [
+      "unemployed",
+      "tech job",
+      "freelance",
+      "tax concerns",
+      "residence permit",
+      "entrepreneur"
+    ],
+    "other_feedback_tags": [
+      "unemployed",
+      "tech job",
+      "freelance",
+      "tax concerns",
+      "residence permit",
+      "entrepreneur"
+    ]
+  }
+}

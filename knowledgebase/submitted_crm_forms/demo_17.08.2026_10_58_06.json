@@ -1,0 +1,80 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Student",
+    "Additional Information about the customers": "Paperless",
+    "Education Level": "Post-secondary non-tertiary education",
+    "Customer birth country": "Israel",
+    "Mother Tongue/Language": "Hebrew",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "In labour policy training (including integration training)",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Contents of the customer visit": "Family life (children's school, early childhood education, relationships) Family life (children's school, early childhood education, relationships) Family life (children's school, early childhood education, relationships)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is seeking information about daycare options in Espoo, Finland, specifically regarding costs, availability in English, meal provisions, and the transition to pre-primary education. They mentioned their child is three years old and want to ensure early education is accessible and suitable for their needs.",
+    "Any other Feedback": "The advisor mentioned that there are both municipal and private daycare options available in Espoo, with some offering English support, but noted that English-speaking services are limited and require checking specific locations. They also advised the customer to look into the website for detailed information on fees, availability, and the application process for early childhood education."
+  },
+  "metadata": {
+    "date_time": "17/08/2026 10:58",
+    "audio_file": "dia4sce1SA.wav",
+    "visit_duration": "11 min 54 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-29",
+    "time": "09:09",
+    "visitDuration": "11 min 54 sec",
+    "contactMethod": [
+      "Remote Connection"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 2,
+    "gender": "Male",
+    "ageGroup": "18-29",
+    "immigrationReason": "Student",
+    "additionalInfo": [
+      "Paperless"
+    ],
+    "birthCountry": "Israel",
+    "motherTongue": "Hebrew",
+    "educationLevel": "Post-secondary non-tertiary education",
+    "labourPosition": [
+      "In labour policy training (including integration training)"
+    ],
+    "domicile": "Espoo, Finland",
+    "customerComingFrom": "Third Country",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Family life (children's school, early childhood education, relationships)",
+      "Family life (children's school, early childhood education, relationships)",
+      "Family life (children's school, early childhood education, relationships)"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is seeking information about daycare options in Espoo, Finland, specifically regarding costs, availability in English, meal provisions, and the transition to pre-primary education. They mentioned their child is three years old and want to ensure early education is accessible and suitable for their needs.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The advisor mentioned that there are both municipal and private daycare options available in Espoo, with some offering English support, but noted that English-speaking services are limited and require checking specific locations. They also advised the customer to look into the website for detailed information on fees, availability, and the application process for early childhood education.",
+    "audio_filename": "dia4sce1SA.wav"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-17T10:58:06.238750"
+}

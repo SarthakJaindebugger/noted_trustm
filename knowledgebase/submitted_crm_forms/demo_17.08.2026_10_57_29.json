@@ -1,0 +1,78 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Refugee",
+    "Additional Information about the customers": "Paperless",
+    "Education Level": "Secondary education (incl. basic/matriculation)",
+    "Customer birth country": "China",
+    "Mother Tongue/Language": "Chinese",
+    "Customer Domicile": "Espoo",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Does not live in Finland",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "Any other Feedback": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven."
+  },
+  "metadata": {
+    "date_time": "17/08/2026 10:57",
+    "audio_file": "dia01sce1MC.WAV",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-08-01",
+    "time": "13:01",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [
+      "Written Contact (email, WhatsApp, social media etc)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "18-29",
+    "immigrationReason": "Refugee",
+    "additionalInfo": [
+      "Paperless"
+    ],
+    "birthCountry": "China",
+    "motherTongue": "Chinese",
+    "educationLevel": "Secondary education (incl. basic/matriculation)",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo",
+    "customerComingFrom": "Third Country",
+    "residenceDuration": [
+      "Does not live in Finland"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "audio_filename": "dia01sce1MC.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-17T10:57:29.141435"
+}

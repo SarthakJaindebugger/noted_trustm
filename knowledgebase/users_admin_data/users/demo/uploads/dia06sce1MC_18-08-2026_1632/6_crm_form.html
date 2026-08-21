@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Customer Visit Form</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ── reset & base ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f4f7fc;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        .form-container {
+            max-width: 920px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.10);
+            padding: 2rem 2.5rem;
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #0b2b4a;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 3px solid #e6edf5;
+            padding-bottom: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        h1 i { color: #2a6f97; font-size: 1.6rem; }
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eef3f9;
+        }
+        .form-section:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .q-row { margin-bottom: 1.6rem; }
+        .q-label {
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a3349;
+            margin-bottom: 0.5rem;
+        }
+        .q-label .q-num {
+            background: #dce6f2;
+            color: #0b2b4a;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.65rem;
+            border-radius: 40px;
+            margin-right: 0.2rem;
+        }
+        .q-label .required-star {
+            color: #c72a2a;
+            margin-left: auto;
+            font-size: 0.85rem;
+        }
+        .q-desc {
+            font-size: 0.9rem;
+            color: #4a5f74;
+            margin-top: -0.2rem;
+            margin-bottom: 0.6rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid #d8e2ed;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #fafcfe;
+            transition: 0.2s;
+            color: #0b2b4a;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #2a6f97;
+            box-shadow: 0 0 0 4px rgba(42, 111, 151, 0.12);
+            background: #ffffff;
+        }
+        select.form-control { appearance: auto; cursor: pointer; }
+        textarea.form-control { resize: vertical; min-height: 70px; }
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.8rem;
+            align-items: center;
+            padding: 0.4rem 0 0.2rem;
+        }
+        .inline-group .check-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.94rem;
+            cursor: pointer;
+            color: #1a3349;
+        }
+        .inline-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2a6f97;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .inline-group .sub-field {
+            margin-left: 0.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .inline-group .sub-field input {
+            width: 180px;
+            padding: 0.4rem 0.7rem;
+            border: 1.5px solid #d8e2ed;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            background: #fafcfe;
+        }
+        .inline-group .sub-field input:focus {
+            outline: none;
+            border-color: #2a6f97;
+            box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.10);
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem 2rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem 1.5rem; }
+        .full-width { grid-column: 1 / -1; }
+        .help-text { font-size: 0.82rem; color: #5e738a; margin-top: 0.2rem; }
+        .btn-submit {
+            background: #0b2b4a;
+            color: #fff;
+            border: none;
+            padding: 0.9rem 2.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+            box-shadow: 0 6px 18px rgba(11, 43, 74, 0.18);
+        }
+        .btn-submit:hover {
+            background: #1a3f60;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(11, 43, 74, 0.22);
+        }
+        .btn-submit:active { transform: translateY(0); }
+        .btn-reset {
+            background: transparent;
+            color: #3f5a72;
+            border: 1.5px solid #cbd8e8;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-left: 0.8rem;
+        }
+        .btn-reset:hover { background: #eef3f9; border-color: #a0b6ce; }
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.8rem;
+        }
+        .form-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .btn-pdf {
+            background: #2a6f97;
+            color: #fff;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-pdf:hover {
+            background: #1f5a7b;
+        }
+        .form-control.missing,
+        select.form-control.missing,
+        .inline-group.missing {
+            border-color: #d72a2d !important;
+            box-shadow: 0 0 0 0.15rem rgba(215, 42, 42, 0.25);
+        }
+        .inline-group.missing {
+            padding: 0.75rem 0.85rem;
+            border-radius: 14px;
+            background: #fff6f6;
+        }
+        .form-control.missing:focus,
+        select.form-control.missing:focus {
+            border-color: #d72a2d;
+            box-shadow: 0 0 0 0.25rem rgba(215, 42, 42, 0.20);
+        }
+        .toast {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.show { opacity: 1; pointer-events: auto; }
+        .toast-inner {
+            background: #fff;
+            padding: 2.5rem 3rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .toast-inner i { font-size: 3rem; color: #16a34a; display: block; margin-bottom: 1rem; }
+        .toast-inner span { font-size: 1.2rem; font-weight: 600; color: #1e293b; }
+        .toast-inner .toast-sub { font-size: 0.9rem; color: #64748b; margin-top: 0.5rem; }
+        .btn-exit {
+            margin-top: 1.2rem;
+            padding: 0.7rem 2rem;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-exit:hover { background: #1d4ed8; }
+        .field-hint { font-size: 0.8rem; color: #6a7f96; margin-top: 0.15rem; }
+        .cond-field.hidden { display: none; }
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-dropdown {
+            position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+            background: #fff; border: 1px solid #d1d9e6; border-top: none;
+            border-radius: 0 0 12px 12px; max-height: 200px; overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .autocomplete-item {
+            padding: 0.5rem 0.85rem; cursor: pointer; font-size: 0.9rem;
+        }
+        .autocomplete-item:hover { background: #eef3fb; }
+        @media (max-width: 700px) {
+            .form-container { padding: 1.2rem 1.2rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 0.8rem; }
+            .inline-group { gap: 0.4rem 1rem; }
+            .inline-group .sub-field input { width: 140px; }
+            h1 { font-size: 1.5rem; flex-wrap: wrap; }
+            .btn-row { flex-direction: column; align-items: stretch; }
+            .btn-reset { margin-left: 0; }
+        }
+        @media (max-width: 480px) {
+            .form-container { padding: 0.8rem 0.8rem; }
+            .q-label { font-size: 0.92rem; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container" id="app">
+
+        <h1><i class="fas fa-clipboard-list"></i> Customer Visit Form</h1>
+
+        <div class="form-toolbar">
+                    <button type="button" class="btn-pdf" @click="downloadPdf"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        </div>
+
+        <div v-if="isReadOnly" style="background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+            <svg style="width:20px;height:20px;color:#0284c7;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+            <span style="font-size:14px;color:#0369a1;font-weight:500;">View Only — This form has already been submitted.</span>
+        </div>
+        <form id="mainForm" @submit.prevent @keydown.enter="handleEnterKey">
+        <fieldset :disabled="isReadOnly" style="border:none;padding:0;margin:0;">
+            <!-- ====== SECTION 1: basic info ====== -->
+            <div class="form-section">
+
+                <!-- Q1 -->
+                <div class="q-row">
+                    <div class="q-label">
+                        <span class="q-num">1</span> Control Location
+                        <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span>
+                    </div>
+                    <select class="form-control" :class="{ missing: missingFields.controlLocation }" v-model="form.controlLocation" required>
+                        <option value="" disabled>Select a service point...</option>
+                        <option value="Service Square Iso Omena">Service Square Iso Omena</option>
+                        <option value="International House Helsinki">International House Helsinki</option>
+                    </select>
+                </div>
+
+                <!-- Q2 + Q3 grid -->
+                <div class="grid-2">
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">2</span> Date <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span></div>
+                        <input class="form-control" :class="{ missing: missingFields.date }" type="date" v-model="form.date" required />
+                    </div>
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">3</span> Time <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span></div>
+                        <input class="form-control" :class="{ missing: missingFields.time }" type="time" v-model="form.time" required />
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">4</span> Customer Visit Duration</div>
+                    <div class="q-desc">total time of the conversation</div>
+                    <input class="form-control" v-model="form.visitDuration" placeholder="e.g. 45 min, 1h 20min" />
+                </div>
+
+                <!-- Q5 – now checkboxes -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">5</span> Contact Method <span class="required-star"><i class="fas fa-asterisk" style="font-size:0.6rem;color:#b33;"></i></span></div>
+                    <div class="inline-group" :class="{ missing: missingFields.contactMethod }">
+                        <label class="check-option">
+                            <input type="checkbox" value="Visit for guidance/advice in-person" v-model="form.contactMethod" />
+                            Visit for guidance/advice in-person
+                        </label>
+                        <label class="check-option">
+                            <input type="checkbox" value="Telephone (call, WhatsApp etc)" v-model="form.contactMethod" />
+                            Telephone (call, WhatsApp etc)
+                        </label>
+                        <label class="check-option">
+                            <input type="checkbox" value="Written Contact (email, WhatsApp, social media etc)" v-model="form.contactMethod" />
+                            Written Contact (email, WhatsApp, social media etc)
+                        </label>
+                        <label class="check-option">
+                            <input type="checkbox" value="Remote Connection" v-model="form.contactMethod" />
+                            Remote Connection
+                        </label>
+                        <label class="check-option">
+                            <input type="checkbox" value="Electronic service (forms)" v-model="form.contactMethod" />
+                            Electronic service (forms)
+                        </label>
+                        <label class="check-option">
+                            <input type="checkbox" value="Field Work" v-model="form.contactMethod" />
+                            Field Work
+                            <span class="sub-field cond-field" :class="form.contactMethod.includes('Field Work') ? '' : 'hidden'">
+                                <i class="fas fa-map-pin" style="color:#4a6f8f;"></i>
+                                <input v-model="form.fieldWorkWhere" placeholder="where?" />
+                            </span>
+                        </label>
+                    </div>
+                    <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">6</span> Heard from the guidance/advice position</div>
+                    <select class="form-control" :class="{ missing: missingFields.heardFrom }" v-model="form.heardFrom">
+                        <option value="" disabled>Select option...</option>
+                        <option value="Digital and population data services agency">Digital and population data services agency</option>
+                        <option value="Organisation/association">Organisation/association</option>
+                        <option value="Reel">Reel</option>
+                        <option value="Municipal integration/immigrant services">Municipal integration/immigrant services</option>
+                        <option value="Multicultural Centre">Multicultural Centre</option>
+                        <option value="Marketing communications of the control point (brochure, website, newspaper advertisement, bulletin board)">Marketing communications of the control point (brochure, website, newspaper advertisement, bulletin board)</option>
+                        <option value="Educational institution">Educational institution</option>
+                        <option value="Participatory Center">Participatory Center</option>
+                        <option value="Congregation/religious community">Congregation/religious community</option>
+                        <option value="Social services">Social services</option>
+                        <option value="Relatives/acquaintances">Relatives/acquaintances</option>
+                        <option value="TE Services">TE Services</option>
+                        <option value="Employer">Employer</option>
+                        <option value="Shared service point">Shared service point</option>
+                        <option value="Visited in the past">Visited in the past</option>
+                        <option value="Other">Other</option>
+                        <option value="No information">No information</option>
+                    </select>
+                </div>
+
+                <!-- Q7 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">7</span> Number of customers in the conversation</div>
+                    <input class="form-control" type="number" min="1" v-model.number="form.customerCount" placeholder="e.g. 1, 2, 3…" />
+                </div>
+
+                <!-- Q8 + Q9 grid -->
+                <div class="grid-2">
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">8</span> Gender of main customer</div>
+                        <input class="form-control" v-model="form.gender" placeholder="e.g. male, female, non-binary" />
+                    </div>
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">9</span> Age Group</div>
+                        <select class="form-control" v-model="form.ageGroup">
+                            <option value="" disabled>Select age group...</option>
+                            <option value="Under 18">Under 18</option>
+                            <option value="18-29">18-29</option>
+                            <option value="30-49">30-49</option>
+                            <option value="50-64">50-64</option>
+                            <option value="Over 65">Over 65</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">10</span> Reason for Immigration</div>
+                    <select class="form-control" :class="{ missing: missingFields.immigrationReason }" v-model="form.immigrationReason">
+                        <option value="" disabled>Select reason...</option>
+                        <option value="No information">No information</option>
+                        <option value="Returnee (Ingrian people)">Returnee (Ingrian people)</option>
+                        <option value="Returnee">Returnee</option>
+                        <option value="Refugee">Refugee</option>
+                        <option value="Asylum seeker">Asylum seeker</option>
+                        <option value="Work">Work</option>
+                        <option value="Family">Family</option>
+                        <option value="Student">Student</option>
+                        <option value="Entrepreneurship">Entrepreneurship</option>
+                    </select>
+                </div>
+
+                <!-- Q10b - Counselling language -->
+                <div class="grid-2">
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">10b</span> Was the counselling in customer's own language?</div>
+                        <select class="form-control" v-model="form.counsellingOwnLanguage">
+                            <option value="" disabled>Select...</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                            <option value="No information">No information</option>
+                        </select>
+                    </div>
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">10c</span> External interpreter?</div>
+                        <select class="form-control" v-model="form.interpreterPresent">
+                            <option value="" disabled>Select...</option>
+                            <option value="No">No</option>
+                            <option value="Yes, interpretation method unknown">Yes, method unknown</option>
+                            <option value="Present">Present</option>
+                            <option value="Telephone">Telephone</option>
+                            <option value="Express interpretation">Express interpretation</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Q10d - Interpreting language -->
+                <div class="q-row" v-if="form.interpreterPresent && form.interpreterPresent !== 'No'">
+                    <div class="q-label"><span class="q-num">10d</span> Interpreting language</div>
+                    <input class="form-control" v-model="form.interpretingLanguage" placeholder="e.g. Arabic, Somali, Dari..." />
+                </div>
+
+            </div><!-- end section 1 -->
+
+            <!-- ====== SECTION 2: customer profile ====== -->
+            <div class="form-section">
+
+                <!-- Q11 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">11</span> Additional Information about the customers</div>
+                    <div class="inline-group" :class="{ missing: missingFields.additionalInfo }">
+                        <label class="check-option"><input type="checkbox" value="Illiterate" v-model="form.additionalInfo" /> Illiterate</label>
+                        <label class="check-option"><input type="checkbox" value="Paperless" v-model="form.additionalInfo" /> Paperless</label>
+                        <label class="check-option"><input type="checkbox" value="Tourist" v-model="form.additionalInfo" /> Tourist</label>
+                        <label class="check-option"><input type="checkbox" value="Ukraine Crisis" v-model="form.additionalInfo" /> Ukraine Crisis</label>
+                        <label class="check-option">
+                            <input type="checkbox" value="__other__" v-model="form.additionalInfo" />
+                            If something else type:
+                            <span class="sub-field" :class="form.additionalInfo.includes('__other__') ? '' : 'hidden'">
+                                <input v-model="form.additionalInfoOther" placeholder="type here" />
+                            </span>
+                        </label>
+                    </div>
+                    <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q12 + Q13 grid -->
+                <div class="grid-2">
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">12</span> Customer birth country</div>
+                        <div class="autocomplete-wrapper">
+                            <input class="form-control" :class="{ missing: missingFields.birthCountry }"
+                                v-model="form.birthCountry"
+                                @input="filterCountries"
+                                @focus="showCountryDropdown = true"
+                                @blur="hideCountryDropdown"
+                                placeholder="Type to search country..." autocomplete="off" />
+                            <div v-if="showCountryDropdown && filteredCountries.length > 0" class="autocomplete-dropdown">
+                                <div v-for="c in filteredCountries" :key="c"
+                                    class="autocomplete-item"
+                                    @mousedown.prevent="selectCountry(c)">{{ c }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="q-row">
+                        <div class="q-label"><span class="q-num">13</span> Mother Tongue / Language</div>
+                        <div class="autocomplete-wrapper">
+                            <input class="form-control" :class="{ missing: missingFields.motherTongue }"
+                                v-model="form.motherTongue"
+                                @input="filterLanguages"
+                                @focus="showLanguageDropdown = true"
+                                @blur="hideLanguageDropdown"
+                                placeholder="Type to search language..." autocomplete="off" />
+                            <div v-if="showLanguageDropdown && filteredLanguages.length > 0" class="autocomplete-dropdown">
+                                <div v-for="l in filteredLanguages" :key="l"
+                                    class="autocomplete-item"
+                                    @mousedown.prevent="selectLanguage(l)">{{ l }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q14 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">14</span> Education Level</div>
+                    <select class="form-control" :class="{ missing: missingFields.educationLevel }" v-model="form.educationLevel">
+                        <option value="" disabled>Select education level...</option>
+                        <option value="No information">No information</option>
+                        <option value="No education at all or less than the basic education syllabus">No education / less than basic</option>
+                        <option value="Primary education">Primary education</option>
+                        <option value="Secondary education (incl. basic/matriculation)">Secondary education</option>
+                        <option value="Post-secondary non-tertiary education">Post-secondary non-tertiary</option>
+                        <option value="Tertiary education (college, bachelor/master degree or university degree)">Tertiary education (college/university)</option>
+                    </select>
+                </div>
+
+                <!-- Q15 – now checkboxes -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">15</span> Position in labour market</div>
+                    <div class="inline-group" :class="{ missing: missingFields.labourPosition }" style="gap:0.4rem 1.2rem;">
+                        <label class="check-option"><input type="checkbox" value="No Information" v-model="form.labourPosition" /> No Information</label>
+                        <label class="check-option"><input type="checkbox" value="Working in the open market" v-model="form.labourPosition" /> Working in the open market</label>
+                        <label class="check-option"><input type="checkbox" value="Working outside the open market (wage subsidy, work trail)" v-model="form.labourPosition" /> Working outside the open market</label>
+                        <label class="check-option"><input type="checkbox" value="Entrepreneur" v-model="form.labourPosition" /> Entrepreneur</label>
+                        <label class="check-option"><input type="checkbox" value="Unemployed" v-model="form.labourPosition" /> Unemployed</label>
+                        <label class="check-option"><input type="checkbox" value="In labour policy training (including integration training)" v-model="form.labourPosition" /> In labour policy training</label>
+                        <label class="check-option"><input type="checkbox" value="Student" v-model="form.labourPosition" /> Student</label>
+                        <label class="check-option"><input type="checkbox" value="Outside the labour market (stay-home-parent, retiree)" v-model="form.labourPosition" /> Outside the labour market</label>
+                        <label class="check-option"><input type="checkbox" value="Planning to move to Finland" v-model="form.labourPosition" /> Planning to move to Finland</label>
+                    </div>
+                    <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q16 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">16</span> Customer Domicile</div>
+                    <input class="form-control" :class="{ missing: missingFields.domicile }" v-model="form.domicile" placeholder="e.g. Helsinki, Espoo, Vantaa…" />
+                </div>
+
+                <!-- Q16b – Customer Coming From -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">16b</span> Customer Coming From</div>
+                    <select class="form-control" :class="{ missing: missingFields.customerComingFrom }" v-model="form.customerComingFrom">
+                        <option value="" disabled>Select origin category...</option>
+                        <option value="Nordic">Nordic</option>
+                        <option value="EU Country / Switzerland / EEA">EU Country / Switzerland / EEA</option>
+                        <option value="Third Country">Third Country</option>
+                        <option value="3rd Country citizen living in Europe">3rd Country citizen living in Europe</option>
+                    </select>
+                </div>
+
+                <!-- Q17 – now checkboxes -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">17</span> Duration of residence in Finland</div>
+                    <div class="inline-group" :class="{ missing: missingFields.residenceDuration }">
+                        <label class="check-option"><input type="checkbox" value="No information" v-model="form.residenceDuration" /> No information</label>
+                        <label class="check-option"><input type="checkbox" value="Does not live in Finland" v-model="form.residenceDuration" /> Does not live in Finland</label>
+                        <label class="check-option"><input type="checkbox" value="Less than 3 years" v-model="form.residenceDuration" /> Less than 3 years</label>
+                        <label class="check-option"><input type="checkbox" value="3-5 years" v-model="form.residenceDuration" /> 3–5 years</label>
+                        <label class="check-option"><input type="checkbox" value="More than 5 years" v-model="form.residenceDuration" /> More than 5 years</label>
+                    </div>
+                    <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q17b - First time visitor -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">17b</span> First time visitor?</div>
+                    <select class="form-control" v-model="form.firstTimeVisitor">
+                        <option value="" disabled>Select...</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="No information">No information</option>
+                    </select>
+                </div>
+
+            </div><!-- end section 2 -->
+
+            <!-- ====== SECTION 3: visit content & purpose ====== -->
+            <div class="form-section">
+
+                <!-- Q18 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">18</span> Contents of the customer visit</div>
+                    <div class="q-desc">Select all that apply</div>
+                    <div class="inline-group" :class="{ missing: missingFields.contents }" style="gap:0.3rem 1rem; padding-top:0.2rem;">
+                        <label class="check-option"><input type="checkbox" value="Residence" v-model="form.contents" /> Residence</label>
+                        <label class="check-option"><input type="checkbox" value="Benefits (e.g. Kela)" v-model="form.contents" /> Benefits (e.g. Kela)</label>
+                        <label class="check-option"><input type="checkbox" value="Hobbies & Leisures" v-model="form.contents" /> Hobbies &amp; Leisures</label>
+                        <label class="check-option"><input type="checkbox" value="Matters related to education" v-model="form.contents" /> Matters related to education</label>
+                        <label class="check-option"><input type="checkbox" value="Crisis situations (family crisis, violent situations)" v-model="form.contents" /> Crisis situations</label>
+                        <label class="check-option"><input type="checkbox" value="Matters related to immigration process (residence permit, etc)" v-model="form.contents" /> Immigration process</label>
+                        <label class="check-option"><input type="checkbox" value="Legal Matters" v-model="form.contents" /> Legal Matters</label>
+                        <label class="check-option"><input type="checkbox" value="Family life (children's school, early childhood education, relationships)" v-model="form.contents" /> Family life</label>
+                        <label class="check-option"><input type="checkbox" value="Police matters" v-model="form.contents" /> Police matters</label>
+                        <label class="check-option"><input type="checkbox" value="Social Affairs (social work, guidance)" v-model="form.contents" /> Social Affairs</label>
+                        <label class="check-option"><input type="checkbox" value="Studying Finnish/Swedish" v-model="form.contents" /> Studying Finnish/Swedish</label>
+                        <label class="check-option"><input type="checkbox" value="Finance (taxation, debt, bills, banking, customer affairs)" v-model="form.contents" /> Finance</label>
+                        <label class="check-option"><input type="checkbox" value="Health care" v-model="form.contents" /> Health care</label>
+                        <label class="check-option"><input type="checkbox" value="Working conditions (occupational health safety)" v-model="form.contents" /> Working conditions</label>
+                        <label class="check-option"><input type="checkbox" value="Work (TE, Job search, etc)" v-model="form.contents" /> Work (TE, Job search)</label>
+                        <label class="check-option"><input type="checkbox" value="Career Guidance" v-model="form.contents" /> Career Guidance</label>
+                        <label class="check-option">
+                            <input type="checkbox" value="__other__" v-model="form.contents" />
+                            If other, type:
+                            <span class="sub-field" :class="form.contents.includes('__other__') ? '' : 'hidden'">
+                                <input v-model="form.contentsOther" placeholder="other content" />
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q19 – now checkboxes -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">19</span> Purpose of visit</div>
+                    <div class="inline-group" :class="{ missing: missingFields.purpose }">
+                        <label class="check-option"><input type="checkbox" value="Initial Interview" v-model="form.purpose" /> Initial Interview</label>
+                        <label class="check-option"><input type="checkbox" value="Digital Help" v-model="form.purpose" /> Digital Help</label>
+                        <label class="check-option"><input type="checkbox" value="Language Support" v-model="form.purpose" /> Language Support</label>
+                        <label class="check-option"><input type="checkbox" value="Filling out the forms" v-model="form.purpose" /> Filling out the forms</label>
+                        <label class="check-option"><input type="checkbox" value="Clarification of decisions and process" v-model="form.purpose" /> Clarification of decisions</label>
+                        <label class="check-option"><input type="checkbox" value="Group info" v-model="form.purpose" /> Group info</label>
+                        <label class="check-option"><input type="checkbox" value="Contacting the authority of another country" v-model="form.purpose" /> Contacting authority of another country</label>
+                        <label class="check-option"><input type="checkbox" value="Others" v-model="form.purpose" /> Others</label>
+                    </div>
+                    <div class="help-text">Select all that apply</div>
+                </div>
+
+                <!-- Q20 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">20</span> Additional Info</div>
+                    <textarea class="form-control" :class="{ missing: missingFields.additionalInfoText }" v-model="form.additionalInfoText" rows="2" placeholder="Any extra notes…"></textarea>
+                </div>
+
+            </div><!-- end section 3 -->
+
+            <!-- ====== SECTION 4: direction & feedback ====== -->
+            <div class="form-section">
+
+                <!-- Q21 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">21</span> Where the customer is directed</div>
+                    <div class="q-desc">Select one</div>
+                    <select class="form-control" :class="{ missing: missingFields.directedTo }" v-model="form.directedTo">
+                        <option value="">— Please select —</option>
+                        <option value="Trade-unions, occupational safety and health">Trade-unions, occupational safety and health</option>
+                        <option value="Lawyer and legal aid services">Lawyer and legal aid services</option>
+                        <option value="Real estate agency/real estate, housing agency">Real estate agency/real estate, housing agency</option>
+                        <option value="Digital and Population Information Agency">Digital and Population Information Agency</option>
+                        <option value="Victims of human trafficking">Victims of human trafficking</option>
+                        <option value="help system">help system</option>
+                        <option value="Organizations and associations">Organizations and associations</option>
+                        <option value="School activity (basic education)">School activity (basic education)</option>
+                        <option value="Crisis services">Crisis services</option>
+                        <option value="Municipal immigrant and integration services">Municipal immigrant and integration services</option>
+                        <option value="Finnish Immigration Service (Migri)">Finnish Immigration Service (Migri)</option>
+                        <option value="Youth services (e.g., Ohjaamo)">Youth services (e.g., Ohjaamo)</option>
+                        <option value="Educational institution (secondary school, higher education or other)">Educational institution</option>
+                        <option value="Police">Police</option>
+                        <option value="Congregations and other religious communities">Congregations and other religious communities</option>
+                        <option value="Social and family services">Social and family services</option>
+                        <option value="Embassy">Embassy</option>
+                        <option value="TE services">TE services</option>
+                        <option value="Health services">Health services</option>
+                        <option value="Customs">Customs</option>
+                        <option value="Early childhood education">Early childhood education</option>
+                        <option value="Tax office">Tax office</option>
+                        <option value="Shared service point">Shared service point</option>
+                        <option value="Support services for entrepreneurs">Support services for entrepreneurs</option>
+                        <option value="Companies/employers">Companies/employers</option>
+                        <option value="Other entities">Other entities</option>
+                        <option value="Case closed">Case closed</option>
+                        <option value="Customer service continues/Make a new appointment">Customer service continues / Make a new appointment</option>
+                        <option value="Guidance and counseling service in another location">Guidance and counseling service in another location</option>
+                    </select>
+                </div>
+
+                <!-- Q22 -->
+                <div class="q-row">
+                    <div class="q-label"><span class="q-num">22</span> Other Feedback (if any)</div>
+                    <textarea class="form-control" :class="{ missing: missingFields.otherFeedback }" v-model="form.otherFeedback" rows="2" placeholder="Any additional feedback…"></textarea>
+                </div>
+
+            </div><!-- end section 4 -->
+        </fieldset>
+
+            <!-- ====== BUTTONS ====== -->
+            <div class="btn-row" v-if="!isReadOnly">
+                <button type="button" class="btn-submit" @click="submitForm"><i class="fas fa-paper-plane"></i> Submit Form</button>
+                <button type="button" class="btn-reset" @click="resetForm"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
+            <div class="btn-row" v-else>
+                <button type="button" class="btn-exit" @click="exitToDashboard" style="margin:0 auto;"><i class="fas fa-arrow-left"></i> Return to Dashboard</button>
+            </div>
+
+            <!-- Success popup -->
+            <div class="toast" :class="toastVisible ? 'show' : ''" id="toastMsg">
+                <div class="toast-inner">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Form submitted successfully!</span>
+                    <div class="toast-sub">You can now return to the dashboard.</div>
+                    <button class="btn-exit" @click="exitToDashboard">Exit &amp; Return to Dashboard</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- HTML export injects initial form data here -->
+    <script>window.initialData = {"form": {"controlLocation": "", "date": "", "time": "", "visitDuration": "10 min 20 sec", "contactMethod": ["Remote Connection"], "fieldWorkWhere": "", "heardFrom": "Municipal integration/immigrant services", "customerCount": 2, "gender": null, "ageGroup": null, "immigrationReason": "", "additionalInfo": [], "additionalInfoOther": "", "birthCountry": "Iran", "motherTongue": "Persian", "educationLevel": "", "labourPosition": [], "domicile": "Espoo, Finland", "residenceDuration": [], "customerComingFrom": "3rd Country citizen living in Europe", "firstTimeVisitor": "No information", "counsellingOwnLanguage": "No information", "interpreterPresent": "No", "interpretingLanguage": "", "contents": ["Matters related to education"], "contentsOther": "", "purpose": ["Filling out the forms"], "additionalInfoText": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.", "directedTo": "Early childhood education", "otherFeedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication."}, "questionnaire": {"What is the contact method used by Advisee(s)?": "Remote Connection", "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services", "Reason for Immigration": "Not mentioned in transcript.", "Ques.7a) Was the language of counselling the customer's own language?": "Yes", "Ques.7b) External interpreter present or telephone?": "No", "Ques.7c) Interpreting language": "Not mentioned in transcript.", "Additional Information about the customers": "Not mentioned in transcript.", "Education Level": "Not mentioned in transcript.", "Customer birth country": "Iran", "Mother Tongue/Language": "Persian", "Customer Domicile": "Espoo, Finland", "Position in labour market": "Not mentioned in transcript.", "Duration of residence in Finland": "Not mentioned in transcript.", "Ques.17b) Is this the customer's first visit?": "No information", "Contents of the customer visit": "Matters related to education", "Purpose of visit": "Filling out the forms", "Where the customer is directed": "Early childhood education", "Any other Feedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.", "Any Additional Information": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication."}};window.crmBackendUrl = "";window.crmAuthToken = "";</script>
+
+    <!-- Vue 3 (CDN) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script>
+        const { createApp, reactive, ref, watchEffect } = Vue;
+
+        const app = createApp({
+            setup() {
+                // ─── reactive form data ───
+                const form = reactive({
+                    controlLocation: '',
+                    date: '',
+                    time: '',
+                    visitDuration: '',
+                    contactMethod: [],      // now array
+                    fieldWorkWhere: '',
+                    heardFrom: '',
+                    customerCount: null,
+                    gender: '',
+                    ageGroup: '',
+                    immigrationReason: '',
+                    additionalInfo: [],
+                    additionalInfoOther: '',
+                    birthCountry: '',
+                    motherTongue: '',
+                    educationLevel: '',
+                    labourPosition: [],     // array
+                    domicile: '',
+                    customerComingFrom: '',
+                    residenceDuration: [],  // array
+                    firstTimeVisitor: '',
+                    counsellingOwnLanguage: '',
+                    interpreterPresent: '',
+                    interpretingLanguage: '',
+                    contents: [],
+                    contentsOther: '',
+                    purpose: [],            // array
+                    additionalInfoText: '',
+                    directedTo: '',
+                    otherFeedback: '',
+                });
+
+                const missingFields = reactive({
+                    controlLocation: false,
+                    date: false,
+                    time: false,
+                    contactMethod: false,
+                    heardFrom: false,
+                    immigrationReason: false,
+                    additionalInfo: false,
+                    birthCountry: false,
+                    motherTongue: false,
+                    educationLevel: false,
+                    domicile: false,
+                    customerComingFrom: false,
+                    labourPosition: false,
+                    residenceDuration: false,
+                    contents: false,
+                    purpose: false,
+                    directedTo: false,
+                    additionalInfoText: false,
+                    otherFeedback: false,
+                });
+
+                const originalJsonFileName = ref('');
+                const jsonFileInput = ref(null);
+                const toastVisible = ref(false);
+                const audioFilename = ref('');
+
+                const buildPayload = () => {
+                    const payload = JSON.parse(JSON.stringify(form));
+                    if (payload.additionalInfo.includes('__other__')) {
+                        const idx = payload.additionalInfo.indexOf('__other__');
+                        payload.additionalInfo.splice(idx, 1, `Other: ${payload.additionalInfoOther || '(not specified)'}`);
+                    }
+                    delete payload.additionalInfoOther;
+                    if (payload.contents.includes('__other__')) {
+                        const idx = payload.contents.indexOf('__other__');
+                        payload.contents.splice(idx, 1, `Other: ${payload.contentsOther || '(not specified)'}`);
+                    }
+                    delete payload.contentsOther;
+                    if (audioFilename.value) {
+                        payload.audio_filename = audioFilename.value;
+                    }
+                    return payload;
+                };
+
+                const triggerJsonFile = () => {
+                    jsonFileInput.value?.click();
+                };
+
+                const isNotMentioned = (value) => {
+                    return typeof value === 'string' && value.trim() === 'Not mentioned in transcript.';
+                };
+
+                const clearMissing = () => {
+                    Object.keys(missingFields).forEach((key) => {
+                        missingFields[key] = false;
+                    });
+                };
+
+                const markRequiredMissing = () => {
+                    missingFields.controlLocation = !form.controlLocation || !form.controlLocation.trim();
+                    missingFields.date = !form.date;
+                    missingFields.time = !form.time;
+                    missingFields.contactMethod = !form.contactMethod || form.contactMethod.length === 0;
+                    missingFields.heardFrom = !form.heardFrom || !form.heardFrom.trim();
+                    missingFields.immigrationReason = !form.immigrationReason || !form.immigrationReason.trim();
+                    missingFields.additionalInfo = !form.additionalInfo || form.additionalInfo.length === 0;
+                    missingFields.birthCountry = !form.birthCountry || !form.birthCountry.trim();
+                    missingFields.motherTongue = !form.motherTongue || !form.motherTongue.trim();
+                    missingFields.educationLevel = !form.educationLevel || !form.educationLevel.trim();
+                    missingFields.labourPosition = !form.labourPosition || form.labourPosition.length === 0;
+                    missingFields.domicile = !form.domicile || !form.domicile.trim();
+                    missingFields.customerComingFrom = !form.customerComingFrom || !form.customerComingFrom.trim();
+                    missingFields.residenceDuration = !form.residenceDuration || form.residenceDuration.length === 0;
+                    missingFields.contents = !form.contents || form.contents.length === 0;
+                    missingFields.purpose = !form.purpose || form.purpose.length === 0;
+                    missingFields.additionalInfoText = !form.additionalInfoText || !form.additionalInfoText.trim();
+                    missingFields.directedTo = !form.directedTo || !form.directedTo.trim();
+                    missingFields.otherFeedback = !form.otherFeedback || !form.otherFeedback.trim();
+                };
+
+                const splitList = (value) => {
+                    if (!value || value === 'Not mentioned in transcript.') return [];
+                    return value.split(',').map((item) => item.trim()).filter(Boolean);
+                };
+
+                const mapAnswer = (value) => {
+                    if (!value || value === 'Not mentioned in transcript.') return null;
+                    return value;
+                };
+
+                const stripSelectPrefix = (value) => {
+                    if (!value || typeof value !== 'string') return value;
+                    const match = value.match(/^\s*[A-Z]{1,2}\)\s*(.*)$/);
+                    return match ? match[1] : value;
+                };
+
+                const parseOtherList = (value) => {
+                    if (!value || value === 'Not mentioned in transcript.') return { list: [], otherText: '' };
+                    if (typeof value === 'string' && value.startsWith('Other:')) {
+                        return {
+                            list: ['__other__'],
+                            otherText: value.replace(/^Other:\s*/, ''),
+                        };
+                    }
+                    return { list: splitList(value), otherText: '' };
+                };
+
+                const contentOptionValues = [
+                    'Residence',
+                    'Benefits (e.g. Kela)',
+                    'Hobbies & Leisures',
+                    'Matters related to education',
+                    'Crisis situations (family crisis, violent situations)',
+                    'Matters related to immigration process (residence permit, etc)',
+                    'Legal Matters',
+                    "Family life (children's school, early childhood education, relationships)",
+                    'Police matters',
+                    'Social Affairs (social work, guidance)',
+                    'Studying Finnish/Swedish',
+                    'Finance (taxation, debt, bills, banking, customer affairs)',
+                    'Health care',
+                    'Working conditions (occupational health safety)',
+                    'Work (TE, Job search)',
+                    'Career Guidance',
+                ];
+
+                const normalizeContentValue = (value) => {
+                    if (!value || typeof value !== 'string') return '';
+                    return value.trim().toLowerCase();
+                };
+
+                const findContentLabel = (value) => {
+                    const normalized = normalizeContentValue(value);
+                    if (!normalized) return null;
+                    // exact first, then prefix/substring matches
+                    const exactMatch = contentOptionValues.find(
+                        (option) => normalizeContentValue(option) === normalized
+                    );
+                    if (exactMatch) return exactMatch;
+                    const prefixMatch = contentOptionValues.find(
+                        (option) => normalizeContentValue(option).startsWith(normalized)
+                    );
+                    if (prefixMatch) return prefixMatch;
+                    const substringMatch = contentOptionValues.find(
+                        (option) => normalizeContentValue(option).includes(normalized) || normalized.includes(normalizeContentValue(option))
+                    );
+                    if (substringMatch) return substringMatch;
+                    const firstWord = normalized.split(/\s+/)[0];
+                    return contentOptionValues.find((option) => normalizeContentValue(option).startsWith(firstWord)) || null;
+                };
+
+                const isKnownContentValue = (value) => Boolean(findContentLabel(value));
+
+                const isFormPayload = (value) => {
+                    return (
+                        value && typeof value === 'object' &&
+                        ('controlLocation' in value || 'contactMethod' in value || 'directedTo' in value || 'contents' in value)
+                    );
+                };
+
+                const loadFormPayload = (payload) => {
+                    clearMissing();
+                    form.controlLocation = payload.controlLocation || '';
+                    form.date = payload.date || '';
+                    form.time = payload.time || '';
+                    form.visitDuration = payload.visitDuration || '';
+                    form.contactMethod = Array.isArray(payload.contactMethod)
+                        ? payload.contactMethod
+                        : splitList(payload.contactMethod);
+                    form.fieldWorkWhere = payload.fieldWorkWhere || '';
+                    form.heardFrom = payload.heardFrom || '';
+                    form.customerCount = payload.customerCount ?? null;
+                    form.gender = payload.gender || '';
+                    form.ageGroup = payload.ageGroup || '';
+                    form.immigrationReason = payload.immigrationReason || '';
+
+                    if (Array.isArray(payload.additionalInfo)) {
+                        form.additionalInfo = payload.additionalInfo;
+                        form.additionalInfoOther = payload.additionalInfoOther || '';
+                    } else {
+                        form.additionalInfo = splitList(payload.additionalInfo);
+                        form.additionalInfoOther = payload.additionalInfoOther || '';
+                    }
+
+                    form.birthCountry = payload.birthCountry || '';
+                    form.motherTongue = payload.motherTongue || '';
+                    form.educationLevel = payload.educationLevel || '';
+                    form.labourPosition = Array.isArray(payload.labourPosition)
+                        ? payload.labourPosition
+                        : splitList(payload.labourPosition);
+                    form.domicile = payload.domicile || '';
+                    form.customerComingFrom = payload.customerComingFrom || '';
+                    form.residenceDuration = Array.isArray(payload.residenceDuration)
+                        ? payload.residenceDuration
+                        : splitList(payload.residenceDuration);
+                    form.firstTimeVisitor = payload.firstTimeVisitor || '';
+                    form.counsellingOwnLanguage = payload.counsellingOwnLanguage || '';
+                    form.interpreterPresent = payload.interpreterPresent || '';
+                    form.interpretingLanguage = payload.interpretingLanguage || '';
+                    const hydrateContents = (values) => {
+                        const parsed = Array.isArray(values) ? values.filter(Boolean) : splitList(values);
+                        const mapped = parsed.map((item) => findContentLabel(item) || item);
+                        const knownContents = mapped.filter((item) => isKnownContentValue(item));
+                        const unknownContents = mapped.filter((item) => item && !isKnownContentValue(item));
+                        if (unknownContents.length > 0 && knownContents.length === 0) {
+                            form.contents = ['__other__'];
+                            form.contentsOther = unknownContents.join(', ');
+                        } else if (unknownContents.length > 0) {
+                            form.contents = [...knownContents, '__other__'];
+                            form.contentsOther = unknownContents.join(', ');
+                        } else {
+                            form.contents = knownContents;
+                            form.contentsOther = '';
+                        }
+                    };
+
+                    hydrateContents(payload.contents);
+                    form.purpose = Array.isArray(payload.purpose)
+                        ? payload.purpose
+                        : splitList(payload.purpose);
+                    form.additionalInfoText = payload.additionalInfoText || '';
+                    form.directedTo = stripSelectPrefix(payload.directedTo) || '';
+                    form.otherFeedback = payload.otherFeedback || '';
+                };
+
+                const loadFinalJson = (json) => {
+                    const payload = json.form || json.questionnaire || json;
+                    if (json.form || isFormPayload(payload)) {
+                        loadFormPayload(payload);
+                        markRequiredMissing();
+                        return;
+                    }
+
+                    clearMissing();
+                    const questionnaire = payload;
+
+                    form.contactMethod = splitList(questionnaire['What is the contact method used by Advisee(s)?']);
+                    if (isNotMentioned(questionnaire['What is the contact method used by Advisee(s)?'])) missingFields.contactMethod = true;
+                    form.heardFrom = mapAnswer(questionnaire['Heard from the guidance/advice position (if other where?)']) || '';
+                    if (isNotMentioned(questionnaire['Heard from the guidance/advice position (if other where?)'])) missingFields.heardFrom = true;
+                    form.immigrationReason = mapAnswer(questionnaire['Reason for Immigration']) || '';
+                    if (isNotMentioned(questionnaire['Reason for Immigration'])) missingFields.immigrationReason = true;
+
+                    const additionalInfoValue = questionnaire['Additional Information about the customers'];
+                    if (additionalInfoValue && additionalInfoValue !== 'Not mentioned in transcript.') {
+                        if (additionalInfoValue.startsWith('Other:')) {
+                            form.additionalInfo = ['__other__'];
+                            form.additionalInfoOther = additionalInfoValue.replace(/^Other:\s*/, '');
+                        } else {
+                            form.additionalInfo = splitList(additionalInfoValue);
+                            form.additionalInfoOther = '';
+                        }
+                    } else {
+                        form.additionalInfo = [];
+                        form.additionalInfoOther = '';
+                        if (isNotMentioned(additionalInfoValue)) missingFields.additionalInfo = true;
+                    }
+
+                    form.birthCountry = mapAnswer(questionnaire['Customer birth country']) || '';
+                    if (isNotMentioned(questionnaire['Customer birth country'])) missingFields.birthCountry = true;
+                    form.motherTongue = mapAnswer(questionnaire['Mother Tongue/Language']) || '';
+                    if (isNotMentioned(questionnaire['Mother Tongue/Language'])) missingFields.motherTongue = true;
+                    form.educationLevel = mapAnswer(questionnaire['Education Level']) || '';
+                    if (isNotMentioned(questionnaire['Education Level'])) missingFields.educationLevel = true;
+                    form.domicile = mapAnswer(questionnaire['Customer Domicile']) || '';
+                    if (isNotMentioned(questionnaire['Customer Domicile'])) missingFields.domicile = true;
+                    form.labourPosition = splitList(questionnaire['Position in labour market']);
+                    if (isNotMentioned(questionnaire['Position in labour market'])) missingFields.labourPosition = true;
+                    form.residenceDuration = splitList(questionnaire['Duration of residence in Finland']);
+                    if (isNotMentioned(questionnaire['Duration of residence in Finland'])) missingFields.residenceDuration = true;
+                    const contentsValue = questionnaire['Contents of the customer visit'];
+                    if (contentsValue && contentsValue !== 'Not mentioned in transcript.') {
+                        const parsedContents = splitList(contentsValue);
+                        const knownContents = parsedContents.filter(isKnownContentValue);
+                        const unknownContents = parsedContents.filter((item) => item && !isKnownContentValue(item));
+                        if (unknownContents.length > 0 && knownContents.length === 0) {
+                            form.contents = ['__other__'];
+                            form.contentsOther = unknownContents.join(', ');
+                        } else if (unknownContents.length > 0) {
+                            form.contents = [...knownContents, '__other__'];
+                            form.contentsOther = unknownContents.join(', ');
+                        } else {
+                            form.contents = knownContents;
+                            form.contentsOther = '';
+                        }
+                    } else {
+                        form.contents = [];
+                        form.contentsOther = '';
+                        if (isNotMentioned(contentsValue)) missingFields.contents = true;
+                    }
+                    form.purpose = splitList(questionnaire['Purpose of visit']);
+                    if (isNotMentioned(questionnaire['Purpose of visit'])) missingFields.purpose = true;
+                    form.additionalInfoText = mapAnswer(questionnaire['Any Additional Information']) || '';
+                    if (isNotMentioned(questionnaire['Any Additional Information'])) missingFields.additionalInfoText = true;
+                    form.directedTo = stripSelectPrefix(mapAnswer(questionnaire['Where the customer is directed'])) || '';
+                    if (isNotMentioned(questionnaire['Where the customer is directed'])) missingFields.directedTo = true;
+                    form.otherFeedback = mapAnswer(questionnaire['Any other Feedback']) || '';
+                    if (isNotMentioned(questionnaire['Any other Feedback'])) missingFields.otherFeedback = true;
+                };
+
+                const onJsonFileChange = (event) => {
+                    const file = event.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        try {
+                            const parsed = JSON.parse(reader.result);
+                            loadFinalJson(parsed);
+                            originalJsonFileName.value = file.name;
+                        } catch (error) {
+                            alert('Invalid JSON file. Please select a valid final JSON file.');
+                        }
+                    };
+                    reader.readAsText(file);
+                };
+
+                const downloadPdf = () => {
+                    const element = document.querySelector('.form-container');
+                    if (window.html2pdf) {
+                        const opt = {
+                            margin: 0.5,
+                            filename: 'crm_form.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { scale: 2, useCORS: true },
+                            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+                        };
+                        window.html2pdf().set(opt).from(element).save();
+                    } else {
+                        window.print();
+                    }
+                };
+
+                // ─── submit ───
+                const submitForm = async () => {
+                    markRequiredMissing();
+                    const hasMissing = Object.values(missingFields).some(v => v === true);
+                    if (hasMissing) {
+                        alert('Please fill in all required fields before submitting.');
+                        return;
+                    }
+                    const payload = buildPayload();
+
+                    // Send payload to opener window for saving (avoids CORS issues from blob: origin)
+                    if (window.opener) {
+                        window.opener.postMessage({ type: 'crm-form-save', payload }, '*');
+                        // Wait for response from opener
+                        await new Promise((resolve, reject) => {
+                            const timeout = setTimeout(() => { reject(new Error('Save timeout')); }, 15000);
+                            const handler = (event) => {
+                                if (event.data && event.data.type === 'crm-form-save-result') {
+                                    clearTimeout(timeout);
+                                    window.removeEventListener('message', handler);
+                                    if (event.data.success) resolve();
+                                    else reject(new Error(event.data.error || 'Save failed'));
+                                }
+                            };
+                            window.addEventListener('message', handler);
+                        }).then(() => {
+                            console.log('CRM form saved successfully');
+                            toastVisible.value = true;
+                        }).catch((err) => {
+                            console.error('CRM form save failed:', err.message);
+                            alert('Failed to save form: ' + err.message);
+                        });
+                    } else {
+                        // Fallback: direct fetch (e.g. standalone mode)
+                        const saveUrl = window.crmSaveUrl || (window.crmBackendUrl ? `${window.crmBackendUrl}/api/v1/audio/crm-form/save` : '');
+                        const authToken = window.crmAuthToken || '';
+                        if (saveUrl) {
+                            try {
+                                const headers = { 'Content-Type': 'application/json' };
+                                if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+                                const response = await fetch(saveUrl, { method: 'POST', headers, body: JSON.stringify(payload) });
+                                if (response.ok) {
+                                    toastVisible.value = true;
+                                } else {
+                                    alert('Failed to save form: ' + (await response.text()));
+                                }
+                            } catch (err) {
+                                alert('Could not connect to server: ' + err.message);
+                            }
+                        } else {
+                            toastVisible.value = true;
+                        }
+                    }
+                };
+
+                // ─── reset ───
+                const resetForm = () => {
+                    form.controlLocation = '';
+                    form.date = '';
+                    form.time = '';
+                    form.visitDuration = '';
+                    form.contactMethod = [];
+                    form.fieldWorkWhere = '';
+                    form.heardFrom = '';
+                    form.customerCount = null;
+                    form.gender = '';
+                    form.ageGroup = '';
+                    form.immigrationReason = '';
+                    form.additionalInfo = [];
+                    form.additionalInfoOther = '';
+                    form.birthCountry = '';
+                    form.motherTongue = '';
+                    form.educationLevel = '';
+                    form.labourPosition = [];
+                    form.domicile = '';
+                    form.customerComingFrom = '';
+                    form.residenceDuration = [];
+                    form.firstTimeVisitor = '';
+                    form.counsellingOwnLanguage = '';
+                    form.interpreterPresent = '';
+                    form.interpretingLanguage = '';
+                    form.contents = [];
+                    form.contentsOther = '';
+                    form.purpose = [];
+                    form.additionalInfoText = '';
+                    form.directedTo = '';
+                    form.otherFeedback = '';
+                    clearMissing();
+                    toastVisible.value = false;
+                };
+
+                watchEffect(() => {
+                    missingFields.controlLocation = !form.controlLocation || !form.controlLocation.trim();
+                    missingFields.date = !form.date;
+                    missingFields.time = !form.time;
+                    missingFields.contactMethod = !form.contactMethod || form.contactMethod.length === 0;
+                    missingFields.heardFrom = !form.heardFrom || !form.heardFrom.trim();
+                    missingFields.immigrationReason = !form.immigrationReason || !form.immigrationReason.trim();
+                    missingFields.additionalInfo = !form.additionalInfo || form.additionalInfo.length === 0;
+                    missingFields.birthCountry = !form.birthCountry || !form.birthCountry.trim();
+                    missingFields.motherTongue = !form.motherTongue || !form.motherTongue.trim();
+                    missingFields.educationLevel = !form.educationLevel || !form.educationLevel.trim();
+                    missingFields.domicile = !form.domicile || !form.domicile.trim();
+                    missingFields.customerComingFrom = !form.customerComingFrom || !form.customerComingFrom.trim();
+                    missingFields.labourPosition = !form.labourPosition || form.labourPosition.length === 0;
+                    missingFields.residenceDuration = !form.residenceDuration || form.residenceDuration.length === 0;
+                    missingFields.contents = (!form.contents || form.contents.length === 0) && (!form.contentsOther || !form.contentsOther.trim());
+                    missingFields.purpose = !form.purpose || form.purpose.length === 0;
+                    missingFields.additionalInfoText = !form.additionalInfoText || !form.additionalInfoText.trim();
+                    missingFields.directedTo = !form.directedTo || !form.directedTo.trim();
+                    missingFields.otherFeedback = !form.otherFeedback || !form.otherFeedback.trim();
+                });
+
+                const isReadOnly = ref(window.crmReadOnly === true || window.crmReadOnly === 'true');
+
+                const submittedFormData = window.crmSubmittedFormData || null;
+                const initialPayload = submittedFormData || window.initialData || window.initialQuestionnaire || null;
+                if (submittedFormData) {
+                    loadFormPayload(submittedFormData);
+                } else if (initialPayload) {
+                    loadFinalJson(initialPayload);
+                    if (initialPayload.metadata && initialPayload.metadata.audio_file) {
+                        audioFilename.value = initialPayload.metadata.audio_file;
+                    }
+                }
+                if (!audioFilename.value && window.crmAudioFilename) {
+                    audioFilename.value = window.crmAudioFilename;
+                }
+
+                // ─── Autocomplete: Countries ───
+                const allCountries = [
+                    'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
+                    'Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia',
+                    'Bosnia and Herzegovina','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cambodia','Cameroon','Canada',
+                    'Cape Verde','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Croatia',
+                    'Cuba','Cyprus','Czech Republic','Denmark','Djibouti','Dominica','Dominican Republic','DR Congo','East Timor','Ecuador',
+                    'Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France',
+                    'Gabon','Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana',
+                    'Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Ivory Coast',
+                    'Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Kosovo','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon',
+                    'Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg','Madagascar','Malawi','Malaysia','Maldives',
+                    'Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Micronesia','Moldova','Monaco','Mongolia',
+                    'Montenegro','Morocco','Mozambique','Myanmar','Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua',
+                    'Niger','Nigeria','North Korea','North Macedonia','Norway','Oman','Pakistan','Palau','Palestine','Panama',
+                    'Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda',
+                    'Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe',
+                    'Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands',
+                    'Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Suriname','Sweden','Switzerland',
+                    'Syria','Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey',
+                    'Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay',
+                    'Uzbekistan','Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+                ];
+                const showCountryDropdown = ref(false);
+                const filteredCountries = ref([]);
+                const filterCountries = () => {
+                    const q = form.birthCountry.toLowerCase().trim();
+                    if (q.length < 1) { filteredCountries.value = []; return; }
+                    filteredCountries.value = allCountries.filter(c => c.toLowerCase().includes(q)).slice(0, 10);
+                };
+                const selectCountry = (c) => { form.birthCountry = c; showCountryDropdown.value = false; filteredCountries.value = []; };
+                const hideCountryDropdown = () => { setTimeout(() => { showCountryDropdown.value = false; }, 150); };
+
+                // ─── Autocomplete: Languages ───
+                const allLanguages = [
+                    'Finnish','Swedish','English','Arabic','Somali','Russian','Kurdish','Persian','Dari','Turkish','Vietnamese',
+                    'Chinese','Thai','Estonian','French','Spanish','Portuguese','German','Italian','Polish','Romanian','Hungarian',
+                    'Bulgarian','Nepali','Hindi','Urdu','Bengali','Punjabi','Tamil','Telugu','Tagalog','Japanese','Korean',
+                    'Swahili','Amharic','Tigrinya','Oromo','Pashto','Albanian','Bosnian','Serbian','Croatian','Greek',
+                    'Dutch','Czech','Slovak','Latvian','Lithuanian','Ukrainian','Burmese','Khmer','Lao','Malay','Indonesian',
+                    'Sinhala','Mongolian','Georgian','Armenian','Hebrew','Azerbaijani','Uzbek','Kazakh','Kyrgyz','Tajik','Turkmen'
+                ];
+                const showLanguageDropdown = ref(false);
+                const filteredLanguages = ref([]);
+                const filterLanguages = () => {
+                    const q = form.motherTongue.toLowerCase().trim();
+                    if (q.length < 1) { filteredLanguages.value = []; return; }
+                    filteredLanguages.value = allLanguages.filter(l => l.toLowerCase().includes(q)).slice(0, 10);
+                };
+                const selectLanguage = (l) => { form.motherTongue = l; showLanguageDropdown.value = false; filteredLanguages.value = []; };
+                const hideLanguageDropdown = () => { setTimeout(() => { showLanguageDropdown.value = false; }, 150); };
+
+                const handleEnterKey = (event) => {
+                    if (event.target.tagName === 'TEXTAREA') return;
+                    event.preventDefault();
+                };
+
+                const exitToDashboard = () => {
+                    if (window.opener) {
+                        window.close();
+                    } else {
+                        window.location.href = '/#/dashboard';
+                    }
+                };
+
+                return { form, missingFields, originalJsonFileName, jsonFileInput, toastVisible, submitForm, resetForm, triggerJsonFile, onJsonFileChange, downloadPdf,
+                    showCountryDropdown, filteredCountries, filterCountries, selectCountry, hideCountryDropdown,
+                    showLanguageDropdown, filteredLanguages, filterLanguages, selectLanguage, hideLanguageDropdown,
+                    exitToDashboard, isReadOnly, handleEnterKey };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+
+</body>
+</html>

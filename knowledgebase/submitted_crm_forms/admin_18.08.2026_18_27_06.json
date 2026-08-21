@@ -1,0 +1,80 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Asylum seeker",
+    "Additional Information about the customers": "Paperless",
+    "Education Level": "No education at all or less than the basic education syllabus",
+    "Customer birth country": "Israel",
+    "Mother Tongue/Language": "Hebrew",
+    "Customer Domicile": "Nesbo, Finland",
+    "Position in labour market": "In labour policy training (including integration training)",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer mentioned their daughter is three years old and seeking daycare options in Nesbo, Finland, with specific interest in transportation, food preferences (vegetarian options), and medical services available at the daycare centers. They also inquired about cultural and religious differences in education and the process for enrolling their child.",
+    "Any other Feedback": "The customer mentioned their daughter is three years old and seeking daycare options in Nesbo, Finland, with specific interest in transportation, food preferences (vegetarian options), and medical services available at the daycare centers. They also inquired about cultural and religious differences in education and the process for enrolling their child."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 18:27",
+    "audio_file": "dia5sce1SA.wav",
+    "visit_duration": "11 min 48 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "International House Helsinki",
+    "date": "2026-08-11",
+    "time": "11:11",
+    "visitDuration": "11 min 48 sec",
+    "contactMethod": [
+      "Telephone (eg. call",
+      "WhatsApp etc)",
+      "Telephone (call, WhatsApp etc)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Male",
+    "ageGroup": "50-64",
+    "immigrationReason": "Asylum seeker",
+    "additionalInfo": [
+      "Paperless"
+    ],
+    "birthCountry": "Israel",
+    "motherTongue": "Hebrew",
+    "educationLevel": "No education at all or less than the basic education syllabus",
+    "labourPosition": [
+      "In labour policy training (including integration training)"
+    ],
+    "domicile": "Nesbo, Finland",
+    "customerComingFrom": "Third Country",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer mentioned their daughter is three years old and seeking daycare options in Nesbo, Finland, with specific interest in transportation, food preferences (vegetarian options), and medical services available at the daycare centers. They also inquired about cultural and religious differences in education and the process for enrolling their child.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer mentioned their daughter is three years old and seeking daycare options in Nesbo, Finland, with specific interest in transportation, food preferences (vegetarian options), and medical services available at the daycare centers. They also inquired about cultural and religious differences in education and the process for enrolling their child.",
+    "audio_filename": "dia5sce1SA.wav"
+  },
+  "username": "admin",
+  "submitted_at": "2026-08-18T18:27:06.935904"
+}

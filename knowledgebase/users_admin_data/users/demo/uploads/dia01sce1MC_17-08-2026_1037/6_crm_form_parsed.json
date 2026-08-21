@@ -1,0 +1,103 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Not mentioned in transcript.",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "No",
+    "Ques.7b) External interpreter present or telephone?": "Yes, interpretation method unknown",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Not mentioned in transcript.",
+    "Mother Tongue/Language": "Not mentioned in transcript.",
+    "Customer Domicile": "Not mentioned in transcript.",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Municipal immigrant and integration services",
+    "Any other Feedback": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "Any Additional Information": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "Customer Age": "18-29",
+    "Customer Gender": "Female"
+  },
+  "metadata": {
+    "date_time": "17/08/2026 10:45",
+    "audio_file": "dia01sce1MC.WAV",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 708.72,
+    "segment_count": 113,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "UNKNOWN": "customer"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 195.88,
+      "SPEAKER_01": 278.84
+    },
+    "total_advisor_time_sec": 278.84,
+    "total_advisor_time": "4 min 39 sec",
+    "total_customer_time_sec": 195.88,
+    "total_customer_time": "3 min 16 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "18-29",
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "",
+    "motherTongue": "",
+    "educationLevel": "",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "",
+    "residenceDuration": [],
+    "customerComingFrom": null,
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is a migrant with a full-time job and a three-year-old child seeking childcare options, specifically looking for services that provide meals, are available during work hours, and are offered in English or Finnish. The child is not yet eligible for formal schooling in Finland, as education starts at age seven.",
+    "additional_info_text_tags": [
+      "migrant",
+      "childcare",
+      "meals",
+      "workhours",
+      "english",
+      "finnish"
+    ],
+    "other_feedback_tags": [
+      "migrant",
+      "childcare",
+      "meals",
+      "workhours",
+      "finnish",
+      "education"
+    ]
+  }
+}

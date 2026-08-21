@@ -1,0 +1,674 @@
+[
+  {
+    "start": 0.0,
+    "end": 0.98,
+    "speaker": "UNKNOWN",
+    "text": "Good morning."
+  },
+  {
+    "start": 1.34,
+    "end": 1.96,
+    "speaker": "SPEAKER_00",
+    "text": "I'm in Jermon."
+  },
+  {
+    "start": 2.42,
+    "end": 2.5,
+    "speaker": "SPEAKER_00",
+    "text": "Yep."
+  },
+  {
+    "start": 6.440000000000002,
+    "end": 7.24,
+    "speaker": "SPEAKER_00",
+    "text": "My command."
+  },
+  {
+    "start": 7.72,
+    "end": 8.64,
+    "speaker": "SPEAKER_02",
+    "text": "Hi, please come in."
+  },
+  {
+    "start": 10.660000000000002,
+    "end": 11.54,
+    "speaker": "SPEAKER_01",
+    "text": "Good morning."
+  },
+  {
+    "start": 12.06,
+    "end": 12.68,
+    "speaker": "SPEAKER_02",
+    "text": "Good morning."
+  },
+  {
+    "start": 13.14,
+    "end": 13.5,
+    "speaker": "SPEAKER_02",
+    "text": "How are you?"
+  },
+  {
+    "start": 14.14,
+    "end": 15.12,
+    "speaker": "SPEAKER_01",
+    "text": "I'm good officer."
+  },
+  {
+    "start": 15.46,
+    "end": 15.8,
+    "speaker": "SPEAKER_01",
+    "text": "How are you?"
+  },
+  {
+    "start": 16.14,
+    "end": 16.8,
+    "speaker": "SPEAKER_02",
+    "text": "I'm also good."
+  },
+  {
+    "start": 17.0,
+    "end": 17.76,
+    "speaker": "SPEAKER_02",
+    "text": "How can I help you?"
+  },
+  {
+    "start": 18.82,
+    "end": 25.92,
+    "speaker": "SPEAKER_01",
+    "text": "Well officer, I'm obviously from Pakistan and I have been living here since last two months."
+  },
+  {
+    "start": 26.599999999999998,
+    "end": 32.42,
+    "speaker": "SPEAKER_01",
+    "text": "So I'm looking for a daycare option for my daughter who is three years old."
+  },
+  {
+    "start": 33.2,
+    "end": 33.22,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 33.42,
+    "end": 35.92,
+    "speaker": "SPEAKER_01",
+    "text": "So what are the options around here in this book?"
+  },
+  {
+    "start": 37.18,
+    "end": 39.78,
+    "speaker": "SPEAKER_02",
+    "text": "There are plenty of options that we have here."
+  },
+  {
+    "start": 40.28,
+    "end": 51.36,
+    "speaker": "SPEAKER_02",
+    "text": "Maybe let me look at our guidebook and tell you what can I find for you and tell you how you can find it yourself also."
+  },
+  {
+    "start": 60.760000000000005,
+    "end": 67.0,
+    "speaker": "SPEAKER_02",
+    "text": "So there's several links in front of me that I can just write it for you."
+  },
+  {
+    "start": 67.4,
+    "end": 70.08,
+    "speaker": "SPEAKER_02",
+    "text": "I think you have it in this paper for you."
+  },
+  {
+    "start": 70.28,
+    "end": 70.86,
+    "speaker": "SPEAKER_02",
+    "text": "Here you are."
+  },
+  {
+    "start": 72.14,
+    "end": 78.36,
+    "speaker": "SPEAKER_02",
+    "text": "These are the links that you can say for different daycares that might be available for you."
+  },
+  {
+    "start": 78.36,
+    "end": 85.68,
+    "speaker": "SPEAKER_02",
+    "text": "So regarding your child's age and how close they are to your living area."
+  },
+  {
+    "start": 86.58,
+    "end": 98.82,
+    "speaker": "SPEAKER_02",
+    "text": "As you can see, there are, for example, evocacy system, as well as early education, types of care, municipal, private family daycare, open plain crowns."
+  },
+  {
+    "start": 98.92,
+    "end": 102.04,
+    "speaker": "SPEAKER_02",
+    "text": "And their deaf special facilities are there for children."
+  },
+  {
+    "start": 104.53999999999999,
+    "end": 107.16,
+    "speaker": "SPEAKER_02",
+    "text": "And everything is written in these websites."
+  },
+  {
+    "start": 108.12,
+    "end": 117.64,
+    "speaker": "SPEAKER_02",
+    "text": "These are, fees are encompassed and usually there is a fee calculator over there on the website, CD website."
+  },
+  {
+    "start": 117.98,
+    "end": 125.76,
+    "speaker": "SPEAKER_02",
+    "text": "So you can also calculate if there is any fees over there or how you can just pay for these type of options."
+  },
+  {
+    "start": 127.9,
+    "end": 132.32,
+    "speaker": "SPEAKER_02",
+    "text": "And there are also integration and language support offered in some centers."
+  },
+  {
+    "start": 135.20000000000002,
+    "end": 141.48,
+    "speaker": "SPEAKER_02",
+    "text": "And then later transition to pre-primary education which will be at age 6."
+  },
+  {
+    "start": 142.72,
+    "end": 146.18,
+    "speaker": "SPEAKER_02",
+    "text": "And it is free and often co-located at least schools."
+  },
+  {
+    "start": 147.22,
+    "end": 153.66,
+    "speaker": "SPEAKER_02",
+    "text": "So you want me to help you with this website or you can just find it or book it."
+  },
+  {
+    "start": 153.66,
+    "end": 158.72,
+    "speaker": "SPEAKER_02",
+    "text": "Yes, you can just give me the Google link so that I search it on."
+  },
+  {
+    "start": 159.3,
+    "end": 163.0,
+    "speaker": "SPEAKER_01",
+    "text": "I just want to know basically it's my, I'm new here."
+  },
+  {
+    "start": 163.24,
+    "end": 164.98,
+    "speaker": "SPEAKER_02",
+    "text": "So I want to know how the system works here."
+  },
+  {
+    "start": 165.08,
+    "end": 168.48,
+    "speaker": "SPEAKER_01",
+    "text": "For example, how can I admit my daughter in there?"
+  },
+  {
+    "start": 168.98,
+    "end": 172.04,
+    "speaker": "SPEAKER_02",
+    "text": "And what is the process like? Should I read in the Queewar?"
+  },
+  {
+    "start": 172.7,
+    "end": 174.16,
+    "speaker": "SPEAKER_01",
+    "text": "Is it directly admittable?"
+  },
+  {
+    "start": 175.70000000000002,
+    "end": 178.24,
+    "speaker": "SPEAKER_02",
+    "text": "What is the process that how can she go?"
+  },
+  {
+    "start": 178.38,
+    "end": 179.86,
+    "speaker": "SPEAKER_01",
+    "text": "Because she is two years also."
+  },
+  {
+    "start": 179.86,
+    "end": 181.94,
+    "speaker": "SPEAKER_02",
+    "text": "So she needs like a transport."
+  },
+  {
+    "start": 183.32,
+    "end": 186.72,
+    "speaker": "SPEAKER_02",
+    "text": "So could you guide me about that, like how the system works in this regard?"
+  },
+  {
+    "start": 187.2,
+    "end": 195.84,
+    "speaker": "SPEAKER_02",
+    "text": "Usually in this type of topics people or families try to find that they can meet their own vicinity, their living area."
+  },
+  {
+    "start": 196.36,
+    "end": 198.48,
+    "speaker": "SPEAKER_02",
+    "text": "So the transportation will be easier for them."
+  },
+  {
+    "start": 199.3,
+    "end": 205.04,
+    "speaker": "SPEAKER_02",
+    "text": "But if you are working somewhere else or the daycare is not close to you."
+  },
+  {
+    "start": 207.02,
+    "end": 212.12,
+    "speaker": "SPEAKER_02",
+    "text": "My suggestion is to find the daycare that is near to your area."
+  },
+  {
+    "start": 212.58,
+    "end": 218.24,
+    "speaker": "SPEAKER_02",
+    "text": "If it is not possible for you, you should just search for the transportation over there."
+  },
+  {
+    "start": 218.38,
+    "end": 219.98,
+    "speaker": "SPEAKER_02",
+    "text": "I'm not sure about it."
+  },
+  {
+    "start": 220.12,
+    "end": 222.88,
+    "speaker": "SPEAKER_02",
+    "text": "Maybe I can find it in for you here."
+  },
+  {
+    "start": 223.7,
+    "end": 228.06,
+    "speaker": "SPEAKER_02",
+    "text": "So if I search here, I can answer you in this regard."
+  },
+  {
+    "start": 255.34,
+    "end": 255.86,
+    "speaker": "UNKNOWN",
+    "text": "Okay."
+  },
+  {
+    "start": 257.0,
+    "end": 263.74,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, since this website is not working at the moment or is out of date, let me search for the other one."
+  },
+  {
+    "start": 265.62,
+    "end": 268.4,
+    "speaker": "SPEAKER_02",
+    "text": "It is sometimes possible and it might happen."
+  },
+  {
+    "start": 269.5,
+    "end": 276.34,
+    "speaker": "SPEAKER_02",
+    "text": "At that point, at that point that you are searching for this type of website, they might be out of date or unavailable."
+  },
+  {
+    "start": 277.1,
+    "end": 283.1,
+    "speaker": "SPEAKER_02",
+    "text": "But we can have to show you how you can find your information that you are looking for here."
+  },
+  {
+    "start": 310.47999999999996,
+    "end": 311.28,
+    "speaker": "SPEAKER_02",
+    "text": "Okay."
+  },
+  {
+    "start": 312.14,
+    "end": 317.18,
+    "speaker": "SPEAKER_02",
+    "text": "It seems that the second website is also not working at the moment."
+  },
+  {
+    "start": 318.84,
+    "end": 319.64,
+    "speaker": "SPEAKER_02",
+    "text": "But..."
+  },
+  {
+    "start": 325.44,
+    "end": 329.42,
+    "speaker": "SPEAKER_02",
+    "text": "You can also search in the websites in Google for daycare."
+  },
+  {
+    "start": 330.4,
+    "end": 332.6,
+    "speaker": "SPEAKER_02",
+    "text": "And in Finnish language, it is called Pivacuti."
+  },
+  {
+    "start": 333.66,
+    "end": 341.48,
+    "speaker": "SPEAKER_02",
+    "text": "So, for example, if you go to Google Maps, maybe search for Pivacuti is near me."
+  },
+  {
+    "start": 341.88,
+    "end": 350.94,
+    "speaker": "SPEAKER_02",
+    "text": "You can find some daycare that are near you and also ask directly if you want to ask from the people who are working over there."
+  },
+  {
+    "start": 351.94,
+    "end": 352.6,
+    "speaker": "SPEAKER_02",
+    "text": "In this area."
+  },
+  {
+    "start": 354.26,
+    "end": 359.92,
+    "speaker": "SPEAKER_02",
+    "text": "But these are the two websites that are available right now that is in front of you on that paper."
+  },
+  {
+    "start": 361.0,
+    "end": 362.7,
+    "speaker": "SPEAKER_02",
+    "text": "They are not working at the moment."
+  },
+  {
+    "start": 363.04,
+    "end": 370.8,
+    "speaker": "SPEAKER_02",
+    "text": "Please check them later and also you can ask from our telephone numbers."
+  },
+  {
+    "start": 371.92,
+    "end": 378.74,
+    "speaker": "SPEAKER_02",
+    "text": "So these are the contacts that they can give you some information about this."
+  },
+  {
+    "start": 378.74,
+    "end": 385.36,
+    "speaker": "SPEAKER_02",
+    "text": "I think those contacts will be at the end of those websites at the bottom of those websites."
+  },
+  {
+    "start": 385.78,
+    "end": 386.8,
+    "speaker": "SPEAKER_02",
+    "text": "They check those contacts."
+  },
+  {
+    "start": 387.26,
+    "end": 390.44,
+    "speaker": "SPEAKER_02",
+    "text": "Alright, so what are the possibilities for education?"
+  },
+  {
+    "start": 390.82,
+    "end": 395.92,
+    "speaker": "SPEAKER_02",
+    "text": "Because now she is two years old but maybe years later or two years later."
+  },
+  {
+    "start": 396.04,
+    "end": 398.32,
+    "speaker": "SPEAKER_02",
+    "text": "Or maybe six, at the age of six."
+  },
+  {
+    "start": 399.08,
+    "end": 407.3,
+    "speaker": "SPEAKER_02",
+    "text": "She is going to study in how about the education choices based on transfer norms and based on religious perspective."
+  },
+  {
+    "start": 408.4,
+    "end": 411.7,
+    "speaker": "SPEAKER_02",
+    "text": "So, how does it differ for a person to person?"
+  },
+  {
+    "start": 412.18,
+    "end": 414.22,
+    "speaker": "SPEAKER_02",
+    "text": "Okay, do you have anything in your mind?"
+  },
+  {
+    "start": 414.8,
+    "end": 417.28,
+    "speaker": "SPEAKER_02",
+    "text": "What type of education are you looking for?"
+  },
+  {
+    "start": 417.28,
+    "end": 425.02,
+    "speaker": "SPEAKER_02",
+    "text": "For example, what are the things like a child from a Christian family, a child from a Muslim family."
+  },
+  {
+    "start": 425.72,
+    "end": 432.04,
+    "speaker": "SPEAKER_02",
+    "text": "So do they have some differentiation in the course, content, like in the future perspective of education?"
+  },
+  {
+    "start": 432.04,
+    "end": 437.36,
+    "speaker": "SPEAKER_02",
+    "text": "Well, I didn't study in this type of education."
+  },
+  {
+    "start": 437.92,
+    "end": 439.58,
+    "speaker": "SPEAKER_02",
+    "text": "I'm like you are an immigrant here."
+  },
+  {
+    "start": 440.3,
+    "end": 450.0,
+    "speaker": "SPEAKER_02",
+    "text": "But I believe that or I see with the other friends that they just send their children to this type of school for education."
+  },
+  {
+    "start": 450.42,
+    "end": 455.44,
+    "speaker": "SPEAKER_02",
+    "text": "All the people are just doing the studies beside each other."
+  },
+  {
+    "start": 458.5,
+    "end": 473.1,
+    "speaker": "SPEAKER_02",
+    "text": "They try to teach children how to live and the things that they are in need in order to have a good living besides each other with different types of education."
+  },
+  {
+    "start": 476.44,
+    "end": 496.34,
+    "speaker": "SPEAKER_02",
+    "text": "So maybe you can also find these type of things from the previous websites and also in education and Finnish language learning."
+  },
+  {
+    "start": 496.34,
+    "end": 507.36,
+    "speaker": "SPEAKER_02",
+    "text": "We are trying also, for example, to adapt people with different cultures that are coming outside of Finland to our local culture."
+  },
+  {
+    "start": 507.72,
+    "end": 514.4,
+    "speaker": "SPEAKER_02",
+    "text": "So it will be easier for us for children, for the immigrants in order to communicate with different people."
+  },
+  {
+    "start": 514.4,
+    "end": 531.42,
+    "speaker": "SPEAKER_02",
+    "text": "So this is also a type of thinking that our children are going to face in schools to be beside different types of children with different culture and to communicate better than before."
+  },
+  {
+    "start": 531.74,
+    "end": 532.8,
+    "speaker": "SPEAKER_02",
+    "text": "Well, this is great."
+  },
+  {
+    "start": 532.8,
+    "end": 538.92,
+    "speaker": "SPEAKER_02",
+    "text": "And how about the options of food like the parents can make the choices for the food?"
+  },
+  {
+    "start": 539.04,
+    "end": 544.06,
+    "speaker": "SPEAKER_02",
+    "text": "For example, a family wants their care to be vegetarian out there and day care."
+  },
+  {
+    "start": 544.84,
+    "end": 546.52,
+    "speaker": "SPEAKER_02",
+    "text": "Are there could be some choices of that?"
+  },
+  {
+    "start": 546.64,
+    "end": 550.4,
+    "speaker": "SPEAKER_02",
+    "text": "No, it's directly prescribed by the day care."
+  },
+  {
+    "start": 550.4,
+    "end": 561.84,
+    "speaker": "SPEAKER_02",
+    "text": "I know that for children in child care or poverty and also at school the food will be free."
+  },
+  {
+    "start": 562.5,
+    "end": 576.52,
+    "speaker": "SPEAKER_02",
+    "text": "But I think it should be also possible if there are some restrictions for the child, for example, if they have some, you know, they cannot eat something, for example."
+  },
+  {
+    "start": 577.52,
+    "end": 582.24,
+    "speaker": "SPEAKER_02",
+    "text": "In that type of situation it can be reported that school or child care."
+  },
+  {
+    "start": 583.3,
+    "end": 587.28,
+    "speaker": "SPEAKER_02",
+    "text": "For example, there are some allergies to some food."
+  },
+  {
+    "start": 588.42,
+    "end": 595.66,
+    "speaker": "SPEAKER_02",
+    "text": "In that regard they can just prevent or prepare the proper food for that child, not to be dangerous for him or her."
+  },
+  {
+    "start": 596.66,
+    "end": 611.24,
+    "speaker": "SPEAKER_02",
+    "text": "But regarding the question that you asked whether vegetarian or meat is over, I think there are different possibilities as school."
+  },
+  {
+    "start": 612.14,
+    "end": 616.28,
+    "speaker": "SPEAKER_02",
+    "text": "So maybe it can also be found in these websites."
+  },
+  {
+    "start": 617.0600000000001,
+    "end": 622.96,
+    "speaker": "SPEAKER_02",
+    "text": "And how about the medical services, for example, that cares not enough."
+  },
+  {
+    "start": 623.78,
+    "end": 629.16,
+    "speaker": "SPEAKER_02",
+    "text": "So if there is any kind of emergency in some sort like they fall down or something like that."
+  },
+  {
+    "start": 629.78,
+    "end": 634.48,
+    "speaker": "SPEAKER_02",
+    "text": "So there we have some possibility of first aid and sort of any emergency."
+  },
+  {
+    "start": 635.28,
+    "end": 637.86,
+    "speaker": "SPEAKER_02",
+    "text": "So what are the medical services available at the?"
+  },
+  {
+    "start": 639.14,
+    "end": 644.46,
+    "speaker": "SPEAKER_02",
+    "text": "For the health services, for example, there are these type of websites that we have here."
+  },
+  {
+    "start": 645.04,
+    "end": 655.44,
+    "speaker": "SPEAKER_02",
+    "text": "As you can see in front of you on that paper, the school health services also, it can be, you can also book appointments via my support card."
+  },
+  {
+    "start": 656.44,
+    "end": 664.06,
+    "speaker": "SPEAKER_02",
+    "text": "And also for the whole thing that we have emergency number 112 for books, looks nice."
+  },
+  {
+    "start": 665.0600000000001,
+    "end": 670.66,
+    "speaker": "SPEAKER_02",
+    "text": "And non-agent help plan, it can be 116, 117."
+  },
+  {
+    "start": 671.34,
+    "end": 689.66,
+    "speaker": "SPEAKER_02",
+    "text": "But if somethings happen, for example, during the day hours or if you try that child care, the people who are working over there are responsible, they will contact you and also they will contact the health services to take care of that."
+  },
+  {
+    "start": 690.64,
+    "end": 691.8,
+    "speaker": "SPEAKER_02",
+    "text": "Well, I'm quite unfamiliar."
+  },
+  {
+    "start": 696.7800000000001,
+    "end": 697.82,
+    "speaker": "SPEAKER_02",
+    "text": "So time is on?"
+  },
+  {
+    "start": 698.32,
+    "end": 700.92,
+    "speaker": "SPEAKER_03",
+    "text": "No, you can continue if you still have."
+  },
+  {
+    "start": 704.1,
+    "end": 706.72,
+    "speaker": "SPEAKER_02",
+    "text": "So maybe it's okay, then if the time is on."
+  }
+]

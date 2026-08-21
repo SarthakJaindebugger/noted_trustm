@@ -1,0 +1,78 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "No information",
+    "Heard from the guidance/advice position (if other where?)": "No information",
+    "Reason for Immigration": "Entrepreneurship",
+    "Additional Information about the customers": "Illiterate",
+    "Education Level": "Secondary education (incl. basic/matriculation)",
+    "Customer birth country": "Finland",
+    "Mother Tongue/Language": "English",
+    "Customer Domicile": "helsinki",
+    "Position in labour market": "Entrepreneur",
+    "Duration of residence in Finland": "More than 5 years",
+    "Contents of the customer visit": "Residence",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing for a new company without forming a formal business, which affects their residence permit status. They are unsure about the implications of working as a contractor on their current worker permit and are concerned about the tax obligations and legal status of self-employment in Finland.",
+    "Any other Feedback": "The advisor mentioned that if the customer is unsure about the self-employment arrangement, they can get a consultation session, especially for light entrepreneurs, and suggested checking with the tax office for guidance on tax obligations."
+  },
+  "metadata": {
+    "date_time": "17/08/2026 16:07",
+    "audio_file": "dia11sce2MC_53cc00c8.WAV",
+    "visit_duration": "12 min 10 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-08-17",
+    "time": "17:07",
+    "visitDuration": "12 min 10 sec",
+    "contactMethod": [
+      "Visit for guidance/advice in-person"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "No information",
+    "customerCount": 1,
+    "gender": "Male",
+    "ageGroup": "18-29",
+    "immigrationReason": "Entrepreneurship",
+    "additionalInfo": [
+      "Illiterate"
+    ],
+    "birthCountry": "Finland",
+    "motherTongue": "English",
+    "educationLevel": "Secondary education (incl. basic/matriculation)",
+    "labourPosition": [
+      "Entrepreneur"
+    ],
+    "domicile": "helsinki",
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "residenceDuration": [
+      "More than 5 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Residence"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is currently unemployed, recently laid off from a tech company as a software developer, and is considering freelancing for a new company without forming a formal business, which affects their residence permit status. They are unsure about the implications of working as a contractor on their current worker permit and are concerned about the tax obligations and legal status of self-employment in Finland.",
+    "directedTo": "Finnish Immigration Service (Migri)",
+    "otherFeedback": "The advisor mentioned that if the customer is unsure about the self-employment arrangement, they can get a consultation session, especially for light entrepreneurs, and suggested checking with the tax office for guidance on tax obligations.",
+    "audio_filename": "dia11sce2MC_53cc00c8.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-17T16:07:53.983769"
+}

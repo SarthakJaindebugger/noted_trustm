@@ -1,0 +1,27 @@
+{
+  "date_time": "18/08/2026 17:09",
+  "audio_file": "dia06sce1MC.WAV",
+  "visit_duration": "10 min 20 sec",
+  "audio_duration_sec": 619.68,
+  "segment_count": 132,
+  "speakers_detected": [
+    "SPEAKER_00",
+    "SPEAKER_01",
+    "SPEAKER_02"
+  ],
+  "speaker_roles": {
+    "SPEAKER_00": "customer",
+    "SPEAKER_01": "advisor",
+    "SPEAKER_02": "customer",
+    "UNKNOWN": "advisor"
+  },
+  "speaker_durations_sec": {
+    "SPEAKER_00": 3.0,
+    "SPEAKER_01": 249.3,
+    "SPEAKER_02": 95.78
+  },
+  "total_advisor_time_sec": 249.3,
+  "total_advisor_time": "4 min 9 sec",
+  "total_customer_time_sec": 98.78,
+  "total_customer_time": "1 min 39 sec"
+}

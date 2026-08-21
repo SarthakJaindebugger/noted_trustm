@@ -1,0 +1,108 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Remote Connection",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "Yes",
+    "Ques.7b) External interpreter present or telephone?": "No",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "England",
+    "Mother Tongue/Language": "English",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Family life (eg.: children's school, early childhood education, relationships)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Early childhood education",
+    "Any other Feedback": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "Any Additional Information": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "Customer Age": "30-49",
+    "Customer Gender": "Female"
+  },
+  "metadata": {
+    "date_time": "18/08/2026 11:03",
+    "audio_file": "dia03sce1SA.wav",
+    "visit_duration": "17 min 42 sec",
+    "audio_duration_sec": 1061.68,
+    "segment_count": 439,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01",
+      "SPEAKER_02"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "advisor",
+      "SPEAKER_01": "customer",
+      "SPEAKER_02": "advisor",
+      "UNKNOWN": "customer"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_00": 22.3,
+      "SPEAKER_01": 87.36,
+      "SPEAKER_02": 637.26
+    },
+    "total_advisor_time_sec": 659.56,
+    "total_advisor_time": "11 min 0 sec",
+    "total_customer_time_sec": 87.36,
+    "total_customer_time": "1 min 27 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "17 min 42 sec",
+    "contactMethod": [
+      "Remote Connection"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "30-49",
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "England",
+    "motherTongue": "English",
+    "educationLevel": "",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo, Finland",
+    "residenceDuration": [],
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Family life (eg.: children's school",
+      "early childhood education",
+      "relationships)"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "additional_info_text_tags": [
+      "daycare",
+      "distance",
+      "relocation",
+      "meals",
+      "application"
+    ],
+    "other_feedback_tags": [
+      "daycare",
+      "distance",
+      "relocation",
+      "meals",
+      "application"
+    ]
+  }
+}

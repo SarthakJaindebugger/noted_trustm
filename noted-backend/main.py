@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 import uvicorn
 import signal
 import sys
+import os
 import asyncio
 
 from config import settings
@@ -16,9 +17,20 @@ from database.connection import init_db, close_db
 from api.websocket import manager
 from services.model_manager import model_manager
 from services.account_store import ensure_all_account_directories
+from api.rag_routes import rag_service
 
 # Setup logging
 setup_logging()
+
+
+async def _warmup_rag():
+    """Load RAG models in background so first query is fast."""
+    try:
+        await rag_service.warmup_async()
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error("RAG warmup failed: %s", e)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -26,7 +38,8 @@ async def lifespan(app: FastAPI):
     ensure_all_account_directories()
     await init_db()
     await model_manager.initialize_models()
-    await manager.initialize_audio_processor_async()  # Initialize audio processor after models are loaded
+    await manager.initialize_audio_processor_async()
+
     yield
     # Shutdown
     print("Starting application shutdown...")
@@ -96,13 +109,15 @@ if __name__ == "__main__":
     print(f"Server will be available at http://{settings.server.host}:{settings.server.port}")
     
     try:
+        workers = int(os.environ.get("UVICORN_WORKERS", "1"))
         uvicorn.run(
             "main:app",
             host=settings.server.host,
             port=settings.server.port,
             reload=False,
             log_level="info",
-            access_log=True
+            access_log=True,
+            workers=workers,
         )
     except KeyboardInterrupt:
         print("\nKeyboard interrupt received, shutting down...")

@@ -1,0 +1,109 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Electronic service (eg. forms)",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Not mentioned in transcript.",
+    "Ques.7a) Was the language of counselling the customer's own language?": "No",
+    "Ques.7b) External interpreter present or telephone?": "Yes, interpretation method unknown",
+    "Ques.7c) Interpreting language": "Not mentioned in transcript.",
+    "Additional Information about the customers": "Not mentioned in transcript.",
+    "Education Level": "Not mentioned in transcript.",
+    "Customer birth country": "Not mentioned in transcript.",
+    "Mother Tongue/Language": "Not mentioned in transcript.",
+    "Customer Domicile": "Not mentioned in transcript.",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Not mentioned in transcript.",
+    "Ques.17b) Is this the customer's first visit?": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Municipal immigrant and integration services",
+    "Any other Feedback": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "Any Additional Information": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 17:07",
+    "audio_file": "dia01sce1MC.WAV",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 708.72,
+    "segment_count": 113,
+    "speakers_detected": [
+      "SPEAKER_00",
+      "SPEAKER_01",
+      "SPEAKER_02",
+      "SPEAKER_03"
+    ],
+    "speaker_roles": {
+      "SPEAKER_00": "customer",
+      "SPEAKER_01": "advisor",
+      "SPEAKER_02": "customer",
+      "SPEAKER_03": "customer",
+      "UNKNOWN": "advisor"
+    },
+    "speaker_durations_sec": {
+      "SPEAKER_02": 157.76,
+      "SPEAKER_01": 278.36,
+      "SPEAKER_03": 37.6,
+      "SPEAKER_00": 0.5
+    },
+    "total_advisor_time_sec": 278.36,
+    "total_advisor_time": "4 min 38 sec",
+    "total_customer_time_sec": 195.86,
+    "total_customer_time": "3 min 16 sec"
+  },
+  "form": {
+    "controlLocation": "",
+    "date": "",
+    "time": "",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [
+      "Electronic service (eg. forms)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 3,
+    "gender": null,
+    "ageGroup": null,
+    "immigrationReason": "",
+    "additionalInfo": [],
+    "additionalInfoOther": "",
+    "birthCountry": "",
+    "motherTongue": "",
+    "educationLevel": "",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "",
+    "residenceDuration": [],
+    "customerComingFrom": null,
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "contentsOther": "",
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is seeking childcare options for a three-year-old child, working full-time, and is concerned about language support, meal provisions, and the availability of services during night shifts. The child is not yet eligible for formal schooling in Finland, as education starts at age seven, but early childhood education applications can be made once the child reaches the age of seven.",
+    "additional_info_text_tags": [
+      "childcare",
+      "language support",
+      "meal provisions",
+      "night shifts",
+      "early education",
+      "Kela benefits"
+    ],
+    "other_feedback_tags": [
+      "childcare",
+      "language support",
+      "meal provisions",
+      "night shifts",
+      "early education",
+      "Kela benefits"
+    ]
+  }
+}

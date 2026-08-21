@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Espoo – Customer Dashboard</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f2f6fc;
+            color: #1c2a3a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px 100px;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* ─── HEADER ─── */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px 20px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e4ecf5;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: #003b5c;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-area h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #003b5c;
+        }
+
+        .logo-area h1 span {
+            font-weight: 400;
+            font-size: 16px;
+            color: #5b7a94;
+            margin-left: 4px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #ffffff;
+            padding: 6px 16px 6px 12px;
+            border-radius: 60px;
+            border: 1px solid #dde6f0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #003b5c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .user-id {
+            font-size: 12px;
+            color: #6d7f94;
+        }
+
+        /* ─── TAB NAV ─── */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 4px;
+            margin-bottom: 28px;
+            background: #ffffff;
+            padding: 6px 8px;
+            border-radius: 60px;
+            border: 1px solid #e4ecf5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .tab-btn {
+            flex: 1 0 auto;
+            background: transparent;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #4a5f78;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .tab-btn i {
+            font-size: 16px;
+        }
+
+        .tab-btn:hover {
+            background: #f0f5fb;
+            color: #003b5c;
+        }
+
+        .tab-btn.active {
+            background: #003b5c;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,59,92,0.20);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── CARDS ─── */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 22px 26px 28px;
+            border: 1px solid #e4ecf5;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .card-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1c2a3a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header h3 i {
+            color: #003b5c;
+            width: 24px;
+        }
+
+        .badge-count {
+            background: #eef4fa;
+            color: #1c2a3a;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 40px;
+        }
+
+        /* ─── RECORDINGS ─── */
+        .recording-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f5fb;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .recording-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .recording-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .recording-info .icon {
+            font-size: 28px;
+            color: #003b5c;
+            width: 36px;
+            text-align: center;
+        }
+
+        .recording-meta .title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .recording-meta .date {
+            font-size: 13px;
+            color: #6d7f94;
+        }
+
+        .recording-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-icon {
+            background: #f0f5fb;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1c2a3a;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+        .btn-icon:hover {
+            background: #e0eaf5;
+        }
+        .btn-icon.primary {
+            background: #003b5c;
+            color: #fff;
+        }
+        .btn-icon.primary:hover {
+            background: #002c47;
+        }
+        .btn-icon.outline {
+            background: transparent;
+            border: 1px solid #d0ddee;
+        }
+        .btn-icon.outline:hover {
+            background: #f0f5fb;
+        }
+
+        /* ─── UPLOAD ZONE ─── */
+        .upload-zone {
+            border: 2px dashed #d0ddee;
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            background: #fafcfe;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: #003b5c;
+            background: #f2f8ff;
+        }
+        .upload-zone i {
+            font-size: 48px;
+            color: #5b7a94;
+            margin-bottom: 12px;
+        }
+        .upload-zone p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .upload-zone .sub {
+            font-size: 14px;
+            color: #6d7f94;
+        }
+        #file-input { display: none; }
+        .upload-progress { display: none; margin-top: 16px; }
+        .progress-bar { height: 8px; background: #e4ecf5; border-radius: 40px; overflow: hidden; margin-top: 6px; }
+        .progress-bar .fill { height: 100%; background: #003b5c; width: 0%; border-radius: 40px; transition: width 0.4s; }
+
+        /* ─── TICKETS ─── */
+        .ticket-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f5fb;
+        }
+        .ticket-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .ticket-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px 12px;
+        }
+        .ticket-subject {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .ticket-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 40px;
+            background: #eef4fa;
+            color: #1c2a3a;
+        }
+        .ticket-status.open {
+            background: #e0f0ea;
+            color: #0f6b52;
+        }
+        .ticket-status.closed {
+            background: #edf0f5;
+            color: #5b7a94;
+        }
+        .ticket-status.waiting {
+            background: #fdf0e0;
+            color: #a86f2a;
+        }
+        .ticket-body {
+            margin-top: 6px;
+            font-size: 14px;
+            color: #3a4f68;
+        }
+        .ticket-date {
+            font-size: 12px;
+            color: #8a9eb0;
+            margin-top: 4px;
+        }
+        .new-ticket-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 16px;
+        }
+        .new-ticket-form input,
+        .new-ticket-form textarea {
+            font-family: inherit;
+            padding: 12px 16px;
+            border: 1px solid #d0ddee;
+            border-radius: 14px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            background: #fafcfe;
+        }
+        .new-ticket-form input:focus,
+        .new-ticket-form textarea:focus {
+            border-color: #003b5c;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0,59,92,0.08);
+        }
+        .new-ticket-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .btn-submit {
+            background: #003b5c;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            align-self: flex-start;
+            font-family: inherit;
+        }
+        .btn-submit:hover {
+            background: #002c47;
+        }
+
+        /* ─── FAQ ─── */
+        .faq-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f5fb;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+            color: #1c2a3a;
+            align-items: center;
+        }
+        .faq-question i {
+            color: #003b5c;
+            transition: 0.2s;
+            width: 20px;
+        }
+        .faq-question .arrow {
+            margin-left: auto;
+            transition: 0.2s;
+        }
+        .faq-answer {
+            padding-left: 34px;
+            margin-top: 6px;
+            font-size: 14px;
+            color: #3a4f68;
+            line-height: 1.6;
+            display: none;
+        }
+        .faq-answer.open {
+            display: block;
+        }
+        .faq-item.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* ─── CHAT WINDOW (shared) ─── */
+        .chat-window {
+            border: 1px solid #e4ecf5;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+        .chat-messages {
+            padding: 20px 24px;
+            max-height: 380px;
+            overflow-y: auto;
+            background: #fafcfe;
+        }
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .chat-message .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #003b5c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .chat-message .avatar.bot {
+            background: #d0ddee;
+            color: #1c2a3a;
+        }
+        .chat-message .bubble {
+            background: #ffffff;
+            padding: 12px 18px;
+            border-radius: 18px 18px 18px 4px;
+            border: 1px solid #e4ecf5;
+            max-width: 80%;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .chat-message.bot .bubble {
+            border-radius: 18px 18px 4px 18px;
+            background: #f0f5fb;
+            border-color: #dde6f0;
+        }
+        .chat-message .time {
+            font-size: 11px;
+            color: #8a9eb0;
+            margin-top: 4px;
+            display: block;
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-top: 1px solid #e4ecf5;
+            background: #ffffff;
+            align-items: flex-end;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #d0ddee;
+            border-radius: 60px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+            background: #fafcfe;
+        }
+        .chat-input-area input:focus {
+            border-color: #003b5c;
+            background: #ffffff;
+        }
+        .chat-input-area .btn-send {
+            background: #003b5c;
+            color: #fff;
+            border: none;
+            border-radius: 60px;
+            padding: 12px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chat-input-area .btn-send:hover {
+            background: #002c47;
+        }
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 0 12px 0;
+            font-size: 14px;
+            color: #5b7a94;
+        }
+        .typing-indicator .dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #b0c4d8;
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: dotPulse 1.4s infinite;
+        }
+        .typing-indicator .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator .dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ─── FORMS SUGGESTION LIST ─── */
+        .form-suggestion {
+            background: #eef6fa;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-left: 4px solid #003b5c;
+        }
+        .form-suggestion .form-name {
+            font-weight: 600;
+            color: #003b5c;
+        }
+        .form-suggestion .form-desc {
+            font-size: 13px;
+            color: #3a4f68;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            .app-container { padding: 16px 16px 100px; }
+            .tab-nav {
+                border-radius: 30px;
+                padding: 4px 6px;
+                gap: 2px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+            }
+            .tab-btn {
+                flex: 0 0 auto;
+                padding: 8px 14px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+            .tab-btn span { display: none; }
+            .tab-btn i { font-size: 18px; }
+            .card { padding: 18px 16px 22px; }
+            .recording-info { min-width: 120px; }
+            .recording-actions { width: 100%; justify-content: flex-start; gap: 8px; }
+            .chat-message .bubble { max-width: 90%; }
+            .chat-input-area { flex-wrap: wrap; }
+            .chat-input-area input { flex: 1 1 100%; }
+            .chat-input-area .btn-send { width: 100%; justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .logo-area h1 { font-size: 18px; }
+            .logo-area h1 span { display: block; font-size: 14px; margin-left: 0; }
+            .user-profile { padding: 4px 12px 4px 8px; }
+            .user-name { font-size: 13px; }
+            .user-id { font-size: 10px; }
+        }
+        .text-muted { color: #6d7f94; font-size: 13px; }
+        .mt-2 { margin-top: 8px; }
+        .flex { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="logo-area">
+            <div class="logo-icon">ES</div>
+            <h1>My Espoo <span>Immigration Services</span></h1>
+        </div>
+        <div class="user-profile">
+            <div class="user-avatar">AM</div>
+            <div>
+                <div class="user-name">Ahmed M.</div>
+                <div class="user-id"># CRM-0042</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TAB NAVIGATION -->
+    <nav class="tab-nav" id="tabNav">
+        <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-home"></i> <span>Dashboard</span></button>
+        <button class="tab-btn" data-tab="recordings"><i class="fas fa-microphone"></i> <span>My Records</span></button>
+        <button class="tab-btn" data-tab="upload"><i class="fas fa-upload"></i> <span>Upload</span></button>
+        <button class="tab-btn" data-tab="messages"><i class="fas fa-envelope"></i> <span>Messages</span></button>
+        <button class="tab-btn" data-tab="faq"><i class="fas fa-question-circle"></i> <span>FAQs</span></button>
+        <button class="tab-btn" data-tab="chat"><i class="fas fa-robot"></i> <span>AI Chat</span></button>
+        <!-- NEW: Forms Finder tab -->
+        <button class="tab-btn" data-tab="forms"><i class="fas fa-file-alt"></i> <span>Forms Finder</span></button>
+    </nav>
+
+    <!-- ─── TAB: DASHBOARD ─── (same as before) -->
+    <div class="tab-content active" id="tab-dashboard">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-chart-simple"></i> Quick Overview</h3>
+                <span class="badge-count">2 visits</span>
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:20px;">
+                <div>
+                    <div class="text-muted">Next appointment</div>
+                    <div style="font-weight:700; font-size:20px; color:#003b5c;">03 Sep 2026</div>
+                    <div style="font-size:14px;">10:00 AM · Iso Omena</div>
+                </div>
+                <div>
+                    <div class="text-muted">Active services</div>
+                    <div style="font-weight:700; font-size:20px; color:#003b5c;">4</div>
+                    <div style="font-size:14px;">Integration, Childcare, Language, Education</div>
+                </div>
+                <div>
+                    <div class="text-muted">Open tickets</div>
+                    <div style="font-weight:700; font-size:20px; color:#c97d2b;">1</div>
+                    <div style="font-size:14px;">Awaiting response</div>
+                </div>
+                <div>
+                    <div class="text-muted">Recordings</div>
+                    <div style="font-weight:700; font-size:20px; color:#003b5c;">3</div>
+                    <div style="font-size:14px;">Last: 27 Jul 2026</div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-clock"></i> Recent Activity</h3>
+            </div>
+            <div class="recording-item" style="border-bottom:1px solid #f0f5fb;">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-headphones"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Meeting with Mari K.</div>
+                        <div class="date">27 Jul 2026 · 11 min</div>
+                    </div>
+                </div>
+                <span class="badge-count" style="background:#e0f0ea; color:#0f6b52;">Listened</span>
+            </div>
+            <div class="recording-item" style="border-bottom:1px solid #f0f5fb;">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-headphones"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Language support session</div>
+                        <div class="date">20 Jul 2026 · 8 min</div>
+                    </div>
+                </div>
+                <span class="badge-count" style="background:#fdf0e0; color:#a86f2a;">New</span>
+            </div>
+            <div class="recording-item">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-headphones"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Initial interview</div>
+                        <div class="date">15 Jul 2026 · 14 min</div>
+                    </div>
+                </div>
+                <span class="badge-count" style="background:#edf0f5; color:#5b7a94;">Archived</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── TAB: RECORDINGS ─── -->
+    <div class="tab-content" id="tab-recordings">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-list"></i> My Recordings</h3>
+                <span class="badge-count">3 total</span>
+            </div>
+            <div class="recording-item">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-file-audio"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Meeting with Mari K. (27 Jul 2026)</div>
+                        <div class="date">Duration: 11:49 · 4.2 MB</div>
+                    </div>
+                </div>
+                <div class="recording-actions">
+                    <button class="btn-icon"><i class="fas fa-play"></i> Play</button>
+                    <button class="btn-icon outline"><i class="fas fa-download"></i></button>
+                </div>
+            </div>
+            <div class="recording-item">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-file-audio"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Language support session (20 Jul 2026)</div>
+                        <div class="date">Duration: 8:22 · 3.1 MB</div>
+                    </div>
+                </div>
+                <div class="recording-actions">
+                    <button class="btn-icon"><i class="fas fa-play"></i> Play</button>
+                    <button class="btn-icon outline"><i class="fas fa-download"></i></button>
+                </div>
+            </div>
+            <div class="recording-item" style="border-bottom:none; padding-bottom:0;">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-file-audio"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Initial interview (15 Jul 2026)</div>
+                        <div class="date">Duration: 14:05 · 5.8 MB</div>
+                    </div>
+                </div>
+                <div class="recording-actions">
+                    <button class="btn-icon"><i class="fas fa-play"></i> Play</button>
+                    <button class="btn-icon outline"><i class="fas fa-download"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="background:#f8faff; border:1px dashed #b0c8e0;">
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <i class="fas fa-cloud-upload-alt" style="font-size:32px; color:#003b5c;"></i>
+                <div>
+                    <div style="font-weight:600;">Need to upload a new recording?</div>
+                    <div class="text-muted">Go to the <strong>Upload</strong> tab to add audio files from your device.</div>
+                </div>
+                <button class="btn-icon primary" onclick="switchTab('upload')" style="margin-left:auto;"><i class="fas fa-arrow-right"></i> Upload now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── TAB: UPLOAD ─── -->
+    <div class="tab-content" id="tab-upload">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-upload"></i> Upload Recording</h3>
+            </div>
+            <div class="upload-zone" id="uploadZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click or drag & drop your recording here</p>
+                <div class="sub">Supports MP3, WAV, M4A (max 50 MB)</div>
+                <input type="file" id="file-input" accept="audio/*" />
+            </div>
+            <div class="upload-progress" id="uploadProgress">
+                <div style="display:flex; justify-content:space-between; font-size:14px;">
+                    <span id="fileName">recording.mp3</span>
+                    <span id="uploadPercent">0%</span>
+                </div>
+                <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+                <div style="margin-top:8px; font-size:13px; color:#6d7f94;" id="uploadStatus">Ready to upload</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-history"></i> Recent Uploads</h3>
+            </div>
+            <div class="recording-item">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-file-audio"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Childcare discussion</div>
+                        <div class="date">Uploaded 18 Aug 2026 · 3.4 MB</div>
+                    </div>
+                </div>
+                <span class="badge-count" style="background:#e0f0ea; color:#0f6b52;">Uploaded</span>
+            </div>
+            <div class="recording-item" style="border-bottom:none; padding-bottom:0;">
+                <div class="recording-info">
+                    <span class="icon"><i class="fas fa-file-audio"></i></span>
+                    <div class="recording-meta">
+                        <div class="title">Work permit query</div>
+                        <div class="date">Uploaded 12 Aug 2026 · 2.1 MB</div>
+                    </div>
+                </div>
+                <span class="badge-count" style="background:#edf0f5; color:#5b7a94;">Processing</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── TAB: MESSAGES ─── -->
+    <div class="tab-content" id="tab-messages">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-inbox"></i> Tickets</h3>
+                <span class="badge-count">2 open</span>
+            </div>
+            <div class="ticket-item">
+                <div class="ticket-header">
+                    <span class="ticket-subject">Childcare placement status</span>
+                    <span class="ticket-status open">Open</span>
+                </div>
+                <div class="ticket-body">I have applied for daycare but haven't heard back. Can you check the status?</div>
+                <div class="ticket-date">Sent 16 Aug 2026 · Waiting for advisor response</div>
+            </div>
+            <div class="ticket-item">
+                <div class="ticket-header">
+                    <span class="ticket-subject">Language course registration</span>
+                    <span class="ticket-status waiting">Waiting</span>
+                </div>
+                <div class="ticket-body">I need help registering for the Finnish course. I have my ID ready.</div>
+                <div class="ticket-date">Sent 14 Aug 2026 · Advisor assigned</div>
+            </div>
+            <div class="ticket-item" style="border-bottom:none; padding-bottom:0;">
+                <div class="ticket-header">
+                    <span class="ticket-subject">Income declaration for Kela</span>
+                    <span class="ticket-status closed">Closed</span>
+                </div>
+                <div class="ticket-body">Thanks for the clarification, I have submitted the documents.</div>
+                <div class="ticket-date">Resolved 10 Aug 2026</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-pen"></i> Send a new query</h3>
+            </div>
+            <form class="new-ticket-form" id="ticketForm">
+                <input type="text" placeholder="Subject" id="ticketSubject" required />
+                <textarea placeholder="Describe your question or issue in detail..." id="ticketMessage" required></textarea>
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Send ticket</button>
+                <div id="ticketFeedback" style="font-size:14px; color:#0f6b52; display:none;">✅ Your ticket has been sent. You will receive a reply within 2 working days.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ─── TAB: FAQ ─── -->
+    <div class="tab-content" id="tab-faq">
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right arrow"></i> How do I apply for daycare in Espoo?
+                </div>
+                <div class="faq-answer">You can apply online via the Espoo city website or visit the Service Square. Our team can help you with the application during your next appointment.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right arrow"></i> What documents do I need for integration services?
+                </div>
+                <div class="faq-answer">You need your residence permit, passport, and any previous education certificates. If you have dependents, bring their documents as well.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right arrow"></i> Is there free language training?
+                </div>
+                <div class="faq-answer">Yes, Espoo offers free Finnish and Swedish courses for immigrants. You can enroll through the integration program.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right arrow"></i> How can I contact my case officer?
+                </div>
+                <div class="faq-answer">You can send a message through this dashboard (Messages tab) or call the Service Square. Your officer's contact details are in your profile.</div>
+            </div>
+            <div class="faq-item" style="border-bottom:none; padding-bottom:0;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <i class="fas fa-chevron-right arrow"></i> What childcare options are available for shift workers?
+                </div>
+                <div class="faq-answer">Espoo offers extended-hour daycare in some locations. Please discuss your work schedule with your advisor to find a suitable place.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── TAB: AI CHAT (general) ─── -->
+    <div class="tab-content" id="tab-chat">
+        <div class="card" style="padding:0; overflow:hidden; border-radius:20px;">
+            <div class="chat-window">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message bot">
+                        <div class="avatar bot"><i class="fas fa-robot"></i></div>
+                        <div class="bubble">
+                            Hello Ahmed! 👋 I'm your AI assistant. How can I help you today? You can ask about services, documents, or anything related to your case.
+                            <span class="time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <span>AI is typing</span>
+                    <span class="dots"><span></span><span></span><span></span></span>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Type your message..." />
+                    <button class="btn-send" id="chatSendBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:13px; color:#6d7f94; padding:8px 4px;">
+            <i class="fas fa-shield-alt"></i> This chat is confidential and helps you get quick answers. Your advisor will see the conversation if needed.
+        </div>
+    </div>
+
+    <!-- ─── NEW TAB: FORMS FINDER ─── -->
+    <div class="tab-content" id="tab-forms">
+        <div class="card" style="padding:0; overflow:hidden; border-radius:20px;">
+            <div class="chat-window">
+                <div class="chat-messages" id="formsChatMessages">
+                    <div class="chat-message bot">
+                        <div class="avatar bot"><i class="fas fa-file-alt"></i></div>
+                        <div class="bubble">
+                            <strong>🔍 Find your forms</strong><br />
+                            Tell me about your situation (job, salary, contract, country of origin) and I'll suggest which tax, DVV, or other forms you need.<br />
+                            <em>Example: "I'm starting a job with a 4‑year contract, salary €80,000, from USA."</em>
+                            <span class="time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="typing-indicator" id="formsTypingIndicator">
+                    <span>AI is thinking</span>
+                    <span class="dots"><span></span><span></span><span></span></span>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="formsChatInput" placeholder="Describe your situation..." />
+                    <button class="btn-send" id="formsChatSendBtn"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </div>
+        <div style="font-size:13px; color:#6d7f94; padding:8px 4px;">
+            <i class="fas fa-info-circle"></i> The suggestions are based on typical requirements. Always confirm with your advisor or the official authority.
+        </div>
+    </div>
+
+</div>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+    // ─── TAB SWITCHING ───
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = {
+        dashboard: document.getElementById('tab-dashboard'),
+        recordings: document.getElementById('tab-recordings'),
+        upload: document.getElementById('tab-upload'),
+        messages: document.getElementById('tab-messages'),
+        faq: document.getElementById('tab-faq'),
+        chat: document.getElementById('tab-chat'),
+        forms: document.getElementById('tab-forms')
+    };
+
+    function switchTab(tabId) {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+        if (btn) btn.classList.add('active');
+        if (tabContents[tabId]) tabContents[tabId].classList.add('active');
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            switchTab(this.dataset.tab);
+        });
+    });
+    window.switchTab = switchTab;
+
+    // ─── FAQ TOGGLE ───
+    function toggleFaq(el) {
+        const item = el.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = answer.classList.contains('open');
+        if (isOpen) {
+            answer.classList.remove('open');
+            item.classList.remove('open');
+        } else {
+            answer.classList.add('open');
+            item.classList.add('open');
+        }
+    }
+    window.toggleFaq = toggleFaq;
+
+    // ─── TICKET FORM ───
+    document.getElementById('ticketForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const subject = document.getElementById('ticketSubject').value.trim();
+        const message = document.getElementById('ticketMessage').value.trim();
+        if (!subject || !message) return;
+        const feedback = document.getElementById('ticketFeedback');
+        feedback.style.display = 'block';
+        this.reset();
+        setTimeout(() => { feedback.style.display = 'none'; }, 5000);
+    });
+
+    // ─── UPLOAD ZONE ───
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('file-input');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressFill = document.getElementById('progressFill');
+    const uploadPercent = document.getElementById('uploadPercent');
+    const fileName = document.getElementById('fileName');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = '#003b5c';
+        uploadZone.style.background = '#f2f8ff';
+    });
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.style.borderColor = '#d0ddee';
+        uploadZone.style.background = '#fafcfe';
+    });
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = '#d0ddee';
+        uploadZone.style.background = '#fafcfe';
+        if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) handleFile(this.files[0]);
+    });
+
+    function handleFile(file) {
+        if (!file.type.startsWith('audio/')) {
+            alert('Please select an audio file (MP3, WAV, M4A).');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            alert('File is too large. Maximum 50 MB.');
+            return;
+        }
+        uploadProgress.style.display = 'block';
+        fileName.textContent = file.name;
+        let progress = 0;
+        uploadStatus.textContent = 'Uploading...';
+        const interval = setInterval(() => {
+            progress += Math.floor(Math.random() * 12) + 3;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                uploadStatus.textContent = '✅ Upload complete!';
+                uploadStatus.style.color = '#0f6b52';
+                setTimeout(() => {
+                    uploadProgress.style.display = 'none';
+                    uploadStatus.textContent = 'Ready to upload';
+                    uploadStatus.style.color = '#6d7f94';
+                    progressFill.style.width = '0%';
+                    uploadPercent.textContent = '0%';
+                }, 3000);
+            }
+            progressFill.style.width = progress + '%';
+            uploadPercent.textContent = progress + '%';
+        }, 150);
+    }
+
+    // ─── GENERAL AI CHAT ───
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+    const typingIndicator = document.getElementById('typingIndicator');
+
+    function addMessage(container, text, sender = 'user', isBot = false) {
+        const div = document.createElement('div');
+        div.className = `chat-message ${isBot ? 'bot' : ''}`;
+        if (isBot) {
+            div.innerHTML = `
+                <div class="avatar bot"><i class="fas fa-robot"></i></div>
+                <div class="bubble">
+                    ${text}
+                    <span class="time">Just now</span>
+                </div>
+            `;
+        } else {
+            div.innerHTML = `
+                <div class="avatar">AM</div>
+                <div class="bubble">
+                    ${text}
+                    <span class="time">Just now</span>
+                </div>
+            `;
+        }
+        container.appendChild(div);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function simulateAIResponse(container, typingIndicatorEl, userText, isForms = false) {
+        typingIndicatorEl.style.display = 'flex';
+        container.scrollTop = container.scrollHeight;
+        const delay = 1000 + Math.random() * 1500;
+        setTimeout(() => {
+            typingIndicatorEl.style.display = 'none';
+            let reply = '';
+            const lower = userText.toLowerCase();
+            if (isForms) {
+                // Forms-specific logic
+                reply = generateFormsReply(userText);
+            } else {
+                // General AI
+                if (lower.includes('daycare') || lower.includes('childcare')) {
+                    reply = 'You can apply for daycare online or visit the Service Square. I can help you with the application if you need assistance. Would you like the link?';
+                } else if (lower.includes('language') || lower.includes('finnish')) {
+                    reply = 'We offer Finnish and Swedish courses. You can register through the integration program. I can send you the schedule if you like.';
+                } else if (lower.includes('document') || lower.includes('paper')) {
+                    reply = 'For most services you need your residence permit, passport, and proof of address. If you have specific documents, feel free to ask.';
+                } else if (lower.includes('ticket') || lower.includes('message') || lower.includes('advisor')) {
+                    reply = 'You can send a message to your advisor via the Messages tab. They usually reply within 2 working days.';
+                } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                    reply = "Hello! How can I assist you today? You can ask about services, appointments, or general information.";
+                } else {
+                    reply = "I'm not entirely sure, but I can connect you with a human advisor if you'd like. You can also check the FAQs or send a ticket via the Messages tab.";
+                }
+            }
+            addMessage(container, reply, 'bot', true);
+        }, delay);
+    }
+
+    // ─── FORMS FINDER LOGIC ───
+    function generateFormsReply(userText) {
+        const lower = userText.toLowerCase();
+        let forms = [];
+        let country = '';
+        let salary = 0;
+        let contract = '';
+        // Extract country
+        if (lower.includes('usa') || lower.includes('united states') || lower.includes('america')) country = 'USA';
+        else if (lower.includes('uk') || lower.includes('united kingdom')) country = 'UK';
+        else if (lower.includes('germany')) country = 'Germany';
+        else if (lower.includes('france')) country = 'France';
+        // Extract salary
+        const salaryMatch = userText.match(/(\d{1,3}(?:,\d{3})*|\d+)\s*(?:euro|€|eur)/i);
+        if (salaryMatch) {
+            salary = parseInt(salaryMatch[1].replace(/,/g, ''));
+        }
+        // Extract contract duration
+        const contractMatch = userText.match(/(\d+)\s*(?:year|yr)/i);
+        if (contractMatch) {
+            contract = contractMatch[1] + ' years';
+        }
+
+        // Build suggestions
+        let reply = 'Based on your information:\n';
+        let hasInfo = false;
+
+        if (country) {
+            hasInfo = true;
+            reply += `- Country of origin: ${country}\n`;
+            if (country === 'USA') {
+                forms.push('Tax treaty declaration (Form W-8BEN) for US tax purposes');
+                forms.push('Finnish tax card (verokortti) – apply via Vero');
+            }
+        }
+
+        if (salary > 0) {
+            hasInfo = true;
+            reply += `- Salary: €${salary.toLocaleString()}\n`;
+            if (salary > 50000) {
+                forms.push('Tax return (veroilmoitus) – usually pre-filled, check for deductions');
+                forms.push('Declaration of foreign income (if any)');
+            } else {
+                forms.push('Tax card application (if not already done)');
+            }
+        }
+
+        if (contract) {
+            hasInfo = true;
+            reply += `- Contract duration: ${contract}\n`;
+            if (parseInt(contract) > 2) {
+                forms.push('Residence permit for employed persons (if not already)');
+                forms.push('Registration at DVV (Digital and Population Data Services Agency)');
+            } else {
+                forms.push('May need a temporary residence permit or registration');
+            }
+        }
+
+        if (!hasInfo) {
+            return "I couldn't find enough details. Please mention your job status, salary, contract length, and country of origin. For example: 'I'm from USA, salary €80,000, 4‑year contract.'";
+        }
+
+        // Generic forms always recommended
+        forms.push('Bank account opening form (if needed)');
+        forms.push('Health insurance registration (Kela)');
+
+        // Remove duplicates
+        forms = [...new Set(forms)];
+
+        // Create a nice formatted list
+        let formList = forms.map(f => `• ${f}`).join('\n');
+        reply += `\n\n📋 **Suggested forms:**\n${formList}\n\n⚠️ Always verify with the official authority or your advisor.`;
+        return reply;
+    }
+
+    // ─── GENERAL CHAT EVENTS ───
+    function sendGeneralChat() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        addMessage(chatMessages, text, 'user', false);
+        chatInput.value = '';
+        simulateAIResponse(chatMessages, typingIndicator, text, false);
+    }
+    chatSendBtn.addEventListener('click', sendGeneralChat);
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') sendGeneralChat();
+    });
+
+    // ─── FORMS CHAT EVENTS ───
+    const formsChatMessages = document.getElementById('formsChatMessages');
+    const formsChatInput = document.getElementById('formsChatInput');
+    const formsChatSendBtn = document.getElementById('formsChatSendBtn');
+    const formsTypingIndicator = document.getElementById('formsTypingIndicator');
+
+    function sendFormsChat() {
+        const text = formsChatInput.value.trim();
+        if (!text) return;
+        addMessage(formsChatMessages, text, 'user', false);
+        formsChatInput.value = '';
+        simulateAIResponse(formsChatMessages, formsTypingIndicator, text, true);
+    }
+    formsChatSendBtn.addEventListener('click', sendFormsChat);
+    formsChatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') sendFormsChat();
+    });
+
+    // ─── END ───
+</script>
+
+</body>
+</html>

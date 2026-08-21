@@ -1,0 +1,78 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Refugee",
+    "Additional Information about the customers": "Paperless",
+    "Education Level": "Primary education",
+    "Customer birth country": "Iran",
+    "Mother Tongue/Language": "Persian",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Planning to move to Finland",
+    "Duration of residence in Finland": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Filling out the forms",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "Any other Feedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 16:36",
+    "audio_file": "dia06sce1MC.WAV",
+    "visit_duration": "10 min 20 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-29",
+    "time": "08:08",
+    "visitDuration": "10 min 20 sec",
+    "contactMethod": [
+      "Remote Connection"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 2,
+    "gender": "",
+    "ageGroup": "",
+    "immigrationReason": "Refugee",
+    "additionalInfo": [
+      "Paperless"
+    ],
+    "birthCountry": "Iran",
+    "motherTongue": "Persian",
+    "educationLevel": "Primary education",
+    "labourPosition": [
+      "Planning to move to Finland"
+    ],
+    "domicile": "Espoo, Finland",
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "residenceDuration": [
+      "No information"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Filling out the forms"
+    ],
+    "additionalInfoText": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer is looking for daycare options in Espoo, Finland, for a 3-year-old child while they are at work, and specifically inquires about Persian language-speaking facilities, private daycare providers, and the costs involved. They also mention their child does not know English and seek comfort in communication.",
+    "audio_filename": "dia06sce1MC.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-18T16:36:37.511071"
+}

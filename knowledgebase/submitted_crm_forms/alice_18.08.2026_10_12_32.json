@@ -1,0 +1,78 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Student",
+    "Additional Information about the customers": "Other: Student",
+    "Education Level": "Secondary education (incl. basic/matriculation)",
+    "Customer birth country": "Greece",
+    "Mother Tongue/Language": "Greek",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Does not live in Finland",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "Any other Feedback": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 10:12",
+    "audio_file": "dia01sce1SA_1fb1239a.wav",
+    "visit_duration": "11 min 49 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-28",
+    "time": "11:11",
+    "visitDuration": "11 min 49 sec",
+    "contactMethod": [
+      "Written Contact (email, WhatsApp, social media etc)"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "18-29",
+    "immigrationReason": "Student",
+    "additionalInfo": [
+      "Other: Student"
+    ],
+    "birthCountry": "Greece",
+    "motherTongue": "Greek",
+    "educationLevel": "Secondary education (incl. basic/matriculation)",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo, Finland",
+    "customerComingFrom": "EU Country / Switzerland / EEA",
+    "residenceDuration": [
+      "Does not live in Finland"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "directedTo": "Municipal immigrant and integration services",
+    "otherFeedback": "The customer is a migrant with limited Finnish language skills, seeking childcare options for a three-year-old child, and is looking for services that accommodate multilingual support and free meal provisions. The child care service is free of charge, available through the city, and depends on the child's age and the family's registered address, with options for shift care during non-standard hours.",
+    "audio_filename": "dia01sce1SA_1fb1239a.wav"
+  },
+  "username": "alice",
+  "submitted_at": "2026-08-18T10:12:32.022448"
+}

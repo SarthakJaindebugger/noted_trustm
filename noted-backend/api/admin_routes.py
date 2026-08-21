@@ -1,7 +1,9 @@
 import logging
 import json
+import asyncio
 from pathlib import Path
 from typing import Optional
+from concurrent.futures import ThreadPoolExecutor
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -20,6 +22,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 # noted-backend; DEFAULT_SUMMARY_OUTPUT handles both layouts correctly.
 COMBINED_DASHBOARD_SUMMARY = DEFAULT_SUMMARY_OUTPUT
 admin_router = APIRouter(prefix="/admin")
+
+_analysis_executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="audio-analysis")
 
 
 def _ensure_admin(current_user: AuthenticatedUser) -> None:
@@ -170,10 +174,9 @@ async def analyze_selected_audio(
         raise HTTPException(status_code=400, detail="audio_path is required")
 
     try:
-        result = analyze_audio_file(audio_path)
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(_analysis_executor, analyze_audio_file, audio_path)
     except Exception as exc:
-        # Log the full error server-side but never expose raw exception text
-        # (e.g. CUDA OOM traces) in the HTTP response.
         logger.error("Admin audio analysis failed for %s: %s", audio_path, exc)
         raise HTTPException(
             status_code=500,
@@ -293,10 +296,16 @@ async def generate_faqs(current_user: AuthenticatedUser = Depends(require_authen
     """Generate FAQs from Q20 and Q22 text across all submitted CRM forms using LLM."""
     _ensure_admin(current_user)
     from services.faq_generator import generate_faqs_from_forms
-    try:
+
+    def _generate():
         faqs = generate_faqs_from_forms()
         FAQS_FILE.parent.mkdir(parents=True, exist_ok=True)
         FAQS_FILE.write_text(json.dumps({"faqs": faqs}, indent=2, ensure_ascii=False), encoding="utf-8")
+        return faqs
+
+    try:
+        loop = asyncio.get_event_loop()
+        faqs = await loop.run_in_executor(_analysis_executor, _generate)
         return {"faqs": faqs}
     except Exception as exc:
         logger.error("Failed to generate FAQs: %s", exc, exc_info=True)

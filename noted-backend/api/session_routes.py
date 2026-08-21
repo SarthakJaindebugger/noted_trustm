@@ -1,8 +1,10 @@
 import logging
 import os
 import uuid
+import asyncio
 from pathlib import Path
 from typing import List, Optional
+from concurrent.futures import ThreadPoolExecutor
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, Request, Response, UploadFile
 
@@ -29,6 +31,8 @@ from services.session_manager_async import AsyncSessionManager
 
 
 logger = logging.getLogger(__name__)
+
+_analysis_executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="audio-analysis")
 
 session_router = APIRouter(dependencies=[Depends(require_authenticated_user)])
 
@@ -114,10 +118,9 @@ async def analyze_selected_audio(
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
     try:
-        result = analyze_audio_file(audio_path)
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(_analysis_executor, analyze_audio_file, audio_path)
     except Exception as exc:
-        # Log the full backend error for debugging, but never leak it to the
-        # frontend (e.g. CUDA out-of-memory dumps should not appear in the UI).
         logger.error("Audio analysis failed for user %s: %s", current_user.username, exc)
         raise HTTPException(
             status_code=500,
@@ -362,6 +365,13 @@ async def submit_crm_form_copy(
         raise HTTPException(status_code=500, detail="File copy failed.")
 
     logger.info("[CRM_SUBMIT] SUCCESS — saved %s (%d bytes)", dest_path.name, dest_path.stat().st_size)
+
+    try:
+        from api.rag_routes import rag_service
+        rag_service.invalidate_cache()
+    except Exception:
+        pass
+
     return {
         "success": True,
         "filename": dest_filename,
@@ -390,6 +400,11 @@ async def save_crm_form_from_html(
             current_user.username,
             result.get("filename"),
         )
+        try:
+            from api.rag_routes import rag_service
+            rag_service.invalidate_cache()
+        except Exception:
+            pass
         return {"success": True, "filename": result["filename"], "path": result["path"]}
     except Exception as exc:
         logger.error(

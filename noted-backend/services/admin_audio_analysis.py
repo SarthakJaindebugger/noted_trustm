@@ -491,7 +491,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
         "total_forms": 0, "number_of_customers": 0,
         "average_conversation_time": "—", "gender_ratio": "—",
         "age_groups": {"Under 18": 0, "18-29": 0, "30-49": 0, "50-64": 0, "Over 65": 0},
-        "gender_counts": {"Male": 0, "Female": 0},
+        "gender_counts": {"Male": 0, "Female": 0, "Others": 0},
     }
     if not root.exists():
         return empty
@@ -508,7 +508,7 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
     agg["visit_durations"] = []
     unique_usernames = set()
     age_groups = {"Under 18": 0, "18-29": 0, "30-49": 0, "50-64": 0, "Over 65": 0}
-    gender_counts = {"Male": 0, "Female": 0}
+    gender_counts = {"Male": 0, "Female": 0, "Others": 0}
     birth_country_counts = {}
     total_duration_sec = 0.0
     duration_count = 0
@@ -815,6 +815,8 @@ def aggregate_all_crm_forms(submitted_crm_root: Optional[Path] = None) -> dict:
             g = str(gender_val).strip().capitalize()
             if g in ("Male", "Female"):
                 gender_counts[g] += 1
+            else:
+                gender_counts["Others"] += 1
 
         # ── Customer coming from ──
         ccf_val = f.get("customerComingFrom")

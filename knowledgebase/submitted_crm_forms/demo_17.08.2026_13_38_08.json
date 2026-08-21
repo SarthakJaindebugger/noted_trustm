@@ -1,0 +1,80 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Family",
+    "Additional Information about the customers": "Tourist",
+    "Education Level": "Secondary education (incl. basic/matriculation)",
+    "Customer birth country": "Finland",
+    "Mother Tongue/Language": "Chinese",
+    "Customer Domicile": "Rotaniyami, Finland",
+    "Position in labour market": "Outside the labour market (eg.: stay-home-parent retiree)",
+    "Duration of residence in Finland": "No information",
+    "Contents of the customer visit": "Matters related to education",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer mentioned their child is three years old and currently sitting at home all day, having been in this situation for two weeks. They are looking for a government-owned kindergarten that offers free services and is located close to their workplace in Central Espoo. The child only speaks Chinese, and the customer expressed concern about language support in the daycare.",
+    "Any other Feedback": "The customer mentioned their child is three years old and currently sitting at home all day, having been in this situation for two weeks. They are looking for a government-owned kindergarten that offers free services and is located close to their workplace in Central Espoo. The child only speaks Chinese, and the customer expressed concern about language support in the daycare."
+  },
+  "metadata": {
+    "date_time": "17/08/2026 13:38",
+    "audio_file": "dia02sce1MC_462ae846.WAV",
+    "visit_duration": "13 min 17 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-07-07",
+    "time": "09:09",
+    "visitDuration": "13 min 17 sec",
+    "contactMethod": [
+      "Electronic service (eg. forms)",
+      "Visit for guidance/advice in-person"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Male",
+    "ageGroup": "30-49",
+    "immigrationReason": "Family",
+    "additionalInfo": [
+      "Tourist"
+    ],
+    "birthCountry": "Finland",
+    "motherTongue": "Chinese",
+    "educationLevel": "Secondary education (incl. basic/matriculation)",
+    "labourPosition": [
+      "Outside the labour market (eg.: stay-home-parent",
+      "retiree)"
+    ],
+    "domicile": "Rotaniyami, Finland",
+    "customerComingFrom": "Nordic",
+    "residenceDuration": [
+      "No information"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Matters related to education"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer mentioned their child is three years old and currently sitting at home all day, having been in this situation for two weeks. They are looking for a government-owned kindergarten that offers free services and is located close to their workplace in Central Espoo. The child only speaks Chinese, and the customer expressed concern about language support in the daycare.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer mentioned their child is three years old and currently sitting at home all day, having been in this situation for two weeks. They are looking for a government-owned kindergarten that offers free services and is located close to their workplace in Central Espoo. The child only speaks Chinese, and the customer expressed concern about language support in the daycare.",
+    "audio_filename": "dia02sce1MC_462ae846.WAV"
+  },
+  "username": "demo",
+  "submitted_at": "2026-08-17T13:38:08.138306"
+}

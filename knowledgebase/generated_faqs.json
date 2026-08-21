@@ -1,0 +1,44 @@
+{
+  "faqs": [
+    {
+      "question": "What daycare options are available for a 3-year-old in Espoo?",
+      "answer": "Check municipal and private daycare centers; some offer English support."
+    },
+    {
+      "question": "Are there free daycare options in Espoo?",
+      "answer": "Yes, government-owned kindergartens offer free services for eligible children."
+    },
+    {
+      "question": "Can my child attend daycare if they only speak Chinese?",
+      "answer": "Some centers offer language support; contact them for details."
+    },
+    {
+      "question": "How do I apply for daycare in Espoo?",
+      "answer": "Contact your municipality's early childhood education office or apply online through espoo.fi."
+    },
+    {
+      "question": "Do daycare centers provide meals?",
+      "answer": "Many daycare centers include meals as part of their services."
+    },
+    {
+      "question": "Are there English-speaking daycare options in Espoo?",
+      "answer": "Some centers offer English; check specific locations for availability."
+    },
+    {
+      "question": "What is the cost of daycare in Espoo?",
+      "answer": "Government-run centers are free; private options vary in cost."
+    },
+    {
+      "question": "When can my child start daycare in Finland?",
+      "answer": "Children can start daycare at age 3, before formal schooling begins at age 7."
+    },
+    {
+      "question": "How do I find daycare near my workplace?",
+      "answer": "Search for centers in Central Espoo on the espoo.fi website or contact the local municipality."
+    },
+    {
+      "question": "What should I look for in a daycare center?",
+      "answer": "Check for meals, language support, availability during work hours, and proximity to your workplace."
+    }
+  ]
+}

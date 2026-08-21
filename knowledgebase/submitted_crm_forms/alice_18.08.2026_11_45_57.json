@@ -1,0 +1,80 @@
+{
+  "questionnaire": {
+    "What is the contact method used by Advisee(s)?": "Municipal integration/immigrant services",
+    "Heard from the guidance/advice position (if other where?)": "Municipal integration/immigrant services",
+    "Reason for Immigration": "Work",
+    "Additional Information about the customers": "Illiterate",
+    "Education Level": "No education at all or less than the basic education syllabus",
+    "Customer birth country": "England",
+    "Mother Tongue/Language": "English",
+    "Customer Domicile": "Espoo, Finland",
+    "Position in labour market": "Working in the open market",
+    "Duration of residence in Finland": "Less than 3 years",
+    "Contents of the customer visit": "Family life (children's school, early childhood education, relationships) Family life (children's school, early childhood education, relationships) Family life (children's school, early childhood education, relationships)",
+    "Purpose of visit": "Clarification of decisions and process",
+    "Where the customer is directed": "Not mentioned in transcript.",
+    "Any Additional Information": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "Any other Feedback": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service."
+  },
+  "metadata": {
+    "date_time": "18/08/2026 11:45",
+    "audio_file": "dia03sce1SA.wav",
+    "visit_duration": "17 min 42 sec",
+    "audio_duration_sec": 0,
+    "segment_count": 0,
+    "speakers_detected": [],
+    "speaker_roles": {},
+    "speaker_durations_sec": {},
+    "total_advisor_time_sec": 0,
+    "total_advisor_time": "0 min 0 sec",
+    "total_customer_time_sec": 0,
+    "total_customer_time": "0 min 0 sec"
+  },
+  "form": {
+    "controlLocation": "Service Square Iso Omena",
+    "date": "2026-08-05",
+    "time": "08:08",
+    "visitDuration": "17 min 42 sec",
+    "contactMethod": [
+      "Remote Connection"
+    ],
+    "fieldWorkWhere": "",
+    "heardFrom": "Municipal integration/immigrant services",
+    "customerCount": 1,
+    "gender": "Female",
+    "ageGroup": "30-49",
+    "immigrationReason": "Work",
+    "additionalInfo": [
+      "Illiterate"
+    ],
+    "birthCountry": "England",
+    "motherTongue": "English",
+    "educationLevel": "No education at all or less than the basic education syllabus",
+    "labourPosition": [
+      "Working in the open market"
+    ],
+    "domicile": "Espoo, Finland",
+    "customerComingFrom": "3rd Country citizen living in Europe",
+    "residenceDuration": [
+      "Less than 3 years"
+    ],
+    "firstTimeVisitor": "No information",
+    "counsellingOwnLanguage": "No information",
+    "interpreterPresent": "No",
+    "interpretingLanguage": "",
+    "contents": [
+      "Family life (children's school, early childhood education, relationships)",
+      "Family life (children's school, early childhood education, relationships)",
+      "Family life (children's school, early childhood education, relationships)"
+    ],
+    "purpose": [
+      "Clarification of decisions and process"
+    ],
+    "additionalInfoText": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "directedTo": "Early childhood education",
+    "otherFeedback": "The customer mentioned their daughter requires care and is concerned about the distance to daycare options, noting that if the chosen facility is very far, they might need to temporarily relocate while the application process is ongoing. They also inquired about whether the daycare provides food for their daughter and were informed that meals are typically provided as part of the service.",
+    "audio_filename": "dia03sce1SA.wav"
+  },
+  "username": "alice",
+  "submitted_at": "2026-08-18T11:45:57.359339"
+}
